@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
@@ -13,35 +15,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1211.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.FXMLDocumentController">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
-         <children>
-            <TabPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <tabs>
-                <Tab text="طلب انتداب">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-                <Tab text="اضافة قرار انتدب">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-                  <Tab text="البحث والاستعلام">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </Tab>
-              </tabs>
-            </TabPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="92.0" prefWidth="1211.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Pane prefHeight="98.0" prefWidth="1211.0" style="-fx-background-color: #117E88;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutY="97.0" prefHeight="703.0" prefWidth="1211.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
+      <AnchorPane fx:id="MainPage" layoutY="97.0" prefHeight="703.0" prefWidth="1211.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
          <children>
             <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -59,7 +33,7 @@
                         <Insets />
                      </opaqueInsets>
                      <children>
-                        <Button layoutY="135.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="الدورات الابتعاث" textAlignment="CENTER" textFill="#f8f5f5">
+                        <Button fx:id="TriningButton" layoutY="135.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="الدورات الابتعاث" textAlignment="CENTER" textFill="#f8f5f5">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -79,7 +53,7 @@
                         <Insets />
                      </opaqueInsets>
                      <children>
-                        <Button layoutY="135.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="الاجازات" textAlignment="CENTER" textFill="#f8f5f5">
+                        <Button fx:id="VacationButton" layoutY="135.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="الاجازات" textAlignment="CENTER" textFill="#f8f5f5">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -99,7 +73,7 @@
                         <Insets />
                      </opaqueInsets>
                      <children>
-                        <Button layoutY="135.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="التشكيل" textAlignment="CENTER" textFill="#f8f5f5">
+                        <Button fx:id="TshkelButton" layoutY="135.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="التشكيل" textAlignment="CENTER" textFill="#f8f5f5">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -119,7 +93,7 @@
                         <Insets />
                      </opaqueInsets>
                      <children>
-                        <Button layoutY="135.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="الانتداب" textAlignment="CENTER" textFill="#f8f5f5">
+                        <Button fx:id="EntedabButton" layoutY="135.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="الانتداب" textAlignment="CENTER" textFill="#f8f5f5">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -136,6 +110,54 @@
                   </Pane>
                </children>
             </FlowPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="Header" prefHeight="92.0" prefWidth="1211.0" style="-fx-background-color: #fff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane prefHeight="98.0" prefWidth="1211.0" style="-fx-background-color: #117E88;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label layoutX="231.0" layoutY="35.0" prefHeight="28.0" prefWidth="105.0" text="الرقيب اول " textFill="#fcf8f8">
+                     <font>
+                        <Font name="Tahoma" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="223.0" layoutY="36.0" prefHeight="27.0" prefWidth="13.0" text="/" textFill="#fffdfd">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="8.0" layoutY="36.0" prefHeight="28.0" prefWidth="209.0" text="حسين بن احمد عبدالله عقيلي" textFill="#fcf8f8">
+                     <font>
+                        <Font name="Tahoma" size="14.0" />
+                     </font>
+                  </Label>
+               </children></Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="EntedabPage" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
+         <children>
+            <TabPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="200.0" prefWidth="200.0" rotateGraphic="true" side="LEFT" stylesheets="@../css/style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <tabs>
+                <Tab text="طلب انتداب">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                <Tab>
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                  <Tab>
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+              </tabs>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </TabPane>
          </children>
       </AnchorPane>
    </children>

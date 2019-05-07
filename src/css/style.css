@@ -4,8 +4,9 @@
 
 .tab-pane
 {
-    -fx-tab-min-width:150px;
-    -fx-tab-min-height:50px;
+    -fx-tab-min-width:5em;
+    -fx-tab-min-height:5em;
+    
 }
 
 .tab{
