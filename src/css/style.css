@@ -34,4 +34,10 @@
     -fx-alignment: CENTER;
     -fx-text-fill: #96b946;
 }
-
+.datefield{
+    -fx-background-color: #117E88;
+    -fx-text-alignment: center;
+}
+.textfield{
+    -fx-border-color: #117E88;
+}

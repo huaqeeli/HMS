@@ -6,20 +6,28 @@
 package hms;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.chrono.HijrahChronology;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 /**
  *
  * @author Administrator
  */
 public class FXMLDocumentController implements Initializable {
-    
+
     @FXML
     private Label label;
     @FXML
@@ -28,18 +36,23 @@ public class FXMLDocumentController implements Initializable {
     private AnchorPane EntedabPage;
     @FXML
     private AnchorPane MainPage;
-    
+
+    @FXML
+    private DatePicker fromDate;
+    @FXML
+    private DatePicker toDate;
+
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        if(event.getTarget() == EntedabButton){
-          MainPage.setVisible(false);
-          EntedabPage.setVisible(true);
+        if (event.getTarget() == EntedabButton) {
+            MainPage.setVisible(false);
+            EntedabPage.setVisible(true);
         }
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
-    
+        fromDate.setChronology(HijrahChronology.INSTANCE);
+        toDate.setChronology(HijrahChronology.INSTANCE);
+    }
 }
