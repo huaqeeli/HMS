@@ -4,8 +4,10 @@
 
 .tab-pane
 {
-    -fx-tab-min-width:5em;
-    -fx-tab-min-height:5em;
+    -fx-tab-min-width:8em;
+    -fx-tab-max-width:8em;
+    -fx-tab-min-height:8em;
+    -fx-tab-max-height:8em;
     
 }
 
@@ -20,7 +22,7 @@
 
 .tab-pane .tab:selected
 {
-    -fx-background-color: #3c3c3c;
+    -fx-background-color: #117E88;
 }
 
 .tab .tab-label { 
