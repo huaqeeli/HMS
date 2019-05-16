@@ -36,6 +36,8 @@ public class FXMLDocumentController implements Initializable {
     private AnchorPane EntedabPage;
     @FXML
     private AnchorPane MainPage;
+    @FXML
+    private AnchorPane TshkelPage;
 
     @FXML
     private DatePicker fromDate;
@@ -43,11 +45,22 @@ public class FXMLDocumentController implements Initializable {
     private DatePicker toDate;
 
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        if (event.getTarget() == EntedabButton) {
+    private void mainePageOpenAction(ActionEvent event) {
+            MainPage.setVisible(true);
+            EntedabPage.setVisible(false);
+            TshkelPage.setVisible(false);
+    }
+    @FXML
+    private void entedabOpenAction(ActionEvent event) {
             MainPage.setVisible(false);
             EntedabPage.setVisible(true);
-        }
+            TshkelPage.setVisible(false);
+    }
+    @FXML
+    private void tshkelOpenAction(ActionEvent event) {
+            MainPage.setVisible(false);
+            EntedabPage.setVisible(false);
+            TshkelPage.setVisible(true);
     }
 
     @Override
