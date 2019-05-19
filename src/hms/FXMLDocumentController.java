@@ -9,12 +9,16 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.chrono.HijrahChronology;
 import java.time.format.DateTimeFormatter;
+import java.util.Observable;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -38,12 +42,15 @@ public class FXMLDocumentController implements Initializable {
     private AnchorPane MainPage;
     @FXML
     private AnchorPane TshkelPage;
+    @FXML
+    private ComboBox<String> PlaceOfAssignment;
 
     @FXML
     private DatePicker fromDate;
     @FXML
     private DatePicker toDate;
 
+    ObservableList<String> list = FXCollections.observableArrayList("داخلي","خارجي");
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
             MainPage.setVisible(true);
@@ -67,5 +74,6 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         fromDate.setChronology(HijrahChronology.INSTANCE);
         toDate.setChronology(HijrahChronology.INSTANCE);
+        PlaceOfAssignment.setItems(list);
     }
 }
