@@ -41,20 +41,25 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ComboBox<String> entayp;
     @FXML
-    private ComboBox<String> day;
+    private ComboBox<String> orderdateday;
     @FXML
-    private ComboBox<String> month;
+    private ComboBox<String> orderdatemonth;
     @FXML
-    private ComboBox<String> yare;
-
+    private ComboBox<String> orderdateyear;
     @FXML
-    private DatePicker fromDate;
+    private ComboBox<String> fromDateday;
     @FXML
-    private DatePicker toDate;
+    private ComboBox<String> fromDatemonth;
+    @FXML
+    private ComboBox<String> fromDateyear;
+    @FXML
+    private ComboBox<String> toDateday;
+    @FXML
+    private ComboBox<String> toDatemonth;
+    @FXML
+    private ComboBox<String> toDateyear;
     @FXML
     private AnchorPane Header;
-    @FXML
-    private DatePicker orderdate;
     @FXML
     private Button TriningButton;
     @FXML
@@ -100,39 +105,19 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void insertData(ActionEvent event) {
-//        String feldName = "`ORDERID`,`ORDERDATE`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`,`ENPLASE`,`MILITARYTAYP`,`ENTAYP`";
-        String feldName = "ORDERID,ORDERDATE,ENFROM,ENTO,ENDATEFROM,ENDATETO,ENPLASE,MILITARYTAYP,ENTAYP";
-        String[] data = {orderid.getText(), ((TextField) orderdate.getEditor()).getText(), enfrom.getText(), ento.getText(),
-            ((TextField) fromDate.getEditor()).getText(), ((TextField) toDate.getEditor()).getText(), PlaceOfAssignment.getValue(),
-            militarytayp.getValue(), entayp.getValue()};
+        String feldName = "`ORDERID`,`ORDERDATE`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`,`ENPLASE`,`MILITARYTAYP`,`ENTAYP`";
+        String[] data = {orderid.getText(), setDate(orderdateday.getValue(), orderdatemonth.getValue(), orderdateyear.getValue()), enfrom.getText(), ento.getText(),
+            setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue()),
+            PlaceOfAssignment.getValue(), militarytayp.getValue(), entayp.getValue()};
         String valuenumber = "?,?,?,?,?,?,?,?,?";
         DataMng.insert("entdabat", feldName, valuenumber, data);
     }
+//String dat = orderdateday.getValue()+"-"+orderdatemonth.getValue()+"-"+orderdateyare.getValue();
 
     @FXML
-    private void dateFormat(DatePicker dpDate) {
-//        dpDate.setValue(LocalDate.now());
-        final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        dpDate.setChronology(HijrahChronology.INSTANCE);
-        dpDate.setConverter(new StringConverter<LocalDate>() {
-
-            @Override
-            public String toString(LocalDate t) {
-                if (t != null) {
-                    return dateFormatter.format(t);
-                }
-                return null;
-            }
-
-            @Override
-            public LocalDate fromString(String string) {
-                if (string != null && !string.trim().isEmpty()) {
-                    return LocalDate.parse(string, dateFormatter);
-                }
-                return null;
-            }
-        });
-
+    private String setDate(String day, String month, String year) {
+        String date = year + "-" + month + "-" + day;
+        return date;
     }
 
     @FXML
@@ -169,19 +154,26 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        toDate.setChronology(HijrahChronology.INSTANCE);
-        orderdate.setChronology(HijrahChronology.INSTANCE);
         PlaceOfAssignment.setItems(list1);
         militarytayp.setItems(list2);
         entayp.setItems(list3);
-        dateFormat(fromDate);
-        day.setItems(fillDays(daylist));
-        month.setItems(fillMonth(monthlist));
-        yare.setItems(fillYare(yearlist));
-        day.setValue(Integer.toString(HijriCalendar.getSimpleDay()));
-        month.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
-        yare.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
-        String dat = day.getValue()+"-"+month.getValue()+"-"+yare.getValue();
-        System.out.println(dat);
+        orderdateday.setItems(fillDays(daylist));
+        orderdatemonth.setItems(fillMonth(monthlist));
+        orderdateyear.setItems(fillYare(yearlist));
+        orderdateday.setValue(Integer.toString(HijriCalendar.getSimpleDay()));
+        orderdatemonth.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
+        orderdateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
+        fromDateday.setItems(fillDays(daylist));
+        fromDatemonth.setItems(fillMonth(monthlist));
+        fromDateyear.setItems(fillYare(yearlist));
+        fromDateday.setValue(Integer.toString(HijriCalendar.getSimpleDay()));
+        fromDatemonth.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
+        fromDateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
+        toDateday.setItems(fillDays(daylist));
+        toDatemonth.setItems(fillMonth(monthlist));
+        toDateyear.setItems(fillYare(yearlist));
+        toDateday.setValue(Integer.toString(HijriCalendar.getSimpleDay()));
+        toDatemonth.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
+        toDateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
     }
 }
