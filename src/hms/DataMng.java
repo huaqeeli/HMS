@@ -29,7 +29,7 @@ public class DataMng {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
-    public ResultSet getAllData(String tapleName){
+    public static ResultSet getAllData(String tapleName){
        ResultSet rs = null;
        String guiry = "SELECT * FROM " + tapleName ;
        Connection con = DatabaseConnector.dbConnector();

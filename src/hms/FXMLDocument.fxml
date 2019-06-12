@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -22,11 +15,12 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1211.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1211.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.FXMLDocumentController">
 
    <children>
       <AnchorPane fx:id="Header" prefHeight="92.0" prefWidth="1211.0" style="-fx-background-color: #fff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -287,25 +281,25 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
                               </GridPane>
-                              <TableView layoutX="11.0" layoutY="258.0" prefHeight="542.0" prefWidth="1088.0" style="-fx-border-color: #FBB115;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="258.0">
+                              <TableView fx:id="enTable" layoutX="11.0" layoutY="258.0" prefHeight="542.0" prefWidth="1088.0" style="-fx-border-color: #FBB115;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="258.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="رقم الطلب" />
-                                  <TableColumn prefWidth="75.0" text="تاريخ الطلب" />
+                                  <TableColumn fx:id="orderidcol" prefWidth="75.0" text="رقم الطلب" />
+                                  <TableColumn fx:id="orderdatecol" prefWidth="75.0" text="تاريخ الطلب" />
                                     <TableColumn prefWidth="240.0" text="جهة الانتداب">
                                        <columns>
-                                          <TableColumn prefWidth="75.0" text="من" />
-                                          <TableColumn prefWidth="75.0" text="الى" />
+                                          <TableColumn fx:id="enfromcol" prefWidth="75.0" text="من" />
+                                          <TableColumn fx:id="entocol" prefWidth="75.0" text="الى" />
                                        </columns>
                                     </TableColumn>
                                     <TableColumn prefWidth="240.0" text="تاريخ الانتداب">
                                        <columns>
-                                          <TableColumn prefWidth="75.0" text="من " />
-                                          <TableColumn prefWidth="75.0" text="الى" />
+                                          <TableColumn fx:id="endatefromcol" prefWidth="75.0" text="من " />
+                                          <TableColumn fx:id="endatetocol" prefWidth="75.0" text="الى" />
                                        </columns>
                                     </TableColumn>
-                                    <TableColumn prefWidth="75.0" text="مكان الانتداب" />
-                                    <TableColumn prefWidth="75.0" text="نوع المستفيد" />
-                                    <TableColumn prefWidth="75.0" text="نوع الانتداب" />
+                                    <TableColumn fx:id="enplasecol" prefWidth="75.0" text="مكان الانتداب" />
+                                    <TableColumn fx:id="militarytypecol" prefWidth="75.0" text="نوع المستفيد" />
+                                    <TableColumn fx:id="entypecol" prefWidth="75.0" text="نوع الانتداب" />
                                 </columns>
                                  <opaqueInsets>
                                     <Insets />
