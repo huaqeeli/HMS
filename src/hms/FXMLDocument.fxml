@@ -229,7 +229,7 @@
                                     </HBox>
                                     <Label prefHeight="46.0" prefWidth="164.0" text="جهة الانتداب من :" textFill="#117e88" GridPane.rowIndex="1">
                                        <font>
-                                          <Font name="System Bold" size="18.0" />
+                                          <Font name="URW DIN Arabic Bold" size="18.0" />
                                        </font>
                                     </Label>
                                     <Label layoutX="57.0" layoutY="27.0" prefHeight="46.0" prefWidth="159.0" text="جهة الانتداب الى :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -239,7 +239,7 @@
                                     </Label>
                                     <Label layoutX="57.0" layoutY="27.0" prefHeight="46.0" prefWidth="160.0" text="تاريخ بداية الانتداب :" textFill="#117e88" GridPane.rowIndex="2">
                                        <font>
-                                          <Font name="System Bold" size="18.0" />
+                                          <Font name="Hacen Algeria" size="18.0" />
                                        </font>
                                     </Label>
                                     <Label layoutX="629.0" layoutY="27.0" prefHeight="46.0" prefWidth="156.0" text="تاريخ نهاية الانتداب :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -249,7 +249,7 @@
                                     </Label>
                                     <Label layoutX="17.0" layoutY="88.0" prefHeight="46.0" prefWidth="160.0" text="مكان الانتداب:" textFill="#117e88" GridPane.rowIndex="3">
                                        <font>
-                                          <Font name="System Bold" size="18.0" />
+                                          <Font name="Hacen Algeria" size="18.0" />
                                        </font>
                                     </Label>
                                     <Label layoutX="17.0" layoutY="154.0" prefHeight="46.0" prefWidth="160.0" text="نوع المستفيد :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="3">
@@ -267,7 +267,7 @@
                                     <ComboBox fx:id="entayp" layoutX="729.0" layoutY="93.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                     <Label layoutX="27.0" layoutY="54.0" prefHeight="46.0" prefWidth="164.0" text="رقم الطلب :" textFill="#117e88">
                                        <font>
-                                          <Font name="System Bold" size="18.0" />
+                                          <Font name="GEDinarTwoMedium" size="18.0" />
                                        </font>
                                     </Label>
                                     <Label layoutX="29.0" layoutY="89.0" prefHeight="46.0" prefWidth="160.0" text="تاريح الطلب :" textFill="#117e88" GridPane.columnIndex="2">
@@ -281,29 +281,26 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
                               </GridPane>
-                              <TableView fx:id="enTable" layoutX="11.0" layoutY="258.0" prefHeight="542.0" prefWidth="1088.0" style="-fx-border-color: #FBB115;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="258.0">
+                              <TableView fx:id="en_table" layoutX="898.0" layoutY="256.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #FBB115;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="250.0">
                                 <columns>
-                                  <TableColumn fx:id="orderidcol" prefWidth="75.0" text="رقم الطلب" />
-                                  <TableColumn fx:id="orderdatecol" prefWidth="75.0" text="تاريخ الطلب" />
-                                    <TableColumn prefWidth="240.0" text="جهة الانتداب">
+                                  <TableColumn fx:id="en_orderid_col" prefWidth="75.0" text="رقم الطلب" />
+                                  <TableColumn fx:id="en_orderdate_col" prefWidth="75.0" text="تاريخ الطلب" />
+                                    <TableColumn prefWidth="75.0" text="جهة الانتداب">
                                        <columns>
-                                          <TableColumn fx:id="enfromcol" prefWidth="75.0" text="من" />
-                                          <TableColumn fx:id="entocol" prefWidth="75.0" text="الى" />
+                                          <TableColumn fx:id="en_from_col" prefWidth="75.0" text="من" />
+                                          <TableColumn fx:id="en_to_col" prefWidth="75.0" text="الى" />
                                        </columns>
                                     </TableColumn>
-                                    <TableColumn prefWidth="240.0" text="تاريخ الانتداب">
+                                    <TableColumn prefWidth="75.0" text="تاريخ الانتداب">
                                        <columns>
-                                          <TableColumn fx:id="endatefromcol" prefWidth="75.0" text="من " />
-                                          <TableColumn fx:id="endatetocol" prefWidth="75.0" text="الى" />
+                                          <TableColumn fx:id="en_datefrom_col" prefWidth="75.0" text="من" />
+                                          <TableColumn fx:id="en_dateto_col" prefWidth="75.0" text="الى" />
                                        </columns>
                                     </TableColumn>
-                                    <TableColumn fx:id="enplasecol" prefWidth="75.0" text="مكان الانتداب" />
-                                    <TableColumn fx:id="militarytypecol" prefWidth="75.0" text="نوع المستفيد" />
-                                    <TableColumn fx:id="entypecol" prefWidth="75.0" text="نوع الانتداب" />
+                                    <TableColumn fx:id="en_plase_col" prefWidth="75.0" text="مكان الانتداب" />
+                                    <TableColumn fx:id="en_militarytype_col" prefWidth="75.0" text="نوع المستفيد" />
+                                    <TableColumn fx:id="en_type_col" prefWidth="75.0" text="نوع الانتداب" />
                                 </columns>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>

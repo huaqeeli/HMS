@@ -79,25 +79,7 @@ public class FXMLDocumentController implements Initializable {
     private TextField enfrom;
     @FXML
     private TextField ento;
-    private TableView <ModelTable > enTable;
-    @FXML
-    private TableColumn <ModelTable,String> orderidcol;
-    @FXML
-    private TableColumn <ModelTable,String> orderdatecol;
-    @FXML
-    private TableColumn <ModelTable,String> enfromcol;
-    @FXML
-    private TableColumn <ModelTable,String> entocol;
-    @FXML
-    private TableColumn <ModelTable,String> endatefromcol;
-    @FXML
-    private TableColumn <ModelTable,String> endatetocol;
-    @FXML
-    private TableColumn <ModelTable,String> enplasecol;
-    @FXML
-    private TableColumn <ModelTable,String> militarytypecol;
-    @FXML
-    private TableColumn <ModelTable,String> entypecol;
+   
 
     ObservableList<String> list1 = FXCollections.observableArrayList("داخلي", "خارجي");
     ObservableList<String> list2 = FXCollections.observableArrayList("افراد", "ضباط");
@@ -105,7 +87,27 @@ public class FXMLDocumentController implements Initializable {
     ObservableList<String> daylist = FXCollections.observableArrayList();
     ObservableList<String> monthlist = FXCollections.observableArrayList();
     ObservableList<String> yearlist = FXCollections.observableArrayList();
-    ObservableList<ModelTable> tablelist = null;
+    ObservableList<ModelTable> tablelist = FXCollections.observableArrayList();
+    @FXML
+    private TableView<ModelTable> en_table;
+    @FXML
+    private TableColumn<?, ?> en_orderid_col;
+    @FXML
+    private TableColumn<?, ?> en_orderdate_col;
+    @FXML
+    private TableColumn<?, ?> en_from_col;
+    @FXML
+    private TableColumn<?, ?> en_to_col;
+    @FXML
+    private TableColumn<?, ?> en_datefrom_col;
+    @FXML
+    private TableColumn<?, ?> en_dateto_col;
+    @FXML
+    private TableColumn<?, ?> en_plase_col;
+    @FXML
+    private TableColumn<?, ?> en_militarytype_col;
+    @FXML
+    private TableColumn<?, ?> en_type_col;
    
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -136,7 +138,7 @@ public class FXMLDocumentController implements Initializable {
             PlaceOfAssignment.getValue(), militarytayp.getValue(), entayp.getValue()};
         String valuenumbers = "?,?,?,?,?,?,?,?,?";
         DataMng.insert("entdabat", feldName, valuenumbers, data);
-         tableViewData() ;
+         refreshEnTable();
     }
 //String dat = orderdateday.getValue()+"-"+orderdatemonth.getValue()+"-"+orderdateyare.getValue();
 
@@ -144,7 +146,12 @@ public class FXMLDocumentController implements Initializable {
         String date = year + "-" + month + "-" + day;
         return date;
     }
-
+    
+    private void refreshEnTable(){
+    tablelist.clear();
+    tableViewData();
+    }
+    
     private void tableViewData() {
         ResultSet rs = DataMng.getAllData("entdabat");
         try {
@@ -161,10 +168,21 @@ public class FXMLDocumentController implements Initializable {
                         rs.getString("ENTAYP")
                 ));      
             }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        enTable.setItems(tablelist);
+        en_orderid_col.setCellValueFactory(new PropertyValueFactory<>("orderid"));
+        en_orderdate_col.setCellValueFactory(new PropertyValueFactory<>("orderdate"));
+        en_from_col.setCellValueFactory(new PropertyValueFactory<>("enfrom"));
+        en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
+        en_datefrom_col.setCellValueFactory(new PropertyValueFactory<>("endatefrom"));
+        en_dateto_col.setCellValueFactory(new PropertyValueFactory<>("endateto"));
+        en_plase_col.setCellValueFactory(new PropertyValueFactory<>("enplase"));
+        en_militarytype_col.setCellValueFactory(new PropertyValueFactory<>("militarytype"));
+        en_type_col.setCellValueFactory(new PropertyValueFactory<>("entype"));
+        
+        en_table.setItems(tablelist);
     }
 
     private ObservableList fillDays(ObservableList daylist) {
@@ -219,16 +237,7 @@ public class FXMLDocumentController implements Initializable {
         toDateday.setValue(Integer.toString(HijriCalendar.getSimpleDay()));
         toDatemonth.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
         toDateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
-        tablelist = FXCollections.observableArrayList();
-//        orderidcol.setCellValueFactory(new PropertyValueFactory<>("orderid"));
-//        orderdatecol.setCellValueFactory(new PropertyValueFactory<>("orderdate"));
-//        enfromcol.setCellValueFactory(new PropertyValueFactory<>("enfrom"));
-//        entocol.setCellValueFactory(new PropertyValueFactory<>("entocol"));
-//        endatefromcol.setCellValueFactory(new PropertyValueFactory<>("endatefrom"));
-//        endatetocol.setCellValueFactory(new PropertyValueFactory<>("endateto"));
-//        enplasecol.setCellValueFactory(new PropertyValueFactory<>("enplase"));
-//        militarytypecol.setCellValueFactory(new PropertyValueFactory<>("militarytype"));
-//        entypecol.setCellValueFactory(new PropertyValueFactory<>("entype"));
         tableViewData();
+
     }
 }
