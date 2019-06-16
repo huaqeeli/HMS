@@ -1,10 +1,22 @@
-package hms;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package hms.models;
 
-public class ModelTable {
+import javafx.scene.control.Button;
 
-    String orderid,orderdate, enfrom, ento, endatefrom, endateto, enplase, militarytype, entype;
+/**
+ *
+ * @author Administrator
+ */
+public class EnDataModel {
+    String orderid,orderdate,enfrom,ento,endatefrom,endateto,enplase,militarytype,entype;
+    
+     
 
-    public ModelTable(String orderid, String orderdate, String enfrom, String ento, String endatefrom, String endateto, String enplase, String militarytype, String entype) {
+    public EnDataModel(String orderid, String orderdate, String enfrom, String ento, String endatefrom, String endateto, String enplase, String militarytype, String entype) {
         this.orderid = orderid;
         this.orderdate = orderdate;
         this.enfrom = enfrom;
@@ -15,6 +27,8 @@ public class ModelTable {
         this.militarytype = militarytype;
         this.entype = entype;
     }
+
+   
 
     public String getOrderid() {
         return orderid;
@@ -36,16 +50,16 @@ public class ModelTable {
         return enfrom;
     }
 
-    public void setEnfrom(String enfrom) {
-        this.enfrom = enfrom;
-    }
-
     public String getEnto() {
         return ento;
     }
 
     public void setEnto(String ento) {
         this.ento = ento;
+    }
+
+    public void setEnfrom(String enfrom) {
+        this.enfrom = enfrom;
     }
 
     public String getEndatefrom() {

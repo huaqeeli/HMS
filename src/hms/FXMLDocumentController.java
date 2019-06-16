@@ -5,6 +5,7 @@
  */
 package hms;
 
+import hms.models.EnDataModel;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 
@@ -79,7 +81,27 @@ public class FXMLDocumentController implements Initializable {
     private TextField enfrom;
     @FXML
     private TextField ento;
-   
+    @FXML
+    private TableView<EnDataModel> en_table;
+    @FXML
+    private TableColumn<EnDataModel, String> en_orderid_col;
+    @FXML
+    private TableColumn<EnDataModel, String> en_orderdate_col;
+    @FXML
+    private TableColumn<EnDataModel, String> en_from_col;
+    @FXML
+    private TableColumn<EnDataModel, String> en_to_col;
+    @FXML
+    private TableColumn<EnDataModel, String> en_datefrom_col;
+    @FXML
+    private TableColumn<EnDataModel, String> en_dateto_col;
+    @FXML
+    private TableColumn<EnDataModel, String> en_plase_col;
+    @FXML
+    private TableColumn<EnDataModel, String> en_militarytype_col;
+    @FXML
+    private TableColumn<EnDataModel, String> en_type_col;
+    
 
     ObservableList<String> list1 = FXCollections.observableArrayList("داخلي", "خارجي");
     ObservableList<String> list2 = FXCollections.observableArrayList("افراد", "ضباط");
@@ -87,27 +109,9 @@ public class FXMLDocumentController implements Initializable {
     ObservableList<String> daylist = FXCollections.observableArrayList();
     ObservableList<String> monthlist = FXCollections.observableArrayList();
     ObservableList<String> yearlist = FXCollections.observableArrayList();
-    ObservableList<ModelTable> tablelist = FXCollections.observableArrayList();
-    @FXML
-    private TableView<ModelTable> en_table;
-    @FXML
-    private TableColumn<?, ?> en_orderid_col;
-    @FXML
-    private TableColumn<?, ?> en_orderdate_col;
-    @FXML
-    private TableColumn<?, ?> en_from_col;
-    @FXML
-    private TableColumn<?, ?> en_to_col;
-    @FXML
-    private TableColumn<?, ?> en_datefrom_col;
-    @FXML
-    private TableColumn<?, ?> en_dateto_col;
-    @FXML
-    private TableColumn<?, ?> en_plase_col;
-    @FXML
-    private TableColumn<?, ?> en_militarytype_col;
-    @FXML
-    private TableColumn<?, ?> en_type_col;
+    ObservableList<EnDataModel> tablelist = FXCollections.observableArrayList();
+    
+   
    
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -156,7 +160,7 @@ public class FXMLDocumentController implements Initializable {
         ResultSet rs = DataMng.getAllData("entdabat");
         try {
             while (rs.next()) {
-                tablelist.add(new ModelTable(
+                tablelist.add(new EnDataModel(
                         rs.getString("ORDERID"),
                         rs.getString("ORDERDATE"), 
                         rs.getString("ENFROM"),
@@ -165,7 +169,7 @@ public class FXMLDocumentController implements Initializable {
                         rs.getString("ENDATETO"), 
                         rs.getString("ENPLASE"), 
                         rs.getString("MILITARYTAYP"), 
-                        rs.getString("ENTAYP")
+                        rs.getString("ENTAYP")   
                 ));      
             }
             rs.close();
