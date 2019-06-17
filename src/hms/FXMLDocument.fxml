@@ -26,69 +26,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1211.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1211.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.FXMLDocumentController">
 
    <children>
-      <AnchorPane fx:id="Header" prefHeight="92.0" prefWidth="1211.0" style="-fx-background-color: #fff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Pane layoutY="8.0" prefHeight="98.0" prefWidth="1211.0" style="-fx-background-color: #117E88;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Label layoutX="489.0" layoutY="35.0" prefHeight="28.0" prefWidth="105.0" text="الرقيب اول " textFill="#fcf8f8">
-                     <font>
-                        <Font name="Tahoma" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="481.0" layoutY="36.0" prefHeight="27.0" prefWidth="13.0" text="/" textFill="#fffdfd">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER_RIGHT" layoutX="237.0" layoutY="36.0" prefHeight="28.0" prefWidth="238.0" text="حسين بن احمد عبدالله عقيلي" textFill="#fcf8f8">
-                     <font>
-                        <Font name="Tahoma" size="14.0" />
-                     </font>
-                  </Label>
-                  <Button layoutX="156.0" layoutY="28.0" mnemonicParsing="false" onAction="#mainePageOpenAction" prefHeight="42.0" prefWidth="61.0" style="-fx-background-color: #EFA914; -fx-background-radius: 15;">
-                     <graphic>
-                        <ImageView fitHeight="33.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/hompage.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button layoutX="29.0" layoutY="28.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="61.0" style="-fx-background-color: #EFA914; -fx-background-radius: 15;">
-                     <graphic>
-                        <ImageView fitHeight="45.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/logout-1-128.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button layoutX="92.0" layoutY="28.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="61.0" style="-fx-background-color: #EFA914; -fx-background-radius: 15;">
-                     <graphic>
-                        <ImageView fitHeight="29.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/Setting-128.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children></Pane>
-            <Pane prefHeight="98.0" prefWidth="175.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ImageView fitHeight="65.0" fitWidth="229.0" layoutX="1.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/applogo.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="TshkelPage" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0" />
-      <AnchorPane fx:id="MainPage" layoutY="97.0" prefHeight="703.0" prefWidth="1211.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
+      <AnchorPane fx:id="MainPage" layoutY="97.0" prefHeight="703.0" prefWidth="1211.0" style="-fx-background-color: #fff;" styleClass="appfont" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
          <children>
             <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -185,6 +127,123 @@
             </FlowPane>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="Header" prefHeight="92.0" prefWidth="1211.0" style="-fx-background-color: #fff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane layoutY="8.0" prefHeight="98.0" prefWidth="1211.0" style="-fx-background-color: #117E88;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label layoutX="439.0" layoutY="37.0" prefHeight="28.0" prefWidth="105.0" styleClass="appfont" stylesheets="@../css/style.css" text="الرقيب اول " textFill="#fcf8f8">
+                     <font>
+                        <Font name="Tahoma" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="426.0" layoutY="37.0" prefHeight="27.0" prefWidth="13.0" text="/" textFill="#fffdfd">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="226.0" layoutY="36.0" prefHeight="28.0" prefWidth="194.0" styleClass="appfont" stylesheets="@../css/style.css" text="حسين بن احمد عبدالله عقيلي" textFill="#fcf8f8">
+                     <font>
+                        <Font name="Tahoma" size="14.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="156.0" layoutY="28.0" mnemonicParsing="false" onAction="#mainePageOpenAction" prefHeight="42.0" prefWidth="61.0" style="-fx-background-color: #EFA914; -fx-background-radius: 15;">
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/hompage.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="29.0" layoutY="28.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="61.0" style="-fx-background-color: #EFA914; -fx-background-radius: 15;">
+                     <graphic>
+                        <ImageView fitHeight="45.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/logout-1-128.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="92.0" layoutY="28.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="61.0" style="-fx-background-color: #EFA914; -fx-background-radius: 15;">
+                     <graphic>
+                        <ImageView fitHeight="29.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Setting-128.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children></Pane>
+            <Pane prefHeight="98.0" prefWidth="175.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="65.0" fitWidth="229.0" layoutX="1.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/applogo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="ops" fx:id="En_addName" layoutX="632.0" layoutY="318.0" prefHeight="580.0" prefWidth="579.0" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
+         <children>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <Pane prefHeight="541.0" prefWidth="594.0" style="-fx-background-color: #fff; -fx-border-color: #EFA914; -fx-border-radius: 20; -fx-background-radius: 30; -fx-border-width: 20;">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="464.0" layoutY="18.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="82.0" styleClass="appfont" text="رقم الطلب :" textFill="#117e88">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="247.0" layoutY="18.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="157.0" styleClass="appfont" textFill="#117e88">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="247.0" layoutY="55.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="157.0" styleClass="appfont" textFill="#117e88">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="416.0" layoutY="55.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="141.0" styleClass="appfont" text="تاريخ بداية الانتداب:" textFill="#117e88">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="428.0" layoutY="91.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="116.0" styleClass="appfont" text="تاريخ نهاية الانتداب :" textFill="#117e88">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="247.0" layoutY="91.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="157.0" styleClass="appfont" textFill="#117e88">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField alignment="CENTER" layoutX="266.0" layoutY="131.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="276.0" promptText="الرقم السكري" style="-fx-border-color: #18838C;" styleClass="appfont" />
+                        <Button layoutX="172.0" layoutY="131.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="89.0" style="-fx-background-color: #2D883E;" styleClass="appfont" text="اضافة" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <TableView layoutX="41.0" layoutY="173.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="281.0" prefWidth="500.0" style="-fx-border-color: #177C85;" styleClass="appfont">
+                          <columns>
+                            <TableColumn prefWidth="100.0" resizable="false" text="الرقم العسكري" />
+                            <TableColumn prefWidth="120.0" resizable="false" text="الرتبة" />
+                              <TableColumn minWidth="200.0" prefWidth="200.0" text="الاسم " />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <Button layoutX="41.0" layoutY="460.0" mnemonicParsing="false" onAction="#entedabOpenAction" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #EFA914;" styleClass="appfont" text="حفظ" textFill="WHITE" />
+                     </children>
+                  </Pane>
+               </children>
+            </FlowPane>
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="EntedabPage" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
          <children>
             <TabPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="200.0" prefWidth="200.0" side="LEFT" stylesheets="@../css/style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -209,84 +268,116 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <TextField fx:id="orderid" layoutX="196.0" layoutY="54.0" prefHeight="41.0" prefWidth="377.0" styleClass="textfield" stylesheets="@../css/style.css" GridPane.columnIndex="1" />
+                                    <TextField fx:id="orderid" layoutX="196.0" layoutY="54.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="appfont" />
+                                       </styleClass></TextField>
                                     <HBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3">
                                        <children>
-                                          <ComboBox fx:id="orderdateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" />
-                                          <ComboBox fx:id="orderdatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" />
-                                          <ComboBox fx:id="orderdateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" />
+                                          <ComboBox fx:id="orderdateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont">
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin></ComboBox>
+                                          <ComboBox fx:id="orderdatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont">
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin></ComboBox>
+                                          <ComboBox fx:id="orderdateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont" />
                                        </children>
                                     </HBox>
-                                    <TextField fx:id="enfrom" prefHeight="41.0" prefWidth="377.0" styleClass="textfield" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="ento" layoutX="205.0" layoutY="30.0" prefHeight="41.0" prefWidth="377.0" styleClass="textfield" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <TextField fx:id="enfrom" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="appfont" />
+                                       </styleClass></TextField>
+                                    <TextField fx:id="ento" layoutX="205.0" layoutY="30.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="appfont" />
+                                       </styleClass></TextField>
                                     <HBox layoutX="729.0" layoutY="21.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="377.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <children>
-                                          <ComboBox fx:id="fromDateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" />
-                                          <ComboBox fx:id="fromDatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" />
-                                          <ComboBox fx:id="fromDateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" />
+                                          <ComboBox fx:id="fromDateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont">
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin></ComboBox>
+                                          <ComboBox fx:id="fromDatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont">
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin></ComboBox>
+                                          <ComboBox fx:id="fromDateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont" />
                                        </children>
                                     </HBox>
                                     <HBox layoutX="196.0" layoutY="95.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                        <children>
-                                          <ComboBox fx:id="toDateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" />
-                                          <ComboBox fx:id="toDatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" />
-                                          <ComboBox fx:id="toDateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" />
+                                          <ComboBox fx:id="toDateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont">
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin></ComboBox>
+                                          <ComboBox fx:id="toDatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont">
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin></ComboBox>
+                                          <ComboBox fx:id="toDateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont" />
                                        </children>
                                     </HBox>
-                                    <Label prefHeight="46.0" prefWidth="164.0" text="جهة الانتداب من :" textFill="#117e88" GridPane.rowIndex="1">
+                                    <Label prefHeight="46.0" prefWidth="164.0" styleClass="appfont" text="جهة الانتداب من :" textFill="#146168" GridPane.rowIndex="1">
                                        <font>
                                           <Font name="URW DIN Arabic Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="57.0" layoutY="27.0" prefHeight="46.0" prefWidth="159.0" text="جهة الانتداب الى :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                    <Label layoutX="57.0" layoutY="27.0" prefHeight="46.0" prefWidth="159.0" styleClass="appfont" text="جهة الانتداب الى :" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="57.0" layoutY="27.0" prefHeight="46.0" prefWidth="160.0" text="تاريخ بداية الانتداب :" textFill="#117e88" GridPane.rowIndex="2">
+                                    <Label layoutX="57.0" layoutY="27.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="تاريخ بداية الانتداب :" textFill="#146168" GridPane.rowIndex="2">
                                        <font>
                                           <Font name="Hacen Algeria" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="629.0" layoutY="27.0" prefHeight="46.0" prefWidth="156.0" text="تاريخ نهاية الانتداب :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                    <Label layoutX="629.0" layoutY="27.0" prefHeight="46.0" prefWidth="156.0" styleClass="appfont" text="تاريخ نهاية الانتداب :" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="17.0" layoutY="88.0" prefHeight="46.0" prefWidth="160.0" text="مكان الانتداب:" textFill="#117e88" GridPane.rowIndex="3">
+                                    <Label layoutX="17.0" layoutY="88.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="مكان الانتداب:" textFill="#146168" GridPane.rowIndex="3">
                                        <font>
                                           <Font name="Hacen Algeria" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="17.0" layoutY="154.0" prefHeight="46.0" prefWidth="160.0" text="نوع المستفيد :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                    <Label layoutX="17.0" layoutY="154.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="نوع المستفيد :" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="PlaceOfAssignment" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <ComboBox fx:id="militarytayp" layoutX="183.0" layoutY="161.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                                    <Label layoutX="29.0" layoutY="93.0" prefHeight="46.0" prefWidth="160.0" text="نوع الانتداب :" textFill="#117e88" GridPane.rowIndex="4">
+                                    <ComboBox fx:id="PlaceOfAssignment" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="militarytayp" layoutX="183.0" layoutY="161.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                    <Label layoutX="29.0" layoutY="93.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="نوع الانتداب :" textFill="#146168" GridPane.rowIndex="4">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="entayp" layoutX="729.0" layoutY="93.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label layoutX="27.0" layoutY="54.0" prefHeight="46.0" prefWidth="164.0" text="رقم الطلب :" textFill="#117e88">
+                                    <ComboBox fx:id="entayp" layoutX="729.0" layoutY="93.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label contentDisplay="CENTER" layoutX="27.0" layoutY="54.0" prefHeight="46.0" prefWidth="164.0" styleClass="appfont" text="رقم الطلب :" textAlignment="CENTER" textFill="#146168">
                                        <font>
-                                          <Font name="GEDinarTwoMedium" size="18.0" />
+                                          <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="29.0" layoutY="89.0" prefHeight="46.0" prefWidth="160.0" text="تاريح الطلب :" textFill="#117e88" GridPane.columnIndex="2">
+                                    <Label layoutX="29.0" layoutY="89.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="تاريح الطلب :" textFill="#146168" GridPane.columnIndex="2">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
+                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addNameOpenAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #FF0000;" styleClass="appfont" text="اضافة الاسماء" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                                    <Button fx:id="save" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#insertData" prefHeight="30.0" prefWidth="156.0" style="-fx-background-color: #EFA914;" styleClass="appfont" text="حفظ" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
                               </GridPane>
-                              <TableView fx:id="en_table" layoutX="898.0" layoutY="256.0" prefHeight="483.0" prefWidth="1088.0" style="-fx-border-color: #FBB115;" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="250.0">
+                              <TableView fx:id="en_table" layoutX="898.0" layoutY="256.0" prefHeight="483.0" prefWidth="1088.0" style="-fx-border-color: #FBB115;" styleClass="appfont" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="250.0">
                                 <columns>
                                   <TableColumn fx:id="en_orderid_col" prefWidth="75.0" text="رقم الطلب" />
                                   <TableColumn fx:id="en_orderdate_col" prefWidth="75.0" text="تاريخ الطلب" />
@@ -310,20 +401,6 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                               </TableView>
-                              <FlowPane alignment="CENTER_RIGHT" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="55.0" prefWidth="394.0" style="-fx-background-color: #117E88;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                                 <children>
-                                    <Button layoutX="224.0" layoutY="15.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="اضافة الاسماء">
-                                       <FlowPane.margin>
-                                          <Insets left="5.0" />
-                                       </FlowPane.margin>
-                                    </Button>
-                                    <Button fx:id="save" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#insertData" prefHeight="30.0" prefWidth="200.0" text="حفظ">
-                                       <FlowPane.margin>
-                                          <Insets left="5.0" right="10.0" />
-                                       </FlowPane.margin>
-                                    </Button>
-                                 </children>
-                              </FlowPane>
                            </children></AnchorPane>
                   </content>
                      <graphic>
@@ -360,61 +437,6 @@
                   </Tab>
               </tabs>
             </TabPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="En_addName" opacity="0.97" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #696969;" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
-         <children>
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Pane prefHeight="541.0" prefWidth="527.0" style="-fx-background-color: #fff; -fx-border-color: #EFA914;">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="414.0" layoutY="18.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="82.0" text="رقم الطلب :" textFill="#117e88">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="230.0" layoutY="18.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="157.0" textFill="#117e88">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="230.0" layoutY="55.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="157.0" textFill="#117e88">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="366.0" layoutY="55.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="141.0" text="تاريخ بداية الانتداب:" textFill="#117e88">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="378.0" layoutY="91.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="116.0" text="تاريخ نهاية الانتداب :" textFill="#117e88">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="224.0" layoutY="91.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="157.0" textFill="#117e88">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField alignment="CENTER" layoutX="230.0" layoutY="131.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="276.0" promptText="الرقم السكري" />
-                        <Button layoutX="136.0" layoutY="131.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="اضافة" />
-                        <TableView layoutX="14.0" layoutY="163.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="310.0" prefWidth="500.0">
-                          <columns>
-                            <TableColumn prefWidth="100.0" resizable="false" text="الرقم العسكري" />
-                            <TableColumn prefWidth="120.0" resizable="false" text="الرتبة" />
-                              <TableColumn minWidth="200.0" prefWidth="200.0" text="الاسم " />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                        <Button layoutX="14.0" layoutY="492.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="122.0" text="حفظ" />
-                     </children>
-                  </Pane>
-               </children>
-            </FlowPane>
          </children>
       </AnchorPane>
    </children>
