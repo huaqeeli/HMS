@@ -9,10 +9,6 @@ import hms.models.EnDataModel;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.chrono.HijrahChronology;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,9 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.StringConverter;
 
 /**
  *
@@ -101,7 +95,6 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<EnDataModel, String> en_militarytype_col;
     @FXML
     private TableColumn<EnDataModel, String> en_type_col;
-    
 
     ObservableList<String> list1 = FXCollections.observableArrayList("داخلي", "خارجي");
     ObservableList<String> list2 = FXCollections.observableArrayList("افراد", "ضباط");
@@ -110,14 +103,22 @@ public class FXMLDocumentController implements Initializable {
     ObservableList<String> monthlist = FXCollections.observableArrayList();
     ObservableList<String> yearlist = FXCollections.observableArrayList();
     ObservableList<EnDataModel> tablelist = FXCollections.observableArrayList();
-    
-   
-   
+    @FXML
+    private AnchorPane En_addName;
+
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
         MainPage.setVisible(true);
         EntedabPage.setVisible(false);
         TshkelPage.setVisible(false);
+        En_addName.setVisible(false);
+    }
+
+    private void mainePageOpenAction() {
+        MainPage.setVisible(true);
+        EntedabPage.setVisible(false);
+        TshkelPage.setVisible(false);
+        En_addName.setVisible(false);
     }
 
     @FXML
@@ -125,6 +126,7 @@ public class FXMLDocumentController implements Initializable {
         MainPage.setVisible(false);
         EntedabPage.setVisible(true);
         TshkelPage.setVisible(false);
+        En_addName.setVisible(false);
     }
 
     @FXML
@@ -132,6 +134,7 @@ public class FXMLDocumentController implements Initializable {
         MainPage.setVisible(false);
         EntedabPage.setVisible(false);
         TshkelPage.setVisible(true);
+        En_addName.setVisible(false);
     }
 
     @FXML
@@ -142,7 +145,7 @@ public class FXMLDocumentController implements Initializable {
             PlaceOfAssignment.getValue(), militarytayp.getValue(), entayp.getValue()};
         String valuenumbers = "?,?,?,?,?,?,?,?,?";
         DataMng.insert("entdabat", feldName, valuenumbers, data);
-         refreshEnTable();
+        refreshEnTable();
     }
 //String dat = orderdateday.getValue()+"-"+orderdatemonth.getValue()+"-"+orderdateyare.getValue();
 
@@ -150,27 +153,27 @@ public class FXMLDocumentController implements Initializable {
         String date = year + "-" + month + "-" + day;
         return date;
     }
-    
-    private void refreshEnTable(){
-    tablelist.clear();
-    tableViewData();
+
+    private void refreshEnTable() {
+        tablelist.clear();
+        tableViewData();
     }
-    
+
     private void tableViewData() {
         ResultSet rs = DataMng.getAllData("entdabat");
         try {
             while (rs.next()) {
                 tablelist.add(new EnDataModel(
                         rs.getString("ORDERID"),
-                        rs.getString("ORDERDATE"), 
+                        rs.getString("ORDERDATE"),
                         rs.getString("ENFROM"),
-                        rs.getString("ENTO"), 
+                        rs.getString("ENTO"),
                         rs.getString("ENDATEFROM"),
-                        rs.getString("ENDATETO"), 
-                        rs.getString("ENPLASE"), 
-                        rs.getString("MILITARYTAYP"), 
-                        rs.getString("ENTAYP")   
-                ));      
+                        rs.getString("ENDATETO"),
+                        rs.getString("ENPLASE"),
+                        rs.getString("MILITARYTAYP"),
+                        rs.getString("ENTAYP")
+                ));
             }
             rs.close();
         } catch (SQLException ex) {
@@ -185,7 +188,7 @@ public class FXMLDocumentController implements Initializable {
         en_plase_col.setCellValueFactory(new PropertyValueFactory<>("enplase"));
         en_militarytype_col.setCellValueFactory(new PropertyValueFactory<>("militarytype"));
         en_type_col.setCellValueFactory(new PropertyValueFactory<>("entype"));
-        
+
         en_table.setItems(tablelist);
     }
 
@@ -242,6 +245,6 @@ public class FXMLDocumentController implements Initializable {
         toDatemonth.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
         toDateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
         tableViewData();
-
+        mainePageOpenAction();
     }
 }
