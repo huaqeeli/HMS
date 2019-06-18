@@ -2,8 +2,13 @@
 
 
 .appfont{
-    -fx-font-family:'Droid Bold';
-    -fx-font-size: 13px;
+    -fx-font-family:'URW DIN Arabic';
+    -fx-font-size: 18px;
+    /*-fx-font-weight: bold;*/
+}
+#appfont{
+    -fx-font-family:'URW DIN Arabic';
+    -fx-font-size: 25px;
     /*-fx-font-weight: bold;*/
 }
 
@@ -17,7 +22,6 @@
     -fx-tab-max-width:8em;
     -fx-tab-min-height:8em;
     -fx-tab-max-height:8em;
-    
 }
 
 .tab{
@@ -73,13 +77,15 @@
 .table-view .column-header {
     -fx-background-color: #117E88;
     -fx-border-color:#60A9AF;
+    
 }
 
 .table-view .column-header-background .label{
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-font-family:'Droid Bold';
+    -fx-font-family:'URW DIN Arabic';
     -fx-font-size: 13px;
+    -fx-padding: 5px;
 }
 
 
@@ -91,7 +97,7 @@
 
 #ops{
      /*-fx-background-color: transparent;*/
-     -fx-background-color: rgb(245, 223, 176); //0.73, 0.85, 0.87
+     -fx-background-color: rgb(245, 223, 176);
 }
 /*
 .table-row-cell{

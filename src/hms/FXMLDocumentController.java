@@ -9,10 +9,6 @@ import hms.models.EnDataModel;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.chrono.HijrahChronology;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,9 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.StringConverter;
 
 /**
  *
@@ -162,7 +156,6 @@ public class FXMLDocumentController implements Initializable {
         DataMng.insert("entdabat", feldName, valuenumbers, data);
         refreshEnTable();
     }
-//String dat = orderdateday.getValue()+"-"+orderdatemonth.getValue()+"-"+orderdateyare.getValue();
 
     private String setDate(String day, String month, String year) {
         String date = year + "-" + month + "-" + day;
