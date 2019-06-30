@@ -29,9 +29,7 @@
 }
 .tab-pane .tab
 {
-    /*-fx-background-color: #e6e6e6;*/
     -fx-background-color: #FBB115;
-
 }
 
 .tab-pane .tab:selected
@@ -44,6 +42,7 @@
 
 .tab .tab-label { 
     -fx-alignment: CENTER;
+/*    -fx-rotate: 90;*/
     -fx-text-fill: #828282;
     -fx-font-size: 12px;
     -fx-font-weight: bold;

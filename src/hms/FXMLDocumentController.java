@@ -6,13 +6,10 @@
 package hms;
 
 import hms.models.EnDataModel;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,9 +25,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 /**
  *
@@ -85,6 +79,16 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField enfrom;
     @FXML
+    private Tab addhint;
+    @FXML
+    private Tab chackingdata;
+    @FXML
+    private Tab en_update;
+    @FXML
+    private Tab en_delete;
+    @FXML
+    private Tab en_search;
+    @FXML
     private TextField ento;
     @FXML
     private TableView<EnDataModel> en_table;
@@ -126,6 +130,11 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
+    private void tabhint(ActionEvent event) {
+        final Tooltip tooltip = new Tooltip();
+        tooltip.setText("hussein");
+    }
+
     private void mainePageOpenAction() {
         MainPage.setVisible(true);
         EntedabPage.setVisible(false);
@@ -281,5 +290,11 @@ public class FXMLDocumentController implements Initializable {
         toDateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
         tableViewData();
         mainePageOpenAction();
+
+        addhint.setTooltip(new Tooltip("اضافة طلب انتداب"));
+        chackingdata.setTooltip(new Tooltip("تدقيق البيانات"));
+        en_update.setTooltip(new Tooltip("تحديث البيانات"));
+        en_search.setTooltip(new Tooltip("البحث واستعراض البيانات"));
+        en_delete.setTooltip(new Tooltip("حذف البيانات"));
     }
 }
