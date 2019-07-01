@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -27,7 +21,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1211.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1211.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.FXMLDocumentController">
 
    <children>
       <AnchorPane fx:id="Header" prefHeight="92.0" prefWidth="1211.0" style="-fx-background-color: #fff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -207,65 +201,6 @@
               </tabs>
             </TabPane>
          </children></AnchorPane>
-      <AnchorPane id="ops" fx:id="En_addName" layoutX="632.0" layoutY="318.0" prefHeight="580.0" prefWidth="579.0" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
-         <children>
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Pane prefHeight="541.0" prefWidth="634.0" style="-fx-background-color: #fff; -fx-border-color: #EFA914; -fx-border-radius: 20; -fx-background-radius: 30; -fx-border-width: 20;">
-                     <children>
-                        <Label contentDisplay="TOP" layoutX="426.0" layoutY="18.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="182.0" styleClass="appfont" text="رقم الطلب :" textFill="#117e88">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label contentDisplay="TOP" layoutX="297.0" layoutY="18.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="157.0" styleClass="appfont" textFill="#117e88">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label contentDisplay="TOP" layoutX="297.0" layoutY="55.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="157.0" styleClass="appfont" textFill="#117e88">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label contentDisplay="TOP" layoutX="426.0" layoutY="55.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="182.0" styleClass="appfont" text="تاريخ بداية الانتداب:" textFill="#117e88">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label contentDisplay="TOP" layoutX="426.0" layoutY="91.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="182.0" styleClass="appfont" text="تاريخ نهاية الانتداب :" textFill="#117e88">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label contentDisplay="TOP" layoutX="297.0" layoutY="91.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="157.0" styleClass="appfont" textFill="#117e88">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField alignment="CENTER" layoutX="321.0" layoutY="131.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="285.0" promptText="الرقم السكري" style="-fx-border-color: #18838C;" styleClass="appfont" />
-                        <Button layoutX="227.0" layoutY="131.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="89.0" style="-fx-background-color: #2D883E;" styleClass="appfont" text="اضافة" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Button>
-                        <TableView layoutX="24.0" layoutY="174.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="281.0" prefWidth="583.0" style="-fx-border-color: #177C85;">
-                          <columns>
-                            <TableColumn minWidth="100.0" prefWidth="108.0" text="الرقم العسكري" />
-                            <TableColumn minWidth="50.0" prefWidth="112.0" text="الرتبة" />
-                              <TableColumn minWidth="300.0" prefWidth="250.0" text="الاسم " />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                        <Button layoutX="24.0" layoutY="460.0" mnemonicParsing="false" onAction="#entedabOpenAction" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #EFA914;" styleClass="appfont" text="حفظ" textFill="WHITE" />
-                     </children>
-                  </Pane>
-               </children>
-            </FlowPane>
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="EntedabPage" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
          <children>
             <TabPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="200.0" prefWidth="200.0" side="LEFT" stylesheets="@../css/style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -439,25 +374,40 @@
                            <children>
                               <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="541.0" prefWidth="634.0" style="-fx-background-color: #fff; -fx-border-color: #EFA914; -fx-border-radius: 20; -fx-background-radius: 30; -fx-border-width: 20;">
+                                    <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="717.0" prefWidth="888.0" style="-fx-background-color: #fff; -fx-border-color: #EFA914; -fx-border-radius: 20; -fx-background-radius: 30; -fx-border-width: 20;">
                                        <children>
-                                          <Label contentDisplay="TOP" layoutX="426.0" layoutY="55.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="182.0" styleClass="appfont" text="تاريخ بداية الانتداب:" textFill="#117e88">
+                                          <HBox layoutX="318.0" layoutY="41.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0">
+                                             <children>
+                                                <ComboBox fx:id="orderdateday1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont">
+                                                   <HBox.margin>
+                                                      <Insets right="2.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                                <ComboBox fx:id="orderdatemonth1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont">
+                                                   <HBox.margin>
+                                                      <Insets right="2.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                                <ComboBox fx:id="orderdateyear1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont" />
+                                             </children>
+                                          </HBox>
+                                          <Label contentDisplay="TOP" layoutX="675.0" layoutY="43.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="182.0" styleClass="appfont" text="تاريخ بداية الانتداب:" textFill="#117e88">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <Label contentDisplay="TOP" layoutX="426.0" layoutY="91.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="182.0" styleClass="appfont" text="تاريخ نهاية الانتداب :" textFill="#117e88">
+                                          <Label contentDisplay="TOP" layoutX="675.0" layoutY="89.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="182.0" styleClass="appfont" text="تاريخ نهاية الانتداب :" textFill="#117e88">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField alignment="CENTER" layoutX="321.0" layoutY="131.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="285.0" promptText="الرقم السكري" style="-fx-border-color: #18838C;" styleClass="appfont" />
-                                          <Button layoutX="227.0" layoutY="131.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="89.0" style="-fx-background-color: #2D883E;" styleClass="appfont" text="اضافة" textFill="WHITE">
+                                          <TextField alignment="CENTER" layoutX="413.0" layoutY="134.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" promptText="الرقم العسكري" style="-fx-border-color: #18838C;" styleClass="appfont" />
+                                          <Button layoutX="318.0" layoutY="135.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="89.0" style="-fx-background-color: #2D883E;" styleClass="appfont" text="تحقق" textFill="WHITE">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Button>
-                                          <TableView layoutX="24.0" layoutY="174.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="281.0" prefWidth="583.0" style="-fx-border-color: #177C85;">
+                                          <TableView layoutX="31.0" layoutY="179.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="401.0" prefWidth="827.0" style="-fx-border-color: #177C85;">
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
@@ -467,7 +417,29 @@
                                                 <TableColumn minWidth="300.0" prefWidth="250.0" text="الاسم " />
                                              </columns>
                                           </TableView>
-                                          <Button layoutX="24.0" layoutY="460.0" mnemonicParsing="false" onAction="#entedabOpenAction" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #EFA914;" styleClass="appfont" text="حفظ" textFill="WHITE" />
+                                          <Button layoutX="31.0" layoutY="585.0" mnemonicParsing="false" onAction="#entedabOpenAction" prefHeight="65.0" prefWidth="167.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont" textFill="WHITE">
+                                             <graphic>
+                                                <ImageView fitHeight="83.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/119_Excel_logo_logos-128.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic></Button>
+                                          <HBox layoutX="318.0" layoutY="87.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0">
+                                             <children>
+                                                <ComboBox fx:id="orderdateday11" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont">
+                                                   <HBox.margin>
+                                                      <Insets right="2.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                                <ComboBox fx:id="orderdatemonth11" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont">
+                                                   <HBox.margin>
+                                                      <Insets right="2.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                                <ComboBox fx:id="orderdateyear11" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" style="-fx-background-color: #fff; -fx-border-color: #117E88;" styleClass="appfont" />
+                                             </children>
+                                          </HBox>
                                        </children>
                                     </Pane>
                                  </children>
@@ -521,6 +493,65 @@
                   </Tab>
               </tabs>
             </TabPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="ops" fx:id="En_addName" layoutX="632.0" layoutY="318.0" prefHeight="580.0" prefWidth="579.0" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
+         <children>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Pane prefHeight="612.0" prefWidth="847.0" style="-fx-background-color: #fff; -fx-border-color: #EFA914; -fx-border-radius: 20; -fx-background-radius: 30; -fx-border-width: 20;">
+                     <children>
+                        <Label contentDisplay="TOP" layoutX="635.0" layoutY="31.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="182.0" styleClass="appfont" text="رقم الطلب :" textFill="#117e88">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label contentDisplay="TOP" layoutX="506.0" layoutY="31.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="157.0" styleClass="appfont" textFill="#117e88">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label contentDisplay="TOP" layoutX="506.0" layoutY="68.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="157.0" styleClass="appfont" textFill="#117e88">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label contentDisplay="TOP" layoutX="635.0" layoutY="68.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="182.0" styleClass="appfont" text="تاريخ بداية الانتداب:" textFill="#117e88">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label contentDisplay="TOP" layoutX="635.0" layoutY="104.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="182.0" styleClass="appfont" text="تاريخ نهاية الانتداب :" textFill="#117e88">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label contentDisplay="TOP" layoutX="506.0" layoutY="104.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="157.0" styleClass="appfont" textFill="#117e88">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField alignment="CENTER" layoutX="530.0" layoutY="144.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="285.0" promptText="الرقم السكري" style="-fx-border-color: #18838C;" styleClass="appfont" />
+                        <Button layoutX="436.0" layoutY="144.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="89.0" style="-fx-background-color: #2D883E;" styleClass="appfont" text="اضافة" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <TableView layoutX="24.0" layoutY="189.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="332.0" prefWidth="794.0" style="-fx-border-color: #177C85;">
+                          <columns>
+                            <TableColumn minWidth="100.0" prefWidth="108.0" text="الرقم العسكري" />
+                            <TableColumn minWidth="50.0" prefWidth="112.0" text="الرتبة" />
+                              <TableColumn minWidth="300.0" prefWidth="250.0" text="الاسم " />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <Button layoutX="24.0" layoutY="528.0" mnemonicParsing="false" onAction="#entedabOpenAction" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #EFA914;" styleClass="appfont" text="حفظ" textFill="WHITE" />
+                     </children>
+                  </Pane>
+               </children>
+            </FlowPane>
          </children>
       </AnchorPane>
    </children>
