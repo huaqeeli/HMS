@@ -6,6 +6,7 @@
 package hms;
 
 import hms.models.EnDataModel;
+import hms.models.NamesDataModel;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -118,8 +119,37 @@ public class FXMLDocumentController implements Initializable {
     ObservableList<String> monthlist = FXCollections.observableArrayList();
     ObservableList<String> yearlist = FXCollections.observableArrayList();
     ObservableList<EnDataModel> tablelist = FXCollections.observableArrayList();
+    ObservableList<NamesDataModel> nametablelist = FXCollections.observableArrayList();
     @FXML
     private AnchorPane En_addName;
+    @FXML
+    private ComboBox<?> orderdateday1;
+    @FXML
+    private ComboBox<?> orderdatemonth1;
+    @FXML
+    private ComboBox<?> orderdateyear1;
+    @FXML
+    private ComboBox<?> orderdateday11;
+    @FXML
+    private ComboBox<?> orderdatemonth11;
+    @FXML
+    private ComboBox<?> orderdateyear11;
+    @FXML
+    private Label name_ordreid;
+    @FXML
+    private Label name_endate_from;
+    @FXML
+    private Label name_endate_to;
+    @FXML
+    private TextField name_militaryid;
+    @FXML
+    private TableView<NamesDataModel> names_table;
+    @FXML
+    private TableColumn<?, ?> name_militaryid_col;
+    @FXML
+    private TableColumn<?, ?> name_rank_col;
+    @FXML
+    private TableColumn<?, ?> name_name_col;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -129,7 +159,6 @@ public class FXMLDocumentController implements Initializable {
         En_addName.setVisible(false);
     }
 
-    @FXML
     private void tabhint(ActionEvent event) {
         final Tooltip tooltip = new Tooltip();
         tooltip.setText("hussein");
@@ -164,9 +193,11 @@ public class FXMLDocumentController implements Initializable {
         EntedabPage.setVisible(false);
         TshkelPage.setVisible(false);
         En_addName.setVisible(true);
+        name_ordreid.setText(orderid.getText());
+        name_endate_from.setText(setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()));
+        name_endate_to.setText(setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue()));
     }
 
-    @FXML
     private void OpenAction(ActionEvent event) {
         Stage stage = null;
         Parent root = null;
@@ -190,7 +221,15 @@ public class FXMLDocumentController implements Initializable {
         String valuenumbers = "?,?,?,?,?,?,?,?,?";
         DataMng.insert("entdabat", fieldName, valuenumbers, data);
         refreshEnTable();
-
+    }
+    @FXML
+    private void insertName(ActionEvent event) {
+        String tableName ="namesdata";
+        String fieldName = "`MILITARYID`,`ORDERID`,`ENDATEFROM`,`ENDATETO`";
+        String[] data = {name_militaryid.getText(),name_ordreid.getText(),name_endate_from.getText(),name_endate_to.getText()};
+        String valuenumbers = "?,?,?,?";
+        DataMng.insert(tableName, fieldName, valuenumbers, data);
+        refreshNameTable();
     }
 
     private String setDate(String day, String month, String year) {
@@ -200,10 +239,35 @@ public class FXMLDocumentController implements Initializable {
 
     private void refreshEnTable() {
         tablelist.clear();
-        tableViewData();
+        enTableViewData();
+    }
+    private void refreshNameTable() {
+        nametablelist.clear();
+        nameTableViewData();
     }
 
-    private void tableViewData() {
+    private void nameTableViewData() {
+        ResultSet rs = DataMng.getDataWithCondition("namesdata", "MILITARYID,RANK,NAME", "MILITARYID ="+name_militaryid.getText());
+        try {
+            while (rs.next()) {
+                nametablelist.add(new NamesDataModel(
+                        rs.getString("MILITARYID"),
+                        rs.getString("RANK"),
+                        rs.getString("NAME")
+                ));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        name_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
+        name_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        name_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        names_table.setItems(nametablelist);
+    }
+    
+    private void enTableViewData() {
         ResultSet rs = DataMng.getAllData("entdabat");
         try {
             while (rs.next()) {
@@ -288,7 +352,7 @@ public class FXMLDocumentController implements Initializable {
         toDateday.setValue(Integer.toString(HijriCalendar.getSimpleDay()));
         toDatemonth.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
         toDateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
-        tableViewData();
+        enTableViewData();
         mainePageOpenAction();
 
         addhint.setTooltip(new Tooltip("اضافة طلب انتداب"));
