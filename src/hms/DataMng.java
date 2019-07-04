@@ -43,7 +43,7 @@ public class DataMng {
     }
     public static ResultSet getDataWithCondition(String tapleName, String fildName,String condition){
        ResultSet rs = null;
-       String guiry = "SELECT "+fildName+" FROM " + tapleName +"WHERE"+ condition ;
+       String guiry = "SELECT "+fildName+" FROM " +tapleName+ " WHERE" + condition ;
        Connection con = DatabaseConnector.dbConnector();
         try {
             PreparedStatement psm = con.prepareStatement(guiry);
@@ -51,6 +51,7 @@ public class DataMng {
         } catch (SQLException ex) {
            JOptionPane.showMessageDialog(null, ex);
         }
+System.out.print(guiry);
         return rs;
     }
 }

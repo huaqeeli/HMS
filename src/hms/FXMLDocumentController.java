@@ -247,7 +247,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private void nameTableViewData() {
-        ResultSet rs = DataMng.getDataWithCondition("namesdata", "MILITARYID,RANK,NAME", "MILITARYID ="+name_militaryid.getText());
+        ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '"+ name_militaryid.getText()+"'");
         try {
             while (rs.next()) {
                 nametablelist.add(new NamesDataModel(
