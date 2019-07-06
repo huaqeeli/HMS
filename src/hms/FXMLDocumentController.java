@@ -242,7 +242,7 @@ public class FXMLDocumentController implements Initializable {
         enTableViewData();
     }
     private void refreshNameTable() {
-        nametablelist.clear();
+//        nametablelist.clear();
         nameTableViewData();
     }
 

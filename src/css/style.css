@@ -35,14 +35,14 @@
 .tab-pane .tab:selected
 {
     -fx-background-color: #117E88;
-/*    -fx-border-color: #B1FB15;
-    -fx-border-width: 0 0 5 0;
-    -fx-border-style: solid;*/
+    /*    -fx-border-color: #B1FB15;
+        -fx-border-width: 0 0 5 0;
+        -fx-border-style: solid;*/
 }
 
 .tab .tab-label { 
     -fx-alignment: CENTER;
-/*    -fx-rotate: 90;*/
+    /*    -fx-rotate: 90;*/
     -fx-text-fill: #828282;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
@@ -51,7 +51,7 @@
 .tab:selected .tab-label { 
     -fx-alignment: CENTER;
     -fx-text-fill: #96b946;
-    
+
 }
 .datefield{
     -fx-background-color: #117E88;
@@ -63,7 +63,7 @@
 
 
 .table-view{
-   -fx-background-color: transparent;
+    -fx-background-color: transparent;
 }
 
 .table-view:focused{
@@ -76,7 +76,7 @@
 .table-view .column-header {
     -fx-background-color: #117E88;
     -fx-border-color:#60A9AF;
-    
+
 }
 
 .table-view .column-header-background .label{
@@ -90,13 +90,13 @@
 
 
 .table-view .table-cell{
-     -fx-alignment: CENTER;
+    -fx-alignment: CENTER;
     -fx-font-family: 'URW DIN Arabic';
 }
 
 #ops{
-     /*-fx-background-color: transparent;*/
-     -fx-background-color: rgb(245, 223, 176);
+    /*-fx-background-color: transparent;*/
+    -fx-background-color: rgb(245, 223, 176);
 }
 /*
 .table-row-cell{
@@ -199,3 +199,63 @@
 .combo-box-base:disabled {
     -fx-opacity: .4;
 }*/
+.titled-pane 
+{
+    -fx-skin: "com.sun.javafx.scene.control.skin.TitledPaneSkin";    
+    -fx-text-fill: #ffffff;
+    -fx-font-family:'URW DIN Arabic';
+    -fx-font-size: 13px;
+    /*-fx-border-color: #EFA914;*/
+}
+.titled-pane:focused 
+{
+    -fx-text-fill: white;
+}
+.titled-pane > .title 
+{
+    /*-fx-background-color: #117E88;*/
+    -fx-background-color: linear-gradient(#117E88, #d1d9dc);
+    -fx-background-insets: 0, 1, 2;
+    /*-fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;*/
+    -fx-padding: 10px;
+}
+
+.titled-pane:focused > .title 
+{
+    -fx-color:#117E88 ;
+}
+
+.titled-pane > .title > .arrow-button 
+{
+    -fx-background-color: null;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0.0em 0.25em 0.0em 0.0em; /* 0 3 0 0 */
+}
+
+.titled-pane > .title > .arrow-button .arrow 
+{
+    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
+    -fx-shape: "M 0 0 h 7 l -3.5 4 z";
+}
+
+.titled-pane:collapsed > .title > .arrow-button .arrow 
+{
+    -fx-rotate: -90;
+}
+
+.titled-pane > *.content 
+{
+    -fx-background-color:
+        -fx-box-border,
+        linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,      derive(-fx-color,23%) 88%, derive(-fx-color,50%) 99%, -fx-box-border);
+    -fx-background-insets: 0, 0 1 1 1;
+    -fx-padding: 0.167em;
+}
+
+.titled-pane:focused > .title > .arrow-button .arrow 
+{
+    -fx-background-color: white;
+}
