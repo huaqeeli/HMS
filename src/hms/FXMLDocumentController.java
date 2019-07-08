@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hms;
 
 import hms.models.EnDataModel;
@@ -17,6 +12,8 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -187,16 +184,7 @@ public class FXMLDocumentController implements Initializable {
         En_addName.setVisible(false);
     }
 
-    @FXML
-    private void addNameOpenAction(ActionEvent event) {
-        MainPage.setVisible(false);
-        EntedabPage.setVisible(false);
-        TshkelPage.setVisible(false);
-        En_addName.setVisible(true);
-        name_ordreid.setText(orderid.getText());
-        name_endate_from.setText(setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()));
-        name_endate_to.setText(setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue()));
-    }
+    
 
     private void OpenAction(ActionEvent event) {
         Stage stage = null;
@@ -229,7 +217,18 @@ public class FXMLDocumentController implements Initializable {
         String[] data = {name_militaryid.getText(),name_ordreid.getText(),name_endate_from.getText(),name_endate_to.getText()};
         String valuenumbers = "?,?,?,?";
         DataMng.insert(tableName, fieldName, valuenumbers, data);
-        refreshNameTable();
+        nameTableViewData();
+        name_militaryid.setText("");
+    }
+    private void insertName() {//هذي الدالة تعمل نفس عمل الدالة السابقة عند الضغط على انترر
+        String tableName ="namesdata";
+        String fieldName = "`MILITARYID`,`ORDERID`,`ENDATEFROM`,`ENDATETO`";
+        String[] data = {name_militaryid.getText(),orderid.getText(), setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), 
+            setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue())};
+        String valuenumbers = "?,?,?,?";
+        DataMng.insert(tableName, fieldName, valuenumbers, data);
+        nameTableViewData();
+        name_militaryid.setText("");
     }
 
     private String setDate(String day, String month, String year) {
@@ -241,9 +240,9 @@ public class FXMLDocumentController implements Initializable {
         tablelist.clear();
         enTableViewData();
     }
+    
     private void refreshNameTable() {
-//        nametablelist.clear();
-        nameTableViewData();
+        nametablelist.clear();
     }
 
     private void nameTableViewData() {
@@ -360,5 +359,14 @@ public class FXMLDocumentController implements Initializable {
         en_update.setTooltip(new Tooltip("تحديث البيانات"));
         en_search.setTooltip(new Tooltip("البحث واستعراض البيانات"));
         en_delete.setTooltip(new Tooltip("حذف البيانات"));
+        
+        name_militaryid.setOnAction(new EventHandler(){
+            @Override
+            public void handle(Event event) {
+                insertName(); 
+                name_militaryid.setText("");
+            }
+        
+        });
     }
 }

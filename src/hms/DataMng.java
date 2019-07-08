@@ -19,7 +19,6 @@ public class DataMng {
             }
             int t = psm.executeUpdate();
             if(t>0){
-              JOptionPane.showMessageDialog(null,"تم حفظ البيانات");
             }else{
               JOptionPane.showMessageDialog(null,"حدث خطاء في عملية الحفظ الرجاء المحاولة مرة اخرى");
             }
@@ -51,7 +50,6 @@ public class DataMng {
         } catch (SQLException ex) {
            JOptionPane.showMessageDialog(null, ex);
         }
-System.out.print(guiry);
         return rs;
     }
 }
