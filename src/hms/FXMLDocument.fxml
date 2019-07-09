@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -16,6 +11,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -27,7 +23,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1211.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1211.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.FXMLDocumentController">
 
    <children>
       <AnchorPane fx:id="Header" prefHeight="92.0" prefWidth="1211.0" style="-fx-background-color: #fff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -164,6 +160,103 @@
                         </TableView>
                         <Button layoutX="24.0" layoutY="528.0" mnemonicParsing="false" onAction="#entedabOpenAction" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #EFA914;" styleClass="appfont" text="حفظ" textFill="WHITE" />
                      </children>
+                  </Pane>
+               </children>
+            </FlowPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="MainPage" layoutY="97.0" prefHeight="703.0" prefWidth="1211.0" style="-fx-background-color: #fff;" styleClass="appfont" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
+         <children>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="719.0" fitWidth="1019.0" opacity="0.53" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/bg.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </FlowPane>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutY="1.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+               <children>
+                  <Pane layoutX="192.0" layoutY="261.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="276.0" style="-fx-background-color: #117E88; -fx-background-radius: 30;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <children>
+                        <Button id="appfont" fx:id="TriningButton" layoutY="147.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="الدورات والابتعاث" textAlignment="CENTER" textFill="#f8f5f5">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="116.0" fitWidth="116.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/traning.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <FlowPane.margin>
+                        <Insets right="10.0" />
+                     </FlowPane.margin>
+                  </Pane>
+                  <Pane layoutX="377.0" layoutY="211.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="276.0" style="-fx-background-color: #117E88; -fx-background-radius: 30;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <children>
+                        <Button id="appfont" fx:id="VacationButton" layoutY="148.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="الاجازات" textAlignment="CENTER" textFill="#f8f5f5">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="116.0" fitWidth="116.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/vacation.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <FlowPane.margin>
+                        <Insets right="10.0" />
+                     </FlowPane.margin>
+                  </Pane>
+                  <Pane layoutX="478.0" layoutY="261.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="276.0" style="-fx-background-color: #117E88; -fx-background-radius: 30;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <children>
+                        <Button id="appfont" fx:id="TshkelButton" layoutY="149.0" mnemonicParsing="false" onAction="#tshkelOpenAction" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="التشكيل" textAlignment="CENTER" textFill="#f8f5f5">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="123.0" fitWidth="116.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/tshkel.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <FlowPane.margin>
+                        <Insets right="10.0" />
+                     </FlowPane.margin>
+                  </Pane>
+                  <Pane layoutX="616.0" layoutY="261.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="276.0" style="-fx-background-color: #117E88; -fx-background-radius: 30;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <children>
+                        <Button id="appfont" fx:id="EntedabButton" layoutY="147.0" mnemonicParsing="false" onAction="#entedabOpenAction" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="الانتداب" textAlignment="CENTER" textFill="#f8f5f5">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="116.0" fitWidth="126.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/entdab.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <FlowPane.margin>
+                        <Insets />
+                     </FlowPane.margin>
                   </Pane>
                </children>
             </FlowPane>
@@ -510,103 +603,6 @@
                   </Tab>
                </tabs>
             </TabPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="MainPage" layoutY="97.0" prefHeight="703.0" prefWidth="1211.0" style="-fx-background-color: #fff;" styleClass="appfont" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
-         <children>
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ImageView fitHeight="719.0" fitWidth="1019.0" opacity="0.53" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/bg.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutY="1.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
-               <children>
-                  <Pane layoutX="192.0" layoutY="261.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="276.0" style="-fx-background-color: #117E88; -fx-background-radius: 30;">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <children>
-                        <Button id="appfont" fx:id="TriningButton" layoutY="147.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="الدورات والابتعاث" textAlignment="CENTER" textFill="#f8f5f5">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Button>
-                        <ImageView fitHeight="116.0" fitWidth="116.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/traning.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <FlowPane.margin>
-                        <Insets right="10.0" />
-                     </FlowPane.margin>
-                  </Pane>
-                  <Pane layoutX="377.0" layoutY="211.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="276.0" style="-fx-background-color: #117E88; -fx-background-radius: 30;">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <children>
-                        <Button id="appfont" fx:id="VacationButton" layoutY="148.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="الاجازات" textAlignment="CENTER" textFill="#f8f5f5">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Button>
-                        <ImageView fitHeight="116.0" fitWidth="116.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/vacation.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <FlowPane.margin>
-                        <Insets right="10.0" />
-                     </FlowPane.margin>
-                  </Pane>
-                  <Pane layoutX="478.0" layoutY="261.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="276.0" style="-fx-background-color: #117E88; -fx-background-radius: 30;">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <children>
-                        <Button id="appfont" fx:id="TshkelButton" layoutY="149.0" mnemonicParsing="false" onAction="#tshkelOpenAction" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="التشكيل" textAlignment="CENTER" textFill="#f8f5f5">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Button>
-                        <ImageView fitHeight="123.0" fitWidth="116.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/tshkel.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <FlowPane.margin>
-                        <Insets right="10.0" />
-                     </FlowPane.margin>
-                  </Pane>
-                  <Pane layoutX="616.0" layoutY="261.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="276.0" style="-fx-background-color: #117E88; -fx-background-radius: 30;">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <children>
-                        <Button id="appfont" fx:id="EntedabButton" layoutY="147.0" mnemonicParsing="false" onAction="#entedabOpenAction" prefHeight="54.0" prefWidth="276.0" style="-fx-background-color: #0B545A; -fx-background-radius: 0 0 30 30;" text="الانتداب" textAlignment="CENTER" textFill="#f8f5f5">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Button>
-                        <ImageView fitHeight="116.0" fitWidth="126.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/entdab.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <FlowPane.margin>
-                        <Insets />
-                     </FlowPane.margin>
-                  </Pane>
-               </children>
-            </FlowPane>
          </children>
       </AnchorPane>
    </children>

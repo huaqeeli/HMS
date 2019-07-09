@@ -23,6 +23,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -184,8 +185,6 @@ public class FXMLDocumentController implements Initializable {
         En_addName.setVisible(false);
     }
 
-    
-
     private void OpenAction(ActionEvent event) {
         Stage stage = null;
         Parent root = null;
@@ -207,23 +206,31 @@ public class FXMLDocumentController implements Initializable {
             setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue()),
             PlaceOfAssignment.getValue(), militarytayp.getValue(), entayp.getValue()};
         String valuenumbers = "?,?,?,?,?,?,?,?,?";
-        DataMng.insert("entdabat", fieldName, valuenumbers, data);
-        refreshEnTable();
+        if (DataMng.check("entdabat", "`ORDERDATE`", "`ORDERID` = '" + orderid.getText() + "'AND"
+                + " `ENDATEFROM`='" + setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()) + "' AND "
+                + "`ENDATETO` = '" + setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue()) + "'")) {
+            JOptionPane.showMessageDialog(null, "تم ادخال الطلب مسبقا الرجاء التاجد من رقم الطلب");
+        } else {
+            DataMng.insert("entdabat", fieldName, valuenumbers, data);
+            refreshEnTable();
+        }
     }
+
     @FXML
     private void insertName(ActionEvent event) {
-        String tableName ="namesdata";
+        String tableName = "namesdata";
         String fieldName = "`MILITARYID`,`ORDERID`,`ENDATEFROM`,`ENDATETO`";
-        String[] data = {name_militaryid.getText(),name_ordreid.getText(),name_endate_from.getText(),name_endate_to.getText()};
+        String[] data = {name_militaryid.getText(), name_ordreid.getText(), name_endate_from.getText(), name_endate_to.getText()};
         String valuenumbers = "?,?,?,?";
         DataMng.insert(tableName, fieldName, valuenumbers, data);
         nameTableViewData();
         name_militaryid.setText("");
     }
-    private void insertName() {//هذي الدالة تعمل نفس عمل الدالة السابقة عند الضغط على انترر
-        String tableName ="namesdata";
+
+    private void insertName() {//هذي الدالة تعمل نفس عمل الدالة السابقة عند الضغط على انتر
+        String tableName = "namesdata";
         String fieldName = "`MILITARYID`,`ORDERID`,`ENDATEFROM`,`ENDATETO`";
-        String[] data = {name_militaryid.getText(),orderid.getText(), setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), 
+        String[] data = {name_militaryid.getText(), orderid.getText(), setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()),
             setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue())};
         String valuenumbers = "?,?,?,?";
         DataMng.insert(tableName, fieldName, valuenumbers, data);
@@ -240,13 +247,13 @@ public class FXMLDocumentController implements Initializable {
         tablelist.clear();
         enTableViewData();
     }
-    
+
     private void refreshNameTable() {
         nametablelist.clear();
     }
 
     private void nameTableViewData() {
-        ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '"+ name_militaryid.getText()+"'");
+        ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + name_militaryid.getText() + "'");
         try {
             while (rs.next()) {
                 nametablelist.add(new NamesDataModel(
@@ -265,7 +272,7 @@ public class FXMLDocumentController implements Initializable {
 
         names_table.setItems(nametablelist);
     }
-    
+
     private void enTableViewData() {
         ResultSet rs = DataMng.getAllData("entdabat");
         try {
@@ -359,14 +366,14 @@ public class FXMLDocumentController implements Initializable {
         en_update.setTooltip(new Tooltip("تحديث البيانات"));
         en_search.setTooltip(new Tooltip("البحث واستعراض البيانات"));
         en_delete.setTooltip(new Tooltip("حذف البيانات"));
-        
-        name_militaryid.setOnAction(new EventHandler(){
+
+        name_militaryid.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                insertName(); 
+                insertName();
                 name_militaryid.setText("");
             }
-        
+
         });
     }
 }
