@@ -206,12 +206,14 @@ public class FXMLDocumentController implements Initializable {
             setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue()),
             PlaceOfAssignment.getValue(), militarytayp.getValue(), entayp.getValue()};
         String valuenumbers = "?,?,?,?,?,?,?,?,?";
-        if (DataMng.check("entdabat", "`ORDERDATE`", "`ORDERID` = '" + orderid.getText() + "'AND"
-                + " `ENDATEFROM`='" + setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()) + "' AND "
-                + "`ENDATETO` = '" + setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue()) + "'")) {
-            JOptionPane.showMessageDialog(null, "تم ادخال الطلب مسبقا الرجاء التاجد من رقم الطلب");
-        } else {
-            DataMng.insert("entdabat", fieldName, valuenumbers, data);
+
+        boolean orderidstate = FormValidation.textFieldNotEmpty(orderid, "رقم الطلب مطلوب الرجاء ادخال رقم الطب");
+        boolean enfromstate = FormValidation.textFieldNotEmpty(enfrom, "الرجاء ادخل جهة الانتداب...");
+        boolean entostate = FormValidation.textFieldNotEmpty(ento, "الرجاء ادخل جهة الانتداب...");
+        boolean orderidUnique = FormValidation.unique("entdabat",  "`ORDERID`",  "`ORDERID` = '" + data[0] + "'AND `ENDATEFROM`='" + data[4] + "' AND `ENDATETO` = '" + data[5] + "'", "تم ادخال الطلب مسبقا الرجاء التاجد من رقم الطلب");
+
+        if ( orderidUnique && orderidstate && enfromstate && entostate) {
+           DataMng.insert("entdabat", fieldName, valuenumbers, data);
             refreshEnTable();
         }
     }

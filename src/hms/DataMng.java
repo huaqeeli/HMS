@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 
 public class DataMng {
@@ -55,23 +58,24 @@ public class DataMng {
         return rs;
     }
 
-    public static boolean check(String tapleName, String fildName, String condition) {
-        boolean state = false;
-        ResultSet rs = null;
-        String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
-        Connection con = DatabaseConnector.dbConnector();
-        try {
-            PreparedStatement psm = con.prepareStatement(guiry);
-            rs = psm.executeQuery();
-            if (rs.next()) {
-                state = true;
-            } else {
-                state = false;
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-        }
+    
 
+    public static boolean checkEmpty(String text) {
+        boolean state = false;
+        if (text.isEmpty()) {
+            state = true;
+        } else {
+            state = false;
+        }
         return state;
     }
+    public static void showAlert(String titel,String massage) {
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle(titel);
+        alert.setHeaderText(null);
+        alert.setContentText(massage);
+        alert.showAndWait();
+    }
+    
+   
 }
