@@ -12,9 +12,11 @@ public class FormValidation {
 
     public static boolean textFieldNotEmpty(TextField t) {
         boolean state = false;
+        
         if (t.getText() != null && !t.getText().isEmpty()) {
             state = true;
         }
+        
         return state;
     }
 
@@ -22,8 +24,9 @@ public class FormValidation {
         boolean state = true;
         if (!textFieldNotEmpty(t)) {
             state = false;
+            showAlert("رسالة تحقق", validationmassage);
         }
-        showAlert("رسالة تحقق", validationmassage);
+        
         return state;
     }
 
@@ -36,7 +39,7 @@ public class FormValidation {
     }
 
     public static boolean unique(String tapleName, String fildName, String condition, String validationmassage) {
-        boolean state = false;
+        boolean state = true;
         ResultSet rs = null;
         String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
         Connection con = DatabaseConnector.dbConnector();
@@ -44,14 +47,13 @@ public class FormValidation {
             PreparedStatement psm = con.prepareStatement(guiry);
             rs = psm.executeQuery();
             if (rs.next()) {
-                state = true;
-            } else {
                 state = false;
+                showAlert("التحقق من التكرار", validationmassage);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
-        showAlert("التحقق من التكرار", validationmassage);
+        
         return state;
     }
 }
