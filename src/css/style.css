@@ -76,8 +76,8 @@
 .table-view .column-header {
     /*-fx-background-color: #117E88;*/
     /*-fx-background-color: linear-gradient(#117E88, #d1d9dc);*/
-    -fx-background-color: linear-gradient(#117E88, #D2E4E6);
-    -fx-border-color:#60A9AF;
+    -fx-background-color: linear-gradient(#FBB115, #FBB115);
+    -fx-border-color:#FFFFFF;
 }
 
 .table-view .column-header-background .label{
