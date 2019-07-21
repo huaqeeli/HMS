@@ -29,7 +29,7 @@ import javafx.stage.Stage;
  * @author Administrator
  */
 public class FXMLDocumentController implements Initializable {
-
+    
     @FXML
     private Button EntedabButton;
     @FXML
@@ -108,7 +108,7 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<EnDataModel, String> en_militarytype_col;
     @FXML
     private TableColumn<EnDataModel, String> en_type_col;
-
+    
     ObservableList<String> list1 = FXCollections.observableArrayList("داخلي", "خارجي");
     ObservableList<String> list2 = FXCollections.observableArrayList("افراد", "ضباط");
     ObservableList<String> list3 = FXCollections.observableArrayList("عادي", "صيفية");
@@ -153,7 +153,7 @@ public class FXMLDocumentController implements Initializable {
     private ComboBox<String> ch_en_todatemonth;
     @FXML
     private ComboBox<String> ch_en_todateyear;
-
+    
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
         MainPage.setVisible(true);
@@ -161,19 +161,19 @@ public class FXMLDocumentController implements Initializable {
         TshkelPage.setVisible(false);
         En_addName.setVisible(false);
     }
-
+    
     private void tabhint(ActionEvent event) {
         final Tooltip tooltip = new Tooltip();
         tooltip.setText("hussein");
     }
-
+    
     private void mainePageOpenAction() {
         MainPage.setVisible(true);
         EntedabPage.setVisible(false);
         TshkelPage.setVisible(false);
         En_addName.setVisible(false);
     }
-
+    
     @FXML
     private void entedabOpenAction(ActionEvent event) {
         MainPage.setVisible(false);
@@ -181,7 +181,7 @@ public class FXMLDocumentController implements Initializable {
         TshkelPage.setVisible(false);
         En_addName.setVisible(false);
     }
-
+    
     @FXML
     private void tshkelOpenAction(ActionEvent event) {
         MainPage.setVisible(false);
@@ -189,7 +189,7 @@ public class FXMLDocumentController implements Initializable {
         TshkelPage.setVisible(true);
         En_addName.setVisible(false);
     }
-
+    
     private void OpenAction(ActionEvent event) {
         Stage stage = null;
         Parent root = null;
@@ -203,7 +203,7 @@ public class FXMLDocumentController implements Initializable {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @FXML
     private void insertData(ActionEvent event) {
         String fieldName = "`ORDERID`,`ORDERDATE`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`,`ENPLASE`,`MILITARYTAYP`,`ENTAYP`";
@@ -211,78 +211,78 @@ public class FXMLDocumentController implements Initializable {
             setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue()),
             PlaceOfAssignment.getValue(), militarytayp.getValue(), entayp.getValue()};
         String valuenumbers = "?,?,?,?,?,?,?,?,?";
-
+        
         boolean numberOnly = FormValidation.textFieldTypeNumber(orderid, "استخدم الارقام فقط");
         boolean orderidstate = FormValidation.textFieldNotEmpty(orderid, "  ادخل رقم الطب ارقام فقط");
         boolean enfromstate = FormValidation.textFieldNotEmpty(enfrom, " ادخل الجهة المنتدب منها");
         boolean entostate = FormValidation.textFieldNotEmpty(ento, " ادخل الجهة المنتدب لها");
         boolean orderidUnique = FormValidation.unique("entdabat", "`ORDERID`", "`ORDERID` = '" + data[0] + "'AND `ENDATEFROM`='" + data[4] + "' AND `ENDATETO` = '" + data[5] + "'", "تم ادخال الطلب مسبقا الرجاء التاجد من رقم الطلب");
-
+        
         if (numberOnly && orderidUnique && orderidstate && enfromstate && entostate) {
             DataMng.insert("entdabat", fieldName, valuenumbers, data);
             refreshEnTable();
         }
     }
-
+    
     @FXML
     private void insertName(ActionEvent event) {
         String tableName = "namesdata";
         String fieldName = "`MILITARYID`,`ORDERID`,`ENDATEFROM`,`ENDATETO`";
         String[] data = {name_militaryid.getText(), orderid.getText(), setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue())};
         String valuenumbers = "?,?,?,?";
-
+        
         boolean orderidstate = FormValidation.textFieldNotEmpty(orderid, "  ادخل رقم الطب ارقام فقط");
         boolean orderidUnique = FormValidation.unique("namesdata", "`MILITARYID`", " `MILITARYID` = '" + data[0] + "'AND `ORDERID` = '" + data[1] + "'AND `ENDATEFROM`='" + data[2] + "' AND `ENDATETO` = '" + data[3] + "'", "تم اضافة الاسم مسبقا تاكد من الرقم العسكري");
-
+        
         if (orderidstate && orderidUnique) {
             DataMng.insert(tableName, fieldName, valuenumbers, data);
             nameTableViewData();
             name_militaryid.setText("");
         }
     }
-
+    
     private void insertName() {//هذي الدالة تعمل نفس عمل الدالة السابقة عند الضغط على انتر
         String tableName = "namesdata";
         String fieldName = "`MILITARYID`,`ORDERID`,`ENDATEFROM`,`ENDATETO`";
         String[] data = {name_militaryid.getText(), orderid.getText(), setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue())};
         String valuenumbers = "?,?,?,?";
-
+        
         boolean orderidstate = FormValidation.textFieldNotEmpty(orderid, "  ادخل رقم الطب ارقام فقط");
         boolean orderidUnique = FormValidation.unique("namesdata", "`MILITARYID`", " `MILITARYID` = '" + data[0] + "'AND `ORDERID` = '" + data[1] + "'AND `ENDATEFROM`='" + data[2] + "' AND `ENDATETO` = '" + data[3] + "'", "تم اضافة الاسم مسبقا تاكد من الرقم العسكري");
-
+        
         if (orderidstate && orderidUnique) {
             DataMng.insert(tableName, fieldName, valuenumbers, data);
             nameTableViewData();
             name_militaryid.setText("");
         }
     }
-
+    
     @FXML
     private void chackData(ActionEvent event) {
         String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
         String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
-
-        boolean orderidUnique = FormValidation.unique("namesdata", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");
-
+        
+        boolean orderidUnique = FormValidation.unique("namesdata", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية"+"\n"+"رسالة ثانية");
+        
         if (orderidUnique) {
-
+            
         }
     }
-
+    
     private String setDate(String day, String month, String year) {
         String date = year + "-" + month + "-" + day;
         return date;
     }
-
+    
     private void refreshEnTable() {
         tablelist.clear();
         enTableViewData();
     }
-
+    
     private void refreshNameTable() {
         nametablelist.clear();
     }
-
+    
     private void nameTableViewData() {
         ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + name_militaryid.getText() + "'");
         try {
@@ -300,10 +300,10 @@ public class FXMLDocumentController implements Initializable {
         name_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
         name_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
         name_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
-
+        
         names_table.setItems(nametablelist);
     }
-
+    
     private void enTableViewData() {
         ResultSet rs = DataMng.getAllData("entdabat");
         try {
@@ -333,10 +333,10 @@ public class FXMLDocumentController implements Initializable {
         en_plase_col.setCellValueFactory(new PropertyValueFactory<>("enplase"));
         en_militarytype_col.setCellValueFactory(new PropertyValueFactory<>("militarytype"));
         en_type_col.setCellValueFactory(new PropertyValueFactory<>("entype"));
-
+        
         en_table.setItems(tablelist);
     }
-
+    
     private ObservableList fillDays(ObservableList daylist) {
         for (int i = 1; i <= 30; i++) {
             if (i <= 9) {
@@ -347,7 +347,7 @@ public class FXMLDocumentController implements Initializable {
         }
         return daylist;
     }
-
+    
     private ObservableList fillMonth(ObservableList monthlist) {
         for (int i = 1; i <= 12; i++) {
             if (i <= 9) {
@@ -358,14 +358,14 @@ public class FXMLDocumentController implements Initializable {
         }
         return monthlist;
     }
-
+    
     private ObservableList fillYare(ObservableList yarelist) {
         for (int i = 1420; i <= 1480; i++) {
             yarelist.add(Integer.toString(i));
         }
         return yarelist;
     }
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         PlaceOfAssignment.setItems(list1);
@@ -401,25 +401,25 @@ public class FXMLDocumentController implements Initializable {
         ch_en_todateday.setValue(Integer.toString(HijriCalendar.getSimpleDay()));
         ch_en_todatemonth.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
         ch_en_todateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
-
+        
         enTableViewData();
         mainePageOpenAction();
-
+        
         addhint.setTooltip(new Tooltip("اضافة طلب انتداب"));
         chackingdata.setTooltip(new Tooltip("تدقيق البيانات"));
         en_update.setTooltip(new Tooltip("تحديث البيانات"));
         en_search.setTooltip(new Tooltip("البحث واستعراض البيانات"));
         en_delete.setTooltip(new Tooltip("حذف البيانات"));
-
+        
         addnamepane.setExpandedPane(namepane);
-
+        
         name_militaryid.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
                 insertName();
                 name_militaryid.setText("");
             }
-
+            
         });
     }
 }

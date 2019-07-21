@@ -37,7 +37,7 @@ public class FormValidation {
     public static boolean textFieldTypeDate(TextField t) {
         boolean state = false;
         
-        if (t.getText().matches("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\\\d\\\\d)")) {
+        if (t.getText().matches("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)")) {
             state = true;
         }
         
@@ -82,7 +82,7 @@ public class FormValidation {
     }
     
     public static void showAlert(String titel, String massage) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titel);
         alert.setHeaderText(null);
         alert.setContentText(massage);
