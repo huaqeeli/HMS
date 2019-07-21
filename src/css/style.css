@@ -69,6 +69,9 @@
 .table-view:focused{
     -fx-background-color: transparent;
 }
+.bordercolor{
+    -fx-border-color: linear-gradient(#ab7503, #fdd889);
+}
 
 /* Spaltenköpfe
     Struktur column-header-background -> column-header */
@@ -76,7 +79,7 @@
 .table-view .column-header {
     /*-fx-background-color: #117E88;*/
     /*-fx-background-color: linear-gradient(#117E88, #d1d9dc);*/
-    -fx-background-color: linear-gradient(#FBB115, #FBB115);
+    -fx-background-color: linear-gradient(#138e9a, #17afbe);
     -fx-border-color:#FFFFFF;
 }
 

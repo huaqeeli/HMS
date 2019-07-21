@@ -3,7 +3,7 @@ package hms.models;
 
 public class NamesDataModel {
     String militaryid,orderid,endatefrom,endateto;
-    String fo_militaryid,rank,name;
+    String fo_militaryid,rank,name,enfromdate,entodate;
 
     public NamesDataModel(String militaryid, String orderid, String endatefrom, String endateto) {
         this.militaryid = militaryid;
@@ -17,6 +17,32 @@ public class NamesDataModel {
         this.rank = rank;
         this.name = name;
     }
+
+    public NamesDataModel(String fo_militaryid, String rank, String name, String enfromdate, String entodate) {
+        this.fo_militaryid = fo_militaryid;
+        this.rank = rank;
+        this.name = name;
+        this.enfromdate = enfromdate;
+        this.entodate = entodate;
+    }
+
+    public String getEnfromdate() {
+        return enfromdate;
+    }
+
+    public void setEnfromdate(String enfromdate) {
+        this.enfromdate = enfromdate;
+    }
+
+    public String getEntodate() {
+        return entodate;
+    }
+
+    public void setEntodate(String entodate) {
+        this.entodate = entodate;
+    }
+    
+    
 
     public String getFo_militaryid() {
         return fo_militaryid;
