@@ -21,6 +21,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1211.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.FXMLDocumentController">
@@ -567,6 +568,7 @@
                                              </children>
                                           </HBox>
                                           <Label fx:id="massage" layoutX="53.0" layoutY="52.0" prefHeight="42.0" prefWidth="237.0" />
+                                          <VBox fx:id="messages" alignment="TOP_RIGHT" layoutX="28.0" layoutY="25.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="148.0" prefWidth="359.0" />
                                        </children>
                                     </Pane>
                                  </children>

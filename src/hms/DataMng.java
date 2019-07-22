@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
@@ -27,6 +29,17 @@ public class DataMng {
             }
             con.close();
             psm.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    public static void updat(String tapleName, String fildName, String condition) {
+        Connection con = DatabaseConnector.dbConnector();
+        String guiry = "UPDATE " + tapleName + " SET " + fildName + " WHERE" + condition;
+        try {
+            PreparedStatement psm = con.prepareStatement(guiry);
+            psm.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -58,8 +71,6 @@ public class DataMng {
         return rs;
     }
 
-    
-
     public static boolean checkEmpty(String text) {
         boolean state = false;
         if (text.isEmpty()) {
@@ -69,13 +80,13 @@ public class DataMng {
         }
         return state;
     }
-    public static void showAlert(String titel,String massage) {
+
+    public static void showAlert(String titel, String massage) {
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle(titel);
         alert.setHeaderText(null);
         alert.setContentText(massage);
         alert.showAndWait();
     }
-    
-   
+
 }

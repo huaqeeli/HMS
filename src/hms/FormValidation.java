@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
@@ -24,6 +25,28 @@ public class FormValidation {
     public static boolean textFieldNotEmpty(TextField t, String validationmassage) {
         boolean state = true;
         if (!textFieldNotEmpty(t)) {
+            state = false;
+            t.setPromptText(validationmassage);
+            t.setStyle(" -fx-border-color: #DC4D41; -fx-background-color:#F8DCDA");
+        } else {
+            t.setStyle(" -fx-border-color: #117E88;-fx-background-color:#FFFFFF");
+        }
+        
+        return state;
+    }
+    public static boolean comboBoxNotEmpty(ComboBox t) {
+        boolean state = false;
+        
+        if (t.getValue()!= null && !t.getValue().equals("")) {
+            state = true;
+        }
+        
+        return state;
+    }
+    
+    public static boolean comboBoxNotEmpty(ComboBox t, String validationmassage) {
+        boolean state = true;
+        if (!comboBoxNotEmpty(t)) {
             state = false;
             t.setPromptText(validationmassage);
             t.setStyle(" -fx-border-color: #DC4D41; -fx-background-color:#F8DCDA");

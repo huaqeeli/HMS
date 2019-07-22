@@ -25,12 +25,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Administrator
- */
 public class FXMLDocumentController implements Initializable {
 
     @FXML
@@ -169,8 +166,6 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<?, ?> ch_en_fromdate_col;
     @FXML
     private TableColumn<?, ?> ch_en_todate_col;
-    @FXML
-    private Label massage;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -208,16 +203,32 @@ public class FXMLDocumentController implements Initializable {
         En_addName.setVisible(false);
     }
 
-    private void OpenAction(ActionEvent event) {
-        Stage stage = null;
-        Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXML.fxml"));
+    private int getDateDifference() {
+        int d1 = Integer.parseInt(fromDateday.getValue());
+        int m1 = Integer.parseInt(fromDatemonth.getValue());
+        int y1 = Integer.parseInt(fromDateyear.getValue());
+        int d2 = Integer.parseInt(toDateday.getValue());
+        int m2 = Integer.parseInt(toDatemonth.getValue());
+        int y2 = Integer.parseInt(toDateyear.getValue());
+        int diffDays = d2 - d1;
+        int diffMonths = m2 - m1;
+        int diffYears = y2 - y1;
+
+        int difference = diffDays + (diffMonths * 30) + (diffYears * 360);
+
+        return difference;
+    }
+
+    private void increaseBalance(String id) {
+        ResultSet rs = DataMng.getDataWithCondition("mandate_balance", "`BALANCE`", "`MILITARYID` = '" + id + "'");
+        int balance = 0;
         try {
-            root = (Parent) fxmlLoader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException ex) {
+            if (rs.next()) {
+                balance = rs.getInt("BALANCE");
+            }
+            balance = balance - getDateDifference();
+            DataMng.updat("mandate_balance", "`BALANCE` = '" + balance + "'", "`MILITARYID` = '" + id + "'");
+        } catch (SQLException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -234,9 +245,12 @@ public class FXMLDocumentController implements Initializable {
         boolean orderidstate = FormValidation.textFieldNotEmpty(orderid, "  ادخل رقم الطب ارقام فقط");
         boolean enfromstate = FormValidation.textFieldNotEmpty(enfrom, " ادخل الجهة المنتدب منها");
         boolean entostate = FormValidation.textFieldNotEmpty(ento, " ادخل الجهة المنتدب لها");
+        boolean placestate = FormValidation.comboBoxNotEmpty(PlaceOfAssignment, " اختر مكان الانتداب");
+        boolean militarytaypstate = FormValidation.comboBoxNotEmpty(militarytayp, " اختر نوع المستفيد");
+        boolean entaypstate = FormValidation.comboBoxNotEmpty(entayp, " اختر مكان الانتداب");
         boolean orderidUnique = FormValidation.unique("entdabat", "`ORDERID`", "`ORDERID` = '" + data[0] + "'AND `ENDATEFROM`='" + data[4] + "' AND `ENDATETO` = '" + data[5] + "'", "تم ادخال الطلب مسبقا الرجاء التاجد من رقم الطلب");
 
-        if (numberOnly && orderidUnique && orderidstate && enfromstate && entostate) {
+        if (numberOnly && orderidUnique && orderidstate && enfromstate && entostate && placestate && militarytaypstate && entaypstate) {
             DataMng.insert("entdabat", fieldName, valuenumbers, data);
             refreshEnTable();
         }
@@ -255,6 +269,7 @@ public class FXMLDocumentController implements Initializable {
         if (orderidstate && orderidUnique) {
             DataMng.insert(tableName, fieldName, valuenumbers, data);
             nameTableViewData();
+            increaseBalance(name_militaryid.getText());
             name_militaryid.setText("");
         }
     }
@@ -279,23 +294,20 @@ public class FXMLDocumentController implements Initializable {
     private void chackData(ActionEvent event) {
         String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
         String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
-
-        boolean orderidUnique = FormValidation.unique("namesdata", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية" + "\n" + "رسالة ثانية");
-        boolean trainingUnique = FormValidation.unique("training", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `COURSESTARTDATE` >='" + fromDate + "' AND `COURSENDDATE` <= '" + toDate + "'", "لديه دورة  خلال فترة الانتداب الحالية" + "\n" + "رسالة ثانية");
-
+        boolean orderidUnique = FormValidation.unique("namesdata", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");
+        boolean trainingUnique = FormValidation.unique("training", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `COURSESTARTDATE` >='" + fromDate + "' AND `COURSENDDATE` <= '" + toDate + "'", "لديه دورة  خلال فترة الانتداب الحالية");
         if (orderidUnique && trainingUnique) {
             chackTableViewData(fromDate, toDate);
+            ch_mailitraynum.setText("");
         }
     }
-
-    
 
     private void chackData() {
         String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
         String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
-       
-        boolean orderidUnique = FormValidation.unique("namesdata", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية" + "\n" + "رسالة ثانية");
-        boolean trainingUnique = FormValidation.unique("training", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `COURSESTARTDATE` >='" + fromDate + "' AND `COURSENDDATE` <= '" + toDate + "'", "لديه دورة  خلال فترة الانتداب الحالية" + "\n" + "رسالة ثانية");
+
+        boolean orderidUnique = FormValidation.unique("namesdata", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");
+        boolean trainingUnique = FormValidation.unique("training", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `COURSESTARTDATE` >='" + fromDate + "' AND `COURSENDDATE` <= '" + toDate + "'", "لديه دورة  خلال فترة الانتداب الحالية");
 
         if (orderidUnique && trainingUnique) {
             chackTableViewData(fromDate, toDate);
@@ -341,13 +353,15 @@ public class FXMLDocumentController implements Initializable {
         ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
         try {
             while (rs.next()) {
-                chacktablelist.add(new NamesDataModel(
-                        rs.getString("MILITARYID"),
-                        rs.getString("RANK"),
-                        rs.getString("NAME"),
-                        date1,
-                        date2
-                ));
+                NamesDataModel model = new NamesDataModel(rs.getString("MILITARYID"), rs.getString("RANK"), rs.getString("NAME"),date1,date2);
+                
+                boolean ch = chacktablelist.contains(ch_mailitraynum.getText());
+                System.out.println(ch);
+                if(ch){
+                 FormValidation.showAlert("تحقق", "تم ادخال الاسم مسبقا");
+                }else{
+                chacktablelist.add(model);
+                }
             }
             rs.close();
         } catch (SQLException ex) {
@@ -358,7 +372,7 @@ public class FXMLDocumentController implements Initializable {
         ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
         ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
         ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
-
+        
         chacktable.setItems(chacktablelist);
     }
 
@@ -481,7 +495,7 @@ public class FXMLDocumentController implements Initializable {
         ch_mailitraynum.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                chackTableViewData(setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue()),  setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue()));
+                chackData();
                 ch_mailitraynum.setText("");
             }
         });
