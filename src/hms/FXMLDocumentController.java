@@ -302,7 +302,7 @@ public class FXMLDocumentController implements Initializable {
         boolean orderidUnique = FormValidation.unique("namesdata", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");
 //        boolean trainingUnique = FormValidation.unique("training", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `COURSESTARTDATE` >='" + fromDate + "' AND `COURSENDDATE` <= '" + toDate + "'", "لديه دورة  خلال فترة الانتداب الحالية");
 
-        if (orderidUnique ) {
+        if (orderidUnique) {
             chackTableViewData(fromDate, toDate);
         }
     }
@@ -341,33 +341,38 @@ public class FXMLDocumentController implements Initializable {
 
         names_table.setItems(nametablelist);
     }
-    
-    FilteredList<NamesDataModel> filterid = new FilteredList<>(chacktablelist , e->true);
-    
+
+    FilteredList<NamesDataModel> filterid = new FilteredList<>(chacktablelist, e -> true);
 
     private void chackTableViewData(String date1, String date2) {
         ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
         try {
             while (rs.next()) {
-                NamesDataModel model = new NamesDataModel(rs.getString("MILITARYID"), rs.getString("RANK"), rs.getString("NAME"),date1,date2);
+                NamesDataModel model = new NamesDataModel(rs.getString("MILITARYID"), rs.getString("RANK"), rs.getString("NAME"), date1, date2);
                 
-               
-                   ch_mailitraynum.textProperty().addListener((observableValue,oldValue,newValue)->{
-                       filterid.setPredicate((Predicate<? super NamesDataModel>) namesDataModel->{
-                        if(newValue == null || newValue.isEmpty()){
-                        return true;
-                        }
-                        if(namesDataModel.getFo_militaryid().contains(newValue)){
-                            FormValidation.showAlert("تحقق", "تم ادخال الاسم مسبقا");
+
+               chacktablelist.add(model);
+
+//               ch_mailitraynum.setOnKeyPressed(e ->{
+//                   ch_mailitraynum.textProperty().addListener((observableValue,oldValue,newValue)->{
+//                       filterid.setPredicate((Predicate<? super NamesDataModel>) namesDataModel->{
+//                        if(newValue == null || newValue.isEmpty()){
+//                        return true;
+//                        }
+//                        if(namesDataModel.getFo_militaryid().contains(newValue)){
+//                            FormValidation.showAlert("تحقق", "تم ادخال الاسم مسبقا");
 //                          return true;
-                        }else
-                           chacktablelist.add(model);
-                          return false;
-                        
-                       });
-                   });
-                   
-               
+//                        }else
+//                            FormValidation.showAlert("تحقق", "مافيه فايده");
+//                           
+//                          return false;
+//                        
+//                       });
+//                       
+//                       FormValidation.showAlert("تحقق", "مافيه فايده ههههههههههههههه");
+//                   });
+//                   });
+//               
             }
             rs.close();
         } catch (SQLException ex) {
@@ -378,7 +383,7 @@ public class FXMLDocumentController implements Initializable {
         ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
         ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
         ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
-        
+
         chacktable.setItems(chacktablelist);
     }
 

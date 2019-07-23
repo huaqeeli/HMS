@@ -1,9 +1,13 @@
 package hms;
 
+import hms.models.NamesDataModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.function.Predicate;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -43,6 +47,7 @@ public class FormValidation {
         
         return state;
     }
+   
     
     public static boolean comboBoxNotEmpty(ComboBox t, String validationmassage) {
         boolean state = true;
