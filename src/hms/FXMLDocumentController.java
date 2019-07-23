@@ -2,31 +2,24 @@ package hms;
 
 import hms.models.EnDataModel;
 import hms.models.NamesDataModel;
-import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class FXMLDocumentController implements Initializable {
 
@@ -307,9 +300,9 @@ public class FXMLDocumentController implements Initializable {
         String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
 
         boolean orderidUnique = FormValidation.unique("namesdata", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");
-        boolean trainingUnique = FormValidation.unique("training", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `COURSESTARTDATE` >='" + fromDate + "' AND `COURSENDDATE` <= '" + toDate + "'", "لديه دورة  خلال فترة الانتداب الحالية");
+//        boolean trainingUnique = FormValidation.unique("training", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `COURSESTARTDATE` >='" + fromDate + "' AND `COURSENDDATE` <= '" + toDate + "'", "لديه دورة  خلال فترة الانتداب الحالية");
 
-        if (orderidUnique && trainingUnique) {
+        if (orderidUnique ) {
             chackTableViewData(fromDate, toDate);
         }
     }
@@ -348,6 +341,9 @@ public class FXMLDocumentController implements Initializable {
 
         names_table.setItems(nametablelist);
     }
+    
+    FilteredList<NamesDataModel> filterid = new FilteredList<>(chacktablelist , e->true);
+    
 
     private void chackTableViewData(String date1, String date2) {
         ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
@@ -355,13 +351,23 @@ public class FXMLDocumentController implements Initializable {
             while (rs.next()) {
                 NamesDataModel model = new NamesDataModel(rs.getString("MILITARYID"), rs.getString("RANK"), rs.getString("NAME"),date1,date2);
                 
-                boolean ch = chacktablelist.contains(ch_mailitraynum.getText());
-                System.out.println(ch);
-                if(ch){
-                 FormValidation.showAlert("تحقق", "تم ادخال الاسم مسبقا");
-                }else{
-                chacktablelist.add(model);
-                }
+               
+                   ch_mailitraynum.textProperty().addListener((observableValue,oldValue,newValue)->{
+                       filterid.setPredicate((Predicate<? super NamesDataModel>) namesDataModel->{
+                        if(newValue == null || newValue.isEmpty()){
+                        return true;
+                        }
+                        if(namesDataModel.getFo_militaryid().contains(newValue)){
+                            FormValidation.showAlert("تحقق", "تم ادخال الاسم مسبقا");
+//                          return true;
+                        }else
+                           chacktablelist.add(model);
+                          return false;
+                        
+                       });
+                   });
+                   
+               
             }
             rs.close();
         } catch (SQLException ex) {
