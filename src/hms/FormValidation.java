@@ -118,7 +118,7 @@ public class FormValidation {
     }
     
     public static boolean unique(String tapleName, String fildName, String condition, String validationmassage) {
-        boolean state = true;
+        boolean state = false;
         ResultSet rs = null;
         String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
         Connection con = DatabaseConnector.dbConnector();
@@ -126,7 +126,7 @@ public class FormValidation {
             PreparedStatement psm = con.prepareStatement(guiry);
             rs = psm.executeQuery();
             if (rs.next()) {
-                state = false;
+                state = true;
                 showAlert("التحقق من التكرار", validationmassage);
             }
         } catch (SQLException ex) {
@@ -134,5 +134,11 @@ public class FormValidation {
         }
         
         return state;
+    }
+    
+    public static String creatList(int lastnumber){
+      String newList = null;
+      newList =Integer.toString(lastnumber + 1)  ;
+        return newList;
     }
 }

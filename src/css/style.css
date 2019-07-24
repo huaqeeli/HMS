@@ -15,7 +15,16 @@
 .tab-pane .tab-header-area .tab-header-background {
     -fx-opacity: 0;
 }
+.exclButton{
+    -fx-background-color: linear-gradient(#138e9a, #17afbe);
+}
 
+.listLable{
+   -fx-background-color:#565656;  
+   /*-fx-background-color: linear-gradient(#e0f9fb, #0c555b);*/  
+   -fx-text-fill: #22d3e2;
+   -fx-font-size: 25px;
+}
 .tab-pane
 {
     -fx-tab-min-width:8em;
@@ -184,25 +193,31 @@
     -fx-padding: 0;
 }
 
-.combo-box-base:hover
-{
-    -fx-color: -fx-hover-base;
-}
+
 
 .combo-box-base:showing 
 {
     -fx-color: -fx-pressed-base;
 }
 
-.combo-box-base:focused {
-    -fx-background-color: -fx-focus-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
-    -fx-background-radius: 6.4, 4, 5, 3;
-    -fx-background-insets: -1.4, 0, 1, 2;
-}
+
 
 .combo-box-base:disabled {
     -fx-opacity: .4;
 }*/
+.combo-box-base{
+    -fx-background-color:#ffffff;
+    -fx-border-color : #117E88;
+}
+.combo-box-base:focused {
+    -fx-background-color: linear-gradient(#DDECED, #d1d9dc);
+/*    -fx-background-radius: 6.4, 4, 5, 3;
+    -fx-background-insets: -1.4, 0, 1, 2;*/
+}
+.combo-box-base:hover
+{
+    -fx-color: -fx-hover-base;
+}
 .titled-pane 
 {
     -fx-skin: "com.sun.javafx.scene.control.skin.TitledPaneSkin";    
