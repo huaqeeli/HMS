@@ -302,8 +302,8 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="ch_mailitraynum1" alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" />
-                                    <TextField fx:id="ch_mailitraynum11" alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="3" />
+                                    <TextField fx:id="ch_enfrom" alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" />
+                                    <TextField fx:id="ch_ento" alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="3" />
                                     <Label contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="182.0" styleClass="appfont" text="تاريخ بداية الانتداب:" textFill="#117e88" GridPane.rowIndex="1">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
@@ -362,13 +362,20 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                                  <columns>
-                                    <TableColumn fx:id="ch_mailitraynum_col" minWidth="100.0" prefWidth="108.0" text="الرقم العسكري" />
+                                    <TableColumn fx:id="ch_mailitraynum_col" minWidth="125.0" prefWidth="112.0" text="الرقم العسكري" />
                                     <TableColumn fx:id="ch_rank_col" minWidth="100.0" prefWidth="112.0" text="الرتبة" />
-                                    <TableColumn fx:id="ch_name_col" minWidth="250.0" prefWidth="250.0" text="الاسم " />
+                                    <TableColumn fx:id="ch_name_col" minWidth="240.0" prefWidth="240.0" text="الاسم " />
+                                    <TableColumn minWidth="150.0" prefWidth="120.0" text="جهة الانتداب">
+                                       <columns>
+                                          <TableColumn fx:id="ch_en_from_col" minWidth="150.0" prefWidth="120.0" text=" من" />
+                                          <TableColumn fx:id="ch_en_to_col" minWidth="150.0" prefWidth="120.0" text=" الى" />
+                                       </columns>
+                                    </TableColumn>
                                     <TableColumn fx:id="ch_en_fromdate_col" minWidth="150.0" prefWidth="120.0" text="تاريخ بداية الانتداب" />
                                     <TableColumn fx:id="ch_en_todate_col" minWidth="150.0" prefWidth="120.0" text="تاريخ نهاية الانتداب" />
                                  </columns>
                               </TableView>
+                              <ComboBox fx:id="ch_list_combobox" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="300.0" styleClass="appfont" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
                               <Button mnemonicParsing="false" onAction="#creatNewList" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #22d3e2;" styleClass="appfont" text="انشاء قائمة اسماء" textFill="#565656" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="120.0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
@@ -380,6 +387,19 @@
                                     <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/119_Excel_logo_logos-128.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="appfont" />
+                                    <String fx:value="exclButton" />
+                                 </styleClass>
+                              </Button>
+                              <Button layoutX="926.0" layoutY="728.0" mnemonicParsing="false" onAction="#entedabOpenAction" prefHeight="72.0" prefWidth="182.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="315.0">
+                                 <graphic>
+                                    <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/opendataicon.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>

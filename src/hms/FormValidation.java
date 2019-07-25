@@ -1,16 +1,11 @@
 package hms;
 
-import hms.models.NamesDataModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.function.Predicate;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 
@@ -118,7 +113,7 @@ public class FormValidation {
     }
     
     public static boolean unique(String tapleName, String fildName, String condition, String validationmassage) {
-        boolean state = false;
+        boolean state = true;
         ResultSet rs = null;
         String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
         Connection con = DatabaseConnector.dbConnector();
@@ -126,7 +121,7 @@ public class FormValidation {
             PreparedStatement psm = con.prepareStatement(guiry);
             rs = psm.executeQuery();
             if (rs.next()) {
-                state = true;
+                state = false;
                 showAlert("التحقق من التكرار", validationmassage);
             }
         } catch (SQLException ex) {

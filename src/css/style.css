@@ -16,7 +16,7 @@
     -fx-opacity: 0;
 }
 .exclButton{
-    -fx-background-color: linear-gradient(#138e9a, #17afbe);
+    -fx-background-color: linear-gradient(#565656, #5d737b);
 }
 
 .listLable{

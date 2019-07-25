@@ -67,6 +67,19 @@ public class DataMng {
         }
         return rs;
     }
+    
+    public static ResultSet getDataJoinTable(String firstTaple,String secondTaple, String fildName, String condition) {
+        ResultSet rs = null;
+        String guiry = "SELECT " + fildName + " FROM " + firstTaple + "," + secondTaple + "WHERE" + condition;
+        Connection con = DatabaseConnector.dbConnector();
+        try {
+            PreparedStatement psm = con.prepareStatement(guiry);
+            rs = psm.executeQuery();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return rs;
+    }
 
     public static boolean checkEmpty(String text) {
         boolean state = false;

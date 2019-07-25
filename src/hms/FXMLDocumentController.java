@@ -160,14 +160,21 @@ public class FXMLDocumentController implements Initializable {
     ObservableList<EnDataModel> tablelist = FXCollections.observableArrayList();
     ObservableList<NamesDataModel> nametablelist = FXCollections.observableArrayList();
     ObservableList<NamesDataModel> chacktablelist = FXCollections.observableArrayList();
-    @FXML
-    private TextField ch_mailitraynum1;
-    @FXML
-    private TextField ch_mailitraynum11;
+    ObservableList<String> ch_comboBoxlist = FXCollections.observableArrayList();
     @FXML
     private Label listnumber;
     @FXML
     private Button ch_en_button;
+    @FXML
+    private TextField ch_enfrom;
+    @FXML
+    private TextField ch_ento;
+    @FXML
+    private TableColumn<?, ?> ch_en_from_col;
+    @FXML
+    private TableColumn<?, ?> ch_en_to_col;
+    @FXML
+    private ComboBox<String> ch_list_combobox;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -290,7 +297,6 @@ public class FXMLDocumentController implements Initializable {
         if (orderidstate && orderidUnique&&numberOnly) {
             DataMng.insert(tableName, fieldName, valuenumbers, data);
             nameTableViewData();
-            name_militaryid.setText("");
         }
     }
 
@@ -304,6 +310,8 @@ public class FXMLDocumentController implements Initializable {
             }
             String newListNumber = FormValidation.creatList(lastNumber);
             listnumber.setText(newListNumber);
+            ch_comboBoxlist.clear();
+            ch_list_combobox.setItems(fillListCombobox(ch_comboBoxlist));
             ch_mailitraynum.setDisable(false);
             ch_en_button.setDisable(false);
             DataMng.updat("`lists`", "`LISTID` = '"+Integer.parseInt(newListNumber)+"' ", "`LISTID`= '"+lastNumber+"'");
@@ -312,16 +320,23 @@ public class FXMLDocumentController implements Initializable {
         }
         
     }
+   
     @FXML
     private void chackData(ActionEvent event) {
         String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
         String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
+        String tableName = "nameslist";
+        String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
+        String[] data = {ch_mailitraynum.getText(), listnumber.getText(),ch_enfrom.getText(),ch_ento.getText(),fromDate,toDate};
+        String valuenumbers = "?,?,?,?,?,?";
         
         boolean orderidUnique = FormValidation.unique("namesdata", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");
         boolean trainingUnique = FormValidation.unique("training", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `COURSESTARTDATE` >='" + fromDate + "' AND `COURSENDDATE` <= '" + toDate + "'", "لديه دورة  خلال فترة الانتداب الحالية");
+        boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '"+listnumber.getText()+"'", "تم ادراج الاسم في القائمة مسبقا");
         
-        if (orderidUnique && trainingUnique) {
-            chackTableViewData(fromDate, toDate);
+        if (orderidUnique && trainingUnique&& militaryidUnique) {
+            DataMng.insert(tableName, fieldName, valuenumbers, data);
+            chackTableViewData();
             ch_mailitraynum.setText("");
         }
     }
@@ -329,12 +344,18 @@ public class FXMLDocumentController implements Initializable {
     private void chackData() {
         String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
         String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
-
+        String tableName = "nameslist";
+        String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
+        String[] data = {ch_mailitraynum.getText(), listnumber.getText(),ch_enfrom.getText(),ch_ento.getText(),fromDate,toDate};
+        String valuenumbers = "?,?,?,?,?,?";
+        
         boolean orderidUnique = FormValidation.unique("namesdata", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");
         boolean trainingUnique = FormValidation.unique("training", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `COURSESTARTDATE` >='" + fromDate + "' AND `COURSENDDATE` <= '" + toDate + "'", "لديه دورة  خلال فترة الانتداب الحالية");
-
-        if (orderidUnique && trainingUnique) {
-            chackTableViewData(fromDate, toDate);
+        boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '"+listnumber.getText()+"'", "تم ادراج الاسم في القائمة مسبقا");
+        
+        if (orderidUnique && trainingUnique && militaryidUnique) {
+            DataMng.insert(tableName, fieldName, valuenumbers, data);
+            chackTableViewData();
         }
     }
 
@@ -373,24 +394,31 @@ public class FXMLDocumentController implements Initializable {
         names_table.setItems(nametablelist);
     }
 
-    private void chackTableViewData(String date1, String date2) {
+    private void chackTableViewData() {
         ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
+        ResultSet rss = DataMng.getDataWithCondition("nameslist", "`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'AND `LISTNUMBER` = '"+listnumber.getText()+"'");
         try {
-            while (rs.next()) {
+            while (rs.next() && rss.next()) {
                 chacktablelist.add(new NamesDataModel(
                         rs.getString("MILITARYID"),
                         rs.getString("RANK"),
                         rs.getString("NAME"),
-                        date1, date2
+                        rss.getString("ENFROM"),
+                        rss.getString("ENTO"),
+                        rss.getDate("ENDATEFROM").toString(),
+                        rss.getDate("ENDATETO").toString()
                 ));
             }
             rs.close();
+            rss.close();
         } catch (SQLException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
         ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
         ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
         ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        ch_en_from_col.setCellValueFactory(new PropertyValueFactory<>("enfrom"));
+        ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
         ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
         ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
 
@@ -458,6 +486,19 @@ public class FXMLDocumentController implements Initializable {
         }
         return yarelist;
     }
+    
+    private ObservableList fillListCombobox(ObservableList list) {
+        ResultSet rs = DataMng.getAllData("nameslist");
+        try {
+            while (rs.next()) {
+                list.add(rs.getString("LISTNUMBER"));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -494,6 +535,8 @@ public class FXMLDocumentController implements Initializable {
         ch_en_todateday.setValue(Integer.toString(HijriCalendar.getSimpleDay()));
         ch_en_todatemonth.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
         ch_en_todateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
+        
+        ch_list_combobox.setItems(fillListCombobox(ch_comboBoxlist));
 
         enTableViewData();
         mainePageOpenAction();
@@ -510,7 +553,7 @@ public class FXMLDocumentController implements Initializable {
             @Override
             public void handle(Event event) {
                 insertName();
-                name_militaryid.setText("");
+                 name_militaryid.setText("");
             }
         });
         ch_mailitraynum.setOnAction(new EventHandler() {
