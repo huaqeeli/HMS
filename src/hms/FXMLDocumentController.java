@@ -6,12 +6,10 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -20,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 public class FXMLDocumentController implements Initializable {
 
@@ -66,7 +65,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button save;
     @FXML
-    private TextField orderid;
+    public static TextField orderid;
     @FXML
     private TextField enfrom;
     @FXML
@@ -101,6 +100,10 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<EnDataModel, String> en_militarytype_col;
     @FXML
     private TableColumn<EnDataModel, String> en_type_col;
+    @FXML
+    private TableColumn<EnDataModel, String> en_update_col;
+    @FXML
+    private TableColumn<EnDataModel, String> en_delete_col;
 
     @FXML
     private AnchorPane En_addName;
@@ -164,6 +167,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label listnumber;
     @FXML
+    public static Pane en_editPage;
+    @FXML
     private Button ch_en_button;
     @FXML
     private TextField ch_enfrom;
@@ -210,6 +215,11 @@ public class FXMLDocumentController implements Initializable {
         EntedabPage.setVisible(false);
         TshkelPage.setVisible(true);
         En_addName.setVisible(false);
+    }
+    @FXML
+    public static void openEditPage() {
+        en_editPage.setVisible(false);
+//        FormValidation.showAlert("", "تم العمل");
     }
 
     private int getDateDifference() {
@@ -359,7 +369,7 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-    private String setDate(String day, String month, String year) {
+    public static String setDate(String day, String month, String year) {
         String date = year + "-" + month + "-" + day;
         return date;
     }
@@ -454,6 +464,10 @@ public class FXMLDocumentController implements Initializable {
         en_plase_col.setCellValueFactory(new PropertyValueFactory<>("enplase"));
         en_militarytype_col.setCellValueFactory(new PropertyValueFactory<>("militarytype"));
         en_type_col.setCellValueFactory(new PropertyValueFactory<>("entype"));
+        en_update_col.setCellValueFactory(new PropertyValueFactory<>("updateBut"));
+        en_delete_col.setCellValueFactory(new PropertyValueFactory<>("deletBut"));
+        
+        
 
         en_table.setItems(tablelist);
     }
@@ -536,7 +550,7 @@ public class FXMLDocumentController implements Initializable {
         ch_en_todatemonth.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
         ch_en_todateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
         
-        ch_list_combobox.setItems(fillListCombobox(ch_comboBoxlist));
+//        ch_list_combobox.setItems(fillListCombobox(ch_comboBoxlist));
 
         enTableViewData();
         mainePageOpenAction();
