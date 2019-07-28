@@ -234,7 +234,7 @@
 .titled-pane > .title 
 {
     /*-fx-background-color: #117E88;*/
-    -fx-background-color: linear-gradient(#117E88, #D2E4E6);
+    -fx-background-color: linear-gradient(#596367, #748187);
     -fx-background-insets: 0, 1, 2;
     /*-fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;*/
     -fx-padding: 10px;
@@ -278,4 +278,22 @@
 .titled-pane:focused > .title > .arrow-button .arrow 
 {
     -fx-background-color: white;
+}
+.check-box .box {
+
+-fx-background-color:#FFFFFF ;
+-fx-border-color:#005258;
+-fx-border-radius:4px; 
+
+}
+
+.check-box:selected .mark {
+
+-fx-background-color: #005258;
+
+}
+
+.check-box:selected .box {
+
+-fx-background-color: #00c0ce;
 }

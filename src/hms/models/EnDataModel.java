@@ -8,11 +8,11 @@ import javafx.scene.image.ImageView;
 public class EnDataModel {
 
     String orderid, orderdate, enfrom, ento, endatefrom, endateto, enplase, militarytype, entype;
-    Button updateBut;
-    Button deletBut;
-
-    ImageView update = new ImageView("images/editeicon.png");
-    ImageView delete = new ImageView("images/deleteicon.png");
+//    Button updateBut;
+//    Button deletBut;
+//
+//    ImageView update = new ImageView("images/editeicon.png");
+//    ImageView delete = new ImageView("images/deleteicon.png");
 
     public EnDataModel(String orderid, String orderdate, String enfrom, String ento, String endatefrom, String endateto, String enplase, String militarytype, String entype) {
         this.orderid = orderid;
@@ -24,24 +24,24 @@ public class EnDataModel {
         this.enplase = enplase;
         this.militarytype = militarytype;
         this.entype = entype;
-        this.updateBut = new Button();
-        this.deletBut = new Button();
-
-        updateBut.setOnAction(e -> {
-           
-//            en_editPage.setVisible(true);
-        });
-
-        updateBut.setGraphic(update);
-        updateBut.setStyle("-fx-background-color: #5B6B71;");
-
-        deletBut.setOnAction(e -> {
-            System.out.print("delete");
-
-        });
-
-        deletBut.setGraphic(delete);
-        deletBut.setStyle("-fx-background-color: #5B6B71;");
+//        this.updateBut = new Button();
+//        this.deletBut = new Button();
+//
+//        updateBut.setOnAction(e -> {
+//           
+////            en_editPage.setVisible(true);
+//        });
+//
+//        updateBut.setGraphic(update);
+//        updateBut.setStyle("-fx-background-color: #5B6B71;");
+//
+//        deletBut.setOnAction(e -> {
+//            System.out.print("delete");
+//
+//        });
+//
+//        deletBut.setGraphic(delete);
+//        deletBut.setStyle("-fx-background-color: #5B6B71;");
     }
 
     public String getOrderid() {
@@ -116,20 +116,20 @@ public class EnDataModel {
         this.entype = entype;
     }
 
-    public Button getUpdateBut() {
-        return updateBut;
-    }
-
-    public void setUpdateBut(Button updateBut) {
-        this.updateBut = updateBut;
-    }
-
-    public Button getDeletBut() {
-        return deletBut;
-    }
-
-    public void setDeletBut(Button deletBut) {
-        this.deletBut = deletBut;
-    }
+//    public Button getUpdateBut() {
+//        return updateBut;
+//    }
+//
+//    public void setUpdateBut(Button updateBut) {
+//        this.updateBut = updateBut;
+//    }
+//
+//    public Button getDeletBut() {
+//        return deletBut;
+//    }
+//
+//    public void setDeletBut(Button deletBut) {
+//        this.deletBut = deletBut;
+//    }
 
 }

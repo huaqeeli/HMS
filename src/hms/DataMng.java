@@ -31,12 +31,15 @@ public class DataMng {
         }
     }
 
-    public static void updat(String tapleName, String fildName, String condition) {
+    public static void updat(String tapleName, String fildNameAndValue, String condition) {
         Connection con = DatabaseConnector.dbConnector();
-        String guiry = "UPDATE " + tapleName + " SET " + fildName + " WHERE" + condition;
+        String guiry = "UPDATE " + tapleName + " SET " + fildNameAndValue + " WHERE" + condition;
         try {
             PreparedStatement psm = con.prepareStatement(guiry);
-            psm.execute();
+            int t = psm.executeUpdate();
+            if (t > 0) {
+                 showAlert("", "تم تحديث البيانات", AlertType.INFORMATION);
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -67,8 +70,8 @@ public class DataMng {
         }
         return rs;
     }
-    
-    public static ResultSet getDataJoinTable(String firstTaple,String secondTaple, String fildName, String condition) {
+
+    public static ResultSet getDataJoinTable(String firstTaple, String secondTaple, String fildName, String condition) {
         ResultSet rs = null;
         String guiry = "SELECT " + fildName + " FROM " + firstTaple + "," + secondTaple + "WHERE" + condition;
         Connection con = DatabaseConnector.dbConnector();
@@ -90,6 +93,15 @@ public class DataMng {
         }
         return state;
     }
+
+    public static void showAlert(String titel, String massage, AlertType t) {
+        Alert alert = new Alert(t);
+        alert.setTitle(titel);
+        alert.setHeaderText(null);
+        alert.setContentText(massage);
+        alert.showAndWait();
+    }
+   
 
     public static void showAlert(String titel, String massage) {
         Alert alert = new Alert(AlertType.WARNING);
