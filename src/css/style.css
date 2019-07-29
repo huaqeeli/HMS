@@ -234,10 +234,12 @@
 .titled-pane > .title 
 {
     /*-fx-background-color: #117E88;*/
-    -fx-background-color: linear-gradient(#596367, #748187);
+    -fx-background-color: linear-gradient(#596367, #596367);
     -fx-background-insets: 0, 1, 2;
     /*-fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;*/
     -fx-padding: 10px;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #FFFFFF;
 }
 
 .titled-pane:focused > .title 

@@ -31,15 +31,30 @@ public class DataMng {
         }
     }
 
+    public static void updat(String tapleName, String fildNameAndValue,String [] data, String condition) {
+        Connection con = DatabaseConnector.dbConnector();
+        String guiry = "UPDATE " + tapleName + " SET " + fildNameAndValue + " WHERE" + condition;
+        try {
+            PreparedStatement psm = con.prepareStatement(guiry);
+            int e = data.length;
+            for (int i = 1; i <= e; i++) {
+                psm.setString(i, data[i - 1]);
+            }
+            int t = psm.executeUpdate();
+            if (t > 0) {
+                 showAlert("", "تم تحديث البيانات", AlertType.INFORMATION);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
     public static void updat(String tapleName, String fildNameAndValue, String condition) {
         Connection con = DatabaseConnector.dbConnector();
         String guiry = "UPDATE " + tapleName + " SET " + fildNameAndValue + " WHERE" + condition;
         try {
             PreparedStatement psm = con.prepareStatement(guiry);
-            int t = psm.executeUpdate();
-            if (t > 0) {
-                 showAlert("", "تم تحديث البيانات", AlertType.INFORMATION);
-            }
+            psm.executeUpdate();
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }

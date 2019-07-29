@@ -181,12 +181,12 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<?, ?> ch_en_to_col;
     @FXML
     private ComboBox<String> ch_list_combobox;
-    
+
     ImageView delete = new ImageView("images/deleteicon.png");
-    
+
     @FXML
     private ComboBox<?> en_ordertype;
-    
+
     private String updatOrderId = null;
     private String updatFromDate = null;
     private String updatToDate = null;
@@ -236,12 +236,14 @@ public class FXMLDocumentController implements Initializable {
         int d2 = Integer.parseInt(toDateday.getValue());
         int m2 = Integer.parseInt(toDatemonth.getValue());
         int y2 = Integer.parseInt(toDateyear.getValue());
-        int diffDays = d2 - d1;
-        int diffMonths = m2 - m1;
-        int diffYears = y2 - y1;
+        int difference = 0;
+       
+            int diffDays = d2 - d1;
+            int diffMonths = m2 - m1;
+            int diffYears = y2 - y1;
 
-        int difference = diffDays + (diffMonths * 30) + (diffYears * 360);
-
+            difference = diffDays + (diffMonths * 30) + (diffYears * 360);
+        
         return difference;
     }
 
@@ -261,37 +263,43 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void insertData(ActionEvent event) {
+        String fromdate = setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue());
+        String todate = setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue());
         String fieldName = "`ORDERID`,`ORDERDATE`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`,`ENPLASE`,`MILITARYTAYP`,`ENTAYP`";
         String[] data = {orderid.getText(), setDate(orderdateday.getValue(), orderdatemonth.getValue(), orderdateyear.getValue()), enfrom.getText(), ento.getText(),
             setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue()),
             PlaceOfAssignment.getValue(), militarytayp.getValue(), entayp.getValue()};
         String valuenumbers = "?,?,?,?,?,?,?,?,?";
+        boolean enfromstate = FormValidation.textFieldNotEmpty(enfrom, " ادخل الجهة المنتدب منها");
 
         boolean numberOnly = FormValidation.textFieldTypeNumber(orderid, "استخدم الارقام فقط");
         boolean orderidstate = FormValidation.textFieldNotEmpty(orderid, "  ادخل رقم الطب ارقام فقط");
-        boolean enfromstate = FormValidation.textFieldNotEmpty(enfrom, " ادخل الجهة المنتدب منها");
         boolean entostate = FormValidation.textFieldNotEmpty(ento, " ادخل الجهة المنتدب لها");
         boolean placestate = FormValidation.comboBoxNotEmpty(PlaceOfAssignment, " اختر مكان الانتداب");
         boolean militarytaypstate = FormValidation.comboBoxNotEmpty(militarytayp, " اختر نوع المستفيد");
         boolean entaypstate = FormValidation.comboBoxNotEmpty(entayp, " اختر مكان الانتداب");
         boolean orderidUnique = FormValidation.unique("entdabat", "`ORDERID`", "`ORDERID` = '" + data[0] + "'AND `ENDATEFROM`='" + data[4] + "' AND `ENDATETO` = '" + data[5] + "'", "تم ادخال الطلب مسبقا الرجاء التاجد من رقم الطلب");
+        boolean toDateCheck = FormValidation.checkDate(fromdate ,todate , "تاكد من تاريخ نهاية الانتداب");
 
-        if (numberOnly && orderidUnique && orderidstate && enfromstate && entostate && placestate && militarytaypstate && entaypstate) {
+        if (numberOnly && orderidUnique && orderidstate && enfromstate && entostate && placestate && militarytaypstate && entaypstate &&toDateCheck) {
             DataMng.insert("entdabat", fieldName, valuenumbers, data);
             refreshEnTable();
         }
     }
+
     @FXML
     private void updateData(ActionEvent event) {
-        String orderdate = setDate(orderdateday.getValue(), orderdatemonth.getValue(), orderdateyear.getValue());
-        String fromdate = setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue());
-        String todate = setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue());
-        
-        String fieldNameAndValue = "`ORDERID`='"+orderid.getText()+"',`ORDERDATE`='"+orderdate+"',`ENFROM`='"+enfrom.getText()+"',"
-                + "`ENTO`='"+ento.getText()+"',`ENDATEFROM`='"+fromdate+"',`ENDATETO`'"+todate+"',`ENPLASE`='"+PlaceOfAssignment.getValue()+"',"
-                + "`MILITARYTAYP`='"+ militarytayp.getValue()+"',`ENTAYP`='"+ entayp.getValue()+"'";
-       
-       String condition = "`ORDERID` = '" +updatOrderId + "'AND `ENDATEFROM`='" + updatFromDate + "' AND `ENDATETO` = '" + updatToDate + "'";
+//        String orderdate = setDate(orderdateday.getValue(), orderdatemonth.getValue(), orderdateyear.getValue());
+//        String fromdate = setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue());
+//        String todate = setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue());
+
+        String[] data = {orderid.getText(), setDate(orderdateday.getValue(), orderdatemonth.getValue(), orderdateyear.getValue()), enfrom.getText(), ento.getText(),
+            setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue()),
+            PlaceOfAssignment.getValue(), militarytayp.getValue(), entayp.getValue()};
+
+        String fieldNameAndValue = "`ORDERID`= ?,`ORDERDATE`=?,`ENFROM`=?,`ENTO`= ?,`ENDATEFROM`=?,`ENDATETO`=?,`ENPLASE`=?,`MILITARYTAYP`= ?,`ENTAYP`= ?";
+
+        String condition = "`ORDERID` = '" + updatOrderId + "'AND `ENDATEFROM`='" + updatFromDate + "' AND `ENDATETO` = '" + updatToDate + "'";
 
         boolean numberOnly = FormValidation.textFieldTypeNumber(orderid, "استخدم الارقام فقط");
         boolean orderidstate = FormValidation.textFieldNotEmpty(orderid, "  ادخل رقم الطب ارقام فقط");
@@ -300,10 +308,9 @@ public class FXMLDocumentController implements Initializable {
         boolean placestate = FormValidation.comboBoxNotEmpty(PlaceOfAssignment, " اختر مكان الانتداب");
         boolean militarytaypstate = FormValidation.comboBoxNotEmpty(militarytayp, " اختر نوع المستفيد");
         boolean entaypstate = FormValidation.comboBoxNotEmpty(entayp, " اختر مكان الانتداب");
-        
 
-        if (numberOnly  && orderidstate && enfromstate && entostate && placestate && militarytaypstate && entaypstate) {
-            DataMng.updat("entdabat", fieldNameAndValue, condition);
+        if (numberOnly && orderidstate && enfromstate && entostate && placestate && militarytaypstate && entaypstate) {
+            DataMng.updat("entdabat", fieldNameAndValue, data, condition);
             refreshEnTable();
         }
     }
@@ -322,7 +329,9 @@ public class FXMLDocumentController implements Initializable {
         if (orderidstate && orderidUnique && numberOnly) {
             DataMng.insert(tableName, fieldName, valuenumbers, data);
             nameTableViewData();
-            increaseBalance(name_militaryid.getText());
+            if (!"صيفية".equals(entayp.getValue())) {
+                increaseBalance(name_militaryid.getText());
+            }
             name_militaryid.setText("");
         }
     }
@@ -340,6 +349,9 @@ public class FXMLDocumentController implements Initializable {
         if (orderidstate && orderidUnique && numberOnly) {
             DataMng.insert(tableName, fieldName, valuenumbers, data);
             nameTableViewData();
+            if (!"صيفية".equals(entayp.getValue())) {
+                increaseBalance(name_militaryid.getText());
+            }
         }
     }
 
@@ -526,7 +538,7 @@ public class FXMLDocumentController implements Initializable {
                                 PlaceOfAssignment.setValue(m.getEnplase());
                                 militarytayp.setValue(m.getMilitarytype());
                                 entayp.setValue(m.getEntype());
-                                updatOrderId=m.getOrderid();
+                                updatOrderId = m.getOrderid();
                                 updatFromDate = m.getEndatefrom();
                                 updatToDate = m.getEndateto();
                             } else {
@@ -536,7 +548,8 @@ public class FXMLDocumentController implements Initializable {
                         setGraphic(chbox);
                         setText(null);
                     }
-                };
+                }
+            ;
             };
             return cell;
         };
