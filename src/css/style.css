@@ -207,19 +207,35 @@
 .combo-box-base:disabled {
     -fx-opacity: .4;
 }*/
-.combo-box-base{
-    -fx-background-color:#ffffff;
-    -fx-border-color : #117E88;
+
+.search.combo-box-base{
+    -fx-background-color:#D9DBDC;
+     -fx-text-fill: #20C9D7;
+/*    -fx-border-color : #117E88;*/
 }
-.combo-box-base:focused {
+.search.combo-box-base:focused {
     -fx-background-color: linear-gradient(#DDECED, #d1d9dc);
-/*    -fx-background-radius: 6.4, 4, 5, 3;
-    -fx-background-insets: -1.4, 0, 1, 2;*/
+    -fx-background-radius: 6.4, 4, 5, 3;
+    -fx-background-insets: -1.4, 0, 1, 2;
 }
-.combo-box-base:hover
+.search.combo-box-base:hover
 {
     -fx-color: -fx-hover-base;
 }
+.comboStyle.combo-box-base{
+    -fx-background-color:#ffffff;
+    -fx-border-color : #117E88;
+}
+.comboStyle.combo-box-base:focused {
+    -fx-background-color: linear-gradient(#DDECED, #d1d9dc);
+    -fx-background-radius: 6.4, 4, 5, 3;
+    -fx-background-insets: -1.4, 0, 1, 2;
+}
+.comboStyle.combo-box-base:hover
+{
+    -fx-color: -fx-hover-base;
+}
+
 .titled-pane 
 {
     -fx-skin: "com.sun.javafx.scene.control.skin.TitledPaneSkin";    

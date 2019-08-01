@@ -316,24 +316,48 @@
                                     </Label>
                                     <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <children>
-                                          <ComboBox fx:id="ch_en_fromdateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="appfont">
+                                          <ComboBox fx:id="ch_en_fromdateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
                                           </ComboBox>
-                                          <ComboBox fx:id="ch_en_fromdatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="appfont">
+                                          <ComboBox fx:id="ch_en_fromdatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
                                           </ComboBox>
-                                          <ComboBox fx:id="ch_en_fromdateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="appfont" />
+                                          <ComboBox fx:id="ch_en_fromdateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass></ComboBox>
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                        <children>
-                                          <ComboBox fx:id="ch_en_todateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="appfont" />
-                                          <ComboBox fx:id="ch_en_todatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="appfont" />
-                                          <ComboBox fx:id="ch_en_todateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="appfont" />
+                                          <ComboBox fx:id="ch_en_todateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass></ComboBox>
+                                          <ComboBox fx:id="ch_en_todatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass></ComboBox>
+                                          <ComboBox fx:id="ch_en_todateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass></ComboBox>
                                        </children>
                                     </HBox>
                                  </children>
@@ -433,17 +457,17 @@
                                     </TextField>
                                     <HBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3">
                                        <children>
-                                          <ComboBox fx:id="orderdateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="appfont">
+                                          <ComboBox fx:id="orderdateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="orderdatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="appfont">
+                                          <ComboBox fx:id="orderdatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="orderdateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="appfont" />
+                                          <ComboBox fx:id="orderdateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
                                        </children>
                                     </HBox>
                                     <TextField fx:id="enfrom" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -460,36 +484,32 @@
                                     </TextField>
                                     <HBox layoutX="729.0" layoutY="21.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="377.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <children>
-                                          <ComboBox fx:id="fromDateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="appfont">
+                                          <ComboBox fx:id="fromDateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="fromDatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="appfont">
+                                          <ComboBox fx:id="fromDatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="fromDateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
-                                             <styleClass>
-                                                <String fx:value="appfont" />
-                                                <String fx:value="combo-box-base" />
-                                             </styleClass></ComboBox>
+                                          <ComboBox fx:id="fromDateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
                                        </children>
                                     </HBox>
                                     <HBox layoutX="196.0" layoutY="95.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                        <children>
-                                          <ComboBox fx:id="toDateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="appfont">
+                                          <ComboBox fx:id="toDateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="toDatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="appfont">
+                                          <ComboBox fx:id="toDatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="toDateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="appfont" />
+                                          <ComboBox fx:id="toDateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
                                        </children>
                                     </HBox>
                                     <Label prefHeight="46.0" prefWidth="164.0" styleClass="appfont" text="جهة الانتداب من :" textFill="#146168" GridPane.rowIndex="1">
@@ -522,43 +542,24 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="PlaceOfAssignment" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="appfont" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <ComboBox fx:id="militarytayp" layoutX="183.0" layoutY="161.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                                       <styleClass>
-                                          <String fx:value="appfont" />
-                                          <String fx:value="combo-box-base" />
-                                       </styleClass></ComboBox>
+                                    <ComboBox fx:id="PlaceOfAssignment" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="militarytayp" layoutX="183.0" layoutY="161.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                                     <Label layoutX="29.0" layoutY="93.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="نوع الانتداب :" textFill="#146168" GridPane.rowIndex="4">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="entayp" layoutX="729.0" layoutY="93.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                       <styleClass>
-                                          <String fx:value="appfont" />
-                                          <String fx:value="combo-box-base" />
-                                       </styleClass></ComboBox>
-                                    <Label contentDisplay="CENTER" layoutX="27.0" layoutY="54.0" prefHeight="46.0" prefWidth="164.0" styleClass="appfont" text="رقم المعاملة :" textAlignment="CENTER" textFill="#146168">
+                                    <ComboBox fx:id="entayp" layoutX="729.0" layoutY="93.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label contentDisplay="CENTER" layoutX="27.0" layoutY="54.0" prefHeight="46.0" prefWidth="164.0" styleClass="appfont" text="رقم الطلب :" textAlignment="CENTER" textFill="#146168">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="29.0" layoutY="89.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="تاريخ المعاملة :" textFill="#146168" GridPane.columnIndex="2">
+                                    <Label layoutX="29.0" layoutY="89.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="تاريخ الطلب :" textFill="#146168" GridPane.columnIndex="2">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="561.0" layoutY="150.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="نوع المعاملة :" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="4">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <ComboBox fx:id="en_ordertype" layoutX="729.0" layoutY="150.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
-                                       <styleClass>
-                                          <String fx:value="appfont" />
-                                          <String fx:value="combo-box-base" />
-                                       </styleClass>
-                                    </ComboBox>
                                  </children>
                                  <columnConstraints>
                                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="520.0" minWidth="5.0" prefWidth="300.0" />
@@ -577,7 +578,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                               </GridPane>
-                              <Accordion fx:id="addnamepane" layoutX="892.0" layoutY="283.0" prefHeight="298.0" prefWidth="1088.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="245.0">
+                              <Accordion fx:id="addnamepane" layoutX="892.0" layoutY="283.0" prefHeight="298.0" prefWidth="1088.0" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="245.0">
                                 <panes>
                                   <TitledPane fx:id="namepane" animated="false" prefHeight="378.0" prefWidth="1088.0" text="اضافة الاسماء">
                                     <content>
@@ -714,12 +715,12 @@
                                  <children>
                                     <HBox layoutX="872.0" layoutY="55.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                        <children>
-                                          <TextField fx:id="name_militaryid1" alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="49.0" prefWidth="285.0" promptText="الرقم السكري" style="-fx-border-color: #18838C;" styleClass="appfont">
+                                          <TextField fx:id="mandate_ch_militrayid" alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="49.0" prefWidth="285.0" promptText="الرقم السكري" style="-fx-border-color: #18838C;" styleClass="appfont">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </TextField>
-                                          <Button mnemonicParsing="false" onAction="#insertName" prefHeight="49.0" prefWidth="122.0" style="-fx-background-color: #565656;" styleClass="appfont" textFill="WHITE">
+                                          <Button mnemonicParsing="false" onAction="#insertName" prefHeight="49.0" prefWidth="122.0" style="-fx-background-color: #596367;" styleClass="appfont" textFill="WHITE">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
@@ -729,7 +730,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="36.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../images/check_mark_ok-128.png" />
+                                                      <Image url="@../images/check_mark_ok.png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -738,16 +739,16 @@
                                     </HBox>
                                     <HBox maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="65.0">
                                        <children>
-                                          <TableView fx:id="names_table11" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="229.0" prefWidth="1200.0" style="-fx-border-color: #177C85;">
+                                          <TableView fx:id="no_dec_table" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="229.0" prefWidth="1200.0" style="-fx-border-color: #177C85;">
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                              <columns>
                                                 <TableColumn prefWidth="75.0" text="الاسماء التي لم يصدر لها قرار انتداب">
                                                    <columns>
-                                                      <TableColumn fx:id="name_militaryid_col11" minWidth="100.0" prefWidth="108.0" text="الرقم العسكري" />
-                                                      <TableColumn fx:id="name_rank_col11" minWidth="50.0" prefWidth="112.0" text="الرتبة" />
-                                                      <TableColumn fx:id="name_name_col11" minWidth="300.0" prefWidth="250.0" text="الاسم " />
+                                                      <TableColumn fx:id="no_dec_militaryid_col" minWidth="100.0" prefWidth="108.0" text="الرقم العسكري" />
+                                                      <TableColumn fx:id="no_dec_rank_col" minWidth="50.0" prefWidth="112.0" text="الرتبة" />
+                                                      <TableColumn fx:id="no_dec_name_col" minWidth="300.0" prefWidth="250.0" text="الاسم " />
                                                    </columns>
                                                 </TableColumn>
                                              </columns>
@@ -755,29 +756,29 @@
                                                 <Insets right="5.0" />
                                              </HBox.margin>
                                           </TableView>
-                                          <TableView fx:id="names_table1" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="229.0" prefWidth="1200.0" style="-fx-border-color: #177C85;">
+                                          <TableView fx:id="dec_table" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="229.0" prefWidth="1200.0" style="-fx-border-color: #177C85;">
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                              <columns>
                                                 <TableColumn prefWidth="75.0" text="الاسماء التي صدر لها قرار انتداب">
                                                    <columns>
-                                                      <TableColumn fx:id="name_militaryid_col1" minWidth="100.0" prefWidth="108.0" text="الرقم العسكري" />
-                                                      <TableColumn fx:id="name_rank_col1" minWidth="50.0" prefWidth="112.0" text="الرتبة" />
-                                                      <TableColumn fx:id="name_name_col1" minWidth="300.0" prefWidth="250.0" text="الاسم " />
+                                                      <TableColumn fx:id="dec_militaryid_col" minWidth="100.0" prefWidth="108.0" text="الرقم العسكري" />
+                                                      <TableColumn fx:id="dec_rank_col" minWidth="50.0" prefWidth="112.0" text="الرتبة" />
+                                                      <TableColumn fx:id="dec_name_col" minWidth="300.0" prefWidth="250.0" text="الاسم " />
                                                    </columns>
                                                 </TableColumn>
                                              </columns>
                                           </TableView>
                                        </children>
                                     </HBox>
-                                    <Label fx:id="listnumber1" alignment="CENTER" contentDisplay="CENTER" layoutX="571.0" layoutY="10.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="49.0" prefWidth="89.0" styleClass="listLable" stylesheets="@../css/style.css" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="10.0" />
+                                    <Label fx:id="no_dec_sum" alignment="CENTER" contentDisplay="CENTER" layoutX="571.0" layoutY="10.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="49.0" prefWidth="89.0" styleClass="listLable" stylesheets="@../css/style.css" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="10.0" />
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="67.0" layoutY="37.0" prefHeight="49.0" prefWidth="159.0" style="-fx-background-color: #22d3e2;" styleClass="appfont" text="لم يصدر لهم قرار :" textFill="#146168" AnchorPane.rightAnchor="349.0" AnchorPane.topAnchor="10.0">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="listnumber11" alignment="CENTER" contentDisplay="CENTER" layoutX="581.0" layoutY="10.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="49.0" prefWidth="89.0" styleClass="listLable" stylesheets="@../css/style.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                    <Label fx:id="dec_sum" alignment="CENTER" contentDisplay="CENTER" layoutX="581.0" layoutY="10.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="49.0" prefWidth="89.0" styleClass="listLable" stylesheets="@../css/style.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="425.0" layoutY="10.0" prefHeight="49.0" prefWidth="116.0" style="-fx-background-color: #22d3e2;" styleClass="appfont" text="صدر لهم قرار:" textFill="#146168" AnchorPane.rightAnchor="99.0" AnchorPane.topAnchor="10.0">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
@@ -787,13 +788,7 @@
                               </AnchorPane>
                               <GridPane prefHeight="107.0" prefWidth="1088.0" style="-fx-border-color: #FBB115;" vgap="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="83.0">
                                  <children>
-                                    <TextField fx:id="enfrom1" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1">
-                                       <styleClass>
-                                          <String fx:value="textfield" />
-                                          <String fx:value="appfont" />
-                                       </styleClass>
-                                    </TextField>
-                                    <TextField fx:id="ento1" layoutX="205.0" layoutY="30.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3">
+                                    <TextField fx:id="mandate_ch_decnumber" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1">
                                        <styleClass>
                                           <String fx:value="textfield" />
                                           <String fx:value="appfont" />
@@ -801,37 +796,32 @@
                                     </TextField>
                                     <HBox layoutX="729.0" layoutY="21.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="377.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <children>
-                                          <ComboBox fx:id="fromDateday1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="appfont">
+                                          <ComboBox fx:id="mandate_ch_dec_fromday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="fromDatemonth1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="appfont">
+                                          <ComboBox fx:id="mandate_ch_dec_frommonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="fromDateyear1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
-                                             <styleClass>
-                                                <String fx:value="appfont" />
-                                                <String fx:value="combo-box-base" />
-                                             </styleClass>
-                                          </ComboBox>
+                                          <ComboBox fx:id="mandate_ch_dec_fromyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="comboStyle" />
                                        </children>
                                     </HBox>
                                     <HBox layoutX="196.0" layoutY="95.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                        <children>
-                                          <ComboBox fx:id="toDateday1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="appfont">
+                                          <ComboBox fx:id="mandate_ch_dec_today" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="toDatemonth1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="appfont">
+                                          <ComboBox fx:id="mandate_ch_dec_tomonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="toDateyear1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="appfont" />
+                                          <ComboBox fx:id="mandate_ch_dec_toyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="comboStyle" />
                                        </children>
                                     </HBox>
                                     <Label alignment="CENTER" prefHeight="39.0" prefWidth="172.0" styleClass="appfont" text="رقم القرار :" textFill="#146168">
@@ -849,9 +839,24 @@
                                           <Font name="Hacen Algeria" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label alignment="CENTER" layoutX="629.0" layoutY="27.0" prefHeight="39.0" prefWidth="174.0" styleClass="appfont" text="تاريخ نهاية الانتداب :" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                    <HBox layoutX="196.0" layoutY="66.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="377.0" GridPane.columnIndex="3">
+                                       <children>
+                                          <ComboBox fx:id="mandate_ch_decday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle">
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="mandate_ch_decmonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle">
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="mandate_ch_decyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="comboStyle" />
+                                       </children>
+                                    </HBox>
+                                    <Label alignment="CENTER" layoutX="25.0" layoutY="67.0" prefHeight="39.0" prefWidth="168.0" styleClass="appfont" text="تاريخ نهاية الانتداب :" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                        <font>
-                                          <Font name="System Bold" size="18.0" />
+                                          <Font name="Hacen Algeria" size="18.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -903,12 +908,70 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="orderid1" alignment="CENTER" prefHeight="41.0" prefWidth="455.0" stylesheets="@../css/style.css">
+                                    <TextField fx:id="mandate_ch_orderid" alignment="CENTER" prefHeight="41.0" prefWidth="315.0" stylesheets="@../css/style.css">
                                        <styleClass>
                                           <String fx:value="textfield" />
                                           <String fx:value="appfont" />
                                        </styleClass>
                                     </TextField>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="22.0" prefHeight="46.0" prefWidth="67.0" styleClass="appfont" text="من:" textAlignment="CENTER" textFill="#0ee6f5">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox fx:id="mandate_ch_fromday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="84.0" stylesheets="@../css/style.css">
+                                       <HBox.margin>
+                                          <Insets right="2.0" />
+                                       </HBox.margin>
+                                       <styleClass>
+                                          <String fx:value="appfont" />
+                                          <String fx:value="search" />
+                                       </styleClass>
+                                    </ComboBox>
+                                    <ComboBox fx:id="mandate_ch_frommonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="81.0" stylesheets="@../css/style.css">
+                                       <HBox.margin>
+                                          <Insets right="2.0" />
+                                       </HBox.margin>
+                                       <styleClass>
+                                          <String fx:value="appfont" />
+                                          <String fx:value="search" />
+                                       </styleClass>
+                                    </ComboBox>
+                                    <ComboBox fx:id="mandate_ch_fromyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" stylesheets="@../css/style.css">
+                                       <styleClass>
+                                          <String fx:value="appfont" />
+                                          <String fx:value="search" />
+                                       </styleClass>
+                                    </ComboBox>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="428.0" layoutY="22.0" prefHeight="46.0" prefWidth="67.0" styleClass="appfont" text="الى :" textAlignment="CENTER" textFill="#0ee6f5">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox fx:id="mandate_ch_today" layoutX="584.0" layoutY="25.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="84.0" stylesheets="@../css/style.css">
+                                       <styleClass>
+                                          <String fx:value="appfont" />
+                                          <String fx:value="search" />
+                                       </styleClass>
+                                       <HBox.margin>
+                                          <Insets right="2.0" />
+                                       </HBox.margin>
+                                    </ComboBox>
+                                    <ComboBox fx:id="mandate_ch_tomonth" layoutX="670.0" layoutY="25.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="81.0" stylesheets="@../css/style.css">
+                                       <styleClass>
+                                          <String fx:value="appfont" />
+                                          <String fx:value="search" />
+                                       </styleClass>
+                                       <HBox.margin>
+                                          <Insets right="2.0" />
+                                       </HBox.margin>
+                                    </ComboBox>
+                                    <ComboBox fx:id="mandate_ch_toyear" layoutX="753.0" layoutY="25.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="115.0" stylesheets="@../css/style.css">
+                                       <styleClass>
+                                          <String fx:value="appfont" />
+                                          <String fx:value="search" />
+                                       </styleClass>
+                                    </ComboBox>
                                     <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="63.0" style="-fx-background-color: #555E62;">
                                        <graphic>
                                           <ImageView fitHeight="27.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">

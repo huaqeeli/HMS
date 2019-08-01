@@ -477,10 +477,12 @@ public class FXMLDocumentController implements Initializable {
 
         chacktable.setItems(chacktablelist);
     }
-    
+    /*select mandatenames.MILITARYID,mandatenames.ENDATEFROM,mandatenames.ENDATETO, formation.NAME, formation.RANK 
+  from mandatenames ,formation 
+ where  mandatenames.MILITARYID = formation.MILITARYID AND mandatenames.DECISIONSTATUS = '0' AND mandatenames.ORDERID = '574857'*/
     
     private void mandatesChackTableViewData() {
-        ResultSet rs = DataMng.getDataWithCondition("mandatenames", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
+        ResultSet rs = DataMng.getDataJoinTable("mandatenames","formation", "mandatenames.MILITARYID,formation.RANK,formation.NAME", "mandatenames.MILITARYID = formation.MILITARYID AND mandatenames.ORDERID ='" + ch_mailitraynum.getText() + "'");
 ////       
 ////        try {
 ////            while (rs.next() && rss.next()) {
