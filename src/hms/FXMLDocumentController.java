@@ -77,8 +77,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Tab en_update;
     @FXML
-    private Tab en_delete;
-    @FXML
     private Tab en_search;
     @FXML
     private TextField ento;
@@ -104,30 +102,16 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<EnDataModel, String> en_type_col;
     @FXML
     private TableColumn<EnDataModel, String> en_update_col;
-    @FXML
-    private TableColumn<EnDataModel, String> en_delete_col;
-
-    @FXML
-    private AnchorPane En_addName;
-    @FXML
-    private Label name_ordreid;
-    @FXML
-    private Label name_endate_from;
-    @FXML
-    private Label name_endate_to;
-    @FXML
-    private TextField name_militaryid;
-    @FXML
-    private TableView<NamesDataModel> names_table;
-    @FXML
-    private TableColumn<?, ?> name_militaryid_col;
-    @FXML
-    private TableColumn<?, ?> name_rank_col;
-    @FXML
-    private TableColumn<?, ?> name_name_col;
-    @FXML
+    
+//    @FXML
+//    private TableView<NamesDataModel> names_table;
+//    @FXML
+//    private TableColumn<?, ?> name_militaryid_col;
+//    @FXML
+//    private TableColumn<?, ?> name_rank_col;
+//    @FXML
+//    private TableColumn<?, ?> name_name_col;
     private Accordion addnamepane;
-    @FXML
     private TitledPane namepane;
     @FXML
     private ComboBox<String> ch_en_fromdateday;
@@ -163,12 +147,11 @@ public class FXMLDocumentController implements Initializable {
     ObservableList<String> monthlist = FXCollections.observableArrayList();
     ObservableList<String> yearlist = FXCollections.observableArrayList();
     ObservableList<EnDataModel> tablelist = FXCollections.observableArrayList();
-    ObservableList<NamesDataModel> nametablelist = FXCollections.observableArrayList();
+//    ObservableList<NamesDataModel> nametablelist = FXCollections.observableArrayList();
     ObservableList<NamesDataModel> chacktablelist = FXCollections.observableArrayList();
     ObservableList<String> ch_comboBoxlist = FXCollections.observableArrayList();
     @FXML
     private Label listnumber;
-    public static Pane en_editPage;
     @FXML
     private Button ch_en_button;
     @FXML
@@ -181,24 +164,107 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<?, ?> ch_en_to_col;
     @FXML
     private ComboBox<String> ch_list_combobox;
-
-    ImageView delete = new ImageView("images/deleteicon.png");
-
-    @FXML
-    private ComboBox<?> en_ordertype;
-
     private String updatOrderId = null;
     private String updatFromDate = null;
     private String updatToDate = null;
     @FXML
     private Button en_updateButton;
+    @FXML
+    private Button en_updateButton1;
+    @FXML
+    private TextField mandate_ch_militrayid;
+    @FXML
+    private TableView<?> no_dec_table;
+    @FXML
+    private TableColumn<?, ?> no_dec_militaryid_col;
+    @FXML
+    private TableColumn<?, ?> no_dec_rank_col;
+    @FXML
+    private TableColumn<?, ?> no_dec_name_col;
+    @FXML
+    private TableView<?> dec_table;
+    @FXML
+    private TableColumn<?, ?> dec_militaryid_col;
+    @FXML
+    private TableColumn<?, ?> dec_rank_col;
+    @FXML
+    private TableColumn<?, ?> dec_name_col;
+    @FXML
+    private Label no_dec_sum;
+    @FXML
+    private Label dec_sum;
+    @FXML
+    private TextField mandate_ch_decnumber;
+    @FXML
+    private ComboBox<?> mandate_ch_dec_fromday;
+    @FXML
+    private ComboBox<?> mandate_ch_dec_frommonth;
+    @FXML
+    private ComboBox<?> mandate_ch_dec_fromyear;
+    @FXML
+    private ComboBox<?> mandate_ch_dec_today;
+    @FXML
+    private ComboBox<?> mandate_ch_dec_tomonth;
+    @FXML
+    private ComboBox<?> mandate_ch_dec_toyear;
+    @FXML
+    private ComboBox<?> mandate_ch_decday;
+    @FXML
+    private ComboBox<?> mandate_ch_decmonth;
+    @FXML
+    private ComboBox<?> mandate_ch_decyear;
+    @FXML
+    private Button save1;
+    @FXML
+    private Button en_updateButton2;
+    @FXML
+    private Button en_updateButton11;
+    @FXML
+    private TextField mandate_ch_orderid;
+    @FXML
+    private ComboBox<?> mandate_ch_fromday;
+    @FXML
+    private ComboBox<?> mandate_ch_frommonth;
+    @FXML
+    private ComboBox<?> mandate_ch_fromyear;
+    @FXML
+    private ComboBox<?> mandate_ch_today;
+    @FXML
+    private ComboBox<?> mandate_ch_tomonth;
+    @FXML
+    private ComboBox<?> mandate_ch_toyear;
+    @FXML
+    private Button ch_en_allofficers;
+    @FXML
+    private Button ch_en_allsoldiers;
+    @FXML
+    private TextField ennamelist;
+    @FXML
+    private TableColumn<?, ?> en_sq_col;
+    @FXML
+    private AnchorPane En_addName;
+    @FXML
+    private Label name_ordreid;
+    @FXML
+    private Label name_endate_from;
+    @FXML
+    private Label name_endate_to;
+    @FXML
+    private TextField name_militaryid;
+    @FXML
+    private TableView<?> names_table;
+    @FXML
+    private TableColumn<?, ?> name_militaryid_col;
+    @FXML
+    private TableColumn<?, ?> name_rank_col;
+    @FXML
+    private TableColumn<?, ?> name_name_col;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
         MainPage.setVisible(true);
         EntedabPage.setVisible(false);
         TshkelPage.setVisible(false);
-        En_addName.setVisible(false);
     }
 
     private void tabhint(ActionEvent event) {
@@ -210,7 +276,6 @@ public class FXMLDocumentController implements Initializable {
         MainPage.setVisible(true);
         EntedabPage.setVisible(false);
         TshkelPage.setVisible(false);
-        En_addName.setVisible(false);
     }
 
     @FXML
@@ -218,7 +283,6 @@ public class FXMLDocumentController implements Initializable {
         MainPage.setVisible(false);
         EntedabPage.setVisible(true);
         TshkelPage.setVisible(false);
-        En_addName.setVisible(false);
     }
 
     @FXML
@@ -226,7 +290,6 @@ public class FXMLDocumentController implements Initializable {
         MainPage.setVisible(false);
         EntedabPage.setVisible(false);
         TshkelPage.setVisible(true);
-        En_addName.setVisible(false);
     }
 
     private int getDateDifference() {
@@ -237,13 +300,13 @@ public class FXMLDocumentController implements Initializable {
         int m2 = Integer.parseInt(toDatemonth.getValue());
         int y2 = Integer.parseInt(toDateyear.getValue());
         int difference = 0;
-       
-            int diffDays = d2 - d1;
-            int diffMonths = m2 - m1;
-            int diffYears = y2 - y1;
 
-            difference = diffDays + (diffMonths * 30) + (diffYears * 360);
-        
+        int diffDays = d2 - d1;
+        int diffMonths = m2 - m1;
+        int diffYears = y2 - y1;
+
+        difference = diffDays + (diffMonths * 30) + (diffYears * 360);
+
         return difference;
     }
 
@@ -263,15 +326,18 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void insertData(ActionEvent event) {
-        String fromdate = setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue());
-        String todate = setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue());
+        String fromyear = fromDateyear.getValue();
+        String frommonth = fromDatemonth.getValue();
+        String fromday = fromDateday.getValue();
+        String toyear = toDateyear.getValue();
+        String tomonth = toDatemonth.getValue();
+        String today = toDateday.getValue();
         String fieldName = "`ORDERID`,`ORDERDATE`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`,`ENPLASE`,`MILITARYTAYP`,`ENTAYP`";
         String[] data = {orderid.getText(), setDate(orderdateday.getValue(), orderdatemonth.getValue(), orderdateyear.getValue()), enfrom.getText(), ento.getText(),
             setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue()),
             PlaceOfAssignment.getValue(), militarytayp.getValue(), entayp.getValue()};
         String valuenumbers = "?,?,?,?,?,?,?,?,?";
         boolean enfromstate = FormValidation.textFieldNotEmpty(enfrom, " ادخل الجهة المنتدب منها");
-
         boolean numberOnly = FormValidation.textFieldTypeNumber(orderid, "استخدم الارقام فقط");
         boolean orderidstate = FormValidation.textFieldNotEmpty(orderid, "  ادخل رقم الطب ارقام فقط");
         boolean entostate = FormValidation.textFieldNotEmpty(ento, " ادخل الجهة المنتدب لها");
@@ -279,9 +345,10 @@ public class FXMLDocumentController implements Initializable {
         boolean militarytaypstate = FormValidation.comboBoxNotEmpty(militarytayp, " اختر نوع المستفيد");
         boolean entaypstate = FormValidation.comboBoxNotEmpty(entayp, " اختر مكان الانتداب");
         boolean orderidUnique = FormValidation.unique("mandate", "`ORDERID`", "`ORDERID` = '" + data[0] + "'AND `ENDATEFROM`='" + data[4] + "' AND `ENDATETO` = '" + data[5] + "'", "تم ادخال الطلب مسبقا الرجاء التاجد من رقم الطلب");
-        boolean toDateCheck = FormValidation.checkDate(fromdate ,todate , "تاكد من تاريخ نهاية الانتداب");
+        boolean toDateCheck = FormValidation.checkDate(Integer.parseInt(fromyear), Integer.parseInt(frommonth), Integer.parseInt(fromday),
+                Integer.parseInt(toyear), Integer.parseInt(tomonth), Integer.parseInt(today), "تاكد من تاريخ نهاية الانتداب");
 
-        if (numberOnly && orderidUnique && orderidstate && enfromstate && entostate && placestate && militarytaypstate && entaypstate &&toDateCheck) {
+        if (numberOnly && orderidUnique && orderidstate && enfromstate && entostate && placestate && militarytaypstate && entaypstate && toDateCheck) {
             DataMng.insert("mandate", fieldName, valuenumbers, data);
             refreshEnTable();
         }
@@ -293,7 +360,7 @@ public class FXMLDocumentController implements Initializable {
         String fromdate = setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue());
         String todate = setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue());
 
-        String[] data = {orderid.getText(), orderdate, enfrom.getText(), ento.getText(),fromdate, todate,PlaceOfAssignment.getValue(), militarytayp.getValue(), entayp.getValue()};
+        String[] data = {orderid.getText(), orderdate, enfrom.getText(), ento.getText(), fromdate, todate, PlaceOfAssignment.getValue(), militarytayp.getValue(), entayp.getValue()};
 
         String fieldNameAndValue = "`ORDERID`= ?,`ORDERDATE`=?,`ENFROM`=?,`ENTO`= ?,`ENDATEFROM`=?,`ENDATETO`=?,`ENPLASE`=?,`MILITARYTAYP`= ?,`ENTAYP`= ?";
 
@@ -314,48 +381,55 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void insertName(ActionEvent event) {
-        String tableName = "mandatenames";
-        String fieldName = "`MILITARYID`,`ORDERID`,`ENDATEFROM`,`ENDATETO`";
-        String[] data = {name_militaryid.getText(), orderid.getText(), setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue())};
-        String valuenumbers = "?,?,?,?";
+    private void deleteData(ActionEvent event) {
+        String condition = "`ORDERID` = '" + updatOrderId + "' AND `ENDATEFROM`='" + updatFromDate + "' AND `ENDATETO` = '" + updatToDate + "'";
+        DataMng.delete("mandate", condition);
+        refreshEnTable();
+    }
 
-        boolean orderidstate = FormValidation.textFieldNotEmpty(orderid, "  ادخل رقم الطب ارقام فقط");
-        boolean numberOnly = FormValidation.textFieldTypeNumber(orderid, "استخدم الارقام فقط");
-        boolean orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + data[0] + "'AND `ORDERID` = '" + data[1] + "'AND `ENDATEFROM`='" + data[2] + "' AND `ENDATETO` = '" + data[3] + "'", "تم اضافة الاسم مسبقا تاكد من الرقم العسكري");
+//    @FXML
+//    private void insertName(ActionEvent event) {
+//        String tableName = "mandatenames";
+//        String fieldName = "`MILITARYID`,`ORDERID`,`ENDATEFROM`,`ENDATETO`";
+//        String[] data = {name_militaryid.getText(), orderid.getText(), setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue())};
+//        String valuenumbers = "?,?,?,?";
+//
+//        boolean orderidstate = FormValidation.textFieldNotEmpty(orderid, "  ادخل رقم الطب ارقام فقط");
+//        boolean numberOnly = FormValidation.textFieldTypeNumber(orderid, "استخدم الارقام فقط");
+//        boolean orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + data[0] + "'AND `ORDERID` = '" + data[1] + "'AND `ENDATEFROM`='" + data[2] + "' AND `ENDATETO` = '" + data[3] + "'", "تم اضافة الاسم مسبقا تاكد من الرقم العسكري");
+//
+//        if (orderidstate && orderidUnique && numberOnly) {
+//            DataMng.insert(tableName, fieldName, valuenumbers, data);
+//            nameTableViewData();
+////            if (!"صيفية".equals(entayp.getValue())) {
+////                increaseBalance(name_militaryid.getText());
+////            }
+//            name_militaryid.setText("");
+//        }
+//    }
 
-        if (orderidstate && orderidUnique && numberOnly) {
-            DataMng.insert(tableName, fieldName, valuenumbers, data);
-            nameTableViewData();
+//    private void insertName() {//هذي الدالة تعمل نفس عمل الدالة السابقة عند الضغط على انتر
+//        String tableName = "mandatenames";
+//        String fieldName = "`MILITARYID`,`ORDERID`,`ENDATEFROM`,`ENDATETO`";
+//        String[] data = {name_militaryid.getText(), orderid.getText(), setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue())};
+//        String valuenumbers = "?,?,?,?";
+//
+//        boolean orderidstate = FormValidation.textFieldNotEmpty(orderid, "  ادخل رقم الطب ارقام فقط");
+//        boolean numberOnly = FormValidation.textFieldTypeNumber(orderid, "استخدم الارقام فقط");
+//        boolean orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + data[0] + "'AND `ORDERID` = '" + data[1] + "'AND `ENDATEFROM`='" + data[2] + "' AND `ENDATETO` = '" + data[3] + "'", "تم اضافة الاسم مسبقا تاكد من الرقم العسكري");
+//
+//        if (orderidstate && orderidUnique && numberOnly) {
+//            DataMng.insert(tableName, fieldName, valuenumbers, data);
+//            nameTableViewData();
 //            if (!"صيفية".equals(entayp.getValue())) {
 //                increaseBalance(name_militaryid.getText());
 //            }
-            name_militaryid.setText("");
-        }
-    }
-
-    private void insertName() {//هذي الدالة تعمل نفس عمل الدالة السابقة عند الضغط على انتر
-        String tableName = "mandatenames";
-        String fieldName = "`MILITARYID`,`ORDERID`,`ENDATEFROM`,`ENDATETO`";
-        String[] data = {name_militaryid.getText(), orderid.getText(), setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue())};
-        String valuenumbers = "?,?,?,?";
-
-        boolean orderidstate = FormValidation.textFieldNotEmpty(orderid, "  ادخل رقم الطب ارقام فقط");
-        boolean numberOnly = FormValidation.textFieldTypeNumber(orderid, "استخدم الارقام فقط");
-        boolean orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + data[0] + "'AND `ORDERID` = '" + data[1] + "'AND `ENDATEFROM`='" + data[2] + "' AND `ENDATETO` = '" + data[3] + "'", "تم اضافة الاسم مسبقا تاكد من الرقم العسكري");
-
-        if (orderidstate && orderidUnique && numberOnly) {
-            DataMng.insert(tableName, fieldName, valuenumbers, data);
-            nameTableViewData();
-            if (!"صيفية".equals(entayp.getValue())) {
-                increaseBalance(name_militaryid.getText());
-            }
-        }
-    }
+//        }
+//    }
 
     @FXML
     private void creatNewList(ActionEvent event) {
-        ResultSet rs = DataMng.getAllData("lists");
+        ResultSet rs = DataMng.getAllData("listcounter");
         int lastNumber = 0;
         try {
             if (rs.next()) {
@@ -363,11 +437,20 @@ public class FXMLDocumentController implements Initializable {
             }
             String newListNumber = FormValidation.creatList(lastNumber);
             listnumber.setText(newListNumber);
-            ch_comboBoxlist.clear();
-            ch_list_combobox.setItems(fillListCombobox(ch_comboBoxlist));
+
             ch_mailitraynum.setDisable(false);
             ch_en_button.setDisable(false);
-            DataMng.updat("`lists`", "`LISTID` = '" + Integer.parseInt(newListNumber) + "' ", "`LISTID`= '" + lastNumber + "'");
+            ch_en_allsoldiers.setDisable(false);
+            ch_en_allofficers.setDisable(false);
+            DataMng.updat("`listcounter`", "`LISTID` = '" + Integer.parseInt(newListNumber) + "' ", "`LISTID`= '" + lastNumber + "'");
+
+            String tableName = "mandatelists";
+            String fieldName = "`LISTNUMBER`";
+            String[] data = {newListNumber};
+            String valuenumbers = "?";
+            DataMng.insert(tableName, fieldName, valuenumbers, data);
+            ch_comboBoxlist.clear();
+            refreshListCombobox(fillListCombobox(ch_comboBoxlist));
         } catch (SQLException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -423,29 +506,29 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private void refreshNameTable() {
-        nametablelist.clear();
+//        nametablelist.clear();
     }
 
-    private void nameTableViewData() {
-        ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + name_militaryid.getText() + "'");
-        try {
-            while (rs.next()) {
-                nametablelist.add(new NamesDataModel(
-                        rs.getString("MILITARYID"),
-                        rs.getString("RANK"),
-                        rs.getString("NAME")
-                ));
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        name_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
-        name_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
-        name_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        names_table.setItems(nametablelist);
-    }
+//    private void nameTableViewData() {
+//        ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + name_militaryid.getText() + "'");
+//        try {
+//            while (rs.next()) {
+//                nametablelist.add(new NamesDataModel(
+//                        rs.getString("MILITARYID"),
+//                        rs.getString("RANK"),
+//                        rs.getString("NAME")
+//                ));
+//            }
+//            rs.close();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        name_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
+//        name_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+//        name_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+//
+//        names_table.setItems(nametablelist);
+//    }
 
     private void chackTableViewData() {
         ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
@@ -478,11 +561,11 @@ public class FXMLDocumentController implements Initializable {
         chacktable.setItems(chacktablelist);
     }
     /*select mandatenames.MILITARYID,mandatenames.ENDATEFROM,mandatenames.ENDATETO, formation.NAME, formation.RANK 
-  from mandatenames ,formation 
- where  mandatenames.MILITARYID = formation.MILITARYID AND mandatenames.DECISIONSTATUS = '0' AND mandatenames.ORDERID = '574857'*/
-    
+     from mandatenames ,formation 
+     where  mandatenames.MILITARYID = formation.MILITARYID AND mandatenames.DECISIONSTATUS = '0' AND mandatenames.ORDERID = '574857'*/
+
     private void mandatesChackTableViewData() {
-        ResultSet rs = DataMng.getDataJoinTable("mandatenames","formation", "mandatenames.MILITARYID,formation.RANK,formation.NAME", "mandatenames.MILITARYID = formation.MILITARYID AND mandatenames.ORDERID ='" + ch_mailitraynum.getText() + "'");
+        ResultSet rs = DataMng.getDataJoinTable("mandatenames", "formation", "mandatenames.MILITARYID,formation.RANK,formation.NAME", "mandatenames.MILITARYID = formation.MILITARYID AND mandatenames.ORDERID ='" + ch_mailitraynum.getText() + "'");
 ////       
 ////        try {
 ////            while (rs.next() && rss.next()) {
@@ -514,8 +597,10 @@ public class FXMLDocumentController implements Initializable {
 
     private void enTableViewData() {
         ResultSet rs = DataMng.getAllData("mandate");
+        int sq = 0;
         try {
             while (rs.next()) {
+                sq++;
                 tablelist.add(new EnDataModel(
                         rs.getString("ORDERID"),
                         rs.getString("ORDERDATE"),
@@ -525,7 +610,8 @@ public class FXMLDocumentController implements Initializable {
                         rs.getString("ENDATETO"),
                         rs.getString("ENPLASE"),
                         rs.getString("MILITARYTAYP"),
-                        rs.getString("ENTAYP")
+                        rs.getString("ENTAYP"),
+                        sq
                 ));
             }
             rs.close();
@@ -541,6 +627,7 @@ public class FXMLDocumentController implements Initializable {
         en_plase_col.setCellValueFactory(new PropertyValueFactory<>("enplase"));
         en_militarytype_col.setCellValueFactory(new PropertyValueFactory<>("militarytype"));
         en_type_col.setCellValueFactory(new PropertyValueFactory<>("entype"));
+        en_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
         Callback<TableColumn<EnDataModel, String>, TableCell<EnDataModel, String>> cellfactory = (param) -> {
             final TableCell<EnDataModel, String> cell = new TableCell<EnDataModel, String>() {
@@ -639,7 +726,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private ObservableList fillListCombobox(ObservableList list) {
-        ResultSet rs = DataMng.getAllData("nameslist");
+        ResultSet rs = DataMng.getAllData("mandatelists");
         try {
             while (rs.next()) {
                 list.add(rs.getString("LISTNUMBER"));
@@ -651,43 +738,52 @@ public class FXMLDocumentController implements Initializable {
         return list;
     }
 
+    private void refreshListCombobox(ObservableList list) {
+        ch_list_combobox.setItems(list);
+    }
+
+    private void dateOfCombobox(ComboBox com, ObservableList list, String typ) {
+        com.setItems(list);
+        switch (typ) {
+            case "day":
+                com.setValue(Integer.toString(HijriCalendar.getSimpleDay()));
+                break;
+            case "month":
+                com.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
+                break;
+            case "year":
+                com.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
+                break;
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         PlaceOfAssignment.setItems(list1);
         militarytayp.setItems(list2);
         entayp.setItems(list3);
-        orderdateday.setItems(fillDays(daylist));
-        orderdatemonth.setItems(fillMonth(monthlist));
-        orderdateyear.setItems(fillYare(yearlist));
-        orderdateday.setValue(Integer.toString(HijriCalendar.getSimpleDay()));
-        orderdatemonth.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
-        orderdateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
-        fromDateday.setItems(fillDays(daylist));
-        fromDatemonth.setItems(fillMonth(monthlist));
-        fromDateyear.setItems(fillYare(yearlist));
-        fromDateday.setValue(Integer.toString(HijriCalendar.getSimpleDay()));
-        fromDatemonth.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
-        fromDateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
-        toDateday.setItems(fillDays(daylist));
-        toDatemonth.setItems(fillMonth(monthlist));
-        toDateyear.setItems(fillYare(yearlist));
-        toDateday.setValue(Integer.toString(HijriCalendar.getSimpleDay()));
-        toDatemonth.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
-        toDateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
-        ch_en_fromdateday.setItems(fillDays(daylist));
-        ch_en_fromdatemonth.setItems(fillMonth(monthlist));
-        ch_en_fromdateyear.setItems(fillYare(yearlist));
-        ch_en_fromdateday.setValue(Integer.toString(HijriCalendar.getSimpleDay()));
-        ch_en_fromdatemonth.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
-        ch_en_fromdateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
-        ch_en_todateday.setItems(fillDays(daylist));
-        ch_en_todatemonth.setItems(fillMonth(monthlist));
-        ch_en_todateyear.setItems(fillYare(yearlist));
-        ch_en_todateday.setValue(Integer.toString(HijriCalendar.getSimpleDay()));
-        ch_en_todatemonth.setValue(Integer.toString(HijriCalendar.getSimpleMonth()));
-        ch_en_todateyear.setValue(Integer.toString(HijriCalendar.getSimpleYear()));
 
-//        ch_list_combobox.setItems(fillListCombobox(ch_comboBoxlist));
+        dateOfCombobox(orderdateday, fillDays(daylist), "day");
+        dateOfCombobox(orderdatemonth, fillMonth(monthlist), "month");
+        dateOfCombobox(orderdateyear, fillYare(yearlist), "year");
+
+        dateOfCombobox(fromDateday, fillDays(daylist), "day");
+        dateOfCombobox(fromDatemonth, fillMonth(monthlist), "month");
+        dateOfCombobox(fromDateyear, fillYare(yearlist), "year");
+
+        dateOfCombobox(toDateday, fillDays(daylist), "day");
+        dateOfCombobox(toDatemonth, fillMonth(monthlist), "month");
+        dateOfCombobox(toDateyear, fillYare(yearlist), "year");
+
+        dateOfCombobox(ch_en_fromdateday, fillDays(daylist), "day");
+        dateOfCombobox(ch_en_fromdatemonth, fillMonth(monthlist), "month");
+        dateOfCombobox(ch_en_fromdateyear, fillYare(yearlist), "year");
+
+        dateOfCombobox(ch_en_todateday, fillDays(daylist), "day");
+        dateOfCombobox(ch_en_todatemonth, fillMonth(monthlist), "month");
+        dateOfCombobox(ch_en_todateyear, fillYare(yearlist), "year");
+
+        refreshListCombobox(fillListCombobox(ch_comboBoxlist));
         enTableViewData();
         mainePageOpenAction();
 
@@ -695,17 +791,16 @@ public class FXMLDocumentController implements Initializable {
         chackingdata.setTooltip(new Tooltip("تدقيق البيانات"));
         en_update.setTooltip(new Tooltip("تحديث البيانات"));
         en_search.setTooltip(new Tooltip("البحث واستعراض البيانات"));
+
        
 
-        addnamepane.setExpandedPane(namepane);
-
-        name_militaryid.setOnAction(new EventHandler() {
-            @Override
-            public void handle(Event event) {
-                insertName();
-                name_militaryid.setText("");
-            }
-        });
+//        name_militaryid.setOnAction(new EventHandler() {
+//            @Override
+//            public void handle(Event event) {
+//                insertName();
+//                name_militaryid.setText("");
+//            }
+//        });
         ch_mailitraynum.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
@@ -713,5 +808,9 @@ public class FXMLDocumentController implements Initializable {
                 ch_mailitraynum.setText("");
             }
         });
+    }
+
+    @FXML
+    private void insertName(ActionEvent event) {
     }
 }

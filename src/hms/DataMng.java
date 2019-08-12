@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javax.swing.JOptionPane;
 
 public class DataMng {
@@ -31,7 +32,7 @@ public class DataMng {
         }
     }
 
-    public static void updat(String tapleName, String fildNameAndValue,String [] data, String condition) {
+    public static void updat(String tapleName, String fildNameAndValue, String[] data, String condition) {
         Connection con = DatabaseConnector.dbConnector();
         String guiry = "UPDATE " + tapleName + " SET " + fildNameAndValue + " WHERE" + condition;
         try {
@@ -42,19 +43,35 @@ public class DataMng {
             }
             int t = psm.executeUpdate();
             if (t > 0) {
-                 showAlert("", "تم تحديث البيانات", AlertType.INFORMATION);
+                showAlert("", "تم تحديث البيانات", AlertType.INFORMATION);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+
     public static void updat(String tapleName, String fildNameAndValue, String condition) {
         Connection con = DatabaseConnector.dbConnector();
         String guiry = "UPDATE " + tapleName + " SET " + fildNameAndValue + " WHERE" + condition;
         try {
             PreparedStatement psm = con.prepareStatement(guiry);
             psm.executeUpdate();
-            
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    public static void delete(String tapleName, String condition) {
+        Connection con = DatabaseConnector.dbConnector();
+        String guiry = "DELETE FROM " + tapleName + " WHERE " + condition ;
+        try {
+            PreparedStatement psm = con.prepareStatement(guiry);
+//            Alert alert = new Alert(AlertType.CONFIRMATION, "سوف يتم حذف السجل هل تريد المتابعة", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            Alert alert = FormValidation.confirmationDilog("تاكيد الحذف", "سوف يتم حذف السجل هل تريد المتابعة");
+            if (alert.getResult() == ButtonType.YES) {
+                psm.executeUpdate();
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -98,6 +115,18 @@ public class DataMng {
         }
         return rs;
     }
+    public static ResultSet getSequenceOfRow(String tableName) {
+        ResultSet rs = null;
+        String guiry = "SELECT (@row:=@row+1) AS n FROM '"+tableName+"', (SELECT @row := 0) r order by id desc;";
+        Connection con = DatabaseConnector.dbConnector();
+        try {
+            PreparedStatement psm = con.prepareStatement(guiry);
+            rs = psm.executeQuery();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return rs;
+    }
 
     public static boolean checkEmpty(String text) {
         boolean state = false;
@@ -116,7 +145,6 @@ public class DataMng {
         alert.setContentText(massage);
         alert.showAndWait();
     }
-   
 
     public static void showAlert(String titel, String massage) {
         Alert alert = new Alert(AlertType.WARNING);

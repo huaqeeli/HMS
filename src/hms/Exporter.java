@@ -13,16 +13,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
- 
+import javax.swing.JFileChooser;
+
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
- 
+
 public class Exporter {
-   
-     public ArrayList<Object[]> getTableData() {
+
+    public ArrayList<Object[]> getTableData() {
         ArrayList<Object[]> tableDataList = null;
-        ResultSet rs = DataMng.getAllData("entdabat");
+        ResultSet rs = DataMng.getAllData("mandate");
         tableDataList = new ArrayList<>();
         try {
             while (rs.next()) {
@@ -73,7 +74,7 @@ public class Exporter {
                 row.createCell((short) 8).setCellValue(objects[8].toString());
                 rowNo++;
             }
-
+          
             String file = "D:/entdab.xls";
             try {
                 FileOutputStream fos = new FileOutputStream(file);
@@ -86,14 +87,15 @@ public class Exporter {
             }
         }
     }
-     
+
     public static void main(String[] args) {
         Exporter exporter = new Exporter();
         ArrayList<Object[]> dataList = exporter.getTableData();
-        if(dataList != null && dataList.size() > 0){
+        if (dataList != null && dataList.size() > 0) {
             exporter.doExport(dataList);
-        }else{
+        } else {
             System.out.println("There is no data available in the table to export");
         }
+      
     }
 }

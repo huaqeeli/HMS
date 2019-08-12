@@ -8,13 +8,14 @@ import javafx.scene.image.ImageView;
 public class EnDataModel {
 
     String orderid, orderdate, enfrom, ento, endatefrom, endateto, enplase, militarytype, entype;
+    int sq ;
 //    Button updateBut;
 //    Button deletBut;
 //
 //    ImageView update = new ImageView("images/editeicon.png");
 //    ImageView delete = new ImageView("images/deleteicon.png");
 
-    public EnDataModel(String orderid, String orderdate, String enfrom, String ento, String endatefrom, String endateto, String enplase, String militarytype, String entype) {
+    public EnDataModel(String orderid, String orderdate, String enfrom, String ento, String endatefrom, String endateto, String enplase, String militarytype, String entype,int sq) {
         this.orderid = orderid;
         this.orderdate = orderdate;
         this.enfrom = enfrom;
@@ -24,6 +25,7 @@ public class EnDataModel {
         this.enplase = enplase;
         this.militarytype = militarytype;
         this.entype = entype;
+        this.sq = sq;
 //        this.updateBut = new Button();
 //        this.deletBut = new Button();
 //
@@ -42,6 +44,14 @@ public class EnDataModel {
 //
 //        deletBut.setGraphic(delete);
 //        deletBut.setStyle("-fx-background-color: #5B6B71;");
+    }
+
+    public int getSq() {
+        return sq;
+    }
+
+    public void setSq(int sq) {
+        this.sq = sq;
     }
 
     public String getOrderid() {
