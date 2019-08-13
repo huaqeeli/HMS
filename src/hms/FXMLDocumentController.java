@@ -17,9 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
 public class FXMLDocumentController implements Initializable {
@@ -494,6 +492,15 @@ public class FXMLDocumentController implements Initializable {
             chackTableViewData();
         }
     }
+    
+     @FXML
+    private void chackAllOfficers(ActionEvent event) {
+        
+    }
+
+    @FXML
+    private void chackAllSoldiers(ActionEvent event) {
+    }
 
     public static String setDate(String day, String month, String year) {
         String date = year + "-" + month + "-" + day;
@@ -813,4 +820,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void insertName(ActionEvent event) {
     }
+
+   
 }
