@@ -151,6 +151,9 @@ public class FormValidation {
                 state = false;
                 showAlert("التحقق من التكرار", validationmassage);
             }
+            con.close();
+            psm.close();
+            rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }

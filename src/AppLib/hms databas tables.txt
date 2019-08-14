@@ -1,0 +1,106 @@
+CREATE TABLE ` vacation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `MILITARYID` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `VACATIONNUMBER` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `VACATIONDATE` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `VACATIONTYPE` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `VACATIONPLACE` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `VACATIONSTARTDATE` date DEFAULT NULL,
+  `VACATIONENDDATE` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `formation` (
+  `MILITARYID` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `NAME` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `RANK` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `IDNAMBER` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ISSUANCE_DATE_OFID` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `END_DATE_OFID` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `BIRTH_DATE` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `BIRTH_PLACE` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SPECIALIZATION` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `UNIT_IN_FORCE` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `UNIT_BEFOR_FORCE` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `BANKNAME` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `IBANNUMBER` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `BLOODTYPE` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DATE_OF_PROMOTION` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DATE_OF_NEXT_PROMOTION` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PASSPORTID` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `END_DATE_OFPASSPORT` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MOBILENUMBER` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MOBILENUMBER_OFCOUSIN` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `QUALIFICATION` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NOTES` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MILITARYTYPE` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`MILITARYID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `listcounter` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `LISTID` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `mandate` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ORDERID` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ORDERDATE` date DEFAULT NULL,
+  `ENFROM` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ENTO` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ENDATEFROM` date DEFAULT NULL,
+  `ENDATETO` date DEFAULT NULL,
+  `ENPLASE` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MILITARYTAYP` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ENTAYP` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `mandatelists` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `LISTNUMBER` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `mandate_balance` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `MILITARYID` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `BALANCE` int(11) DEFAULT '90',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `mandatenames` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `MILITARYID` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ORDERID` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DICISIONNUMBER` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DECISIONDATE` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ENDATEFROM` date DEFAULT NULL,
+  `ENDATETO` date DEFAULT NULL,
+  `DECISIONSTATUS` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `training` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `MILITARYID` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COURSENUMBER` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COURSEDATE` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SCHOLARSHIPNUMBER` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SCHOLARSHIPDATE` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COURSESTARTDATE` date DEFAULT NULL,
+  `COURSENDDATE` date DEFAULT NULL,
+  `COURSNAME` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `nameslist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `MILITARYID` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LISTNUMBER` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ENFROM` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ENTO` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ENDATEFROM` date DEFAULT NULL,
+  `ENDATETO` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3524 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

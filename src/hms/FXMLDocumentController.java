@@ -100,7 +100,7 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<EnDataModel, String> en_type_col;
     @FXML
     private TableColumn<EnDataModel, String> en_update_col;
-    
+
 //    @FXML
 //    private TableView<NamesDataModel> names_table;
 //    @FXML
@@ -405,7 +405,6 @@ public class FXMLDocumentController implements Initializable {
 //            name_militaryid.setText("");
 //        }
 //    }
-
 //    private void insertName() {//هذي الدالة تعمل نفس عمل الدالة السابقة عند الضغط على انتر
 //        String tableName = "mandatenames";
 //        String fieldName = "`MILITARYID`,`ORDERID`,`ENDATEFROM`,`ENDATETO`";
@@ -424,7 +423,6 @@ public class FXMLDocumentController implements Initializable {
 //            }
 //        }
 //    }
-
     @FXML
     private void creatNewList(ActionEvent event) {
         ResultSet rs = DataMng.getAllData("listcounter");
@@ -492,14 +490,35 @@ public class FXMLDocumentController implements Initializable {
             chackTableViewData();
         }
     }
-    
-     @FXML
+
+    @FXML
     private void chackAllOfficers(ActionEvent event) {
-        
+
     }
 
     @FXML
     private void chackAllSoldiers(ActionEvent event) {
+        ResultSet rs = DataMng.getAllData("formation");
+        String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
+        String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
+        String tableName = "nameslist";
+        String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
+//        String[] data = null;
+        String valuenumbers = "?,?,?,?,?,?";
+        try {
+            while (rs.next()) {
+                boolean orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + rs.getString("MILITARYID") + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");
+                String[] data = {rs.getString("MILITARYID"), listnumber.getText(), ch_enfrom.getText(), ch_ento.getText(), fromDate, toDate};
+                if (orderidUnique) {
+                    DataMng.insert(tableName, fieldName, valuenumbers, data);
+                }else{
+//                   FormValidation.showAlert("اسم مستبعد", "مستبعد من الرقع :"+rs.getString("MILITARYID"), Alert.AlertType.INFORMATION);
+                }
+            }
+             chackTableViewData();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static String setDate(String day, String month, String year) {
@@ -536,7 +555,6 @@ public class FXMLDocumentController implements Initializable {
 //
 //        names_table.setItems(nametablelist);
 //    }
-
     private void chackTableViewData() {
         ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
         ResultSet rss = DataMng.getDataWithCondition("nameslist", "`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'AND `LISTNUMBER` = '" + listnumber.getText() + "'");
@@ -567,6 +585,7 @@ public class FXMLDocumentController implements Initializable {
 
         chacktable.setItems(chacktablelist);
     }
+
     /*select mandatenames.MILITARYID,mandatenames.ENDATEFROM,mandatenames.ENDATETO, formation.NAME, formation.RANK 
      from mandatenames ,formation 
      where  mandatenames.MILITARYID = formation.MILITARYID AND mandatenames.DECISIONSTATUS = '0' AND mandatenames.ORDERID = '574857'*/
@@ -799,8 +818,6 @@ public class FXMLDocumentController implements Initializable {
         en_update.setTooltip(new Tooltip("تحديث البيانات"));
         en_search.setTooltip(new Tooltip("البحث واستعراض البيانات"));
 
-       
-
 //        name_militaryid.setOnAction(new EventHandler() {
 //            @Override
 //            public void handle(Event event) {
@@ -821,5 +838,4 @@ public class FXMLDocumentController implements Initializable {
     private void insertName(ActionEvent event) {
     }
 
-   
 }
