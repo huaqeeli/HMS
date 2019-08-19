@@ -89,6 +89,19 @@ public class DataMng {
         }
         return rs;
     }
+    
+    public static ResultSet getAllQuiry(String quiry) {
+        ResultSet rs = null;
+//        String guiry = "SELECT * FROM " + tapleName;
+        Connection con = DatabaseConnector.dbConnector();
+        try {
+            PreparedStatement psm = con.prepareStatement(quiry);
+            rs = psm.executeQuery();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return rs;
+    }
 
     public static ResultSet getDataWithCondition(String tapleName, String fildName, String condition) {
         ResultSet rs = null;
@@ -103,9 +116,11 @@ public class DataMng {
         return rs;
     }
 
-    public static ResultSet getDataJoinTable(String firstTaple, String secondTaple, String fildName, String condition) {
+    public static ResultSet getDataJoinTable( String guiry) {
         ResultSet rs = null;
-        String guiry = "SELECT " + fildName + " FROM " + firstTaple + "," + secondTaple + "WHERE" + condition;
+       
+//        String guiry = "SELECT " + fildName + " FROM " + firstTaple + "," + secondTaple + "WHERE" + condition;
+//        String guiry = "select nameslist.MILITARYID,nameslist.ENDATEFROM,nameslist.ENDATETO, formation.NAME, formation.RANK from nameslist ,formation  where  nameslist.MILITARYID = formation.MILITARYID  AND nameslist.LISTNUMBER = '1473';";
         Connection con = DatabaseConnector.dbConnector();
         try {
             PreparedStatement psm = con.prepareStatement(guiry);

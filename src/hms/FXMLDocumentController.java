@@ -2,22 +2,30 @@ package hms;
 
 import hms.models.EnDataModel;
 import hms.models.NamesDataModel;
+import static java.lang.Integer.max;
+import java.util.List;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
 public class FXMLDocumentController implements Initializable {
@@ -497,28 +505,81 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
+
     private void chackAllSoldiers(ActionEvent event) {
-        ResultSet rs = DataMng.getAllData("formation");
+        ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID FROM formation");
         String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
         String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
         String tableName = "nameslist";
         String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
 //        String[] data = null;
         String valuenumbers = "?,?,?,?,?,?";
+        List millest = new ArrayList();
+       
         try {
             while (rs.next()) {
-                boolean orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + rs.getString("MILITARYID") + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");
-                String[] data = {rs.getString("MILITARYID"), listnumber.getText(), ch_enfrom.getText(), ch_ento.getText(), fromDate, toDate};
-                if (orderidUnique) {
-                    DataMng.insert(tableName, fieldName, valuenumbers, data);
-                }else{
-//                   FormValidation.showAlert("اسم مستبعد", "مستبعد من الرقع :"+rs.getString("MILITARYID"), Alert.AlertType.INFORMATION);
-                }
+                millest.add(rs.getString("MILITARYID"));
             }
-             chackTableViewData();
         } catch (SQLException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        for (int i = 0; i < millest.size(); i++) {
+            String[] data = {millest.get(i).toString(), listnumber.getText(), ch_enfrom.getText(), ch_ento.getText(), fromDate, toDate};
+            boolean  orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i) + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");;
+            /**
+             * *******************************************************************************************
+             */
+
+            Task<Parent> yourTaskName = new Task<Parent>() {
+                @Override
+                public Parent call() {
+                    // DO YOUR WORK
+                    
+                    if (orderidUnique) {
+                        DataMng.insert(tableName, fieldName, valuenumbers, data);
+                    }
+                    //method to set progress
+                    updateProgress(1, 1);
+
+                    //method to set labeltext
+                    updateMessage("يتم تحميل البيانات ....");
+                    return null;
+                }
+            };
+//
+////ProgressBar
+            ProgressBar pBar = new ProgressBar();
+////Load Value from Task
+            pBar.progressProperty().bind(yourTaskName.progressProperty());
+////New Loading Label
+            Label statusLabel = new Label();
+////Get Text
+            statusLabel.setText("Loading...");
+////Layout
+            VBox root = new VBox(statusLabel, pBar);
+////SetFill Width TRUE
+            root.setFillWidth(true);
+////Center Items
+            root.setAlignment(Pos.CENTER);
+//
+////SetOnSucceeded methode 
+            yourTaskName.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                @Override
+                public void handle(WorkerStateEvent event) {
+                    System.out.println("Finish");
+                }
+            });
+
+//Start Thread
+            Thread loadingThread = new Thread(yourTaskName);
+            loadingThread.start();
+
+            /**
+             * *******************************************************************************************
+             */
+        }
+        System.out.print("تم ادخال البيانات في قاعدة البياناتا");
+        chackTableViewAllSoldiers();
     }
 
     public static String setDate(String day, String month, String year) {
@@ -558,6 +619,7 @@ public class FXMLDocumentController implements Initializable {
     private void chackTableViewData() {
         ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
         ResultSet rss = DataMng.getDataWithCondition("nameslist", "`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'AND `LISTNUMBER` = '" + listnumber.getText() + "'");
+//        ResultSet rs = DataMng.getDataJoinTable("nameslist", "formation", "`nameslist`.`MILITARYID`,`formation`.`RANK`,`formation`.`NAME`", "`nameslist`.`MILITARYID` = `formation`.`MILITARYID` AND `nameslist`.`LISTNUMBER` ='" + ch_mailitraynum.getText() + "'");
         try {
             while (rs.next() && rss.next()) {
                 chacktablelist.add(new NamesDataModel(
@@ -571,7 +633,37 @@ public class FXMLDocumentController implements Initializable {
                 ));
             }
             rs.close();
-            rss.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
+        ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        ch_en_from_col.setCellValueFactory(new PropertyValueFactory<>("enfrom"));
+        ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
+        ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
+        ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
+
+        chacktable.setItems(chacktablelist);
+    }
+
+    private void chackTableViewAllSoldiers() {
+        ResultSet rs = DataMng.getDataJoinTable("select nameslist.MILITARYID,nameslist.ENDATEFROM,nameslist.ENDATETO, formation.NAME, formation.RANK from nameslist ,formation  where  nameslist.MILITARYID = formation.MILITARYID  AND nameslist.LISTNUMBER ='" + listnumber.getText() + "'");
+
+        try {
+            while (rs.next()) {
+                chacktablelist.add(new NamesDataModel(
+                        rs.getString("MILITARYID"),
+                        rs.getString("RANK"),
+                        rs.getString("NAME"),
+                        rs.getString("ENDATEFROM"),
+                        rs.getString("ENDATETO"),
+                        rs.getDate("ENDATEFROM").toString(),
+                        rs.getDate("ENDATETO").toString()
+                ));
+                System.out.print("لا توجد بيانات");
+            }
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -589,9 +681,8 @@ public class FXMLDocumentController implements Initializable {
     /*select mandatenames.MILITARYID,mandatenames.ENDATEFROM,mandatenames.ENDATETO, formation.NAME, formation.RANK 
      from mandatenames ,formation 
      where  mandatenames.MILITARYID = formation.MILITARYID AND mandatenames.DECISIONSTATUS = '0' AND mandatenames.ORDERID = '574857'*/
-
     private void mandatesChackTableViewData() {
-        ResultSet rs = DataMng.getDataJoinTable("mandatenames", "formation", "mandatenames.MILITARYID,formation.RANK,formation.NAME", "mandatenames.MILITARYID = formation.MILITARYID AND mandatenames.ORDERID ='" + ch_mailitraynum.getText() + "'");
+//        ResultSet rs = DataMng.getDataJoinTable("mandatenames", "formation", "mandatenames.MILITARYID,formation.RANK,formation.NAME", "mandatenames.MILITARYID = formation.MILITARYID AND mandatenames.ORDERID ='" + ch_mailitraynum.getText() + "'");
 ////       
 ////        try {
 ////            while (rs.next() && rss.next()) {
@@ -832,6 +923,7 @@ public class FXMLDocumentController implements Initializable {
                 ch_mailitraynum.setText("");
             }
         });
+
     }
 
     @FXML
