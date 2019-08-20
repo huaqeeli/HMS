@@ -25,6 +25,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
@@ -265,6 +266,10 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<?, ?> name_rank_col;
     @FXML
     private TableColumn<?, ?> name_name_col;
+    @FXML
+    private Pane progressPane;
+    @FXML
+    private ProgressIndicator progress;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -526,11 +531,9 @@ public class FXMLDocumentController implements Initializable {
         for (int i = 0; i < millest.size(); i++) {
             String[] data = {millest.get(i).toString(), listnumber.getText(), ch_enfrom.getText(), ch_ento.getText(), fromDate, toDate};
             boolean  orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i) + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");;
-            /**
-             * *******************************************************************************************
-             */
+            
 
-            Task<Parent> yourTaskName = new Task<Parent>() {
+            Task <Parent> yourTaskName = new Task<Parent>() {
                 @Override
                 public Parent call() {
                     // DO YOUR WORK
@@ -546,27 +549,13 @@ public class FXMLDocumentController implements Initializable {
                     return null;
                 }
             };
-//
-////ProgressBar
-            ProgressBar pBar = new ProgressBar();
-////Load Value from Task
-            pBar.progressProperty().bind(yourTaskName.progressProperty());
-////New Loading Label
-            Label statusLabel = new Label();
-////Get Text
-            statusLabel.setText("Loading...");
-////Layout
-            VBox root = new VBox(statusLabel, pBar);
-////SetFill Width TRUE
-            root.setFillWidth(true);
-////Center Items
-            root.setAlignment(Pos.CENTER);
-//
-////SetOnSucceeded methode 
+            progressPane.setVisible(true);
+            progress.progressProperty().bind(yourTaskName.progressProperty());
+
             yourTaskName.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                 @Override
                 public void handle(WorkerStateEvent event) {
-                    System.out.println("Finish");
+                    
                 }
             });
 
@@ -574,12 +563,8 @@ public class FXMLDocumentController implements Initializable {
             Thread loadingThread = new Thread(yourTaskName);
             loadingThread.start();
 
-            /**
-             * *******************************************************************************************
-             */
         }
-        System.out.print("تم ادخال البيانات في قاعدة البياناتا");
-        chackTableViewAllSoldiers();
+       chackTableViewAllSoldiers();
     }
 
     public static String setDate(String day, String month, String year) {
@@ -661,7 +646,6 @@ public class FXMLDocumentController implements Initializable {
                         rs.getDate("ENDATEFROM").toString(),
                         rs.getDate("ENDATETO").toString()
                 ));
-                System.out.print("لا توجد بيانات");
             }
             rs.close();
         } catch (SQLException ex) {
