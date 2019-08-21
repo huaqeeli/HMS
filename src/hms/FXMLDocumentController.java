@@ -549,8 +549,8 @@ public class FXMLDocumentController implements Initializable {
                     return null;
                 }
             };
-            progressPane.setVisible(true);
-            progress.progressProperty().bind(yourTaskName.progressProperty());
+//            progressPane.setVisible(true);
+//            progress.progressProperty().bind(yourTaskName.progressProperty());
 
             yourTaskName.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                 @Override
@@ -575,6 +575,10 @@ public class FXMLDocumentController implements Initializable {
     private void refreshEnTable() {
         tablelist.clear();
         enTableViewData();
+    }
+    
+    private void refreshEnChackTable() {
+        chacktablelist.clear();
     }
 
     private void refreshNameTable() {
@@ -604,7 +608,6 @@ public class FXMLDocumentController implements Initializable {
     private void chackTableViewData() {
         ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
         ResultSet rss = DataMng.getDataWithCondition("nameslist", "`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'AND `LISTNUMBER` = '" + listnumber.getText() + "'");
-//        ResultSet rs = DataMng.getDataJoinTable("nameslist", "formation", "`nameslist`.`MILITARYID`,`formation`.`RANK`,`formation`.`NAME`", "`nameslist`.`MILITARYID` = `formation`.`MILITARYID` AND `nameslist`.`LISTNUMBER` ='" + ch_mailitraynum.getText() + "'");
         try {
             while (rs.next() && rss.next()) {
                 chacktablelist.add(new NamesDataModel(
@@ -641,8 +644,37 @@ public class FXMLDocumentController implements Initializable {
                         rs.getString("MILITARYID"),
                         rs.getString("RANK"),
                         rs.getString("NAME"),
-                        rs.getString("ENDATEFROM"),
-                        rs.getString("ENDATETO"),
+                        rs.getString("ENFROM"),
+                        rs.getString("ENTO"),
+                        rs.getDate("ENDATEFROM").toString(),
+                        rs.getDate("ENDATETO").toString()
+                ));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
+        ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        ch_en_from_col.setCellValueFactory(new PropertyValueFactory<>("enfrom"));
+        ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
+        ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
+        ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
+
+        chacktable.setItems(chacktablelist);
+    }
+    private void chackTableListView(String listnum) {
+        ResultSet rs = DataMng.getDataJoinTable("select nameslist.MILITARYID,nameslist.ENDATEFROM,nameslist.ENDATETO,nameslist.ENFROM,nameslist.ENTO, formation.NAME, formation.RANK from nameslist ,formation  where  nameslist.MILITARYID = formation.MILITARYID  AND nameslist.LISTNUMBER ='" + listnum + "'");
+
+        try {
+            while (rs.next()) {
+                chacktablelist.add(new NamesDataModel(
+                        rs.getString("MILITARYID"),
+                        rs.getString("RANK"),
+                        rs.getString("NAME"),
+                        rs.getString("ENFROM"),
+                        rs.getString("ENTO"),
                         rs.getDate("ENDATEFROM").toString(),
                         rs.getDate("ENDATETO").toString()
                 ));
@@ -907,11 +939,24 @@ public class FXMLDocumentController implements Initializable {
                 ch_mailitraynum.setText("");
             }
         });
+        ch_list_combobox.setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                refreshEnChackTable();
+                chackTableListView(ch_list_combobox.getValue());
+            }
+        });
 
     }
 
     @FXML
     private void insertName(ActionEvent event) {
+    }
+
+    @FXML
+    private void showListName(ActionEvent event) {
+        refreshEnChackTable();
+        chackTableListView(ch_list_combobox.getValue());
     }
 
 }
