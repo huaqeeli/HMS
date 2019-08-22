@@ -67,7 +67,18 @@ public class DataMng {
         String guiry = "DELETE FROM " + tapleName + " WHERE " + condition ;
         try {
             PreparedStatement psm = con.prepareStatement(guiry);
-//            Alert alert = new Alert(AlertType.CONFIRMATION, "سوف يتم حذف السجل هل تريد المتابعة", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            Alert alert = FormValidation.confirmationDilog("تاكيد الحذف", "سوف يتم حذف السجل هل تريد المتابعة");
+            if (alert.getResult() == ButtonType.YES) {
+                psm.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    public static void delete(String quiry) {
+        Connection con = DatabaseConnector.dbConnector();
+        try {
+            PreparedStatement psm = con.prepareStatement(quiry);
             Alert alert = FormValidation.confirmationDilog("تاكيد الحذف", "سوف يتم حذف السجل هل تريد المتابعة");
             if (alert.getResult() == ButtonType.YES) {
                 psm.executeUpdate();

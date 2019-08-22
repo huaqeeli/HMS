@@ -38,7 +38,7 @@
          <children>
             <Pane layoutY="8.0" prefHeight="98.0" prefWidth="1211.0" style="-fx-background-color: #117E88;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label layoutX="462.0" layoutY="37.0" prefHeight="28.0" prefWidth="105.0" styleClass="appfont" stylesheets="@../css/style.css" text="الرقيب اول " textFill="#fcf8f8">
+                  <Label layoutX="462.0" layoutY="37.0" prefHeight="28.0" prefWidth="105.0" styleClass="appfont" stylesheets="@../css/style.css" text="الرتبة " textFill="#fcf8f8">
                      <font>
                         <Font name="Tahoma" size="14.0" />
                      </font>
@@ -48,7 +48,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER_RIGHT" layoutX="220.0" layoutY="36.0" prefHeight="28.0" prefWidth="223.0" styleClass="appfont" stylesheets="@../css/style.css" text="حسين بن احمد عبدالله عقيلي" textFill="#fcf8f8">
+                  <Label alignment="CENTER_RIGHT" layoutX="220.0" layoutY="36.0" prefHeight="28.0" prefWidth="223.0" styleClass="appfont" stylesheets="@../css/style.css" text="اسم المستخدم" textFill="#fcf8f8">
                      <font>
                         <Font name="Tahoma" size="14.0" />
                      </font>
@@ -366,11 +366,11 @@
                               </GridPane>
                               <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="120.0">
                                  <children>
-                                    <TextField fx:id="ch_mailitraynum" alignment="CENTER" disable="true" nodeOrientation="RIGHT_TO_LEFT" prefHeight="26.0" prefWidth="444.0" promptText="الرقم العسكري" style="-fx-border-color: #18838C;" styleClass="appfont">
+                                    <TextField fx:id="ch_mailitraynum" alignment="CENTER" disable="true" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="444.0" promptText="الرقم العسكري" style="-fx-border-color: #18838C;" styleClass="appfont">
                                        <HBox.margin>
                                           <Insets left="5.0" />
                                        </HBox.margin></TextField>
-                                    <Button fx:id="ch_en_button" disable="true" mnemonicParsing="false" onAction="#chackData" prefHeight="30.0" prefWidth="89.0" style="-fx-background-color: #2D883E;" styleClass="appfont" text="تحقق" textFill="WHITE">
+                                    <Button fx:id="ch_en_button" disable="true" mnemonicParsing="false" onAction="#chackData" prefHeight="40.0" prefWidth="89.0" style="-fx-background-color: #2D883E;" styleClass="appfont" text="تحقق" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
@@ -378,7 +378,7 @@
                                           <Insets left="2.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="ch_en_allofficers" disable="true" layoutX="1009.0" layoutY="11.0" mnemonicParsing="false" onAction="#chackAllOfficers" prefHeight="39.0" prefWidth="214.0" style="-fx-background-color: #596367;" styleClass="appfont" text="التحقق من جميع الضباط" textFill="WHITE">
+                                    <Button fx:id="ch_en_allofficers" disable="true" layoutX="1009.0" layoutY="11.0" mnemonicParsing="false" onAction="#chackAllOfficers" prefHeight="40.0" prefWidth="214.0" style="-fx-background-color: #596367;" styleClass="appfont" text="التحقق من جميع الضباط" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="9.0" />
                                        </font>
@@ -386,7 +386,7 @@
                                           <Insets left="2.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="ch_en_allsoldiers" disable="true" layoutX="884.0" layoutY="11.0" mnemonicParsing="false" onAction="#chackAllSoldiers" prefHeight="39.0" prefWidth="214.0" style="-fx-background-color: #596367;" text="التحقق من جميع الافراد" textFill="WHITE">
+                                    <Button fx:id="ch_en_allsoldiers" disable="true" layoutX="884.0" layoutY="11.0" mnemonicParsing="false" onAction="#chackAllSoldiers" prefHeight="40.0" prefWidth="214.0" style="-fx-background-color: #596367;" text="التحقق من جميع الافراد" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="9.0" />
                                        </font>
@@ -397,6 +397,25 @@
                                           <String fx:value="appfont" />
                                           <String fx:value="exclButton" />
                                        </styleClass>
+                                    </Button>
+                                    <Button fx:id="ch_en_button1" layoutX="816.0" layoutY="12.0" mnemonicParsing="false" onAction="#deleteFromNamelist" prefHeight="40.0" prefWidth="89.0" stylesheets="@../css/style.css" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="2.0" />
+                                       </HBox.margin>
+                                       <styleClass>
+                                          <String fx:value="appfont" />
+                                          <String fx:value="exclButton" />
+                                       </styleClass>
+                                       <graphic>
+                                          <ImageView fitHeight="29.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/deleteicon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
                                     </Button>
                                  </children>
                               </HBox>
@@ -438,11 +457,24 @@
                                     <String fx:value="exclButton" />
                                  </styleClass>
                               </Button>
-                              <Button layoutX="926.0" layoutY="728.0" mnemonicParsing="false" onAction="#showListName" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="315.0">
+                              <Button layoutX="926.0" layoutY="728.0" mnemonicParsing="false" onAction="#updateListName" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="315.0">
                                  <graphic>
                                     <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/opendataicon.png" />
+                                          <Image url="@../images/document-edit-128.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="appfont" />
+                                    <String fx:value="exclButton" />
+                                 </styleClass>
+                              </Button>
+                              <Button layoutX="358.0" layoutY="728.0" mnemonicParsing="false" onAction="#deleteListName" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="475.0">
+                                 <graphic>
+                                    <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/deleteicon.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>

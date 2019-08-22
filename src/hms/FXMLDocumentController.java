@@ -270,6 +270,8 @@ public class FXMLDocumentController implements Initializable {
     private Pane progressPane;
     @FXML
     private ProgressIndicator progress;
+    @FXML
+    private Button ch_en_button1;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -520,7 +522,7 @@ public class FXMLDocumentController implements Initializable {
 //        String[] data = null;
         String valuenumbers = "?,?,?,?,?,?";
         List millest = new ArrayList();
-       
+
         try {
             while (rs.next()) {
                 millest.add(rs.getString("MILITARYID"));
@@ -530,14 +532,13 @@ public class FXMLDocumentController implements Initializable {
         }
         for (int i = 0; i < millest.size(); i++) {
             String[] data = {millest.get(i).toString(), listnumber.getText(), ch_enfrom.getText(), ch_ento.getText(), fromDate, toDate};
-            boolean  orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i) + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");;
-            
+            boolean orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i) + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");;
 
-            Task <Parent> yourTaskName = new Task<Parent>() {
+            Task<Parent> yourTaskName = new Task<Parent>() {
                 @Override
                 public Parent call() {
                     // DO YOUR WORK
-                    
+
                     if (orderidUnique) {
                         DataMng.insert(tableName, fieldName, valuenumbers, data);
                     }
@@ -555,7 +556,7 @@ public class FXMLDocumentController implements Initializable {
             yourTaskName.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                 @Override
                 public void handle(WorkerStateEvent event) {
-                    
+
                 }
             });
 
@@ -564,7 +565,32 @@ public class FXMLDocumentController implements Initializable {
             loadingThread.start();
 
         }
-       chackTableViewAllSoldiers();
+        chackTableViewAllSoldiers();
+    }
+
+    @FXML
+    private void deleteFromNamelist(ActionEvent event) {
+        String condition = "`MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `LISTNUMBER`='" + listnumber.getText() + "'";
+        DataMng.delete("nameslist", condition);
+        refreshEnChackTable();
+        chackTableListView(listnumber.getText());
+    }
+
+    @FXML
+    private void updateListName(ActionEvent event) {
+    }
+
+    @FXML
+    private void deleteListName(ActionEvent event) {
+//        String condition = "t1.`LISTNUMBER`='" + listnumber.getText() + "' AND t2.`LISTNUMBER`='" + listnumber.getText() + "'";
+//        DataMng.delete("`nameslist` t1,`mandatelists` t2", condition);
+//        DataMng.delete("DELETE FROM nameslist,mandatelists WHERE nameslist.LISTNUMBER='" + listnumber.getText() + "' AND mandatelists.LISTNUMBER='" + listnumber.getText() + "'" );
+        DataMng.delete("DELETE `nameslist`, `mandatelists` FROM `nameslist` inner join  `mandatelists` on `nameslist`.`LISTNUMBER` = `mandatelists`.`LISTNUMBER`"
+                + "WHERE `nameslist`.`LISTNUMBER` = '" + listnumber.getText() + "'AND mandatelists.LISTNUMBER='" + listnumber.getText() + "'");
+//        DataMng.delete("mandatelists", condition);
+        refreshEnChackTable();
+        refreshListCombobox(fillListCombobox(ch_comboBoxlist));
+        chackTableListView(listnumber.getText());
     }
 
     public static String setDate(String day, String month, String year) {
@@ -576,7 +602,7 @@ public class FXMLDocumentController implements Initializable {
         tablelist.clear();
         enTableViewData();
     }
-    
+
     private void refreshEnChackTable() {
         chacktablelist.clear();
     }
@@ -636,7 +662,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private void chackTableViewAllSoldiers() {
-        ResultSet rs = DataMng.getDataJoinTable("select nameslist.MILITARYID,nameslist.ENDATEFROM,nameslist.ENDATETO, formation.NAME, formation.RANK from nameslist ,formation  where  nameslist.MILITARYID = formation.MILITARYID  AND nameslist.LISTNUMBER ='" + listnumber.getText() + "'");
+        ResultSet rs = DataMng.getDataJoinTable("select nameslist.MILITARYID,nameslist.ENDATEFROM,nameslist.ENDATETO,nameslist.ENFROM,nameslist.ENTO, formation.NAME, formation.RANK from nameslist ,formation  where  nameslist.MILITARYID = formation.MILITARYID  AND nameslist.LISTNUMBER ='" + listnumber.getText() + "'");
 
         try {
             while (rs.next()) {
@@ -664,6 +690,7 @@ public class FXMLDocumentController implements Initializable {
 
         chacktable.setItems(chacktablelist);
     }
+
     private void chackTableListView(String listnum) {
         ResultSet rs = DataMng.getDataJoinTable("select nameslist.MILITARYID,nameslist.ENDATEFROM,nameslist.ENDATETO,nameslist.ENFROM,nameslist.ENTO, formation.NAME, formation.RANK from nameslist ,formation  where  nameslist.MILITARYID = formation.MILITARYID  AND nameslist.LISTNUMBER ='" + listnum + "'");
 
@@ -678,6 +705,11 @@ public class FXMLDocumentController implements Initializable {
                         rs.getDate("ENDATEFROM").toString(),
                         rs.getDate("ENDATETO").toString()
                 ));
+                listnumber.setText(ch_list_combobox.getValue());
+                ch_mailitraynum.setDisable(false);
+                ch_en_button.setDisable(false);
+                ch_en_allsoldiers.setDisable(false);
+                ch_en_allofficers.setDisable(false);
             }
             rs.close();
         } catch (SQLException ex) {
@@ -938,12 +970,18 @@ public class FXMLDocumentController implements Initializable {
                 chackData();
                 ch_mailitraynum.setText("");
             }
+
         });
         ch_list_combobox.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
                 refreshEnChackTable();
                 chackTableListView(ch_list_combobox.getValue());
+                listnumber.setText(ch_list_combobox.getValue());
+                ch_mailitraynum.setDisable(false);
+                ch_en_button.setDisable(false);
+                ch_en_allsoldiers.setDisable(false);
+                ch_en_allofficers.setDisable(false);
             }
         });
 
@@ -951,12 +989,6 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void insertName(ActionEvent event) {
-    }
-
-    @FXML
-    private void showListName(ActionEvent event) {
-        refreshEnChackTable();
-        chackTableListView(ch_list_combobox.getValue());
     }
 
 }
