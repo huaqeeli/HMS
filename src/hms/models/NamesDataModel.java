@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 public class NamesDataModel {
     String militaryid,orderid,endatefrom,endateto;
     String fo_militaryid,rank,name,enfrom,ento,enfromdate,entodate;
+    int sq;
    
 
     public NamesDataModel(String militaryid, String orderid, String endatefrom, String endateto) {
@@ -21,7 +22,7 @@ public class NamesDataModel {
         this.name = name;
     }
 
-    public NamesDataModel(String fo_militaryid, String rank, String name, String enfrom, String ento, String enfromdate, String entodate) {
+    public NamesDataModel(String fo_militaryid, String rank, String name, String enfrom, String ento, String enfromdate, String entodate,int sq) {
         this.fo_militaryid = fo_militaryid;
         this.rank = rank;
         this.name = name;
@@ -29,7 +30,16 @@ public class NamesDataModel {
         this.ento = ento;
         this.enfromdate = enfromdate;
         this.entodate = entodate;
+        this.sq = sq;
        
+    }
+
+    public int getSq() {
+        return sq;
+    }
+
+    public void setSq(int sq) {
+        this.sq = sq;
     }
 
     public String getEnfrom() {

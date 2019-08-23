@@ -170,6 +170,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TableColumn<?, ?> ch_en_to_col;
     @FXML
+    private TableColumn<?, ?> en_ch_sq_col;
+    @FXML
     private ComboBox<String> ch_list_combobox;
     private String updatOrderId = null;
     private String updatFromDate = null;
@@ -634,16 +636,19 @@ public class FXMLDocumentController implements Initializable {
     private void chackTableViewData() {
         ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
         ResultSet rss = DataMng.getDataWithCondition("nameslist", "`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'AND `LISTNUMBER` = '" + listnumber.getText() + "'");
+        int sq = 0;
         try {
-            while (rs.next() && rss.next()) {
+            while (rs.next()) {
+                sq++;
                 chacktablelist.add(new NamesDataModel(
                         rs.getString("MILITARYID"),
                         rs.getString("RANK"),
                         rs.getString("NAME"),
-                        rss.getString("ENFROM"),
-                        rss.getString("ENTO"),
-                        rss.getDate("ENDATEFROM").toString(),
-                        rss.getDate("ENDATETO").toString()
+                        rs.getString("ENFROM"),
+                        rs.getString("ENTO"),
+                        rs.getDate("ENDATEFROM").toString(),
+                        rs.getDate("ENDATETO").toString(),
+                        sq
                 ));
             }
             rs.close();
@@ -657,15 +662,17 @@ public class FXMLDocumentController implements Initializable {
         ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
         ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
         ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
+         en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
         chacktable.setItems(chacktablelist);
     }
 
     private void chackTableViewAllSoldiers() {
         ResultSet rs = DataMng.getDataJoinTable("select nameslist.MILITARYID,nameslist.ENDATEFROM,nameslist.ENDATETO,nameslist.ENFROM,nameslist.ENTO, formation.NAME, formation.RANK from nameslist ,formation  where  nameslist.MILITARYID = formation.MILITARYID  AND nameslist.LISTNUMBER ='" + listnumber.getText() + "'");
-
+        int sq = 0;
         try {
             while (rs.next()) {
+                sq++;
                 chacktablelist.add(new NamesDataModel(
                         rs.getString("MILITARYID"),
                         rs.getString("RANK"),
@@ -673,7 +680,8 @@ public class FXMLDocumentController implements Initializable {
                         rs.getString("ENFROM"),
                         rs.getString("ENTO"),
                         rs.getDate("ENDATEFROM").toString(),
-                        rs.getDate("ENDATETO").toString()
+                        rs.getDate("ENDATETO").toString(),
+                        sq
                 ));
             }
             rs.close();
@@ -687,15 +695,17 @@ public class FXMLDocumentController implements Initializable {
         ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
         ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
         ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
+         en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
         chacktable.setItems(chacktablelist);
     }
 
     private void chackTableListView(String listnum) {
         ResultSet rs = DataMng.getDataJoinTable("select nameslist.MILITARYID,nameslist.ENDATEFROM,nameslist.ENDATETO,nameslist.ENFROM,nameslist.ENTO, formation.NAME, formation.RANK from nameslist ,formation  where  nameslist.MILITARYID = formation.MILITARYID  AND nameslist.LISTNUMBER ='" + listnum + "'");
-
+        int sq = 0;
         try {
             while (rs.next()) {
+                sq++;
                 chacktablelist.add(new NamesDataModel(
                         rs.getString("MILITARYID"),
                         rs.getString("RANK"),
@@ -703,7 +713,8 @@ public class FXMLDocumentController implements Initializable {
                         rs.getString("ENFROM"),
                         rs.getString("ENTO"),
                         rs.getDate("ENDATEFROM").toString(),
-                        rs.getDate("ENDATETO").toString()
+                        rs.getDate("ENDATETO").toString(),
+                        sq
                 ));
                 listnumber.setText(ch_list_combobox.getValue());
                 ch_mailitraynum.setDisable(false);
@@ -722,6 +733,7 @@ public class FXMLDocumentController implements Initializable {
         ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
         ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
         ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
+        en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
         chacktable.setItems(chacktablelist);
     }
