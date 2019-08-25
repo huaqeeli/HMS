@@ -584,13 +584,10 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void deleteListName(ActionEvent event) {
-//        String condition = "t1.`LISTNUMBER`='" + listnumber.getText() + "' AND t2.`LISTNUMBER`='" + listnumber.getText() + "'";
-//        DataMng.delete("`nameslist` t1,`mandatelists` t2", condition);
-//        DataMng.delete("DELETE FROM nameslist,mandatelists WHERE nameslist.LISTNUMBER='" + listnumber.getText() + "' AND mandatelists.LISTNUMBER='" + listnumber.getText() + "'" );
         DataMng.delete("DELETE `nameslist`, `mandatelists` FROM `nameslist` inner join  `mandatelists` on `nameslist`.`LISTNUMBER` = `mandatelists`.`LISTNUMBER`"
                 + "WHERE `nameslist`.`LISTNUMBER` = '" + listnumber.getText() + "'AND mandatelists.LISTNUMBER='" + listnumber.getText() + "'");
-//        DataMng.delete("mandatelists", condition);
         refreshEnChackTable();
+        ch_comboBoxlist.clear();
         refreshListCombobox(fillListCombobox(ch_comboBoxlist));
         chackTableListView(listnumber.getText());
     }
