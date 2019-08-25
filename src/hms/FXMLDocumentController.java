@@ -2,7 +2,6 @@ package hms;
 
 import hms.models.EnDataModel;
 import hms.models.NamesDataModel;
-import static java.lang.Integer.max;
 import java.util.List;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -14,19 +13,16 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
 public class FXMLDocumentController implements Initializable {
@@ -109,15 +105,6 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<EnDataModel, String> en_type_col;
     @FXML
     private TableColumn<EnDataModel, String> en_update_col;
-
-//    @FXML
-//    private TableView<NamesDataModel> names_table;
-//    @FXML
-//    private TableColumn<?, ?> name_militaryid_col;
-//    @FXML
-//    private TableColumn<?, ?> name_rank_col;
-//    @FXML
-//    private TableColumn<?, ?> name_name_col;
     private Accordion addnamepane;
     private TitledPane namepane;
     @FXML
@@ -154,7 +141,6 @@ public class FXMLDocumentController implements Initializable {
     ObservableList<String> monthlist = FXCollections.observableArrayList();
     ObservableList<String> yearlist = FXCollections.observableArrayList();
     ObservableList<EnDataModel> tablelist = FXCollections.observableArrayList();
-//    ObservableList<NamesDataModel> nametablelist = FXCollections.observableArrayList();
     ObservableList<NamesDataModel> chacktablelist = FXCollections.observableArrayList();
     ObservableList<String> ch_comboBoxlist = FXCollections.observableArrayList();
     @FXML
@@ -402,44 +388,6 @@ public class FXMLDocumentController implements Initializable {
         refreshEnTable();
     }
 
-//    @FXML
-//    private void insertName(ActionEvent event) {
-//        String tableName = "mandatenames";
-//        String fieldName = "`MILITARYID`,`ORDERID`,`ENDATEFROM`,`ENDATETO`";
-//        String[] data = {name_militaryid.getText(), orderid.getText(), setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue())};
-//        String valuenumbers = "?,?,?,?";
-//
-//        boolean orderidstate = FormValidation.textFieldNotEmpty(orderid, "  ادخل رقم الطب ارقام فقط");
-//        boolean numberOnly = FormValidation.textFieldTypeNumber(orderid, "استخدم الارقام فقط");
-//        boolean orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + data[0] + "'AND `ORDERID` = '" + data[1] + "'AND `ENDATEFROM`='" + data[2] + "' AND `ENDATETO` = '" + data[3] + "'", "تم اضافة الاسم مسبقا تاكد من الرقم العسكري");
-//
-//        if (orderidstate && orderidUnique && numberOnly) {
-//            DataMng.insert(tableName, fieldName, valuenumbers, data);
-//            nameTableViewData();
-////            if (!"صيفية".equals(entayp.getValue())) {
-////                increaseBalance(name_militaryid.getText());
-////            }
-//            name_militaryid.setText("");
-//        }
-//    }
-//    private void insertName() {//هذي الدالة تعمل نفس عمل الدالة السابقة عند الضغط على انتر
-//        String tableName = "mandatenames";
-//        String fieldName = "`MILITARYID`,`ORDERID`,`ENDATEFROM`,`ENDATETO`";
-//        String[] data = {name_militaryid.getText(), orderid.getText(), setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue()), setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue())};
-//        String valuenumbers = "?,?,?,?";
-//
-//        boolean orderidstate = FormValidation.textFieldNotEmpty(orderid, "  ادخل رقم الطب ارقام فقط");
-//        boolean numberOnly = FormValidation.textFieldTypeNumber(orderid, "استخدم الارقام فقط");
-//        boolean orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + data[0] + "'AND `ORDERID` = '" + data[1] + "'AND `ENDATEFROM`='" + data[2] + "' AND `ENDATETO` = '" + data[3] + "'", "تم اضافة الاسم مسبقا تاكد من الرقم العسكري");
-//
-//        if (orderidstate && orderidUnique && numberOnly) {
-//            DataMng.insert(tableName, fieldName, valuenumbers, data);
-//            nameTableViewData();
-//            if (!"صيفية".equals(entayp.getValue())) {
-//                increaseBalance(name_militaryid.getText());
-//            }
-//        }
-//    }
     @FXML
     private void creatNewList(ActionEvent event) {
         ResultSet rs = DataMng.getAllData("listcounter");
@@ -521,10 +469,8 @@ public class FXMLDocumentController implements Initializable {
         String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
         String tableName = "nameslist";
         String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
-//        String[] data = null;
         String valuenumbers = "?,?,?,?,?,?";
         List millest = new ArrayList();
-
         try {
             while (rs.next()) {
                 millest.add(rs.getString("MILITARYID"));
@@ -534,38 +480,20 @@ public class FXMLDocumentController implements Initializable {
         }
         for (int i = 0; i < millest.size(); i++) {
             String[] data = {millest.get(i).toString(), listnumber.getText(), ch_enfrom.getText(), ch_ento.getText(), fromDate, toDate};
+            //Validation
             boolean orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i) + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");;
 
             Task<Parent> yourTaskName = new Task<Parent>() {
                 @Override
                 public Parent call() {
-                    // DO YOUR WORK
-
                     if (orderidUnique) {
                         DataMng.insert(tableName, fieldName, valuenumbers, data);
                     }
-                    //method to set progress
-                    updateProgress(1, 1);
-
-                    //method to set labeltext
-                    updateMessage("يتم تحميل البيانات ....");
                     return null;
                 }
             };
-//            progressPane.setVisible(true);
-//            progress.progressProperty().bind(yourTaskName.progressProperty());
-
-            yourTaskName.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-                @Override
-                public void handle(WorkerStateEvent event) {
-
-                }
-            });
-
-//Start Thread
             Thread loadingThread = new Thread(yourTaskName);
             loadingThread.start();
-
         }
         chackTableViewAllSoldiers();
     }
@@ -580,6 +508,40 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void updateListName(ActionEvent event) {
+         ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID FROM nameslist where `LISTNUMBER`='" + listnumber.getText() + "'");
+        String fromdate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
+        String todate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
+        String[] data = {ch_enfrom.getText(), ch_ento.getText(), fromdate, todate};
+         List millest = new ArrayList();
+          
+        try {
+            while (rs.next()) {
+                millest.add(rs.getString("MILITARYID"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String militeryid = null;
+        for (int i = 0; i < millest.size(); i++) {
+            militeryid = millest.get(i).toString();
+            //Validation
+            boolean orderidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i) + "' AND `ENDATEFROM` >='" + fromdate + "' AND `ENDATETO` <= '" + todate + "'", "لديه انتداب خلال فترة الانتداب الحالية");;
+
+            Task<Parent> yourTaskName = new Task<Parent>() {
+                @Override
+                public Parent call() {
+                    if (orderidUnique) {
+                         DataMng.updat("nameslist", "`ENFROM`=?,`ENTO`=?,`ENDATEFROM`=?,`ENDATETO`=?", data, "`LISTNUMBER`='" + listnumber.getText() + "' AND `MILITARYID` = '" +   listnumber.getText()+ "'");
+                    }
+                    return null;
+                }
+            };
+            Thread loadingThread = new Thread(yourTaskName);
+            loadingThread.start();
+        }
+       
+        refreshEnChackTable();
+        chackTableListView(listnumber.getText());
     }
 
     @FXML
@@ -610,26 +572,7 @@ public class FXMLDocumentController implements Initializable {
 //        nametablelist.clear();
     }
 
-//    private void nameTableViewData() {
-//        ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + name_militaryid.getText() + "'");
-//        try {
-//            while (rs.next()) {
-//                nametablelist.add(new NamesDataModel(
-//                        rs.getString("MILITARYID"),
-//                        rs.getString("RANK"),
-//                        rs.getString("NAME")
-//                ));
-//            }
-//            rs.close();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        name_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
-//        name_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
-//        name_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
-//
-//        names_table.setItems(nametablelist);
-//    }
+
     private void chackTableViewData() {
         ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
         ResultSet rss = DataMng.getDataWithCondition("nameslist", "`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'AND `LISTNUMBER` = '" + listnumber.getText() + "'");
@@ -659,7 +602,7 @@ public class FXMLDocumentController implements Initializable {
         ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
         ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
         ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
-         en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
+        en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
         chacktable.setItems(chacktablelist);
     }
@@ -692,7 +635,7 @@ public class FXMLDocumentController implements Initializable {
         ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
         ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
         ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
-         en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
+        en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
         chacktable.setItems(chacktablelist);
     }
