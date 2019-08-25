@@ -784,18 +784,6 @@
                                           </TableView>
                                        </children>
                                     </HBox>
-                                    <Label fx:id="no_dec_sum" alignment="CENTER" contentDisplay="CENTER" layoutX="571.0" layoutY="10.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="49.0" prefWidth="89.0" styleClass="listLable" stylesheets="@../css/style.css" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="10.0" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="67.0" layoutY="37.0" prefHeight="49.0" prefWidth="159.0" style="-fx-background-color: #22d3e2;" styleClass="appfont" text="لم يصدر لهم قرار :" textFill="#146168" AnchorPane.rightAnchor="349.0" AnchorPane.topAnchor="10.0">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="dec_sum" alignment="CENTER" contentDisplay="CENTER" layoutX="581.0" layoutY="10.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="49.0" prefWidth="89.0" styleClass="listLable" stylesheets="@../css/style.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="425.0" layoutY="10.0" prefHeight="49.0" prefWidth="116.0" style="-fx-background-color: #22d3e2;" styleClass="appfont" text="صدر لهم قرار:" textFill="#146168" AnchorPane.rightAnchor="99.0" AnchorPane.topAnchor="10.0">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
                                  </children>
                               </AnchorPane>
                               <GridPane prefHeight="107.0" prefWidth="1088.0" style="-fx-border-color: #FBB115;" vgap="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="83.0">
