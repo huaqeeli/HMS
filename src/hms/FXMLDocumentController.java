@@ -481,7 +481,7 @@ public class FXMLDocumentController implements Initializable {
         for (int i = 0; i < millest.size(); i++) {
             String[] data = {millest.get(i).toString(), listnumber.getText(), ch_enfrom.getText(), ch_ento.getText(), fromDate, toDate};
             //Validation
-            boolean orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i) + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");;
+            boolean orderidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i) + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");;
 
             Task<Parent> yourTaskName = new Task<Parent>() {
                 @Override
@@ -578,16 +578,16 @@ public class FXMLDocumentController implements Initializable {
         ResultSet rss = DataMng.getDataWithCondition("nameslist", "`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'AND `LISTNUMBER` = '" + listnumber.getText() + "'");
         int sq = 0;
         try {
-            while (rs.next()) {
+            while (rs.next()&&rss.next()) {
                 sq++;
                 chacktablelist.add(new NamesDataModel(
                         rs.getString("MILITARYID"),
                         rs.getString("RANK"),
                         rs.getString("NAME"),
-                        rs.getString("ENFROM"),
-                        rs.getString("ENTO"),
-                        rs.getDate("ENDATEFROM").toString(),
-                        rs.getDate("ENDATETO").toString(),
+                        rss.getString("ENFROM"),
+                        rss.getString("ENTO"),
+                        rss.getDate("ENDATEFROM").toString(),
+                        rss.getDate("ENDATETO").toString(),
                         sq
                 ));
             }

@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -28,7 +22,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1450.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1450.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.FXMLDocumentController">
 
    <children>
       <AnchorPane layoutX="10.0" layoutY="397.0" minHeight="0.0" minWidth="0.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="301.0" prefWidth="540.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="335.0" AnchorPane.topAnchor="250.0">
@@ -372,27 +366,45 @@
                               </GridPane>
                               <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="120.0">
                                  <children>
-                                    <TextField fx:id="ch_mailitraynum" alignment="CENTER" disable="true" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="444.0" promptText="الرقم العسكري" style="-fx-border-color: #18838C;" styleClass="appfont">
+                                    <TextField fx:id="ch_mailitraynum" alignment="CENTER" disable="true" nodeOrientation="RIGHT_TO_LEFT" prefHeight="45.0" prefWidth="444.0" promptText="الرقم العسكري" style="-fx-border-color: #18838C;" styleClass="appfont">
                                        <HBox.margin>
                                           <Insets left="5.0" />
                                        </HBox.margin></TextField>
-                                    <Button fx:id="ch_en_button" disable="true" mnemonicParsing="false" onAction="#chackData" prefHeight="40.0" prefWidth="89.0" style="-fx-background-color: #2D883E;" styleClass="appfont" text="تحقق" textFill="WHITE">
+                                    <Button fx:id="ch_en_button" disable="true" mnemonicParsing="false" onAction="#chackData" prefHeight="45.0" prefWidth="121.0" stylesheets="@../css/style.css" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                        <HBox.margin>
                                           <Insets left="2.0" />
                                        </HBox.margin>
+                                       <graphic>
+                                          <ImageView fitHeight="29.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/check_mark_ok.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="appfont" />
+                                          <String fx:value="exclButton" />
+                                       </styleClass>
                                     </Button>
-                                    <Button fx:id="ch_en_allofficers" disable="true" layoutX="1009.0" layoutY="11.0" mnemonicParsing="false" onAction="#chackAllOfficers" prefHeight="40.0" prefWidth="214.0" style="-fx-background-color: #596367;" styleClass="appfont" text="التحقق من جميع الضباط" textFill="WHITE">
+                                    <Button fx:id="ch_en_allofficers" disable="true" layoutX="1009.0" layoutY="11.0" mnemonicParsing="false" onAction="#chackAllOfficers" prefHeight="42.0" prefWidth="121.0" style="-fx-background-color: #596367;" styleClass="appfont" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="9.0" />
                                        </font>
                                        <HBox.margin>
                                           <Insets left="2.0" />
                                        </HBox.margin>
+                                       <graphic>
+                                          <ImageView fitHeight="33.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/military-rank-tag-stripe-three-star-128.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
                                     </Button>
-                                    <Button fx:id="ch_en_allsoldiers" disable="true" layoutX="884.0" layoutY="11.0" mnemonicParsing="false" onAction="#chackAllSoldiers" prefHeight="40.0" prefWidth="214.0" style="-fx-background-color: #596367;" text="التحقق من جميع الافراد" textFill="WHITE">
+                                    <Button fx:id="ch_en_allsoldiers" disable="true" layoutX="884.0" layoutY="11.0" mnemonicParsing="false" onAction="#chackAllSoldiers" prefHeight="45.0" prefWidth="121.0" style="-fx-background-color: #596367;" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="9.0" />
                                        </font>
@@ -403,8 +415,15 @@
                                           <String fx:value="appfont" />
                                           <String fx:value="exclButton" />
                                        </styleClass>
+                                       <graphic>
+                                          <ImageView fitHeight="31.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/officer_rank-128.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
                                     </Button>
-                                    <Button fx:id="ch_en_button1" layoutX="816.0" layoutY="12.0" mnemonicParsing="false" onAction="#deleteFromNamelist" prefHeight="40.0" prefWidth="89.0" stylesheets="@../css/style.css" textFill="WHITE">
+                                    <Button fx:id="ch_en_button1" layoutX="816.0" layoutY="12.0" mnemonicParsing="false" onAction="#deleteFromNamelist" prefHeight="45.0" prefWidth="121.0" stylesheets="@../css/style.css" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
@@ -445,12 +464,12 @@
                                  </columns>
                               </TableView>
                               <ComboBox fx:id="ch_list_combobox" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="300.0" styleClass="appfont" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
-                              <Button mnemonicParsing="false" onAction="#creatNewList" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #22d3e2;" styleClass="appfont" text="انشاء قائمة اسماء" textFill="#565656" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="120.0">
+                              <Button mnemonicParsing="false" onAction="#creatNewList" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #22d3e2;" styleClass="appfont" text="انشاء قائمة اسماء" textFill="#565656" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="120.0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Button>
-                              <Label fx:id="listnumber" alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="41.0" prefWidth="150.0" styleClass="listLable" stylesheets="@../css/style.css" AnchorPane.leftAnchor="209.0" AnchorPane.topAnchor="120.0" />
+                              <Label fx:id="listnumber" alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="45.0" prefWidth="150.0" styleClass="listLable" stylesheets="@../css/style.css" AnchorPane.leftAnchor="209.0" AnchorPane.topAnchor="120.0" />
                               <Button mnemonicParsing="false" onAction="#entedabOpenAction" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
                                  <graphic>
                                     <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
@@ -468,7 +487,7 @@
                                  <graphic>
                                     <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/document-edit-128.png" />
+                                          <Image url="@../images/Block.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
