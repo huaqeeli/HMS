@@ -1,5 +1,6 @@
 package hms;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -141,23 +142,29 @@ public class FormValidation {
 
     public static boolean unique(String tapleName, String fildName, String condition, String validationmassage) {
         boolean state = true;
-        ResultSet rs = null;
-        String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
-        Connection con = DatabaseConnector.dbConnector();
         try {
-            PreparedStatement psm = con.prepareStatement(guiry);
-            rs = psm.executeQuery();
-            if (rs.next()) {
-                state = false;
-                showAlert("التحقق من التكرار", validationmassage);
+           
+            ResultSet rs = null;
+            String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
+            Connection con = DatabaseConnector.dbConnector();
+            try {
+                PreparedStatement psm = con.prepareStatement(guiry);
+                rs = psm.executeQuery();
+                if (rs.next()) {
+                    state = false;
+                    showAlert("التحقق من التكرار", validationmassage);
+                }
+                con.close();
+                psm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
             }
-            con.close();
-            psm.close();
-            rs.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(FormValidation.class.getName()).log(Level.SEVERE,null, ex);
         }
-
         return state;
     }
 

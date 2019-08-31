@@ -72,11 +72,11 @@
 }
 
 
-.table-view{
+.appTable{
     -fx-background-color: transparent;
 }
 
-.table-view:focused{
+.appTable:focused{
     -fx-background-color: transparent;
 }
 .bordercolor{
@@ -86,28 +86,43 @@
 /* Spaltenköpfe
     Struktur column-header-background -> column-header */
 
-.table-view .column-header {
+.appTable .column-header {
     /*-fx-background-color: #117E88;*/
     /*-fx-background-color: linear-gradient(#117E88, #d1d9dc);*/
     -fx-background-color: linear-gradient(#138e9a, #17afbe);
     -fx-border-color:#FFFFFF;
 }
 
-.table-view .column-header-background .label{
+.appTable .column-header-background .label{
     -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-font-family:'URW DIN Arabic';
     -fx-font-size: 13px;
     -fx-padding: 15px;
 }
-
-
-
-.table-view .table-cell{
+.appTable .table-cell{
     -fx-alignment: CENTER;
     -fx-font-family: 'URW DIN Arabic';
     -fx-font-size: 13px;
 }
+
+.blocked{
+    -fx-background-color: transparent;
+}
+.blocked:focused{
+    -fx-background-color: transparent;
+}
+.blocked .column-header-background {
+    -fx-max-height: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+}
+.blocked .table-cell{
+    -fx-alignment: CENTER;
+    -fx-font-family: 'URW DIN Arabic';
+    -fx-font-size: 13px;
+}
+
 
 #ops{
     /*-fx-background-color: transparent;*/

@@ -20,7 +20,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 public class Exporter {
 
-    public ArrayList<Object[]> getTableData() {
+    public ArrayList<Object[]> getTableData() throws IOException {
         ArrayList<Object[]> tableDataList = null;
         ResultSet rs = DataMng.getAllData("mandate");
         tableDataList = new ArrayList<>();
@@ -87,7 +87,7 @@ public class Exporter {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Exporter exporter = new Exporter();
         ArrayList<Object[]> dataList = exporter.getTableData();
         if (dataList != null && dataList.size() > 0) {
