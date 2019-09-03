@@ -5,6 +5,14 @@
  */
 package hms;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 /**
  *
  * @author ابو ريان
@@ -12,8 +20,16 @@ package hms;
 public class TestClass {
 
     public static void main(String args[]) {
-     
+        try {
+            Connection con=DatabaseConnector.dbConnector();
+            String guiry = "INSERT INTO formation (`MILITARYTYPE` )VALUES(?)";
+            PreparedStatement psm = con.prepareStatement(guiry);
+            psm.setString(1, "فرد");
+            psm.execute();
+        } catch (IOException | SQLException ex) {
+            Logger.getLogger(TestClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-}
+    }
 
 }

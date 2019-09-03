@@ -261,7 +261,8 @@ public class FXMLDocumentController implements Initializable {
     private ProgressIndicator progress;
     @FXML
     private Button ch_en_button1;
-DataMng dataMang = new DataMng();
+    DataMng dataMang = new DataMng();
+
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
         MainPage.setVisible(true);
@@ -355,7 +356,7 @@ DataMng dataMang = new DataMng();
                 Integer.parseInt(toyear), Integer.parseInt(tomonth), Integer.parseInt(today), "تاكد من تاريخ نهاية الانتداب");
 
         if (numberOnly && orderidUnique && orderidstate && enfromstate && entostate && placestate && militarytaypstate && entaypstate && toDateCheck) {
-            
+
             try {
                 dataMang.insertt("mandate", fieldName, valuenumbers, data);
             } catch (IOException ex) {
@@ -417,13 +418,13 @@ DataMng dataMang = new DataMng();
                 }
                 String newListNumber = FormValidation.creatList(lastNumber);
                 listnumber.setText(newListNumber);
-                
+
                 ch_mailitraynum.setDisable(false);
                 ch_en_button.setDisable(false);
                 ch_en_allsoldiers.setDisable(false);
                 ch_en_allofficers.setDisable(false);
                 DataMng.updat("`listcounter`", "`LISTID` = '" + Integer.parseInt(newListNumber) + "' ", "`LISTID`= '" + lastNumber + "'");
-                
+
                 String tableName = "mandatelists";
                 String fieldName = "`LISTNUMBER`";
                 String[] data = {newListNumber};
@@ -491,14 +492,8 @@ DataMng dataMang = new DataMng();
 
     @FXML
     private void chackAllOfficers(ActionEvent event) {
-
-    }
-
-    @FXML
-
-    private void chackAllSoldiers(ActionEvent event) {
         try {
-            ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID FROM formation");
+            ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID FROM formation WHERE MILITARYTYPE = 'ضابط'");
             String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
             String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
             String tableName = "nameslist";
@@ -516,7 +511,52 @@ DataMng dataMang = new DataMng();
                 String[] data = {millest.get(i).toString(), listnumber.getText(), ch_enfrom.getText(), ch_ento.getText(), fromDate, toDate};
                 //Validation
                 boolean orderidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i) + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");;
-                
+
+                Task<Parent> yourTaskName = new Task<Parent>() {
+                    @Override
+                    public Parent call() {
+                        if (orderidUnique) {
+                            try {
+                                DataMng.insert(tableName, fieldName, valuenumbers, data);
+                            } catch (IOException ex) {
+                                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        return null;
+                    }
+                };
+                Thread loadingThread = new Thread(yourTaskName);
+                loadingThread.start();
+            }
+            chackTableViewAllSoldiers();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+
+    private void chackAllSoldiers(ActionEvent event) {
+        try {
+            ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID FROM formation WHERE MILITARYTYPE = 'فرد'");
+            String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
+            String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
+            String tableName = "nameslist";
+            String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
+            String valuenumbers = "?,?,?,?,?,?";
+            List millest = new ArrayList();
+            try {
+                while (rs.next()) {
+                    millest.add(rs.getString("MILITARYID"));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            for (int i = 0; i < millest.size(); i++) {
+                String[] data = {millest.get(i).toString(), listnumber.getText(), ch_enfrom.getText(), ch_ento.getText(), fromDate, toDate};
+                //Validation
+                boolean orderidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i) + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");;
+
                 Task<Parent> yourTaskName = new Task<Parent>() {
                     @Override
                     public Parent call() {
@@ -559,7 +599,7 @@ DataMng dataMang = new DataMng();
             String todate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
             String[] data = {ch_enfrom.getText(), ch_ento.getText(), fromdate, todate};
             List millest = new ArrayList();
-            
+
             try {
                 while (rs.next()) {
                     millest.add(rs.getString("MILITARYID"));
@@ -572,13 +612,13 @@ DataMng dataMang = new DataMng();
                 militeryid = millest.get(i).toString();
                 //Validation
                 boolean orderidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i) + "' AND `ENDATEFROM` >='" + fromdate + "' AND `ENDATETO` <= '" + todate + "'", "لديه انتداب خلال فترة الانتداب الحالية");;
-                
+
                 Task<Parent> yourTaskName = new Task<Parent>() {
                     @Override
                     public Parent call() {
                         if (orderidUnique) {
                             try {
-                                DataMng.updat("nameslist", "`ENFROM`=?,`ENTO`=?,`ENDATEFROM`=?,`ENDATETO`=?", data, "`LISTNUMBER`='" + listnumber.getText() + "' AND `MILITARYID` = '" +   listnumber.getText()+ "'");
+                                DataMng.updat("nameslist", "`ENFROM`=?,`ENTO`=?,`ENDATEFROM`=?,`ENDATETO`=?", data, "`LISTNUMBER`='" + listnumber.getText() + "' AND `MILITARYID` = '" + listnumber.getText() + "'");
                             } catch (IOException ex) {
                                 Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
                             }
@@ -589,7 +629,7 @@ DataMng dataMang = new DataMng();
                 Thread loadingThread = new Thread(yourTaskName);
                 loadingThread.start();
             }
-            
+
             refreshEnChackTable();
             chackTableListView(listnumber.getText());
         } catch (IOException ex) {
@@ -629,14 +669,13 @@ DataMng dataMang = new DataMng();
 //        nametablelist.clear();
     }
 
-
     private void chackTableViewData() {
         try {
             ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
             ResultSet rss = DataMng.getDataWithCondition("nameslist", "`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'AND `LISTNUMBER` = '" + listnumber.getText() + "'");
             int sq = 0;
             try {
-                while (rs.next()&&rss.next()) {
+                while (rs.next() && rss.next()) {
                     sq++;
                     chacktablelist.add(new NamesDataModel(
                             rs.getString("MILITARYID"),
@@ -661,7 +700,7 @@ DataMng dataMang = new DataMng();
             ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
             ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
             en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
-            
+
             chacktable.setItems(chacktablelist);
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
@@ -698,7 +737,7 @@ DataMng dataMang = new DataMng();
             ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
             ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
             en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
-            
+
             chacktable.setItems(chacktablelist);
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
@@ -740,7 +779,7 @@ DataMng dataMang = new DataMng();
             ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
             ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
             en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
-            
+
             chacktable.setItems(chacktablelist);
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
@@ -815,7 +854,7 @@ DataMng dataMang = new DataMng();
             en_militarytype_col.setCellValueFactory(new PropertyValueFactory<>("militarytype"));
             en_type_col.setCellValueFactory(new PropertyValueFactory<>("entype"));
             en_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
-            
+
             Callback<TableColumn<EnDataModel, String>, TableCell<EnDataModel, String>> cellfactory = (param) -> {
                 final TableCell<EnDataModel, String> cell = new TableCell<EnDataModel, String>() {
                     @Override
@@ -855,13 +894,13 @@ DataMng dataMang = new DataMng();
                             setText(null);
                         }
                     }
-                    ;
+                ;
                 };
                 return cell;
             };
-            
+
             en_update_col.setCellFactory(cellfactory);
-            
+
             en_table.setItems(tablelist);
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
@@ -926,7 +965,7 @@ DataMng dataMang = new DataMng();
             } catch (SQLException ex) {
                 Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
