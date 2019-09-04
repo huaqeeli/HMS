@@ -107,3 +107,17 @@ CREATE TABLE `nameslist` (
   `ENTO` varchar(150) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11018 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `excluded` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `LISTNUMBER` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MILITARYID` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `exclusionmessage` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `MILITARYID` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `REASON` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
