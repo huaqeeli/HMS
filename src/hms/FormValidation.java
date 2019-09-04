@@ -14,6 +14,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -169,9 +170,8 @@ public class FormValidation {
         }
         return state;
     }
-    public static boolean unique(String tapleName, String fildName, String condition, String validationmassage, List reason) {
-        boolean state = true;
-        List rea = new ArrayList(); 
+    public static boolean unique(String tapleName, String fildName, String condition, String validationmassage, ObservableList reason,String militeryid,String listnumber) {
+        boolean state = true; 
         try {
            
             ResultSet rs = null;
@@ -183,7 +183,7 @@ public class FormValidation {
                 if (rs.next()) {
                     state = false;
                     showAlert("التحقق من التكرار", validationmassage);
-                    reason.add(validationmassage);
+                    reason.addAll(listnumber,militeryid,validationmassage);
                 }
                 con.close();
                 psm.close();

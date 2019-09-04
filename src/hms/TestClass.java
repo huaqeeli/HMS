@@ -6,9 +6,10 @@
 package hms;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,16 +21,21 @@ import java.util.logging.Logger;
 public class TestClass {
 
     public static void main(String args[]) {
+//        boolean trainingUnique = FormValidation.unique("training", "`MILITARYID`", " `MILITARYID` = '352839'", "لديه دورة  خلال فترة الانتداب الحالية");
         try {
-            Connection con=DatabaseConnector.dbConnector();
-            String guiry = "INSERT INTO formation (`MILITARYTYPE` )VALUES(?)";
-            PreparedStatement psm = con.prepareStatement(guiry);
-            psm.setString(1, "فرد");
-            psm.execute();
+            ResultSet rs = DataMng.getDataWithCondition("training", "`MILITARYID`", " `MILITARYID` = '352839' AND `COURSESTARTDATE` >='1440-07-15' AND `COURSENDDATE` <= '1441-01-20' ");
+            if (rs.next()) {
+                System.out.println("تمام");
+            }else{
+            System.out.println("ماشي");
+            }
         } catch (IOException | SQLException ex) {
             Logger.getLogger(TestClass.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+//        if (trainingUnique) {
+//            System.out.println("");
+//        }
+       
     }
 
 }

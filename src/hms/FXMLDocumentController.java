@@ -451,19 +451,38 @@ public class FXMLDocumentController implements Initializable {
         String tableName = "nameslist";
         String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
         String[] data = {ch_mailitraynum.getText(), listnumber.getText(), ch_enfrom.getText(), ch_ento.getText(), fromDate, toDate};
+        String[] excluded = {listnumber.getText(), ch_mailitraynum.getText()};
         String valuenumbers = "?,?,?,?,?,?";
-
-        boolean orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية");
-        boolean trainingUnique = FormValidation.unique("training", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `COURSESTARTDATE` >='" + fromDate + "' AND `COURSENDDATE` <= '" + toDate + "'", "لديه دورة  خلال فترة الانتداب الحالية");
+        ObservableList<String> reasons = FXCollections.observableArrayList();
+        
+        boolean mandateUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية", reasons, ch_mailitraynum.getText(), listnumber.getText());
+        boolean trainingUnique = FormValidation.unique("training", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `COURSESTARTDATE` >='" + fromDate + "' AND `COURSENDDATE` <= '" + toDate + "'", "لديه دورة  خلال فترة الانتداب الحالية", reasons, ch_mailitraynum.getText(), listnumber.getText());
         boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
+        boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
 
-        if (orderidUnique && trainingUnique && militaryidUnique) {
-            try {
-                DataMng.insert(tableName, fieldName, valuenumbers, data);
-                chackTableViewData();
-                ch_mailitraynum.setText("");
-            } catch (IOException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        if (mandateUnique && trainingUnique) {
+            if (militaryidUnique) {
+                try {
+                    DataMng.insert(tableName, fieldName, valuenumbers, data);
+                    chackTableViewData();
+                    ch_mailitraynum.setText("");
+                } catch (IOException ex) {
+                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } else {
+            if (exuludedUnique) {
+                try {
+                    DataMng.insert("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excluded);
+                    DataMng.insert("exclusionmessage", "`LISTNUMBER`,`MILITARYID`,`REASON`", "?,?,?", reasons);
+                    System.out.println(reasons.size());
+                    for (int i = 0; i < reasons.size(); i++) {
+                         System.out.println(reasons);
+                    }
+                   
+                } catch (IOException ex) {
+                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
@@ -475,10 +494,10 @@ public class FXMLDocumentController implements Initializable {
         String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
         String[] data = {ch_mailitraynum.getText(), listnumber.getText(), ch_enfrom.getText(), ch_ento.getText(), fromDate, toDate};
         String valuenumbers = "?,?,?,?,?,?";
-        List reasons = new ArrayList();
-        boolean orderidUnique = FormValidation.unique("mandatenames", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية", reasons);
-        boolean trainingUnique = FormValidation.unique("training", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `COURSESTARTDATE` >='" + fromDate + "' AND `COURSENDDATE` <= '" + toDate + "'", "لديه دورة  خلال فترة الانتداب الحالية", reasons);
-        boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا", reasons);
+        ObservableList<String> reasons = FXCollections.observableArrayList();
+        boolean orderidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية", reasons, ch_mailitraynum.getText(), listnumber.getText());
+        boolean trainingUnique = FormValidation.unique("training", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `COURSESTARTDATE` >='" + fromDate + "' AND `COURSENDDATE` <= '" + toDate + "'", "لديه دورة  خلال فترة الانتداب الحالية", reasons, ch_mailitraynum.getText(), listnumber.getText());
+        boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
 
         if (orderidUnique && trainingUnique && militaryidUnique) {
             try {
@@ -509,7 +528,7 @@ public class FXMLDocumentController implements Initializable {
             String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
             String valuenumbers = "?,?,?,?,?,?";
             List millest = new ArrayList();
-            List reasons = new ArrayList();
+           ObservableList<String> reasons = FXCollections.observableArrayList();
             try {
                 while (rs.next()) {
                     millest.add(rs.getString("MILITARYID"));
@@ -520,7 +539,7 @@ public class FXMLDocumentController implements Initializable {
             for (int i = 0; i < millest.size(); i++) {
                 String[] data = {millest.get(i).toString(), listnumber.getText(), ch_enfrom.getText(), ch_ento.getText(), fromDate, toDate};
                 //Validation
-                boolean orderidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i) + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية", reasons);;
+                boolean orderidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i) + "' AND `ENDATEFROM` >='" + fromDate + "' AND `ENDATETO` <= '" + toDate + "'", "لديه انتداب خلال فترة الانتداب الحالية", reasons, ch_mailitraynum.getText(), listnumber.getText());
 
                 Task<Parent> yourTaskName = new Task<Parent>() {
                     @Override

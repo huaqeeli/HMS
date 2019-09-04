@@ -117,7 +117,8 @@ CREATE TABLE `excluded` (
 
 CREATE TABLE `exclusionmessage` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `MILITARYID` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `REASON` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LISTNUMBER` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MILITARYID` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `REASON` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
