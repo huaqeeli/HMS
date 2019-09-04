@@ -8,8 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
@@ -153,6 +155,35 @@ public class FormValidation {
                 if (rs.next()) {
                     state = false;
                     showAlert("التحقق من التكرار", validationmassage);
+                }
+                con.close();
+                psm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(FormValidation.class.getName()).log(Level.SEVERE,null, ex);
+        }
+        return state;
+    }
+    public static boolean unique(String tapleName, String fildName, String condition, String validationmassage, List reason) {
+        boolean state = true;
+        List rea = new ArrayList(); 
+        try {
+           
+            ResultSet rs = null;
+            String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
+            Connection con = DatabaseConnector.dbConnector();
+            try {
+                PreparedStatement psm = con.prepareStatement(guiry);
+                rs = psm.executeQuery();
+                if (rs.next()) {
+                    state = false;
+                    showAlert("التحقق من التكرار", validationmassage);
+                    reason.add(validationmassage);
                 }
                 con.close();
                 psm.close();

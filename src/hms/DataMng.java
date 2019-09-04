@@ -5,22 +5,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javax.swing.JOptionPane;
 
 public  class DataMng {
-DatabaseConnector dbcon = new DatabaseConnector();
-    public void insertt(String tapleName, String fildName, String valueNamber, String[] data) throws IOException {
+    public static void insert(String tapleName, String fildName, String valueNamber, List data) throws IOException {
         
         Connection con = DatabaseConnector.dbConnector();
         String guiry = "INSERT INTO " + tapleName + "(" + fildName + ")VALUES(" + valueNamber + ")";
         try {
             PreparedStatement psm = con.prepareStatement(guiry);
-            int e = data.length;
+            int e = data.size();
             for (int i = 1; i <= e; i++) {
-                psm.setString(i, data[i - 1]);
+                psm.setString(i, data.get(i-1).toString());
             }
             int t = psm.executeUpdate();
             if (t > 0) {
