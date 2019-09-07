@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -54,6 +55,7 @@ public  class DataMng {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+   
 
     public static void updat(String tapleName, String fildNameAndValue, String[] data, String condition) throws IOException {
         Connection con = DatabaseConnector.dbConnector();

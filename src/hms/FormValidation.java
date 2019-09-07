@@ -1,5 +1,6 @@
 package hms;
 
+import hms.models.ErorreMesageModel;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
@@ -134,7 +135,6 @@ public class FormValidation {
     }
 
     // Alert alert = new Alert(AlertType.CONFIRMATION, "سوف يتم حذف السجل هل تريد المتابعة", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-
     public static void showAlert(String titel, String massage, AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(titel);
@@ -146,7 +146,7 @@ public class FormValidation {
     public static boolean unique(String tapleName, String fildName, String condition, String validationmassage) {
         boolean state = true;
         try {
-           
+
             ResultSet rs = null;
             String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
             Connection con = DatabaseConnector.dbConnector();
@@ -163,17 +163,17 @@ public class FormValidation {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
             }
-            
-            
+
         } catch (IOException ex) {
-            Logger.getLogger(FormValidation.class.getName()).log(Level.SEVERE,null, ex);
+            Logger.getLogger(FormValidation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return state;
     }
-    public static boolean unique(String tapleName, String fildName, String condition, String validationmassage, ObservableList reason,String militeryid,String listnumber) {
-        boolean state = true; 
+
+    public static boolean unique(String tapleName, String fildName, String condition, String validationmassage, ObservableList reason, String militeryid, String listnumber) {
+        boolean state = true;
         try {
-           
+
             ResultSet rs = null;
             String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
             Connection con = DatabaseConnector.dbConnector();
@@ -183,7 +183,7 @@ public class FormValidation {
                 if (rs.next()) {
                     state = false;
                     showAlert("التحقق من التكرار", validationmassage);
-                    reason.addAll(listnumber,militeryid,validationmassage);
+                    reason.addAll(listnumber, militeryid, validationmassage);
                 }
                 con.close();
                 psm.close();
@@ -191,10 +191,85 @@ public class FormValidation {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
             }
-            
-            
+
         } catch (IOException ex) {
-            Logger.getLogger(FormValidation.class.getName()).log(Level.SEVERE,null, ex);
+            Logger.getLogger(FormValidation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return state;
+    }
+
+    public static boolean dateChaking(String tapleName, String fildName, String condition, String validationmassage, String militeryid, String listnumber, String date1, String date2) {
+        boolean state = true;
+        try {
+            ResultSet rs = null;
+            String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
+            Connection con = DatabaseConnector.dbConnector();
+            try {
+                PreparedStatement psm = con.prepareStatement(guiry);
+                psm.setString(1, militeryid);
+                psm.setString(2, date1);
+                psm.setString(3, date2);
+                psm.setString(4, date1);
+                psm.setString(5, date2);
+                rs = psm.executeQuery();
+                if (rs.next()) {
+                    state = false;
+                    showAlert("رسالة تحقق", validationmassage);
+                    try {
+                        String[] excluded = {listnumber, militeryid};
+                        String[] reasons = {listnumber, militeryid, validationmassage};
+//                        DataMng.insert("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excluded);
+                        DataMng.insert("exclusionmessage", "`LISTNUMBER`,`MILITARYID`,`REASON`", "?,?,?", reasons);
+                    } catch (IOException ex) {
+                        Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                con.close();
+                psm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(FormValidation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return state;
+    }
+    public static boolean dateAllChaking(String tapleName, String fildName, String condition, String validationmassage, String militeryid, String listnumber, String date1, String date2) {
+        boolean state = true;
+        try {
+            ResultSet rs = null;
+            String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
+            Connection con = DatabaseConnector.dbConnector();
+            try {
+                PreparedStatement psm = con.prepareStatement(guiry);
+                psm.setString(1, militeryid);
+                psm.setString(2, date1);
+                psm.setString(3, date2);
+                psm.setString(4, date1);
+                psm.setString(5, date2);
+                rs = psm.executeQuery();
+                if (rs.next()) {
+                    state = false;
+//                    showAlert("رسالة تحقق", validationmassage);
+                    try {
+                        String[] excluded = {listnumber, militeryid};
+                        String[] reasons = {listnumber, militeryid, validationmassage};
+                        DataMng.insert("exclusionmessage", "`LISTNUMBER`,`MILITARYID`,`REASON`", "?,?,?", reasons);
+                    } catch (IOException ex) {
+                        Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                con.close();
+                psm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(FormValidation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return state;
     }
@@ -222,7 +297,7 @@ public class FormValidation {
 //        return state;
 //    }
 
-    public static boolean checkDate(int year1, int month1, int day1, int year2, int month2, int day2,String message) {
+    public static boolean checkDate(int year1, int month1, int day1, int year2, int month2, int day2, String message) {
         boolean state = true;
         Calendar cal1 = new GregorianCalendar();
         Calendar cal2 = new GregorianCalendar();
@@ -231,7 +306,7 @@ public class FormValidation {
         cal2.set(year2, month2, day2);
         int d = daysBetween(cal1.getTime(), cal2.getTime());
         if (d <= 0) {
-           state = false;
+            state = false;
             FormValidation.showAlert("", message, AlertType.WARNING);
         }
         return state;
