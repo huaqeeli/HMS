@@ -18,6 +18,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -187,10 +188,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TableColumn<?, ?> dec_name_col;
     @FXML
-    private Label no_dec_sum;
-    @FXML
-    private Label dec_sum;
-    @FXML
     private TextField mandate_ch_decnumber;
     @FXML
     private ComboBox<?> mandate_ch_dec_fromday;
@@ -258,8 +255,6 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<?, ?> name_name_col;
     @FXML
     private Pane progressPane;
-    @FXML
-    private ProgressIndicator progress;
     @FXML
     private Button ch_en_button1;
     DataMng dataMang = new DataMng();
@@ -587,10 +582,12 @@ public class FXMLDocumentController implements Initializable {
         List millest = new ArrayList();
         String[] data = new String[6];
         String[] excluded = new String[2];
+        ProgressIndicator progressIndicator = new ProgressIndicator();
         try {
             ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID FROM formation WHERE MILITARYTYPE = 'فرد'");
             while (rs.next()) {
 //                millest.add(rs.getString("MILITARYID"));
+                progressPane.getChildren().add(progressIndicator);
                 boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", rs.getString("MILITARYID"), listnumber.getText(), fromDate, toDate);
                 boolean trainingUnique = FormValidation.dateAllChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", rs.getString("MILITARYID"), listnumber.getText(), fromDate, toDate);
                 boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + rs.getString("MILITARYID") + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
