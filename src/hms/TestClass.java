@@ -10,13 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.concurrent.Task;
-import javafx.scene.Parent;
 
-/**
- *
- * @author ابو ريان
- */
 public class TestClass {
 
     public static void main(String args[]) {
