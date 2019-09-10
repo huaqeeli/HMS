@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -22,7 +28,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1450.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1450.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.FXMLDocumentController">
 
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="300.0">
@@ -519,7 +525,7 @@
                                     <String fx:value="exclButton" />
                                  </styleClass>
                               </Button>
-                              <Label alignment="CENTER" layoutX="600.0" layoutY="717.0" prefHeight="35.0" prefWidth="39.0" style="-fx-background-color: #E50B00; -fx-background-radius: 55px;" text="11" textAlignment="CENTER" textFill="#f5f3f3" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="600.0">
+                              <Label fx:id="excludedNumber" alignment="CENTER" layoutX="600.0" layoutY="717.0" prefHeight="42.0" prefWidth="46.0" style="-fx-background-color: #E50B00; -fx-background-radius: 60px;" textAlignment="CENTER" textFill="#f5f3f3" visible="false" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="600.0">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>

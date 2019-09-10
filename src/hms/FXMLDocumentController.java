@@ -147,6 +147,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label listnumber;
     @FXML
+    private Label excludedNumber;
+    @FXML
     private Button ch_en_button;
     @FXML
     private TextField ch_enfrom;
@@ -574,13 +576,11 @@ public class FXMLDocumentController implements Initializable {
 
         @Override
         protected String call() throws Exception {
-            Thread.sleep(2000);
             String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
             String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
             String tableName = "nameslist";
             String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
             String valuenumbers = "?,?,?,?,?,?";
-            List millest = new ArrayList();
             String[] data = new String[6];
             String[] excluded = new String[2];
 
@@ -588,8 +588,6 @@ public class FXMLDocumentController implements Initializable {
                 ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID,NAME FROM formation WHERE MILITARYTYPE = 'فرد'");
 
                 while (rs.next()) {
-//                millest.add(rs.getString("MILITARYID"));
-
                     boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", rs.getString("MILITARYID"), listnumber.getText(), fromDate, toDate);
                     boolean trainingUnique = FormValidation.dateAllChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", rs.getString("MILITARYID"), listnumber.getText(), fromDate, toDate);
                     boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + rs.getString("MILITARYID") + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
@@ -613,6 +611,8 @@ public class FXMLDocumentController implements Initializable {
                             DataMng.insert("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excluded);
                         }
                     }
+                    chackTableViewAllSoldiers();
+
                 }
 
             } catch (IOException | SQLException ex) {
@@ -620,81 +620,34 @@ public class FXMLDocumentController implements Initializable {
             }
             return null;
         }
-
-        @Override
-        protected void updateProgress(double workDone, double max) {
-             updateMessage("pragress!"+workDone);
-             super.updateProgress(workDone, max);
-        }
-
-        @Override
-        public boolean cancel(boolean mayInterruptIfRunning) {
-            updateMessage("Cancelled!");
-            return super.cancel(mayInterruptIfRunning); 
-        }
-        
-
     }
 
-    public class Showdata extends Task<String> {
-
-        @Override
-        protected String call() throws Exception {
-            Thread.sleep(10);
-            chackTableViewAllSoldiers();
-            return null;
+    public int getExcludededSum(String listnumber) {
+        int total = 0;
+        try {
+            ResultSet rs = DataMng.getAllQuiry("SELECT COUNT(MILITARYID) AS TotalExcluded FROM excluded WHERE LISTNUMBER='" + listnumber + "'");
+            while (rs.next()) {
+                total = Integer.parseInt(rs.getString("TotalExcluded"));
+            }
+        } catch (IOException | SQLException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return total;
     }
 
     @FXML
     private void chackAllSoldiers(ActionEvent event) {
-        Dowork task1 = new Dowork();
-        Showdata task2 = new Showdata();
-        progressPane.setVisible(true);
-        progress.progressProperty().bind(task1.progressProperty());
-        new Thread(task1).start();
-        new Thread(task2).start();
+        Dowork task = new Dowork();
+        new Thread(task).start();
+        int ex = getExcludededSum(listnumber.getText());
+        if (ex > 0) {
+            excludedNumber.setVisible(true);
+            excludedNumber.setText(Integer.toString(ex));
+        }
     }
 
-//        for (int i = 0; i < millest.size(); i++) {
-////            String[] data = {millest.get(i).toString(), listnumber.getText(), ch_enfrom.getText(), ch_ento.getText(), fromDate, toDate};
-////            String[] excluded = {listnumber.getText(), millest.get(i).toString()};
-//            //Validation
-//            boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", millest.get(i).toString(), listnumber.getText(), fromDate, toDate);
-//            boolean trainingUnique = FormValidation.dateAllChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", millest.get(i).toString(), listnumber.getText(), fromDate, toDate);
-//            boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i).toString() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
-//            boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + millest.get(i).toString() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
-//
-//            Task<Parent> yourTaskName = new Task<Parent>() {
-//                @Override
-//                public Parent call() {
-//                    if (mandateUnique && trainingUnique) {
-//                        if (militaryidUnique) {
-//                            try {
-//                                DataMng.insert(tableName, fieldName, valuenumbers, data);
-//                            } catch (IOException ex) {
-//                                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-//                            }
-//                        }
-//                    } else {
-//                        if (exuludedUnique) {
-//                            try {
-//                                DataMng.insert("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excluded);
-//                            } catch (IOException ex) {
-//                                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-//                            }
-//                        }
-//                    }
-//                    return null;
-//                }
-//            };
-//            Thread loadingThread = new Thread(yourTaskName);
-//            loadingThread.start();
-//        }
     @FXML
-    private void deleteFromNamelist(ActionEvent event
-    ) {
+    private void deleteFromNamelist(ActionEvent event) {
         try {
             String condition = "`MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `LISTNUMBER`='" + listnumber.getText() + "'";
             DataMng.delete("nameslist", condition);
