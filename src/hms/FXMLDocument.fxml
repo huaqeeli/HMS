@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -1049,7 +1049,7 @@
       </AnchorPane>
       <AnchorPane fx:id="progressPane" layoutX="346.0" prefHeight="237.0" prefWidth="762.0" visible="false" AnchorPane.leftAnchor="344.0" AnchorPane.topAnchor="281.0">
          <children>
-            <ListView fx:id="dataShow" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ProgressIndicator fx:id="progress" prefHeight="40.0" prefWidth="37.0" progress="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="351.0" />
          </children></AnchorPane>
    </children>
 </AnchorPane>

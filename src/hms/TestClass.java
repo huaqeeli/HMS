@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TestClass {
+public class TestClass extends Thread{
 
     public static void main(String args[]) {
         try {
