@@ -5,27 +5,44 @@
  */
 package hms;
 
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TestClass extends Thread{
+public class TestClass {
 
     public static void main(String args[]) {
-        try {
-            ResultSet rs = DataMng.getAllData("formation");
-             String[] data = new String[2];
-             
-            while (rs.next()) {
-                System.out.println(rs.getString("MILITARYID")+" ---- " + rs.getString("NAME"));
-                data[0] = rs.getString("MILITARYID");
-                data[1] = rs.getString("NAME");
-                DataMng.insert("TEST", "mi,name", "?,?", data);
+        Task1 t = new Task1();
+        Task2 t2 = new Task2();
+        t.start();
+      
+    }
+
+    public static class Task1 extends Thread {
+
+        @Override
+        public void run() {
+            for (int i = 0; i < 100; i++) {
+                System.out.println("num = " + i);
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(TestClass.class.getName()).log(Level.SEVERE, null, ex);
+             print();
         }
+        public void print(){
+        System.out.println("hi hussein");
+        }
+
+    }
+
+    public static class Task2 extends Thread {
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(2000);
+                System.out.println("hi hussein");
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TestClass.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 }

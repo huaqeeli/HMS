@@ -612,7 +612,6 @@ public class FXMLDocumentController implements Initializable {
                         }
                     }
                     chackTableViewAllSoldiers();
-
                 }
 
             } catch (IOException | SQLException ex) {
@@ -635,15 +634,12 @@ public class FXMLDocumentController implements Initializable {
         return total;
     }
 
+    
+
     @FXML
     private void chackAllSoldiers(ActionEvent event) {
         Dowork task = new Dowork();
         new Thread(task).start();
-        int ex = getExcludededSum(listnumber.getText());
-        if (ex > 0) {
-            excludedNumber.setVisible(true);
-            excludedNumber.setText(Integer.toString(ex));
-        }
     }
 
     @FXML
