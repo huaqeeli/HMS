@@ -1,7 +1,5 @@
 package hms.models;
 
-import javafx.scene.control.Button;
-
 
 public class NamesDataModel {
     String militaryid,orderid,endatefrom,endateto;
@@ -16,10 +14,11 @@ public class NamesDataModel {
         this.endateto = endateto;
     }
 
-    public NamesDataModel(String fo_militaryid, String rank, String name) {
+    public NamesDataModel(String fo_militaryid, String rank, String name,int sq) {
         this.fo_militaryid = fo_militaryid;
         this.rank = rank;
         this.name = name;
+        this.sq = sq;
     }
 
     public NamesDataModel(String fo_militaryid, String rank, String name, String enfrom, String ento, String enfromdate, String entodate,int sq) {

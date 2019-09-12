@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
@@ -143,6 +144,7 @@ public class FXMLDocumentController implements Initializable {
     ObservableList<String> yearlist = FXCollections.observableArrayList();
     ObservableList<EnDataModel> tablelist = FXCollections.observableArrayList();
     ObservableList<NamesDataModel> chacktablelist = FXCollections.observableArrayList();
+    ObservableList<NamesDataModel> excludedtablelist = FXCollections.observableArrayList();
     ObservableList<String> ch_comboBoxlist = FXCollections.observableArrayList();
     @FXML
     private Label listnumber;
@@ -260,6 +262,20 @@ public class FXMLDocumentController implements Initializable {
     DataMng dataMang = new DataMng();
     @FXML
     private ProgressIndicator progress;
+    @FXML
+    private AnchorPane ExcludedPage;
+    @FXML
+    private TableView<NamesDataModel> ex_tableview;
+    @FXML
+    private TableColumn<?, ?> ex_sequence_col;
+    @FXML
+    private TableColumn<?, ?> ex_militaryid_col;
+    @FXML
+    private TableColumn<?, ?> ex_rank_col;
+    @FXML
+    private TableColumn<?, ?> ex_name_col;
+    @FXML
+    private ListView<String> ex_reasonListView;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -572,6 +588,38 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    @FXML
+    private void excludedNameShow(ActionEvent event) {
+        ExcludedPage.setVisible(true);
+        excludedTableViewData();
+    }
+
+    
+
+    @FXML
+    private void ex_exit(ActionEvent event) {
+        ExcludedPage.setVisible(false);
+        excludedtablelist.clear();
+    }
+
+    @FXML
+    private void showReason(MouseEvent event) {
+        try {
+            String militryid = ex_tableview.getSelectionModel().getSelectedItem().getFo_militaryid();
+            ObservableList<String> reasonlist = FXCollections.observableArrayList();
+            ResultSet rs =DataMng.getDataWithCondition("exclusionmessage","REASON", "`MILITARYID` = '"+militryid+"'");
+            while(rs.next()){
+             reasonlist.add(rs.getString("REASON"));
+            }
+            ex_reasonListView.setItems(reasonlist);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
     public class Dowork extends Task<String> {
 
         @Override
@@ -641,6 +689,8 @@ public class FXMLDocumentController implements Initializable {
         Dowork task = new Dowork();
         new Thread(task).start();
     }
+    
+    
 
     @FXML
     private void deleteFromNamelist(ActionEvent event) {
@@ -654,7 +704,6 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-    @FXML
     private void updateListName(ActionEvent event
     ) {
         try {
@@ -702,8 +751,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void deleteListName(ActionEvent event
-    ) {
+    private void deleteListName(ActionEvent event) {
         try {
             DataMng.delete("DELETE `nameslist`, `mandatelists` FROM `nameslist` inner join  `mandatelists` on `nameslist`.`LISTNUMBER` = `mandatelists`.`LISTNUMBER`"
                     + "WHERE `nameslist`.`LISTNUMBER` = '" + listnumber.getText() + "'AND mandatelists.LISTNUMBER='" + listnumber.getText() + "'");
@@ -768,6 +816,33 @@ public class FXMLDocumentController implements Initializable {
         chacktable.setItems(chacktablelist);
 
     }
+    
+    private void excludedTableViewData() {
+        try {
+            ResultSet rs = DataMng.getDataJoinTable("select excluded.MILITARYID , formation.NAME, formation.RANK from excluded ,formation  where  excluded.MILITARYID = formation.MILITARYID  AND excluded.LISTNUMBER ='" + listnumber.getText() + "'");
+            int sq = 0;
+            while (rs.next()) {
+                sq++;
+                excludedtablelist.add(new NamesDataModel(
+                        rs.getString("MILITARYID"),
+                        rs.getString("RANK"),
+                        rs.getString("NAME"),
+                        sq
+                ));
+            }
+            rs.close();
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ex_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
+        ex_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        ex_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        ex_sequence_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
+
+        ex_tableview.setItems(excludedtablelist);
+    }
+    
+     
 
     private void chackTableViewAllSoldiers() {
         int sq = 0;
@@ -1112,7 +1187,7 @@ public class FXMLDocumentController implements Initializable {
                 ch_en_allofficers.setDisable(false);
             }
         });
-
+        
     }
 
     @FXML
