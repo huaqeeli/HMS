@@ -146,6 +146,7 @@ public class FXMLDocumentController implements Initializable {
     ObservableList<NamesDataModel> chacktablelist = FXCollections.observableArrayList();
     ObservableList<NamesDataModel> excludedtablelist = FXCollections.observableArrayList();
     ObservableList<String> ch_comboBoxlist = FXCollections.observableArrayList();
+    ObservableList<String> reasonlist = FXCollections.observableArrayList();
     @FXML
     private Label listnumber;
     @FXML
@@ -531,85 +532,27 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void chackAllOfficers(ActionEvent event) {
-        try {
-            ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID FROM formation WHERE MILITARYTYPE = 'ضابط'");
-            String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
-            String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
-            String tableName = "nameslist";
-            String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
-            String valuenumbers = "?,?,?,?,?,?";
-            List millest = new ArrayList();
-            String[] excluded = {listnumber.getText(), ch_mailitraynum.getText()};
-            try {
-                while (rs.next()) {
-                    millest.add(rs.getString("MILITARYID"));
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            for (int i = 0; i < millest.size(); i++) {
-                String[] data = {millest.get(i).toString(), listnumber.getText(), ch_enfrom.getText(), ch_ento.getText(), fromDate, toDate};
-                //Validation
-                boolean mandateUnique = FormValidation.dateChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", ch_mailitraynum.getText(), listnumber.getText(), fromDate, toDate);
-                boolean trainingUnique = FormValidation.dateChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", ch_mailitraynum.getText(), listnumber.getText(), fromDate, toDate);
-                boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
-                boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
-
-                Task<Parent> yourTaskName = new Task<Parent>() {
-                    @Override
-                    public Parent call() {
-                        if (mandateUnique && trainingUnique) {
-                            if (militaryidUnique) {
-                                try {
-                                    DataMng.insert(tableName, fieldName, valuenumbers, data);
-                                } catch (IOException ex) {
-                                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                            }
-                        } else {
-                            if (exuludedUnique) {
-                                try {
-                                    DataMng.insert("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excluded);
-                                } catch (IOException ex) {
-                                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                            }
-                        }
-                        return null;
-                    }
-                };
-                Thread loadingThread = new Thread(yourTaskName);
-                loadingThread.start();
-            }
-            chackTableViewAllSoldiers();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @FXML
     private void excludedNameShow(ActionEvent event) {
         ExcludedPage.setVisible(true);
+        reasonlist.clear();
         excludedTableViewData();
     }
-
-    
 
     @FXML
     private void ex_exit(ActionEvent event) {
         ExcludedPage.setVisible(false);
         excludedtablelist.clear();
+        reasonlist.clear();
     }
 
     @FXML
     private void showReason(MouseEvent event) {
         try {
+            reasonlist.clear();
             String militryid = ex_tableview.getSelectionModel().getSelectedItem().getFo_militaryid();
-            ObservableList<String> reasonlist = FXCollections.observableArrayList();
-            ResultSet rs =DataMng.getDataWithCondition("exclusionmessage","REASON", "`MILITARYID` = '"+militryid+"'");
-            while(rs.next()){
-             reasonlist.add(rs.getString("REASON"));
+            ResultSet rs = DataMng.getDataWithCondition("exclusionmessage", "REASON", "`MILITARYID` = '" + militryid + "' AND `LISTNUMBER` = '" + listnumber.getText() + "'");
+            while (rs.next()) {
+                reasonlist.add(rs.getString("REASON"));
             }
             ex_reasonListView.setItems(reasonlist);
         } catch (IOException ex) {
@@ -617,13 +560,19 @@ public class FXMLDocumentController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
-    public class Dowork extends Task<String> {
+
+    public class ChackAll extends Thread {
+
+        String militaryType;
+     
+        public ChackAll(String militaryType) {
+            this.militaryType = militaryType;
+        }
 
         @Override
-        protected String call() throws Exception {
+        public void run() {
             String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
             String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
             String tableName = "nameslist";
@@ -633,7 +582,7 @@ public class FXMLDocumentController implements Initializable {
             String[] excluded = new String[2];
 
             try {
-                ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID,NAME FROM formation WHERE MILITARYTYPE = 'فرد'");
+                ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID,NAME FROM formation WHERE MILITARYTYPE = '" + militaryType + "'");
 
                 while (rs.next()) {
                     boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", rs.getString("MILITARYID"), listnumber.getText(), fromDate, toDate);
@@ -659,13 +608,12 @@ public class FXMLDocumentController implements Initializable {
                             DataMng.insert("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excluded);
                         }
                     }
-                    chackTableViewAllSoldiers();
+                   refreshChacktable();
                 }
 
             } catch (IOException | SQLException ex) {
                 Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return null;
         }
     }
 
@@ -682,15 +630,17 @@ public class FXMLDocumentController implements Initializable {
         return total;
     }
 
-    
+    @FXML
+    private void chackAllOfficers(ActionEvent event) {
+        ChackAll task = new ChackAll("ضابط");
+        task.start();
+    }
 
     @FXML
     private void chackAllSoldiers(ActionEvent event) {
-        Dowork task = new Dowork();
-        new Thread(task).start();
+        ChackAll task = new ChackAll("فرد");
+        task.start();
     }
-    
-    
 
     @FXML
     private void deleteFromNamelist(ActionEvent event) {
@@ -778,8 +728,9 @@ public class FXMLDocumentController implements Initializable {
         chacktablelist.clear();
     }
 
-    private void refreshNameTable() {
-//        nametablelist.clear();
+    private void refreshChacktable() {
+        chacktablelist.clear();
+        chackTableViewAll();
     }
 
     private void chackTableViewData() {
@@ -816,7 +767,7 @@ public class FXMLDocumentController implements Initializable {
         chacktable.setItems(chacktablelist);
 
     }
-    
+
     private void excludedTableViewData() {
         try {
             ResultSet rs = DataMng.getDataJoinTable("select excluded.MILITARYID , formation.NAME, formation.RANK from excluded ,formation  where  excluded.MILITARYID = formation.MILITARYID  AND excluded.LISTNUMBER ='" + listnumber.getText() + "'");
@@ -841,10 +792,8 @@ public class FXMLDocumentController implements Initializable {
 
         ex_tableview.setItems(excludedtablelist);
     }
-    
-     
 
-    private void chackTableViewAllSoldiers() {
+    private void chackTableViewAll() {
         int sq = 0;
         try {
             ResultSet rs = DataMng.getDataJoinTable("select nameslist.MILITARYID,nameslist.ENDATEFROM,nameslist.ENDATETO,nameslist.ENFROM,nameslist.ENTO, formation.NAME, formation.RANK from nameslist ,formation  where  nameslist.MILITARYID = formation.MILITARYID  AND nameslist.LISTNUMBER ='" + listnumber.getText() + "'");
@@ -875,7 +824,6 @@ public class FXMLDocumentController implements Initializable {
         en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
         chacktable.setItems(chacktablelist);
-
     }
 
     private void chackTableListView(String listnum) {
@@ -1187,7 +1135,7 @@ public class FXMLDocumentController implements Initializable {
                 ch_en_allofficers.setDisable(false);
             }
         });
-        
+
     }
 
     @FXML

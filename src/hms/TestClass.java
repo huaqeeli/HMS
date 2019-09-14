@@ -12,7 +12,7 @@ public class TestClass {
 
     public static void main(String args[]) {
         Task1 t = new Task1();
-        Task2 t2 = new Task2();
+      
         t.start();
       
     }
@@ -23,6 +23,8 @@ public class TestClass {
         public void run() {
             for (int i = 0; i < 100; i++) {
                 System.out.println("num = " + i);
+                Task2 t = new Task2();
+                t.start();
             }
              print();
         }
