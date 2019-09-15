@@ -18,13 +18,16 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class FXMLDocumentController implements Initializable {
@@ -277,6 +280,8 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<?, ?> ex_name_col;
     @FXML
     private ListView<String> ex_reasonListView;
+    @FXML
+    private AnchorPane addingaPane;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -563,10 +568,20 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
+    private void showMainItems() throws IOException {
+        Stage stage = null;
+        Parent root = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXML.fxml"));
+        root = (Parent) fxmlLoader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public class ChackAll extends Thread {
 
         String militaryType;
-     
+
         public ChackAll(String militaryType) {
             this.militaryType = militaryType;
         }
@@ -583,7 +598,8 @@ public class FXMLDocumentController implements Initializable {
 
             try {
                 ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID,NAME FROM formation WHERE MILITARYTYPE = '" + militaryType + "'");
-
+//                ProgressIndicator progressIndicator = new ProgressIndicator(1); 
+                showMainItems();
                 while (rs.next()) {
                     boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", rs.getString("MILITARYID"), listnumber.getText(), fromDate, toDate);
                     boolean trainingUnique = FormValidation.dateAllChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", rs.getString("MILITARYID"), listnumber.getText(), fromDate, toDate);
@@ -608,9 +624,10 @@ public class FXMLDocumentController implements Initializable {
                             DataMng.insert("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excluded);
                         }
                     }
-                   refreshChacktable();
+                    addingaPane.setVisible(true);
                 }
-
+                addingaPane.setVisible(false);
+                refreshChacktable();
             } catch (IOException | SQLException ex) {
                 Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -632,8 +649,13 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void chackAllOfficers(ActionEvent event) {
-        ChackAll task = new ChackAll("ضابط");
-        task.start();
+        try {
+            //        ChackAll task = new ChackAll("ضابط");
+//        task.start();
+showMainItems();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
