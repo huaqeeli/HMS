@@ -7,13 +7,12 @@ package hms;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Application;
 
 public class TestClass {
 
     public static void main(String args[]) {
-        Task1 t = new Task1();
-      
-        t.start();
+       Application.launch(NewFXMain.class,args);
       
     }
 

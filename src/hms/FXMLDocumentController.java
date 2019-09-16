@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -27,8 +28,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import org.pdfsam.ui.RingProgressIndicator;
 
 public class FXMLDocumentController implements Initializable {
 
@@ -560,22 +564,28 @@ public class FXMLDocumentController implements Initializable {
                 reasonlist.add(rs.getString("REASON"));
             }
             ex_reasonListView.setItems(reasonlist);
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (IOException | SQLException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
     private void showMainItems() throws IOException {
-        Stage stage = null;
-        Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXML.fxml"));
-        root = (Parent) fxmlLoader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+//        Stage stage = new Stage();
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXML.fxml"));
+//        Parent root =(Parent) fxmlLoader.load();
+//       
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.initStyle(StageStyle.UNDECORATED);
+//        stage.show();
+        Application.launch(NewFXMain.class);
+
+    }
+
+    @FXML
+    private void getExcelSheet(ActionEvent event) {
+        
     }
 
     public class ChackAll extends Thread {
@@ -598,7 +608,6 @@ public class FXMLDocumentController implements Initializable {
 
             try {
                 ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID,NAME FROM formation WHERE MILITARYTYPE = '" + militaryType + "'");
-//                ProgressIndicator progressIndicator = new ProgressIndicator(1); 
                 showMainItems();
                 while (rs.next()) {
                     boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", rs.getString("MILITARYID"), listnumber.getText(), fromDate, toDate);
@@ -624,10 +633,9 @@ public class FXMLDocumentController implements Initializable {
                             DataMng.insert("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excluded);
                         }
                     }
-                    addingaPane.setVisible(true);
+                    refreshChacktable();
                 }
-                addingaPane.setVisible(false);
-                refreshChacktable();
+
             } catch (IOException | SQLException ex) {
                 Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -649,13 +657,8 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void chackAllOfficers(ActionEvent event) {
-        try {
-            //        ChackAll task = new ChackAll("ضابط");
-//        task.start();
-showMainItems();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ChackAll task = new ChackAll("ضابط");
+        task.start();
     }
 
     @FXML
