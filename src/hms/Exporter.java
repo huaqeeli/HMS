@@ -39,7 +39,7 @@ public class Exporter {
                 tableDataList.add(objArray);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return tableDataList;

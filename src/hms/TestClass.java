@@ -5,15 +5,25 @@
  */
 package hms;
 
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Application;
+import javafx.stage.FileChooser;
+
+
+
 
 public class TestClass {
 
     public static void main(String args[]) {
-       Application.launch(NewFXMain.class,args);
-      
+         FileChooser filechooser = new FileChooser();
+        File selectedfile = filechooser.showOpenDialog(null);
+       // File myFile = new File("C:/my folder/tree/apple.exe");
+       // Now get the path
+       // String myDir = myFile.getParent();
+        String fileName = selectedfile.getParent();
+       
+
     }
 
     public static class Task1 extends Thread {
@@ -25,10 +35,11 @@ public class TestClass {
                 Task2 t = new Task2();
                 t.start();
             }
-             print();
+            print();
         }
-        public void print(){
-        System.out.println("hi hussein");
+
+        public void print() {
+            System.out.println("hi hussein");
         }
 
     }

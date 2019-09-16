@@ -2,6 +2,7 @@ package hms;
 
 import hms.models.EnDataModel;
 import hms.models.NamesDataModel;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.net.URL;
@@ -29,12 +30,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import org.pdfsam.ui.RingProgressIndicator;
 
-public class FXMLDocumentController implements Initializable {
+public class MainController implements Initializable {
 
     @FXML
     private Button EntedabButton;
@@ -286,6 +288,8 @@ public class FXMLDocumentController implements Initializable {
     private ListView<String> ex_reasonListView;
     @FXML
     private AnchorPane addingaPane;
+    
+    private Stage stage;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -348,10 +352,10 @@ public class FXMLDocumentController implements Initializable {
                 balance = balance - getDateDifference();
                 DataMng.updat("mandate_balance", "`BALANCE` = '" + balance + "'", "`MILITARYID` = '" + id + "'");
             } catch (SQLException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -384,7 +388,7 @@ public class FXMLDocumentController implements Initializable {
             try {
                 DataMng.insert("mandate", fieldName, valuenumbers, data);
             } catch (IOException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
             refreshEnTable();
         }
@@ -414,7 +418,7 @@ public class FXMLDocumentController implements Initializable {
             try {
                 DataMng.updat("mandate", fieldNameAndValue, data, condition);
             } catch (IOException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
             refreshEnTable();
         }
@@ -426,7 +430,7 @@ public class FXMLDocumentController implements Initializable {
         try {
             DataMng.delete("mandate", condition);
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         refreshEnTable();
     }
@@ -457,13 +461,13 @@ public class FXMLDocumentController implements Initializable {
                 ch_comboBoxlist.clear();
                 refreshListCombobox(fillListCombobox(ch_comboBoxlist));
             } catch (SQLException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -490,7 +494,7 @@ public class FXMLDocumentController implements Initializable {
                     chackTableViewData();
                     ch_mailitraynum.setText("");
                 } catch (IOException ex) {
-                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } else {
@@ -498,7 +502,7 @@ public class FXMLDocumentController implements Initializable {
                 try {
                     DataMng.insert("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excluded);
                 } catch (IOException ex) {
-                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -526,7 +530,7 @@ public class FXMLDocumentController implements Initializable {
                     chackTableViewData();
                     ch_mailitraynum.setText("");
                 } catch (IOException ex) {
-                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } else {
@@ -534,7 +538,7 @@ public class FXMLDocumentController implements Initializable {
                 try {
                     DataMng.insert("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excluded);
                 } catch (IOException ex) {
-                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -565,7 +569,7 @@ public class FXMLDocumentController implements Initializable {
             }
             ex_reasonListView.setItems(reasonlist);
         } catch (IOException | SQLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -585,7 +589,30 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void getExcelSheet(ActionEvent event) {
-        
+        try {
+            FileChooser fileChooser = new FileChooser();
+            File file = fileChooser.showSaveDialog(stage);
+            String savefile = null;
+            if (file!=null) {
+                savefile = file.toString();
+            }
+            ResultSet rs = DataMng.getAllData("nameslist");
+            String[] feild = {"ORDERID", "ORDERDATE", "ENFROM", "ENTO", "ENDATEFROM", "ENDATETO", "ENPLASE", "MILITARYTAYP", "ENTAYP"};
+            String[] titel = {"رقم الطلب", "تاريخ الطلب", "الانتداب من", "الانتداب الى", "تاريخ الانتداب من", "تاريخ الانتداب الى", "مكان الانتداب", "نوع المستفيد", "نوع الانتداب"};
+            ExporteExcelSheet exporter = new ExporteExcelSheet(rs, feild, titel);
+            ArrayList<Object[]> dataList = exporter.getTableData();
+            if (dataList != null && dataList.size() > 0) {
+                exporter.doExport(dataList,savefile);
+            } else {
+                System.out.println("There is no data available in the table to export");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    void init(Stage stage) {
+      this.stage = stage;
     }
 
     public class ChackAll extends Thread {
@@ -637,7 +664,7 @@ public class FXMLDocumentController implements Initializable {
                 }
 
             } catch (IOException | SQLException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -650,7 +677,7 @@ public class FXMLDocumentController implements Initializable {
                 total = Integer.parseInt(rs.getString("TotalExcluded"));
             }
         } catch (IOException | SQLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return total;
     }
@@ -675,7 +702,7 @@ public class FXMLDocumentController implements Initializable {
             refreshEnChackTable();
             chackTableListView(listnumber.getText());
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -693,7 +720,7 @@ public class FXMLDocumentController implements Initializable {
                     millest.add(rs.getString("MILITARYID"));
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
             String militeryid = null;
             for (int i = 0; i < millest.size(); i++) {
@@ -708,7 +735,7 @@ public class FXMLDocumentController implements Initializable {
                             try {
                                 DataMng.updat("nameslist", "`ENFROM`=?,`ENTO`=?,`ENDATEFROM`=?,`ENDATETO`=?", data, "`LISTNUMBER`='" + listnumber.getText() + "' AND `MILITARYID` = '" + listnumber.getText() + "'");
                             } catch (IOException ex) {
-                                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                         return null;
@@ -721,7 +748,7 @@ public class FXMLDocumentController implements Initializable {
             refreshEnChackTable();
             chackTableListView(listnumber.getText());
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -735,7 +762,7 @@ public class FXMLDocumentController implements Initializable {
             refreshListCombobox(fillListCombobox(ch_comboBoxlist));
             chackTableListView(listnumber.getText());
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -778,7 +805,7 @@ public class FXMLDocumentController implements Initializable {
             }
             rs.close();
         } catch (SQLException | IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
         ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
@@ -808,7 +835,7 @@ public class FXMLDocumentController implements Initializable {
             }
             rs.close();
         } catch (SQLException | IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         ex_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
         ex_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
@@ -837,7 +864,7 @@ public class FXMLDocumentController implements Initializable {
             }
             rs.close();
         } catch (SQLException | IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
         ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
@@ -876,7 +903,7 @@ public class FXMLDocumentController implements Initializable {
                 }
                 rs.close();
             } catch (SQLException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
             ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
             ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
@@ -889,7 +916,7 @@ public class FXMLDocumentController implements Initializable {
 
             chacktable.setItems(chacktablelist);
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -949,7 +976,7 @@ public class FXMLDocumentController implements Initializable {
                 }
                 rs.close();
             } catch (SQLException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
             en_orderid_col.setCellValueFactory(new PropertyValueFactory<>("orderid"));
             en_orderdate_col.setCellValueFactory(new PropertyValueFactory<>("orderdate"));
@@ -1010,7 +1037,7 @@ public class FXMLDocumentController implements Initializable {
 
             en_table.setItems(tablelist);
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1070,11 +1097,11 @@ public class FXMLDocumentController implements Initializable {
                 }
                 rs.close();
             } catch (SQLException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }

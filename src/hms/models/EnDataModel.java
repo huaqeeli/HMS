@@ -1,6 +1,6 @@
 package hms.models;
 
-import static hms.FXMLDocumentController.*;
+import static hms.MainController.*;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 

@@ -19,9 +19,11 @@ public class HMS extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-//        Parent root = FXMLLoader.load(getClass().getResource("FXML.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainFXML.fxml"));
+        Parent root = loader.load();
+        MainController controller = (MainController)loader.getController();
         
+        controller.init(stage);
         Scene scene = new Scene(root);
         
         stage.setScene(scene);

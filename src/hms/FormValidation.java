@@ -221,7 +221,7 @@ public class FormValidation {
 //                        DataMng.insert("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excluded);
                         DataMng.insert("exclusionmessage", "`LISTNUMBER`,`MILITARYID`,`REASON`", "?,?,?", reasons);
                     } catch (IOException ex) {
-                        Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 con.close();
@@ -258,7 +258,7 @@ public class FormValidation {
                         String[] reasons = {listnumber, militeryid, validationmassage};
                         DataMng.insert("exclusionmessage", "`LISTNUMBER`,`MILITARYID`,`REASON`", "?,?,?", reasons);
                     } catch (IOException ex) {
-                        Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 con.close();
