@@ -221,20 +221,6 @@ public class MainController implements Initializable {
     @FXML
     private Button en_updateButton11;
     @FXML
-    private TextField mandate_ch_orderid;
-    @FXML
-    private ComboBox<?> mandate_ch_fromday;
-    @FXML
-    private ComboBox<?> mandate_ch_frommonth;
-    @FXML
-    private ComboBox<?> mandate_ch_fromyear;
-    @FXML
-    private ComboBox<?> mandate_ch_today;
-    @FXML
-    private ComboBox<?> mandate_ch_tomonth;
-    @FXML
-    private ComboBox<?> mandate_ch_toyear;
-    @FXML
     private Button ch_en_allofficers;
     @FXML
     private Button ch_en_allsoldiers;
@@ -243,30 +229,8 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<?, ?> en_sq_col;
     @FXML
-    private AnchorPane En_addName;
-    @FXML
-    private Label name_ordreid;
-    @FXML
-    private Label name_endate_from;
-    @FXML
-    private Label name_endate_to;
-    @FXML
-    private TextField name_militaryid;
-    @FXML
-    private TableView<?> names_table;
-    @FXML
-    private TableColumn<?, ?> name_militaryid_col;
-    @FXML
-    private TableColumn<?, ?> name_rank_col;
-    @FXML
-    private TableColumn<?, ?> name_name_col;
-    @FXML
-    private Pane progressPane;
-    @FXML
     private Button ch_en_button1;
     DataMng dataMang = new DataMng();
-    @FXML
-    private ProgressIndicator progress;
     @FXML
     private AnchorPane ExcludedPage;
     @FXML
@@ -281,10 +245,10 @@ public class MainController implements Initializable {
     private TableColumn<?, ?> ex_name_col;
     @FXML
     private ListView<String> ex_reasonListView;
-    @FXML
-    private AnchorPane addingaPane;
 
     private Stage stage;
+    @FXML
+    private TextField search_orderid;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -618,6 +582,11 @@ public class MainController implements Initializable {
         this.stage = stage;
     }
 
+    @FXML
+    private void getListNames(ActionEvent event) {
+        
+    }
+
     public class ChackAll extends Thread {
 
         String militaryType;
@@ -824,12 +793,37 @@ public class MainController implements Initializable {
         en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
         chacktable.setItems(chacktablelist);
-
     }
 
     private void excludedTableViewData() {
         try {
-            ResultSet rs = DataMng.getDataJoinTable("select excluded.MILITARYID , formation.NAME, formation.RANK from excluded ,formation  where  excluded.MILITARYID = formation.MILITARYID  AND excluded.LISTNUMBER ='" + listnumber.getText() + "'");
+            ResultSet rs = DataMng.getDataJoinTable("select excluded.MILITARYID , formation.NAME, formation.RANK from excluded ,formation  "
+                    + "where  excluded.MILITARYID = formation.MILITARYID  AND excluded.LISTNUMBER ='" + listnumber.getText() + "'");
+            int sq = 0;
+            while (rs.next()) {
+                sq++;
+                excludedtablelist.add(new NamesDataModel(
+                        rs.getString("MILITARYID"),
+                        rs.getString("RANK"),
+                        rs.getString("NAME"),
+                        sq
+                ));
+            }
+            rs.close();
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ex_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
+        ex_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        ex_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        ex_sequence_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
+
+        ex_tableview.setItems(excludedtablelist);
+    }
+    private void namesWithoutDcTableViewData() {
+        try {
+            ResultSet rs = DataMng.getDataJoinTable("select nameslist.MILITARYID , formation.NAME, formation.RANK from nameslist ,formation  "
+                    + "where nameslist.MILITARYID = formation.MILITARYID  AND nameslist.LISTNUMBER ='" + listnumber.getText() + "'");
             int sq = 0;
             while (rs.next()) {
                 sq++;
