@@ -20,21 +20,16 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Callback;
-import org.pdfsam.ui.RingProgressIndicator;
 
 public class MainController implements Initializable {
 
@@ -288,7 +283,7 @@ public class MainController implements Initializable {
     private ListView<String> ex_reasonListView;
     @FXML
     private AnchorPane addingaPane;
-    
+
     private Stage stage;
 
     @FXML
@@ -460,9 +455,7 @@ public class MainController implements Initializable {
                 DataMng.insert(tableName, fieldName, valuenumbers, data);
                 ch_comboBoxlist.clear();
                 refreshListCombobox(fillListCombobox(ch_comboBoxlist));
-            } catch (SQLException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
+            } catch (SQLException | IOException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -486,9 +479,11 @@ public class MainController implements Initializable {
         boolean trainingUnique = FormValidation.dateChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", ch_mailitraynum.getText(), listnumber.getText(), fromDate, toDate);
         boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
         boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
+        boolean enfromstate = FormValidation.textFieldNotEmpty(ch_enfrom, "ادخل الجهة المنتدب منها");
+        boolean entostate = FormValidation.textFieldNotEmpty(ch_ento, "ادخل الجهة المنتدب اليها");
 
-        if (mandateUnique && trainingUnique) {
-            if (militaryidUnique) {
+        if (mandateUnique && trainingUnique ) {
+            if (militaryidUnique&& enfromstate && entostate) {
                 try {
                     DataMng.insert(tableName, fieldName, valuenumbers, data);
                     chackTableViewData();
@@ -522,9 +517,11 @@ public class MainController implements Initializable {
         boolean trainingUnique = FormValidation.dateChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", ch_mailitraynum.getText(), listnumber.getText(), fromDate, toDate);
         boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
         boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
+        boolean enfromstate = FormValidation.textFieldNotEmpty(ch_enfrom, "ادخل الجهة المنتدب منها");
+        boolean entostate = FormValidation.textFieldNotEmpty(ch_ento, "ادخل الجهة المنتدب اليها");
 
-        if (mandateUnique && trainingUnique) {
-            if (militaryidUnique) {
+        if (mandateUnique && trainingUnique ) {
+            if (militaryidUnique&& enfromstate && entostate) {
                 try {
                     DataMng.insert(tableName, fieldName, valuenumbers, data);
                     chackTableViewData();
@@ -586,23 +583,29 @@ public class MainController implements Initializable {
         Application.launch(NewFXMain.class);
 
     }
-
+/* rs.getString("MILITARYID"),
+                        rs.getString("RANK"),
+                        rs.getString("NAME"),
+                        rs.getString("ENFROM"),
+                        rs.getString("ENTO"),
+                        rs.getDate("ENDATEFROM").toString(),
+                        rs.getDate("ENDATETO").toString(),*/
     @FXML
     private void getExcelSheet(ActionEvent event) {
         try {
             FileChooser fileChooser = new FileChooser();
             File file = fileChooser.showSaveDialog(stage);
             String savefile = null;
-            if (file!=null) {
+            if (file != null) {
                 savefile = file.toString();
             }
-            ResultSet rs = DataMng.getAllData("nameslist");
-            String[] feild = {"ORDERID", "ORDERDATE", "ENFROM", "ENTO", "ENDATEFROM", "ENDATETO", "ENPLASE", "MILITARYTAYP", "ENTAYP"};
-            String[] titel = {"رقم الطلب", "تاريخ الطلب", "الانتداب من", "الانتداب الى", "تاريخ الانتداب من", "تاريخ الانتداب الى", "مكان الانتداب", "نوع المستفيد", "نوع الانتداب"};
+            ResultSet rs = DataMng.getDataJoinTable("select nameslist.MILITARYID,nameslist.ENDATEFROM,nameslist.ENDATETO,nameslist.ENFROM,nameslist.ENTO, formation.NAME, formation.RANK from nameslist ,formation  where  nameslist.MILITARYID = formation.MILITARYID  AND nameslist.LISTNUMBER ='" + listnumber.getText() + "'");
+            String[] feild = {"MILITARYID", "RANK","NAME", "ENFROM", "ENTO", "ENDATEFROM", "ENDATETO"};
+            String[] titel = {"الرقم العسكري", "الرتبة","الاسم", "الانتداب من", "الانتداب الى", "تاريخ بداية الانتداب", "تاريخ نهاية الانتداب"};
             ExporteExcelSheet exporter = new ExporteExcelSheet(rs, feild, titel);
             ArrayList<Object[]> dataList = exporter.getTableData();
             if (dataList != null && dataList.size() > 0) {
-                exporter.doExport(dataList,savefile);
+                exporter.doExport(dataList, savefile);
             } else {
                 System.out.println("There is no data available in the table to export");
             }
@@ -612,7 +615,7 @@ public class MainController implements Initializable {
     }
 
     void init(Stage stage) {
-      this.stage = stage;
+        this.stage = stage;
     }
 
     public class ChackAll extends Thread {
@@ -635,12 +638,14 @@ public class MainController implements Initializable {
 
             try {
                 ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID,NAME FROM formation WHERE MILITARYTYPE = '" + militaryType + "'");
-                showMainItems();
                 while (rs.next()) {
                     boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", rs.getString("MILITARYID"), listnumber.getText(), fromDate, toDate);
                     boolean trainingUnique = FormValidation.dateAllChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", rs.getString("MILITARYID"), listnumber.getText(), fromDate, toDate);
                     boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + rs.getString("MILITARYID") + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
                     boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + rs.getString("MILITARYID") + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
+                    boolean enfromstate = FormValidation.textFieldNotEmpty(ch_enfrom, "ادخل الجهة المنتدب منها");
+                    boolean entostate = FormValidation.textFieldNotEmpty(ch_ento, "ادخل الجهة المنتدب اليها");
+
                     data[0] = rs.getString("MILITARYID");
                     data[1] = listnumber.getText();
                     data[2] = ch_enfrom.getText();
@@ -651,8 +656,8 @@ public class MainController implements Initializable {
                     excluded[0] = listnumber.getText();
                     excluded[1] = rs.getString("MILITARYID");
 
-                    if (mandateUnique && trainingUnique) {
-                        if (militaryidUnique) {
+                    if (mandateUnique && trainingUnique ) {
+                        if (militaryidUnique&& enfromstate && entostate) {
                             DataMng.insert(tableName, fieldName, valuenumbers, data);
                         }
                     } else {
@@ -783,6 +788,8 @@ public class MainController implements Initializable {
     private void refreshChacktable() {
         chacktablelist.clear();
         chackTableViewAll();
+        String s = Integer.toString(getExcludededSum(listnumber.getText()));
+        excludedNumber.setText(s);
     }
 
     private void chackTableViewData() {
