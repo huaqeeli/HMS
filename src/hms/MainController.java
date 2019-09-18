@@ -151,6 +151,7 @@ public class MainController implements Initializable {
     ObservableList<NamesDataModel> excludedtablelist = FXCollections.observableArrayList();
     ObservableList<String> ch_comboBoxlist = FXCollections.observableArrayList();
     ObservableList<String> reasonlist = FXCollections.observableArrayList();
+    ObservableList<NamesDataModel> no_declist = FXCollections.observableArrayList();
     @FXML
     private Label listnumber;
     @FXML
@@ -179,7 +180,7 @@ public class MainController implements Initializable {
     @FXML
     private TextField mandate_ch_militrayid;
     @FXML
-    private TableView<?> no_dec_table;
+    private TableView<NamesDataModel> no_dec_table;
     @FXML
     private TableColumn<?, ?> no_dec_militaryid_col;
     @FXML
@@ -187,7 +188,9 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<?, ?> no_dec_name_col;
     @FXML
-    private TableView<?> dec_table;
+    private TableColumn<?, ?> no_dec_sequence_col;
+    @FXML
+    private TableView<NamesDataModel> dec_table;
     @FXML
     private TableColumn<?, ?> dec_militaryid_col;
     @FXML
@@ -446,8 +449,8 @@ public class MainController implements Initializable {
         boolean enfromstate = FormValidation.textFieldNotEmpty(ch_enfrom, "ادخل الجهة المنتدب منها");
         boolean entostate = FormValidation.textFieldNotEmpty(ch_ento, "ادخل الجهة المنتدب اليها");
 
-        if (mandateUnique && trainingUnique ) {
-            if (militaryidUnique&& enfromstate && entostate) {
+        if (mandateUnique && trainingUnique) {
+            if (militaryidUnique && enfromstate && entostate) {
                 try {
                     DataMng.insert(tableName, fieldName, valuenumbers, data);
                     chackTableViewData();
@@ -484,8 +487,8 @@ public class MainController implements Initializable {
         boolean enfromstate = FormValidation.textFieldNotEmpty(ch_enfrom, "ادخل الجهة المنتدب منها");
         boolean entostate = FormValidation.textFieldNotEmpty(ch_ento, "ادخل الجهة المنتدب اليها");
 
-        if (mandateUnique && trainingUnique ) {
-            if (militaryidUnique&& enfromstate && entostate) {
+        if (mandateUnique && trainingUnique) {
+            if (militaryidUnique && enfromstate && entostate) {
                 try {
                     DataMng.insert(tableName, fieldName, valuenumbers, data);
                     chackTableViewData();
@@ -544,16 +547,9 @@ public class MainController implements Initializable {
 //        stage.setScene(scene);
 //        stage.initStyle(StageStyle.UNDECORATED);
 //        stage.show();
-        Application.launch(NewFXMain.class);
 
     }
-/* rs.getString("MILITARYID"),
-                        rs.getString("RANK"),
-                        rs.getString("NAME"),
-                        rs.getString("ENFROM"),
-                        rs.getString("ENTO"),
-                        rs.getDate("ENDATEFROM").toString(),
-                        rs.getDate("ENDATETO").toString(),*/
+
     @FXML
     private void getExcelSheet(ActionEvent event) {
         try {
@@ -564,8 +560,8 @@ public class MainController implements Initializable {
                 savefile = file.toString();
             }
             ResultSet rs = DataMng.getDataJoinTable("select nameslist.MILITARYID,nameslist.ENDATEFROM,nameslist.ENDATETO,nameslist.ENFROM,nameslist.ENTO, formation.NAME, formation.RANK from nameslist ,formation  where  nameslist.MILITARYID = formation.MILITARYID  AND nameslist.LISTNUMBER ='" + listnumber.getText() + "'");
-            String[] feild = {"MILITARYID", "RANK","NAME", "ENFROM", "ENTO", "ENDATEFROM", "ENDATETO"};
-            String[] titel = {"الرقم العسكري", "الرتبة","الاسم", "الانتداب من", "الانتداب الى", "تاريخ بداية الانتداب", "تاريخ نهاية الانتداب"};
+            String[] feild = {"MILITARYID", "RANK", "NAME", "ENFROM", "ENTO", "ENDATEFROM", "ENDATETO"};
+            String[] titel = {"الرقم العسكري", "الرتبة", "الاسم", "الانتداب من", "الانتداب الى", "تاريخ بداية الانتداب", "تاريخ نهاية الانتداب"};
             ExporteExcelSheet exporter = new ExporteExcelSheet(rs, feild, titel);
             ArrayList<Object[]> dataList = exporter.getTableData();
             if (dataList != null && dataList.size() > 0) {
@@ -584,7 +580,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void getListNames(ActionEvent event) {
-        
+        namesWithoutDcTableViewData();
     }
 
     public class ChackAll extends Thread {
@@ -625,8 +621,8 @@ public class MainController implements Initializable {
                     excluded[0] = listnumber.getText();
                     excluded[1] = rs.getString("MILITARYID");
 
-                    if (mandateUnique && trainingUnique ) {
-                        if (militaryidUnique&& enfromstate && entostate) {
+                    if (mandateUnique && trainingUnique) {
+                        if (militaryidUnique && enfromstate && entostate) {
                             DataMng.insert(tableName, fieldName, valuenumbers, data);
                         }
                     } else {
@@ -820,14 +816,23 @@ public class MainController implements Initializable {
 
         ex_tableview.setItems(excludedtablelist);
     }
+
     private void namesWithoutDcTableViewData() {
         try {
-            ResultSet rs = DataMng.getDataJoinTable("select nameslist.MILITARYID , formation.NAME, formation.RANK from nameslist ,formation  "
-                    + "where nameslist.MILITARYID = formation.MILITARYID  AND nameslist.LISTNUMBER ='" + listnumber.getText() + "'");
+            ResultSet rs = DataMng.getDataJoinTable("SELECT"
+                    + "    formation.MILITARYID,formation.RANK,formation.NAME"
+                    + "FROM"
+                    + "    mandate,"
+                    + "    nameslist,"
+                    + "    formation"
+                    + "WHERE"
+                    + "    mandate.ENNAMELISTNUMBER = nameslist.LISTNUMBER"
+                    + "        AND nameslist.MILITARYID = formation.MILITARYID"
+                    + "        AND mandate.ORDERID = '" + search_orderid.getText() + "'");
             int sq = 0;
             while (rs.next()) {
                 sq++;
-                excludedtablelist.add(new NamesDataModel(
+                no_declist.add(new NamesDataModel(
                         rs.getString("MILITARYID"),
                         rs.getString("RANK"),
                         rs.getString("NAME"),
@@ -838,12 +843,12 @@ public class MainController implements Initializable {
         } catch (SQLException | IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ex_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
-        ex_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
-        ex_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
-        ex_sequence_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
+        no_dec_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
+        no_dec_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        no_dec_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        no_dec_sequence_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
-        ex_tableview.setItems(excludedtablelist);
+        no_dec_table.setItems(no_declist);
     }
 
     private void chackTableViewAll() {

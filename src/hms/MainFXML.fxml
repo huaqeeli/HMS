@@ -725,6 +725,7 @@
                                              <columns>
                                                 <TableColumn prefWidth="75.0" text="الاسماء التي لم يصدر لها قرار انتداب">
                                                    <columns>
+                                                      <TableColumn fx:id="no_dec_sequence_col" prefWidth="75.0" text="عدد" />
                                                       <TableColumn fx:id="no_dec_militaryid_col" minWidth="100.0" prefWidth="108.0" text="الرقم العسكري" />
                                                       <TableColumn fx:id="no_dec_rank_col" minWidth="50.0" prefWidth="112.0" text="الرتبة" />
                                                       <TableColumn fx:id="no_dec_name_col" minWidth="300.0" prefWidth="250.0" text="الاسم " />
@@ -742,6 +743,7 @@
                                              <columns>
                                                 <TableColumn prefWidth="75.0" text="الاسماء التي صدر لها قرار انتداب">
                                                    <columns>
+                                                      <TableColumn prefWidth="75.0" text="عدد" />
                                                       <TableColumn fx:id="dec_militaryid_col" minWidth="100.0" prefWidth="108.0" text="الرقم العسكري" />
                                                       <TableColumn fx:id="dec_rank_col" minWidth="50.0" prefWidth="112.0" text="الرتبة" />
                                                       <TableColumn fx:id="dec_name_col" minWidth="300.0" prefWidth="250.0" text="الاسم " />
