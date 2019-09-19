@@ -819,16 +819,7 @@ public class MainController implements Initializable {
 
     private void namesWithoutDcTableViewData() {
         try {
-            ResultSet rs = DataMng.getDataJoinTable("SELECT"
-                    + "    formation.MILITARYID,formation.RANK,formation.NAME"
-                    + "FROM"
-                    + "    mandate,"
-                    + "    nameslist,"
-                    + "    formation"
-                    + "WHERE"
-                    + "    mandate.ENNAMELISTNUMBER = nameslist.LISTNUMBER"
-                    + "        AND nameslist.MILITARYID = formation.MILITARYID"
-                    + "        AND mandate.ORDERID = '" + search_orderid.getText() + "'");
+            ResultSet rs = DataMng.getDataJoinTable("SELECT formation.MILITARYID,formation.RANK,formation.NAME FROM mandate,nameslist,formation WHERE  mandate.ENNAMELISTNUMBER = nameslist.LISTNUMBER AND nameslist.MILITARYID = formation.MILITARYID AND mandate.ORDERID = '" + search_orderid.getText() + "'");
             int sq = 0;
             while (rs.next()) {
                 sq++;
