@@ -6,24 +6,25 @@
 package hms;
 
 import java.io.File;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.stage.FileChooser;
 
-
-
-
 public class TestClass {
 
     public static void main(String args[]) {
-         FileChooser filechooser = new FileChooser();
-        File selectedfile = filechooser.showOpenDialog(null);
-       // File myFile = new File("C:/my folder/tree/apple.exe");
-       // Now get the path
-       // String myDir = myFile.getParent();
-        String fileName = selectedfile.getParent();
-       
+        LocalDate d1 = LocalDate.of(1441, 1, 1);
+        LocalDate d2 = LocalDate.of(1441, 1, 30);
 
+        long days = ChronoUnit.DAYS.between(d1, d2);
+        System.out.println(days);
     }
 
     public static class Task1 extends Thread {

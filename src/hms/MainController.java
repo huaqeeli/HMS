@@ -8,6 +8,8 @@ import java.util.List;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -152,6 +154,7 @@ public class MainController implements Initializable {
     ObservableList<String> ch_comboBoxlist = FXCollections.observableArrayList();
     ObservableList<String> reasonlist = FXCollections.observableArrayList();
     ObservableList<NamesDataModel> no_declist = FXCollections.observableArrayList();
+    ObservableList<NamesDataModel> declist = FXCollections.observableArrayList();
     @FXML
     private Label listnumber;
     @FXML
@@ -178,8 +181,6 @@ public class MainController implements Initializable {
     @FXML
     private Button en_updateButton1;
     @FXML
-    private TextField mandate_ch_militrayid;
-    @FXML
     private TableView<NamesDataModel> no_dec_table;
     @FXML
     private TableColumn<?, ?> no_dec_militaryid_col;
@@ -198,25 +199,27 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<?, ?> dec_name_col;
     @FXML
+    private TableColumn<?, ?> dec_sequence_col;
+    @FXML
     private TextField mandate_ch_decnumber;
     @FXML
-    private ComboBox<?> mandate_ch_dec_fromday;
+    private ComboBox<String> mandate_ch_dec_fromday;
     @FXML
-    private ComboBox<?> mandate_ch_dec_frommonth;
+    private ComboBox<String> mandate_ch_dec_frommonth;
     @FXML
-    private ComboBox<?> mandate_ch_dec_fromyear;
+    private ComboBox<String> mandate_ch_dec_fromyear;
     @FXML
-    private ComboBox<?> mandate_ch_dec_today;
+    private ComboBox<String> mandate_ch_dec_today;
     @FXML
-    private ComboBox<?> mandate_ch_dec_tomonth;
+    private ComboBox<String> mandate_ch_dec_tomonth;
     @FXML
-    private ComboBox<?> mandate_ch_dec_toyear;
+    private ComboBox<String> mandate_ch_dec_toyear;
     @FXML
-    private ComboBox<?> mandate_ch_decday;
+    private ComboBox<String> mandate_ch_decday;
     @FXML
-    private ComboBox<?> mandate_ch_decmonth;
+    private ComboBox<String> mandate_ch_decmonth;
     @FXML
-    private ComboBox<?> mandate_ch_decyear;
+    private ComboBox<String> mandate_ch_decyear;
     @FXML
     private Button save1;
     @FXML
@@ -251,7 +254,11 @@ public class MainController implements Initializable {
 
     private Stage stage;
     @FXML
-    private TextField search_orderid;
+    private TextField mandate_dec_orderid;
+
+    private String mandateDecListNumber = null;
+    @FXML
+    private TextField mandate_dec_militrayid;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -286,21 +293,25 @@ public class MainController implements Initializable {
     }
 
     private int getDateDifference() {
-        int d1 = Integer.parseInt(fromDateday.getValue());
-        int m1 = Integer.parseInt(fromDatemonth.getValue());
-        int y1 = Integer.parseInt(fromDateyear.getValue());
-        int d2 = Integer.parseInt(toDateday.getValue());
-        int m2 = Integer.parseInt(toDatemonth.getValue());
-        int y2 = Integer.parseInt(toDateyear.getValue());
+        int d1 = Integer.parseInt(mandate_ch_dec_fromday.getValue());
+        int m1 = Integer.parseInt(mandate_ch_dec_frommonth.getValue());
+        int y1 = Integer.parseInt(mandate_ch_dec_fromyear.getValue());
+        int d2 = Integer.parseInt(mandate_ch_dec_today.getValue());
+        int m2 = Integer.parseInt(mandate_ch_dec_tomonth.getValue());
+        int y2 = Integer.parseInt(mandate_ch_dec_toyear.getValue());
         int difference = 0;
 
         int diffDays = d2 - d1;
         int diffMonths = m2 - m1;
         int diffYears = y2 - y1;
 
+        LocalDate date1 = LocalDate.of(y1, m1, d1);
+        LocalDate date2 = LocalDate.of(y2, m2, d2);
+
+        int days = (int) ChronoUnit.DAYS.between(date1, date2);
         difference = diffDays + (diffMonths * 30) + (diffYears * 360);
 
-        return difference;
+        return days;
     }
 
     private void increaseBalance(String id) {
@@ -311,8 +322,9 @@ public class MainController implements Initializable {
                 if (rs.next()) {
                     balance = rs.getInt("BALANCE");
                 }
-                balance = balance - getDateDifference();
+                balance = balance + getDateDifference();
                 DataMng.updat("mandate_balance", "`BALANCE` = '" + balance + "'", "`MILITARYID` = '" + id + "'");
+                System.out.println(id + "/" + balance);
             } catch (SQLException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -581,6 +593,51 @@ public class MainController implements Initializable {
     @FXML
     private void getListNames(ActionEvent event) {
         namesWithoutDcTableViewData();
+        namesWithDcTableViewData();
+        System.out.println(mandateDecListNumber);
+    }
+
+    private void getListNames() {
+        namesWithoutDcTableViewData();
+        namesWithDcTableViewData();
+    }
+
+    private void refreshDecTables() {
+        no_declist.clear();
+        declist.clear();
+        namesWithoutDcTableViewData();
+        namesWithDcTableViewData();
+    }
+
+    @FXML
+    private void updateDecState(ActionEvent event) {
+        try {
+            String decDate = setDate(mandate_ch_decday.getValue(), mandate_ch_decmonth.getValue(), mandate_ch_decyear.getValue());
+            String decfromDate = setDate(mandate_ch_dec_fromday.getValue(), mandate_ch_dec_frommonth.getValue(), mandate_ch_dec_fromyear.getValue());
+            String dectoDate = setDate(mandate_ch_dec_today.getValue(), mandate_ch_dec_tomonth.getValue(), mandate_ch_dec_toyear.getValue());
+            String[] data = {mandate_ch_decnumber.getText(), decDate, decfromDate, dectoDate, mandateDecListNumber, mandate_dec_militrayid.getText()};
+            DataMng.updat("nameslist", "`DICISIONNUMBER` = ? ,`DECISIONDATE` = ?,`ENDATEFROM`= ? ,`ENDATETO` = ? ,`DECISIONSTATUS` = 'true'", data, "`LISTNUMBER` =? AND `MILITARYID` = ?");
+            refreshDecTables();
+            increaseBalance(mandate_dec_militrayid.getText());
+            mandate_dec_militrayid.setText("");
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void updateDecState() {
+        try {
+            String decDate = setDate(mandate_ch_decday.getValue(), mandate_ch_decmonth.getValue(), mandate_ch_decyear.getValue());
+            String decfromDate = setDate(mandate_ch_dec_fromday.getValue(), mandate_ch_dec_frommonth.getValue(), mandate_ch_dec_fromyear.getValue());
+            String dectoDate = setDate(mandate_ch_dec_today.getValue(), mandate_ch_dec_tomonth.getValue(), mandate_ch_dec_toyear.getValue());
+            String[] data = {mandate_ch_decnumber.getText(), decDate, decfromDate, dectoDate, mandateDecListNumber, mandate_dec_militrayid.getText()};
+            DataMng.updat("nameslist", "`DICISIONNUMBER` = ? ,`DECISIONDATE` = ?,`ENDATEFROM`= ? ,`ENDATETO` = ? ,`DECISIONSTATUS` = 'true'", data, "`LISTNUMBER` =? AND `MILITARYID` = ?");
+            refreshDecTables();
+            increaseBalance(mandate_dec_militrayid.getText());
+            mandate_dec_militrayid.setText("");
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public class ChackAll extends Thread {
@@ -608,8 +665,6 @@ public class MainController implements Initializable {
                     boolean trainingUnique = FormValidation.dateAllChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", rs.getString("MILITARYID"), listnumber.getText(), fromDate, toDate);
                     boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + rs.getString("MILITARYID") + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
                     boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + rs.getString("MILITARYID") + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
-                    boolean enfromstate = FormValidation.textFieldNotEmpty(ch_enfrom, "ادخل الجهة المنتدب منها");
-                    boolean entostate = FormValidation.textFieldNotEmpty(ch_ento, "ادخل الجهة المنتدب اليها");
 
                     data[0] = rs.getString("MILITARYID");
                     data[1] = listnumber.getText();
@@ -622,7 +677,7 @@ public class MainController implements Initializable {
                     excluded[1] = rs.getString("MILITARYID");
 
                     if (mandateUnique && trainingUnique) {
-                        if (militaryidUnique && enfromstate && entostate) {
+                        if (militaryidUnique) {
                             DataMng.insert(tableName, fieldName, valuenumbers, data);
                         }
                     } else {
@@ -654,14 +709,23 @@ public class MainController implements Initializable {
 
     @FXML
     private void chackAllOfficers(ActionEvent event) {
-        ChackAll task = new ChackAll("ضابط");
-        task.start();
+        boolean enfromstate = FormValidation.textFieldNotEmpty(ch_enfrom, "ادخل الجهة المنتدب منها");
+        boolean entostate = FormValidation.textFieldNotEmpty(ch_ento, "ادخل الجهة المنتدب اليها");
+        if (enfromstate && entostate) {
+            ChackAll task = new ChackAll("ضابط");
+            task.start();
+        }
+
     }
 
     @FXML
     private void chackAllSoldiers(ActionEvent event) {
-        ChackAll task = new ChackAll("فرد");
-        task.start();
+        boolean enfromstate = FormValidation.textFieldNotEmpty(ch_enfrom, "ادخل الجهة المنتدب منها");
+        boolean entostate = FormValidation.textFieldNotEmpty(ch_ento, "ادخل الجهة المنتدب اليها");
+        if (enfromstate && entostate) {
+            ChackAll task = new ChackAll("فرد");
+            task.start();
+        }
     }
 
     @FXML
@@ -725,8 +789,7 @@ public class MainController implements Initializable {
     @FXML
     private void deleteListName(ActionEvent event) {
         try {
-            DataMng.delete("DELETE `nameslist`, `mandatelists` FROM `nameslist` inner join  `mandatelists` on `nameslist`.`LISTNUMBER` = `mandatelists`.`LISTNUMBER`"
-                    + "WHERE `nameslist`.`LISTNUMBER` = '" + listnumber.getText() + "'AND mandatelists.LISTNUMBER='" + listnumber.getText() + "'");
+            DataMng.delete("DELETE `nameslist`, `mandatelists` FROM `nameslist` inner join  `mandatelists` on `nameslist`.`LISTNUMBER` = `mandatelists`.`LISTNUMBER` WHERE `nameslist`.`LISTNUMBER` = '" + listnumber.getText() + "'AND mandatelists.LISTNUMBER='" + listnumber.getText() + "'");
             refreshEnChackTable();
             ch_comboBoxlist.clear();
             refreshListCombobox(fillListCombobox(ch_comboBoxlist));
@@ -819,7 +882,7 @@ public class MainController implements Initializable {
 
     private void namesWithoutDcTableViewData() {
         try {
-            ResultSet rs = DataMng.getDataJoinTable("SELECT formation.MILITARYID,formation.RANK,formation.NAME FROM mandate,nameslist,formation WHERE  mandate.ENNAMELISTNUMBER = nameslist.LISTNUMBER AND nameslist.MILITARYID = formation.MILITARYID AND mandate.ORDERID = '" + search_orderid.getText() + "'");
+            ResultSet rs = DataMng.getDataJoinTable("SELECT formation.MILITARYID,formation.RANK,formation.NAME,nameslist.LISTNUMBER FROM mandate,nameslist,formation WHERE  mandate.ENNAMELISTNUMBER = nameslist.LISTNUMBER AND nameslist.MILITARYID = formation.MILITARYID AND mandate.ORDERID = '" + mandate_dec_orderid.getText() + "'AND nameslist.DECISIONSTATUS='false'");
             int sq = 0;
             while (rs.next()) {
                 sq++;
@@ -829,7 +892,9 @@ public class MainController implements Initializable {
                         rs.getString("NAME"),
                         sq
                 ));
+                mandateDecListNumber = rs.getString("LISTNUMBER");
             }
+
             rs.close();
         } catch (SQLException | IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -840,6 +905,31 @@ public class MainController implements Initializable {
         no_dec_sequence_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
         no_dec_table.setItems(no_declist);
+    }
+
+    private void namesWithDcTableViewData() {
+        try {
+            ResultSet rs = DataMng.getDataJoinTable("SELECT formation.MILITARYID,formation.RANK,formation.NAME FROM mandate,nameslist,formation WHERE  mandate.ENNAMELISTNUMBER = nameslist.LISTNUMBER AND nameslist.MILITARYID = formation.MILITARYID AND mandate.ORDERID = '" + mandate_dec_orderid.getText() + "'AND nameslist.DECISIONSTATUS='true'");
+            int sq = 0;
+            while (rs.next()) {
+                sq++;
+                declist.add(new NamesDataModel(
+                        rs.getString("MILITARYID"),
+                        rs.getString("RANK"),
+                        rs.getString("NAME"),
+                        sq
+                ));
+            }
+            rs.close();
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dec_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
+        dec_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        dec_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        dec_sequence_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
+
+        dec_table.setItems(declist);
     }
 
     private void chackTableViewAll() {
@@ -1148,6 +1238,18 @@ public class MainController implements Initializable {
         dateOfCombobox(ch_en_todatemonth, fillMonth(monthlist), "month");
         dateOfCombobox(ch_en_todateyear, fillYare(yearlist), "year");
 
+        dateOfCombobox(mandate_ch_decday, fillDays(daylist), "day");
+        dateOfCombobox(mandate_ch_decmonth, fillMonth(monthlist), "month");
+        dateOfCombobox(mandate_ch_decyear, fillYare(yearlist), "year");
+
+        dateOfCombobox(mandate_ch_dec_fromday, fillDays(daylist), "day");
+        dateOfCombobox(mandate_ch_dec_frommonth, fillMonth(monthlist), "month");
+        dateOfCombobox(mandate_ch_dec_fromyear, fillYare(yearlist), "year");
+
+        dateOfCombobox(mandate_ch_dec_today, fillDays(daylist), "day");
+        dateOfCombobox(mandate_ch_dec_tomonth, fillMonth(monthlist), "month");
+        dateOfCombobox(mandate_ch_dec_toyear, fillYare(yearlist), "year");
+
         refreshListCombobox(fillListCombobox(ch_comboBoxlist));
         enTableViewData();
         mainePageOpenAction();
@@ -1184,11 +1286,19 @@ public class MainController implements Initializable {
                 ch_en_allofficers.setDisable(false);
             }
         });
+        mandate_dec_orderid.setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                getListNames();
+            }
+        });
+        mandate_dec_militrayid.setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                updateDecState();
+            }
+        });
 
-    }
-
-    @FXML
-    private void insertName(ActionEvent event) {
     }
 
 }
