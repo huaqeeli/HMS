@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -28,7 +27,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -259,12 +257,176 @@ public class MainController implements Initializable {
     private String mandateDecListNumber = null;
     @FXML
     private TextField mandate_dec_militrayid;
+    @FXML
+    private AnchorPane FormationPage;
+    @FXML
+    private Tab addhint1;
+    @FXML
+    private TextField for_militaryid;
+    @FXML
+    private TextField for_unitbeforforce;
+    @FXML
+    private TextField for_idnumber;
+    @FXML
+    private ComboBox<String> for_breth_day;
+    @FXML
+    private ComboBox<String> for_breth_month;
+    @FXML
+    private ComboBox<String> for_breth_year;
+    @FXML
+    private ComboBox<String> for_nextpromotion_day;
+    @FXML
+    private ComboBox<String> for_nextpromotion_month;
+    @FXML
+    private ComboBox<String> for_nextpromotion_year;
+    @FXML
+    private ComboBox<String> for_speclaization;
+    @FXML
+    private ComboBox<String> for_unitinforce;
+    @FXML
+    private ComboBox<String> for_bloodtype;
+    @FXML
+    private TextField for_bankname;
+    @FXML
+    private TextField for_ibannumber;
+    @FXML
+    private TextField for_passportid;
+    @FXML
+    private TextField for_mobilenumber;
+    @FXML
+    private TextField for_mobilenumber_ofcousin;
+    @FXML
+    private ComboBox<String> for_militarytayp;
+    @FXML
+    private ComboBox<String> for_qualification;
+    @FXML
+    private ComboBox<String> for_rank;
+    @FXML
+    private ComboBox<String> for_passport_day;
+    @FXML
+    private ComboBox<String> for_passport_month;
+    @FXML
+    private ComboBox<String> for_passport_year;
+    @FXML
+    private ComboBox<String> for_promotion_day;
+    @FXML
+    private ComboBox<String> for_promotion_month;
+    @FXML
+    private ComboBox<String> for_promotion_year;
+    @FXML
+    private TextField for_name;
+    @FXML
+    private TextField for_birth_place;
+    @FXML
+    private Tab chackingdata1;
+    @FXML
+    private TextField ch_enfrom1;
+    @FXML
+    private TextField ch_ento1;
+    @FXML
+    private ComboBox<?> ch_en_fromdateday1;
+    @FXML
+    private ComboBox<?> ch_en_fromdatemonth1;
+    @FXML
+    private ComboBox<?> ch_en_fromdateyear1;
+    @FXML
+    private ComboBox<?> ch_en_todateday1;
+    @FXML
+    private ComboBox<?> ch_en_todatemonth1;
+    @FXML
+    private ComboBox<?> ch_en_todateyear1;
+    @FXML
+    private TextField ch_mailitraynum1;
+    @FXML
+    private Button ch_en_allofficers1;
+    @FXML
+    private Button ch_en_allsoldiers1;
+    @FXML
+    private Button ch_en_button11;
+    @FXML
+    private TableView<?> chacktable1;
+    @FXML
+    private TableColumn<?, ?> en_ch_sq_col1;
+    @FXML
+    private TableColumn<?, ?> ch_mailitraynum_col1;
+    @FXML
+    private TableColumn<?, ?> ch_rank_col1;
+    @FXML
+    private TableColumn<?, ?> ch_name_col1;
+    @FXML
+    private TableColumn<?, ?> ch_en_from_col1;
+    @FXML
+    private TableColumn<?, ?> ch_en_to_col1;
+    @FXML
+    private TableColumn<?, ?> ch_en_fromdate_col1;
+    @FXML
+    private TableColumn<?, ?> ch_en_todate_col1;
+    @FXML
+    private ComboBox<?> ch_list_combobox1;
+    @FXML
+    private Label listnumber1;
+    @FXML
+    private Label excludedNumber1;
+    @FXML
+    private Tab en_update1;
+    @FXML
+    private TextField mandate_dec_militrayid1;
+    @FXML
+    private TableView<?> no_dec_table1;
+    @FXML
+    private TableColumn<?, ?> no_dec_sequence_col1;
+    @FXML
+    private TableColumn<?, ?> no_dec_militaryid_col1;
+    @FXML
+    private TableColumn<?, ?> no_dec_rank_col1;
+    @FXML
+    private TableColumn<?, ?> no_dec_name_col1;
+    @FXML
+    private TableView<?> dec_table1;
+    @FXML
+    private TableColumn<?, ?> dec_sequence_col1;
+    @FXML
+    private TableColumn<?, ?> dec_militaryid_col1;
+    @FXML
+    private TableColumn<?, ?> dec_rank_col1;
+    @FXML
+    private TableColumn<?, ?> dec_name_col1;
+    @FXML
+    private TextField mandate_ch_decnumber1;
+    @FXML
+    private ComboBox<?> mandate_ch_dec_fromday1;
+    @FXML
+    private ComboBox<?> mandate_ch_dec_frommonth1;
+    @FXML
+    private ComboBox<?> mandate_ch_dec_fromyear1;
+    @FXML
+    private ComboBox<?> mandate_ch_dec_today1;
+    @FXML
+    private ComboBox<?> mandate_ch_dec_tomonth1;
+    @FXML
+    private ComboBox<?> mandate_ch_dec_toyear1;
+    @FXML
+    private ComboBox<?> mandate_ch_decday1;
+    @FXML
+    private ComboBox<?> mandate_ch_decmonth1;
+    @FXML
+    private ComboBox<?> mandate_ch_decyear1;
+    @FXML
+    private Button save11;
+    @FXML
+    private Button en_updateButton21;
+    @FXML
+    private Button en_updateButton111;
+    @FXML
+    private TextField mandate_dec_orderid1;
+    @FXML
+    private Tab en_search1;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
         MainPage.setVisible(true);
         EntedabPage.setVisible(false);
-        TshkelPage.setVisible(false);
+        FormationPage.setVisible(false);
     }
 
     private void tabhint(ActionEvent event) {
@@ -275,21 +437,21 @@ public class MainController implements Initializable {
     private void mainePageOpenAction() {
         MainPage.setVisible(true);
         EntedabPage.setVisible(false);
-        TshkelPage.setVisible(false);
+        FormationPage.setVisible(false);
     }
 
     @FXML
     private void entedabOpenAction(ActionEvent event) {
         MainPage.setVisible(false);
         EntedabPage.setVisible(true);
-        TshkelPage.setVisible(false);
+        FormationPage.setVisible(false);
     }
 
     @FXML
     private void tshkelOpenAction(ActionEvent event) {
         MainPage.setVisible(false);
         EntedabPage.setVisible(false);
-        TshkelPage.setVisible(true);
+        FormationPage.setVisible(true);
     }
 
     private int getDateDifference() {
@@ -638,6 +800,39 @@ public class MainController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    /*`MILITARYID`,NAME`,`RANK`,`IDNAMBER`,`BIRTH_DATE`,`BIRTH_PLACE`,`SPECIALIZATION`,`UNIT_IN_FORCE`,`UNIT_BEFOR_FORCE`,`BANKNAME`,`IBANNUMBER`,BLOODTYPE`,`DATE_OF_PROMOTION`,`DATE_OF_NEXT_PROMOTION`,`PASSPORTID`,`END_DATE_OFPASSPORT`,`MOBILENUMBER`,`MOBILENUMBER_OFCOUSIN`,`QUALIFICATION`,`MILITARYTYPE`*/
+    @FXML
+    private void insertFormaitionData(ActionEvent event) {
+        String prthDate = setDate(for_breth_day.getValue(), for_breth_month.getValue(), for_breth_year.getValue());
+        String promotionDate = setDate(for_promotion_day.getValue(), for_promotion_month.getValue(), for_promotion_year.getValue());
+        String nextpromotionDate = setDate(for_nextpromotion_day.getValue(), for_nextpromotion_month.getValue(), for_nextpromotion_year.getValue());
+        String passportDate = setDate(for_passport_day.getValue(), for_passport_month.getValue(), for_passport_year.getValue());
+        String tableName = "formation";
+        String fieldName = "`MILITARYID`,NAME`,`RANK`,`IDNAMBER`,`BIRTH_DATE`,`BIRTH_PLACE`,`SPECIALIZATION`,`UNIT_IN_FORCE`,`UNIT_BEFOR_FORCE`,`BANKNAME`,`IBANNUMBER`,BLOODTYPE`,`DATE_OF_PROMOTION`,`DATE_OF_NEXT_PROMOTION`,`PASSPORTID`,`END_DATE_OFPASSPORT`,`MOBILENUMBER`,`MOBILENUMBER_OFCOUSIN`,`QUALIFICATION`,`MILITARYTYPE`";
+        String[] data = {for_militaryid.getText(), for_name.getText(), for_rank.getValue(), for_idnumber.getText(), prthDate, for_birth_place.getText(), for_speclaization.getValue(),
+            for_unitinforce.getValue(), for_unitbeforforce.getText(), for_bankname.getText(), for_ibannumber.getText(), for_bloodtype.getValue(), promotionDate, nextpromotionDate, for_passportid.getText(),
+            passportDate, for_mobilenumber.getText(), for_mobilenumber_ofcousin.getText(), for_qualification.getValue(), for_militarytayp.getValue()};
+        String valuenumbers = "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
+        
+         boolean militaryidNotEmpty = FormValidation.textFieldNotEmpty(for_militaryid,"ادخل الرقم العسكري");
+         boolean nameNotEmpty = FormValidation.textFieldNotEmpty(for_name,"ادخل الاسم");
+         boolean rankNotEmpty = FormValidation.comboBoxNotEmpty(for_rank,"اختر الرتبة");
+         boolean idNumberNotEmpty = FormValidation.textFieldNotEmpty(for_idnumber,"ادخل رقم الهوية");
+         boolean unitInForceNotEmpty = FormValidation.comboBoxNotEmpty(for_unitinforce,"اختر الوحدة داخل القوة");
+         boolean unitBeforForceNotEmpty = FormValidation.textFieldNotEmpty(for_unitbeforforce,"ادخل الوحدة قبل القوة");
+         boolean bankNameNotEmpty = FormValidation.textFieldNotEmpty(for_bankname,"ادخل اسم البنك");
+         boolean ibanNumberNotEmpty = FormValidation.textFieldNotEmpty(for_ibannumber,"ادخل رقم الايبان");
+         boolean mobileNumberNotEmpty = FormValidation.textFieldNotEmpty(for_mobilenumber,"ادخل رقم الجوال");
+    }
+
+    @FXML
+    private void updateFormaitionData(ActionEvent event) {
+    }
+
+    @FXML
+    private void deleteFormaitionData(ActionEvent event) {
     }
 
     public class ChackAll extends Thread {
