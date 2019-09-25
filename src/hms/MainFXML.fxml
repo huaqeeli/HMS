@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -22,7 +28,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1450.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.MainController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1450.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.MainController">
 
    <children>
       <AnchorPane fx:id="Header" prefHeight="92.0" prefWidth="1211.0" style="-fx-background-color: #fff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -950,7 +956,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="mineTab" stylesheets="@../css/style.css">
                            <children>
-                              <GridPane layoutX="3.0" layoutY="-7.0" prefHeight="522.0" prefWidth="1327.0" style="-fx-border-color: #FBB115;" vgap="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                              <GridPane alignment="CENTER" layoutX="3.0" layoutY="-7.0" prefHeight="522.0" prefWidth="1327.0" style="-fx-border-color: #FBB115;" vgap="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                  <children>
                                     <TextField fx:id="for_militaryid" layoutX="196.0" layoutY="54.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1">
                                        <styleClass>
@@ -972,32 +978,32 @@
                                     </TextField>
                                     <HBox layoutX="729.0" layoutY="21.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="377.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <children>
-                                          <ComboBox fx:id="for_breth_day" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                          <ComboBox fx:id="for_breth_day" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="for_breth_month" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                          <ComboBox fx:id="for_breth_month" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="for_breth_year" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
+                                          <ComboBox fx:id="for_breth_year" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
                                        </children>
                                     </HBox>
                                     <HBox layoutX="196.0" layoutY="95.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
                                        <children>
-                                          <ComboBox fx:id="for_nextpromotion_day" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                          <ComboBox fx:id="for_nextpromotion_day" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="for_nextpromotion_month" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                          <ComboBox fx:id="for_nextpromotion_month" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="for_nextpromotion_year" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
+                                          <ComboBox fx:id="for_nextpromotion_year" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
                                        </children>
                                     </HBox>
                                     <Label alignment="CENTER" prefHeight="46.0" prefWidth="215.0" styleClass="appfont" text="الرتبة :" textFill="#146168" GridPane.rowIndex="1">
@@ -1138,32 +1144,32 @@
                                     <ComboBox fx:id="for_rank" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <HBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
                                        <children>
-                                          <ComboBox fx:id="for_passport_day" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                          <ComboBox fx:id="for_passport_day" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="for_passport_month" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                          <ComboBox fx:id="for_passport_month" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="for_passport_year" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
+                                          <ComboBox fx:id="for_passport_year" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
                                        </children>
                                     </HBox>
                                     <HBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                        <children>
-                                          <ComboBox fx:id="for_promotion_day" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                          <ComboBox fx:id="for_promotion_day" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="for_promotion_month" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                          <ComboBox fx:id="for_promotion_month" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="for_promotion_year" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
+                                          <ComboBox fx:id="for_promotion_year" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
                                        </children>
                                     </HBox>
                                     <TextField fx:id="for_name" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3">

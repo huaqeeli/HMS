@@ -802,7 +802,7 @@ public class MainController implements Initializable {
         }
     }
 
-    /*`MILITARYID`,NAME`,`RANK`,`IDNAMBER`,`BIRTH_DATE`,`BIRTH_PLACE`,`SPECIALIZATION`,`UNIT_IN_FORCE`,`UNIT_BEFOR_FORCE`,`BANKNAME`,`IBANNUMBER`,BLOODTYPE`,`DATE_OF_PROMOTION`,`DATE_OF_NEXT_PROMOTION`,`PASSPORTID`,`END_DATE_OFPASSPORT`,`MOBILENUMBER`,`MOBILENUMBER_OFCOUSIN`,`QUALIFICATION`,`MILITARYTYPE`*/
+    
     @FXML
     private void insertFormaitionData(ActionEvent event) {
         String prthDate = setDate(for_breth_day.getValue(), for_breth_month.getValue(), for_breth_year.getValue());
@@ -825,6 +825,19 @@ public class MainController implements Initializable {
          boolean bankNameNotEmpty = FormValidation.textFieldNotEmpty(for_bankname,"ادخل اسم البنك");
          boolean ibanNumberNotEmpty = FormValidation.textFieldNotEmpty(for_ibannumber,"ادخل رقم الايبان");
          boolean mobileNumberNotEmpty = FormValidation.textFieldNotEmpty(for_mobilenumber,"ادخل رقم الجوال");
+         boolean militaryidUnique = FormValidation.unique("formation","`MILITARYID`","`MILITARYID` = '"+data[0]+"'","تم ادخال الرقم العسكري مسبقا");
+         boolean idNumberUnique = FormValidation.unique("formation","`IDNAMBER`","`IDNAMBER` = '"+data[3]+"'","تم ادخال رقم الهوية مسبقا");
+         boolean ibanNumberUnique = FormValidation.unique("formation","`IBANNUMBER`","`IBANNUMBER` = '"+data[10]+"'","تم ادخال رقم الايبان مسبقا");
+         boolean mobilNumberUnique = FormValidation.unique("formation","`MOBILENUMBER`","`MOBILENUMBER` = '"+data[16]+"'","تم ادخال رقم الجوال مسبقا");
+         
+        if (militaryidNotEmpty&&nameNotEmpty&&rankNotEmpty&&idNumberNotEmpty&&unitInForceNotEmpty&&unitBeforForceNotEmpty&&bankNameNotEmpty&&
+                ibanNumberNotEmpty&&mobileNumberNotEmpty&&militaryidUnique&&idNumberUnique&&ibanNumberUnique&&mobilNumberUnique) {
+            try {
+                DataMng.insert(tableName, fieldName, valuenumbers, data);
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @FXML
