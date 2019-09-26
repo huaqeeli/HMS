@@ -461,7 +461,6 @@ public class MainController implements Initializable {
         int d2 = Integer.parseInt(mandate_ch_dec_today.getValue());
         int m2 = Integer.parseInt(mandate_ch_dec_tomonth.getValue());
         int y2 = Integer.parseInt(mandate_ch_dec_toyear.getValue());
-        int difference = 0;
 
         int diffDays = d2 - d1;
         int diffMonths = m2 - m1;
@@ -471,9 +470,9 @@ public class MainController implements Initializable {
         LocalDate date2 = LocalDate.of(y2, m2, d2);
 
         int days = (int) ChronoUnit.DAYS.between(date1, date2);
-        difference = diffDays + (diffMonths * 30) + (diffYears * 360);
-
-        return days;
+        int difference = diffDays + (diffMonths * 30) + (diffYears * 360);
+        System.out.println(days + 1);
+        return days + 1;
     }
 
     private void increaseBalance(String id) {
@@ -778,10 +777,16 @@ public class MainController implements Initializable {
             String decfromDate = setDate(mandate_ch_dec_fromday.getValue(), mandate_ch_dec_frommonth.getValue(), mandate_ch_dec_fromyear.getValue());
             String dectoDate = setDate(mandate_ch_dec_today.getValue(), mandate_ch_dec_tomonth.getValue(), mandate_ch_dec_toyear.getValue());
             String[] data = {mandate_ch_decnumber.getText(), decDate, decfromDate, dectoDate, mandateDecListNumber, mandate_dec_militrayid.getText()};
-            DataMng.updat("nameslist", "`DICISIONNUMBER` = ? ,`DECISIONDATE` = ?,`ENDATEFROM`= ? ,`ENDATETO` = ? ,`DECISIONSTATUS` = 'true'", data, "`LISTNUMBER` =? AND `MILITARYID` = ?");
-            refreshDecTables();
-            increaseBalance(mandate_dec_militrayid.getText());
-            mandate_dec_militrayid.setText("");
+
+            boolean militaryidNotEmpty = FormValidation.textFieldNotEmpty(mandate_dec_militrayid, "ادخل الرقم العسكري");
+            boolean decNumberNotEmpty = FormValidation.textFieldNotEmpty(mandate_ch_decnumber, "ادخل رقم القرار");
+
+            if (decNumberNotEmpty && militaryidNotEmpty && mandateDecListNumber != null) {
+                DataMng.updat("nameslist", "`DICISIONNUMBER` = ? ,`DECISIONDATE` = ?,`ENDATEFROM`= ? ,`ENDATETO` = ? ,`DECISIONSTATUS` = 'true'", data, "`LISTNUMBER` =? AND `MILITARYID` = ?");
+                refreshDecTables();
+                increaseBalance(mandate_dec_militrayid.getText());
+                mandate_dec_militrayid.setText("");
+            }
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -802,7 +807,6 @@ public class MainController implements Initializable {
         }
     }
 
-    
     @FXML
     private void insertFormaitionData(ActionEvent event) {
         String prthDate = setDate(for_breth_day.getValue(), for_breth_month.getValue(), for_breth_year.getValue());
@@ -815,23 +819,23 @@ public class MainController implements Initializable {
             for_unitinforce.getValue(), for_unitbeforforce.getText(), for_bankname.getText(), for_ibannumber.getText(), for_bloodtype.getValue(), promotionDate, nextpromotionDate, for_passportid.getText(),
             passportDate, for_mobilenumber.getText(), for_mobilenumber_ofcousin.getText(), for_qualification.getValue(), for_militarytayp.getValue()};
         String valuenumbers = "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
-        
-         boolean militaryidNotEmpty = FormValidation.textFieldNotEmpty(for_militaryid,"ادخل الرقم العسكري");
-         boolean nameNotEmpty = FormValidation.textFieldNotEmpty(for_name,"ادخل الاسم");
-         boolean rankNotEmpty = FormValidation.comboBoxNotEmpty(for_rank,"اختر الرتبة");
-         boolean idNumberNotEmpty = FormValidation.textFieldNotEmpty(for_idnumber,"ادخل رقم الهوية");
-         boolean unitInForceNotEmpty = FormValidation.comboBoxNotEmpty(for_unitinforce,"اختر الوحدة داخل القوة");
-         boolean unitBeforForceNotEmpty = FormValidation.textFieldNotEmpty(for_unitbeforforce,"ادخل الوحدة قبل القوة");
-         boolean bankNameNotEmpty = FormValidation.textFieldNotEmpty(for_bankname,"ادخل اسم البنك");
-         boolean ibanNumberNotEmpty = FormValidation.textFieldNotEmpty(for_ibannumber,"ادخل رقم الايبان");
-         boolean mobileNumberNotEmpty = FormValidation.textFieldNotEmpty(for_mobilenumber,"ادخل رقم الجوال");
-         boolean militaryidUnique = FormValidation.unique("formation","`MILITARYID`","`MILITARYID` = '"+data[0]+"'","تم ادخال الرقم العسكري مسبقا");
-         boolean idNumberUnique = FormValidation.unique("formation","`IDNAMBER`","`IDNAMBER` = '"+data[3]+"'","تم ادخال رقم الهوية مسبقا");
-         boolean ibanNumberUnique = FormValidation.unique("formation","`IBANNUMBER`","`IBANNUMBER` = '"+data[10]+"'","تم ادخال رقم الايبان مسبقا");
-         boolean mobilNumberUnique = FormValidation.unique("formation","`MOBILENUMBER`","`MOBILENUMBER` = '"+data[16]+"'","تم ادخال رقم الجوال مسبقا");
-         
-        if (militaryidNotEmpty&&nameNotEmpty&&rankNotEmpty&&idNumberNotEmpty&&unitInForceNotEmpty&&unitBeforForceNotEmpty&&bankNameNotEmpty&&
-                ibanNumberNotEmpty&&mobileNumberNotEmpty&&militaryidUnique&&idNumberUnique&&ibanNumberUnique&&mobilNumberUnique) {
+
+        boolean militaryidNotEmpty = FormValidation.textFieldNotEmpty(for_militaryid, "ادخل الرقم العسكري");
+        boolean nameNotEmpty = FormValidation.textFieldNotEmpty(for_name, "ادخل الاسم");
+        boolean rankNotEmpty = FormValidation.comboBoxNotEmpty(for_rank, "اختر الرتبة");
+        boolean idNumberNotEmpty = FormValidation.textFieldNotEmpty(for_idnumber, "ادخل رقم الهوية");
+        boolean unitInForceNotEmpty = FormValidation.comboBoxNotEmpty(for_unitinforce, "اختر الوحدة داخل القوة");
+        boolean unitBeforForceNotEmpty = FormValidation.textFieldNotEmpty(for_unitbeforforce, "ادخل الوحدة قبل القوة");
+        boolean bankNameNotEmpty = FormValidation.textFieldNotEmpty(for_bankname, "ادخل اسم البنك");
+        boolean ibanNumberNotEmpty = FormValidation.textFieldNotEmpty(for_ibannumber, "ادخل رقم الايبان");
+        boolean mobileNumberNotEmpty = FormValidation.textFieldNotEmpty(for_mobilenumber, "ادخل رقم الجوال");
+        boolean militaryidUnique = FormValidation.unique("formation", "`MILITARYID`", "`MILITARYID` = '" + data[0] + "'", "تم ادخال الرقم العسكري مسبقا");
+        boolean idNumberUnique = FormValidation.unique("formation", "`IDNAMBER`", "`IDNAMBER` = '" + data[3] + "'", "تم ادخال رقم الهوية مسبقا");
+        boolean ibanNumberUnique = FormValidation.unique("formation", "`IBANNUMBER`", "`IBANNUMBER` = '" + data[10] + "'", "تم ادخال رقم الايبان مسبقا");
+        boolean mobilNumberUnique = FormValidation.unique("formation", "`MOBILENUMBER`", "`MOBILENUMBER` = '" + data[16] + "'", "تم ادخال رقم الجوال مسبقا");
+
+        if (militaryidNotEmpty && nameNotEmpty && rankNotEmpty && idNumberNotEmpty && unitInForceNotEmpty && unitBeforForceNotEmpty && bankNameNotEmpty
+                && ibanNumberNotEmpty && mobileNumberNotEmpty && militaryidUnique && idNumberUnique && ibanNumberUnique && mobilNumberUnique) {
             try {
                 DataMng.insert(tableName, fieldName, valuenumbers, data);
             } catch (IOException ex) {
@@ -1100,7 +1104,6 @@ public class MainController implements Initializable {
                         rs.getString("NAME"),
                         sq
                 ));
-                mandateDecListNumber = rs.getString("LISTNUMBER");
             }
 
             rs.close();
@@ -1127,6 +1130,7 @@ public class MainController implements Initializable {
                         rs.getString("NAME"),
                         sq
                 ));
+                mandateDecListNumber = rs.getString("LISTNUMBER");
             }
             rs.close();
         } catch (SQLException | IOException ex) {
@@ -1457,6 +1461,22 @@ public class MainController implements Initializable {
         dateOfCombobox(mandate_ch_dec_today, fillDays(daylist), "day");
         dateOfCombobox(mandate_ch_dec_tomonth, fillMonth(monthlist), "month");
         dateOfCombobox(mandate_ch_dec_toyear, fillYare(yearlist), "year");
+        
+        dateOfCombobox(for_breth_day, fillDays(daylist), "day");
+        dateOfCombobox(for_breth_month, fillMonth(monthlist), "month");
+        dateOfCombobox(for_breth_year, fillYare(yearlist), "year");
+        
+        dateOfCombobox(for_promotion_day, fillDays(daylist), "day");
+        dateOfCombobox(for_promotion_month, fillMonth(monthlist), "month");
+        dateOfCombobox(for_promotion_year, fillYare(yearlist), "year");
+        
+        dateOfCombobox(for_nextpromotion_day, fillDays(daylist), "day");
+        dateOfCombobox(for_nextpromotion_month, fillMonth(monthlist), "month");
+        dateOfCombobox(for_nextpromotion_year, fillYare(yearlist), "year");
+        
+        dateOfCombobox(for_nextpromotion_day, fillDays(daylist), "day");
+        dateOfCombobox(for_nextpromotion_month, fillMonth(monthlist), "month");
+        dateOfCombobox(for_nextpromotion_year, fillYare(yearlist), "year");
 
         refreshListCombobox(fillListCombobox(ch_comboBoxlist));
         enTableViewData();
