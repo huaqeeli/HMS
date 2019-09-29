@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -28,7 +22,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1450.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.MainController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1450.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hms.MainController">
 
    <children>
       <AnchorPane fx:id="Header" prefHeight="92.0" prefWidth="1211.0" style="-fx-background-color: #fff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -958,54 +952,6 @@
                            <children>
                               <GridPane alignment="CENTER" layoutX="3.0" layoutY="-7.0" prefHeight="522.0" prefWidth="1327.0" style="-fx-border-color: #FBB115;" vgap="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                  <children>
-                                    <TextField fx:id="for_militaryid" layoutX="196.0" layoutY="54.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1">
-                                       <styleClass>
-                                          <String fx:value="textfield" />
-                                          <String fx:value="appfont" />
-                                       </styleClass>
-                                    </TextField>
-                                    <TextField fx:id="for_unitbeforforce" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                       <styleClass>
-                                          <String fx:value="textfield" />
-                                          <String fx:value="appfont" />
-                                       </styleClass>
-                                    </TextField>
-                                    <TextField fx:id="for_idnumber" layoutX="205.0" layoutY="30.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                       <styleClass>
-                                          <String fx:value="textfield" />
-                                          <String fx:value="appfont" />
-                                       </styleClass>
-                                    </TextField>
-                                    <HBox layoutX="729.0" layoutY="21.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="377.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                       <children>
-                                          <ComboBox fx:id="for_breth_day" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
-                                             <HBox.margin>
-                                                <Insets right="2.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
-                                          <ComboBox fx:id="for_breth_month" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
-                                             <HBox.margin>
-                                                <Insets right="2.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
-                                          <ComboBox fx:id="for_breth_year" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
-                                       </children>
-                                    </HBox>
-                                    <HBox layoutX="196.0" layoutY="95.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
-                                       <children>
-                                          <ComboBox fx:id="for_nextpromotion_day" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
-                                             <HBox.margin>
-                                                <Insets right="2.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
-                                          <ComboBox fx:id="for_nextpromotion_month" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
-                                             <HBox.margin>
-                                                <Insets right="2.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
-                                          <ComboBox fx:id="for_nextpromotion_year" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
-                                       </children>
-                                    </HBox>
                                     <Label alignment="CENTER" prefHeight="46.0" prefWidth="215.0" styleClass="appfont" text="الرتبة :" textFill="#146168" GridPane.rowIndex="1">
                                        <font>
                                           <Font name="URW DIN Arabic Bold" size="18.0" />
@@ -1036,14 +982,11 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="for_speclaization" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <ComboBox fx:id="for_unitinforce" layoutX="183.0" layoutY="161.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                                     <Label alignment="CENTER" layoutX="29.0" layoutY="93.0" prefHeight="46.0" prefWidth="215.0" styleClass="appfont" text="الوحدة قبل القوة :" textFill="#146168" GridPane.rowIndex="4">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="for_bloodtype" layoutX="729.0" layoutY="93.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="54.0" prefHeight="46.0" prefWidth="215.0" styleClass="appfont" text="الرقم العسكري :" textAlignment="CENTER" textFill="#146168">
                                        <font>
                                           <Font size="18.0" />
@@ -1059,12 +1002,6 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="for_bankname" layoutX="256.0" layoutY="20.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="4">
-                                       <styleClass>
-                                          <String fx:value="textfield" />
-                                          <String fx:value="appfont" />
-                                       </styleClass>
-                                    </TextField>
                                     <Label alignment="CENTER" prefHeight="46.0" prefWidth="215.0" styleClass="appfont" text="رقم الايبان :" textFill="#146168" GridPane.rowIndex="5">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
@@ -1115,48 +1052,67 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="for_ibannumber" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                    <TextField fx:id="for_militaryid" alignment="CENTER" layoutX="196.0" layoutY="54.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1">
                                        <styleClass>
                                           <String fx:value="textfield" />
                                           <String fx:value="appfont" />
                                        </styleClass>
                                     </TextField>
-                                    <TextField fx:id="for_passportid" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                    <TextField fx:id="for_name" alignment="CENTER" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3">
                                        <styleClass>
                                           <String fx:value="textfield" />
                                           <String fx:value="appfont" />
                                        </styleClass>
                                     </TextField>
-                                    <TextField fx:id="for_mobilenumber" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                                       <styleClass>
-                                          <String fx:value="textfield" />
-                                          <String fx:value="appfont" />
-                                       </styleClass>
-                                    </TextField>
-                                    <TextField fx:id="for_mobilenumber_ofcousin" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="8">
-                                       <styleClass>
-                                          <String fx:value="textfield" />
-                                          <String fx:value="appfont" />
-                                       </styleClass>
-                                    </TextField>
-                                    <ComboBox fx:id="for_militarytayp" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="9" />
-                                    <ComboBox fx:id="for_qualification" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                                     <ComboBox fx:id="for_rank" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <HBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                                    <TextField fx:id="for_idnumber" alignment="CENTER" layoutX="205.0" layoutY="30.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="appfont" />
+                                       </styleClass>
+                                    </TextField>
+                                    <HBox layoutX="729.0" layoutY="21.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="377.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <children>
-                                          <ComboBox fx:id="for_passport_day" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                          <ComboBox fx:id="for_breth_day" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="for_passport_month" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                          <ComboBox fx:id="for_breth_month" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
                                              <HBox.margin>
                                                 <Insets right="2.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <ComboBox fx:id="for_passport_year" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
+                                          <ComboBox fx:id="for_breth_year" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
                                        </children>
                                     </HBox>
+                                    <TextField fx:id="for_birth_place" alignment="CENTER" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="appfont" />
+                                       </styleClass>
+                                    </TextField>
+                                    <ComboBox fx:id="for_speclaization" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="for_unitinforce" layoutX="183.0" layoutY="161.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                    <TextField fx:id="for_unitbeforforce" alignment="CENTER" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="appfont" />
+                                       </styleClass>
+                                    </TextField>
+                                    <TextField fx:id="for_bankname" alignment="CENTER" layoutX="256.0" layoutY="20.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="appfont" />
+                                       </styleClass>
+                                    </TextField>
+                                    <TextField fx:id="for_ibannumber" alignment="CENTER" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="appfont" />
+                                       </styleClass>
+                                    </TextField>
+                                    <ComboBox fx:id="for_bloodtype" layoutX="729.0" layoutY="93.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                                     <HBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                        <children>
                                           <ComboBox fx:id="for_promotion_day" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
@@ -1172,18 +1128,56 @@
                                           <ComboBox fx:id="for_promotion_year" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
                                        </children>
                                     </HBox>
-                                    <TextField fx:id="for_name" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3">
+                                    <HBox layoutX="196.0" layoutY="95.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                                       <children>
+                                          <ComboBox fx:id="for_nextpromotion_day" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="for_nextpromotion_month" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="for_nextpromotion_year" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
+                                       </children>
+                                    </HBox>
+                                    <TextField fx:id="for_passportid" alignment="CENTER" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                        <styleClass>
                                           <String fx:value="textfield" />
                                           <String fx:value="appfont" />
                                        </styleClass>
                                     </TextField>
-                                    <TextField fx:id="for_birth_place" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                    <HBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                                       <children>
+                                          <ComboBox fx:id="for_passport_day" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="for_passport_month" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="for_passport_year" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
+                                       </children>
+                                    </HBox>
+                                    <TextField fx:id="for_mobilenumber" alignment="CENTER" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="8">
                                        <styleClass>
                                           <String fx:value="textfield" />
                                           <String fx:value="appfont" />
                                        </styleClass>
                                     </TextField>
+                                    <TextField fx:id="for_mobilenumber_ofcousin" alignment="CENTER" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="8">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="appfont" />
+                                       </styleClass>
+                                    </TextField>
+                                    <ComboBox fx:id="for_qualification" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                    <ComboBox fx:id="for_militarytayp" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="9" />
                                  </children>
                                  <columnConstraints>
                                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="520.0" minWidth="5.0" prefWidth="300.0" />
@@ -1207,7 +1201,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                               </GridPane>
-                              <Button fx:id="save1" layoutX="741.0" layoutY="754.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#insertFormaitionData" prefHeight="60.0" prefWidth="156.0" style="-fx-background-color: #596367;" styleClass="appfont" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                              <Button fx:id="save1" layoutX="741.0" layoutY="754.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#insertFormaitionData" prefHeight="60.0" prefWidth="156.0" style="-fx-background-color: #596367;" styleClass="appfont" textFill="WHITE" AnchorPane.bottomAnchor="200.0" AnchorPane.rightAnchor="10.0">
                                  <graphic>
                                     <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -1216,7 +1210,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="en_updateButton1" layoutX="952.0" layoutY="740.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#updateFormaitionData" prefHeight="60.0" prefWidth="156.0" style="-fx-background-color: #596367;" styleClass="appfont" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="170.0">
+                              <Button fx:id="en_updateButton1" layoutX="952.0" layoutY="740.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#updateFormaitionData" prefHeight="60.0" prefWidth="156.0" style="-fx-background-color: #596367;" styleClass="appfont" textFill="WHITE" AnchorPane.bottomAnchor="200.0" AnchorPane.rightAnchor="170.0">
                                  <graphic>
                                     <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -1225,7 +1219,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="en_updateButton11" layoutX="792.0" layoutY="740.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteFormaitionData" prefHeight="60.0" prefWidth="156.0" style="-fx-background-color: #596367;" styleClass="appfont" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="330.0">
+                              <Button fx:id="en_updateButton11" layoutX="792.0" layoutY="740.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteFormaitionData" prefHeight="60.0" prefWidth="156.0" style="-fx-background-color: #596367;" styleClass="appfont" textFill="WHITE" AnchorPane.bottomAnchor="200.0" AnchorPane.rightAnchor="330.0">
                                  <graphic>
                                     <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
