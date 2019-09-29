@@ -145,7 +145,7 @@ public class MainController implements Initializable {
     ObservableList<String> list3 = FXCollections.observableArrayList("عادي", "صيفية");
     ObservableList<String> ranklist = FXCollections.observableArrayList("الفريق اول", "الفريق", "الواء", "العميد", "العقيد", "المقدم", "النقيب", "الملازم أول", "رئيس رقباء", "رقيب أول", "رقيب", "وكيل رقيب", "عريف", "جندي أول", "جندي");
     ObservableList<String> qualificationlist = FXCollections.observableArrayList("جامعي", "ثانوية عامة", "الكفاءة المتوسطة", "الابتدائية");
-    ObservableList<String> bloodTypeList = FXCollections.observableArrayList("O+", "A+", "B+", "AB+","O-", "A-", "B-", "AB-");
+    ObservableList<String> bloodTypeList = FXCollections.observableArrayList("O+", "A+", "B+", "AB+", "O-", "A-", "B-", "AB-");
     ObservableList<String> daylist = FXCollections.observableArrayList();
     ObservableList<String> specialiazList = FXCollections.observableArrayList();
     ObservableList<String> unitNameList = FXCollections.observableArrayList();
@@ -426,6 +426,8 @@ public class MainController implements Initializable {
     private TextField mandate_dec_orderid1;
     @FXML
     private Tab en_search1;
+    @FXML
+    private Button en_updateButton112;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -856,44 +858,76 @@ public class MainController implements Initializable {
     @FXML
     private void deleteFormaitionData(ActionEvent event) {
     }
-    
-    public void getFormaitionDatabyMilitryid(){
+
+    public void getFormaitionDatabyMilitryid() {
         try {
             String tableName = "formation";
             String fieldName = "`MILITARYID`,`NAME`,`RANK`,`IDNAMBER`,`BIRTH_DATE`,`BIRTH_PLACE`,`SPECIALIZATION`,`UNIT_IN_FORCE`,`UNIT_BEFOR_FORCE`,`BANKNAME`,`IBANNUMBER`,`BLOODTYPE`,`DATE_OF_PROMOTION`,`DATE_OF_NEXT_PROMOTION`,`PASSPORTID`,`END_DATE_OFPASSPORT`,`MOBILENUMBER`,`MOBILENUMBER_OFCOUSIN`,`QUALIFICATION`,`MILITARYTYPE`";
-            ResultSet rs = DataMng.getDataWithCondition(tableName, fieldName, "`MILITARYID` = '"+for_militaryid.getText()+"'");
+            ResultSet rs = DataMng.getDataWithCondition(tableName, fieldName, "`MILITARYID` = '" + for_militaryid.getText() + "'");
             if (rs.next()) {
-               for_name.setText(rs.getString("NAME"));
-               for_rank.setValue(rs.getString("RANK"));
-               for_idnumber.setText(rs.getString("IDNAMBER"));
-               for_breth_day.setValue(getDay(rs.getString("BIRTH_DATE")));
-               for_breth_month.setValue(getMonth(rs.getString("BIRTH_DATE")));
-               for_breth_year.setValue(getYear(rs.getString("BIRTH_DATE")));
-               for_birth_place.setText(rs.getString("BIRTH_PLACE"));
-               for_speclaization.setValue(rs.getString("SPECIALIZATION"));
-               for_unitinforce.setValue(rs.getString("UNIT_IN_FORCE"));
-               for_unitbeforforce.setText(rs.getString("UNIT_BEFOR_FORCE"));
-               for_bankname.setText(rs.getString("BANKNAME"));
-               for_ibannumber.setText(rs.getString("IBANNUMBER"));
-               for_bloodtype.setValue(rs.getString("BLOODTYPE"));
-               for_promotion_day.setValue(getDay(rs.getString("DATE_OF_PROMOTION")));
-               for_promotion_month.setValue(getMonth(rs.getString("DATE_OF_PROMOTION")));
-               for_promotion_year.setValue(getYear(rs.getString("DATE_OF_PROMOTION")));
-               for_nextpromotion_day.setValue(getDay(rs.getString("DATE_OF_NEXT_PROMOTION")));
-               for_nextpromotion_month.setValue(getMonth(rs.getString("DATE_OF_NEXT_PROMOTION")));
-               for_nextpromotion_year.setValue(getYear(rs.getString("DATE_OF_NEXT_PROMOTION")));
-               for_passportid.setText(rs.getString("PASSPORTID"));
-               for_passport_day.setValue(getDay(rs.getString("END_DATE_OFPASSPORT")));
-               for_passport_month.setValue(getMonth(rs.getString("END_DATE_OFPASSPORT")));
-               for_passport_year.setValue(getYear(rs.getString("END_DATE_OFPASSPORT")));
-               for_mobilenumber.setText(rs.getString("MOBILENUMBER"));
-               for_mobilenumber_ofcousin.setText(rs.getString("MOBILENUMBER_OFCOUSIN"));
-               for_qualification.setValue(rs.getString("QUALIFICATION"));
-               for_militarytayp.setValue(rs.getString("MILITARYTYPE"));
+                for_name.setText(rs.getString("NAME"));
+                for_rank.setValue(rs.getString("RANK"));
+                for_idnumber.setText(rs.getString("IDNAMBER"));
+                for_breth_day.setValue(getDay(rs.getString("BIRTH_DATE")));
+                for_breth_month.setValue(getMonth(rs.getString("BIRTH_DATE")));
+                for_breth_year.setValue(getYear(rs.getString("BIRTH_DATE")));
+                for_birth_place.setText(rs.getString("BIRTH_PLACE"));
+                for_speclaization.setValue(rs.getString("SPECIALIZATION"));
+                for_unitinforce.setValue(rs.getString("UNIT_IN_FORCE"));
+                for_unitbeforforce.setText(rs.getString("UNIT_BEFOR_FORCE"));
+                for_bankname.setText(rs.getString("BANKNAME"));
+                for_ibannumber.setText(rs.getString("IBANNUMBER"));
+                for_bloodtype.setValue(rs.getString("BLOODTYPE"));
+                for_promotion_day.setValue(getDay(rs.getString("DATE_OF_PROMOTION")));
+                for_promotion_month.setValue(getMonth(rs.getString("DATE_OF_PROMOTION")));
+                for_promotion_year.setValue(getYear(rs.getString("DATE_OF_PROMOTION")));
+                for_nextpromotion_day.setValue(getDay(rs.getString("DATE_OF_NEXT_PROMOTION")));
+                for_nextpromotion_month.setValue(getMonth(rs.getString("DATE_OF_NEXT_PROMOTION")));
+                for_nextpromotion_year.setValue(getYear(rs.getString("DATE_OF_NEXT_PROMOTION")));
+                for_passportid.setText(rs.getString("PASSPORTID"));
+                for_passport_day.setValue(getDay(rs.getString("END_DATE_OFPASSPORT")));
+                for_passport_month.setValue(getMonth(rs.getString("END_DATE_OFPASSPORT")));
+                for_passport_year.setValue(getYear(rs.getString("END_DATE_OFPASSPORT")));
+                for_mobilenumber.setText(rs.getString("MOBILENUMBER"));
+                for_mobilenumber_ofcousin.setText(rs.getString("MOBILENUMBER_OFCOUSIN"));
+                for_qualification.setValue(rs.getString("QUALIFICATION"));
+                for_militarytayp.setValue(rs.getString("MILITARYTYPE"));
             }
         } catch (IOException | SQLException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void clearFiled(ActionEvent event) {
+        for_militaryid.setText("");
+        for_name.setText("");
+        for_rank.setValue("");
+        for_idnumber.setText("");
+        for_breth_day.setValue("");
+        for_breth_month.setValue("");
+        for_breth_year.setValue("");
+        for_birth_place.setText("");
+        for_speclaization.setValue("");
+        for_unitinforce.setValue("");
+        for_unitbeforforce.setText("");
+        for_bankname.setText("");
+        for_ibannumber.setText("");
+        for_bloodtype.setValue("");
+        for_promotion_day.setValue("");
+        for_promotion_month.setValue("");
+        for_promotion_year.setValue("");
+        for_nextpromotion_day.setValue("");
+        for_nextpromotion_month.setValue("");
+        for_nextpromotion_year.setValue("");
+        for_passportid.setText("");
+        for_passport_day.setValue("");
+        for_passport_month.setValue("");
+        for_passport_year.setValue("");
+        for_mobilenumber.setText("");
+        for_mobilenumber_ofcousin.setText("");
+        for_qualification.setValue("");
+        for_militarytayp.setValue("");
     }
 
     public class ChackAll extends Thread {
@@ -1448,6 +1482,7 @@ public class MainController implements Initializable {
         }
         return list;
     }
+
     private ObservableList setSpecializListCombobox(ObservableList list) {
         try {
             ResultSet rs = DataMng.getAllData("specialization");
@@ -1465,6 +1500,7 @@ public class MainController implements Initializable {
         }
         return list;
     }
+
     private ObservableList setUnitListCombobox(ObservableList list) {
         try {
             ResultSet rs = DataMng.getAllData("unitname");
@@ -1539,29 +1575,27 @@ public class MainController implements Initializable {
         dateOfCombobox(mandate_ch_dec_today, fillDays(daylist), "day");
         dateOfCombobox(mandate_ch_dec_tomonth, fillMonth(monthlist), "month");
         dateOfCombobox(mandate_ch_dec_toyear, fillYare(yearlist), "year");
-        
+
         dateOfCombobox(for_breth_day, fillDays(daylist), "day");
         dateOfCombobox(for_breth_month, fillMonth(monthlist), "month");
         dateOfCombobox(for_breth_year, fillYare(yearlist), "year");
-        
+
         dateOfCombobox(for_promotion_day, fillDays(daylist), "day");
         dateOfCombobox(for_promotion_month, fillMonth(monthlist), "month");
         dateOfCombobox(for_promotion_year, fillYare(yearlist), "year");
-        
+
         dateOfCombobox(for_nextpromotion_day, fillDays(daylist), "day");
         dateOfCombobox(for_nextpromotion_month, fillMonth(monthlist), "month");
         dateOfCombobox(for_nextpromotion_year, fillYare(yearlist), "year");
-        
+
         dateOfCombobox(for_passport_day, fillDays(daylist), "day");
         dateOfCombobox(for_passport_month, fillMonth(monthlist), "month");
         dateOfCombobox(for_passport_year, fillYare(yearlist), "year");
-        
-        
 
         refreshListCombobox(fillListCombobox(ch_comboBoxlist));
         enTableViewData();
         mainePageOpenAction();
-        
+
         for_militarytayp.setItems(list2);
         for_qualification.setItems(qualificationlist);
         for_rank.setItems(ranklist);
@@ -1613,7 +1647,7 @@ public class MainController implements Initializable {
                 updateDecState();
             }
         });
-        
+
         for_militaryid.setOnKeyReleased(new EventHandler() {
             @Override
             public void handle(Event event) {
