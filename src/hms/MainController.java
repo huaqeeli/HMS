@@ -478,7 +478,6 @@ public class MainController implements Initializable {
 
         int days = (int) ChronoUnit.DAYS.between(date1, date2);
         int difference = diffDays + (diffMonths * 30) + (diffYears * 360);
-        System.out.println(days + 1);
         return days + 1;
     }
 
@@ -492,7 +491,7 @@ public class MainController implements Initializable {
                 }
                 balance = balance + getDateDifference();
                 DataMng.updat("mandate_balance", "`BALANCE` = '" + balance + "'", "`MILITARYID` = '" + id + "'");
-                System.out.println(id + "/" + balance);
+                
             } catch (SQLException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -762,7 +761,6 @@ public class MainController implements Initializable {
     private void getListNames(ActionEvent event) {
         namesWithoutDcTableViewData();
         namesWithDcTableViewData();
-        System.out.println(mandateDecListNumber);
     }
 
     private void getListNames() {
@@ -805,10 +803,16 @@ public class MainController implements Initializable {
             String decfromDate = setDate(mandate_ch_dec_fromday.getValue(), mandate_ch_dec_frommonth.getValue(), mandate_ch_dec_fromyear.getValue());
             String dectoDate = setDate(mandate_ch_dec_today.getValue(), mandate_ch_dec_tomonth.getValue(), mandate_ch_dec_toyear.getValue());
             String[] data = {mandate_ch_decnumber.getText(), decDate, decfromDate, dectoDate, mandateDecListNumber, mandate_dec_militrayid.getText()};
-            DataMng.updat("nameslist", "`DICISIONNUMBER` = ? ,`DECISIONDATE` = ?,`ENDATEFROM`= ? ,`ENDATETO` = ? ,`DECISIONSTATUS` = 'true'", data, "`LISTNUMBER` =? AND `MILITARYID` = ?");
-            refreshDecTables();
-            increaseBalance(mandate_dec_militrayid.getText());
-            mandate_dec_militrayid.setText("");
+             
+            boolean militaryidNotEmpty = FormValidation.textFieldNotEmpty(mandate_dec_militrayid, "ادخل الرقم العسكري");
+            boolean decNumberNotEmpty = FormValidation.textFieldNotEmpty(mandate_ch_decnumber, "ادخل رقم القرار");
+
+            if (decNumberNotEmpty && militaryidNotEmpty && mandateDecListNumber != null) {
+                DataMng.updat("nameslist", "`DICISIONNUMBER` = ? ,`DECISIONDATE` = ?,`ENDATEFROM`= ? ,`ENDATETO` = ? ,`DECISIONSTATUS` = 'true'", data, "`LISTNUMBER` =? AND `MILITARYID` = ?");
+                refreshDecTables();
+                increaseBalance(mandate_dec_militrayid.getText());
+                mandate_dec_militrayid.setText("");
+            }
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -832,7 +836,6 @@ public class MainController implements Initializable {
         boolean rankNotEmpty = FormValidation.comboBoxNotEmpty(for_rank, "اختر الرتبة");
         boolean idNumberNotEmpty = FormValidation.textFieldNotEmpty(for_idnumber, "ادخل رقم الهوية");
         boolean unitInForceNotEmpty = FormValidation.comboBoxNotEmpty(for_unitinforce, "اختر الوحدة داخل القوة");
-        boolean unitBeforForceNotEmpty = FormValidation.textFieldNotEmpty(for_unitbeforforce, "ادخل الوحدة قبل القوة");
         boolean bankNameNotEmpty = FormValidation.textFieldNotEmpty(for_bankname, "ادخل اسم البنك");
         boolean ibanNumberNotEmpty = FormValidation.textFieldNotEmpty(for_ibannumber, "ادخل رقم الايبان");
         boolean mobileNumberNotEmpty = FormValidation.textFieldNotEmpty(for_mobilenumber, "ادخل رقم الجوال");
@@ -841,7 +844,7 @@ public class MainController implements Initializable {
         boolean ibanNumberUnique = FormValidation.unique("formation", "`IBANNUMBER`", "`IBANNUMBER` = '" + data[10] + "'", "تم ادخال رقم الايبان مسبقا");
         boolean mobilNumberUnique = FormValidation.unique("formation", "`MOBILENUMBER`", "`MOBILENUMBER` = '" + data[16] + "'", "تم ادخال رقم الجوال مسبقا");
 
-        if (militaryidNotEmpty && nameNotEmpty && rankNotEmpty && idNumberNotEmpty && unitInForceNotEmpty && unitBeforForceNotEmpty && bankNameNotEmpty
+        if (militaryidNotEmpty && nameNotEmpty && rankNotEmpty && idNumberNotEmpty && unitInForceNotEmpty && bankNameNotEmpty
                 && ibanNumberNotEmpty && mobileNumberNotEmpty && militaryidUnique && idNumberUnique && ibanNumberUnique && mobilNumberUnique) {
             try {
                 DataMng.insert(tableName, fieldName, valuenumbers, data);
@@ -853,10 +856,42 @@ public class MainController implements Initializable {
 
     @FXML
     private void updateFormaitionData(ActionEvent event) {
+        String prthDate = setDate(for_breth_day.getValue(), for_breth_month.getValue(), for_breth_year.getValue());
+        String promotionDate = setDate(for_promotion_day.getValue(), for_promotion_month.getValue(), for_promotion_year.getValue());
+        String nextpromotionDate = setDate(for_nextpromotion_day.getValue(), for_nextpromotion_month.getValue(), for_nextpromotion_year.getValue());
+        String passportDate = setDate(for_passport_day.getValue(), for_passport_month.getValue(), for_passport_year.getValue());
+        String tableName = "formation";
+        String fieldName = "`MILITARYID`=?,`NAME`=?,`RANK`=?,`IDNAMBER`=?,`BIRTH_DATE`=?,`BIRTH_PLACE`=?,`SPECIALIZATION`=?,"
+                + "`UNIT_IN_FORCE`=?,`UNIT_BEFOR_FORCE`=?,`BANKNAME`=?,`IBANNUMBER`=?,`BLOODTYPE`=?,`DATE_OF_PROMOTION`=?,`DATE_OF_NEXT_PROMOTION`=?,"
+                + "`PASSPORTID`=?,`END_DATE_OFPASSPORT`=?,`MOBILENUMBER`=?,`MOBILENUMBER_OFCOUSIN`=?,`QUALIFICATION`=?,`MILITARYTYPE`=?";
+        String[] data = {for_militaryid.getText(), for_name.getText(), for_rank.getValue(), for_idnumber.getText(), prthDate, for_birth_place.getText(), for_speclaization.getValue(),
+            for_unitinforce.getValue(), for_unitbeforforce.getText(), for_bankname.getText(), for_ibannumber.getText(), for_bloodtype.getValue(), promotionDate, nextpromotionDate, for_passportid.getText(),
+            passportDate, for_mobilenumber.getText(), for_mobilenumber_ofcousin.getText(), for_qualification.getValue(), for_militarytayp.getValue()};
+
+        
+        boolean nameNotEmpty = FormValidation.textFieldNotEmpty(for_name, "ادخل الاسم");
+        boolean rankNotEmpty = FormValidation.comboBoxNotEmpty(for_rank, "اختر الرتبة");
+        boolean unitInForceNotEmpty = FormValidation.comboBoxNotEmpty(for_unitinforce, "اختر الوحدة داخل القوة");
+        boolean bankNameNotEmpty = FormValidation.textFieldNotEmpty(for_bankname, "ادخل اسم البنك");
+        boolean ibanNumberNotEmpty = FormValidation.textFieldNotEmpty(for_ibannumber, "ادخل رقم الايبان");
+        boolean mobileNumberNotEmpty = FormValidation.textFieldNotEmpty(for_mobilenumber, "ادخل رقم الجوال");
+        
+        if (nameNotEmpty && rankNotEmpty  && unitInForceNotEmpty && bankNameNotEmpty && ibanNumberNotEmpty && mobileNumberNotEmpty) {
+            try {
+                DataMng.updat(tableName, fieldName, data ,"`MILITARYID` ='"+data[0]+"'");
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @FXML
     private void deleteFormaitionData(ActionEvent event) {
+        try {
+            DataMng.delete("formation", "`MILITARYID` ='"+for_militaryid.getText()+"'");
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void getFormaitionDatabyMilitryid() {
@@ -931,13 +966,10 @@ public class MainController implements Initializable {
     }
 
     public class ChackAll extends Thread {
-
         String militaryType;
-
         public ChackAll(String militaryType) {
             this.militaryType = militaryType;
         }
-
         @Override
         public void run() {
             String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
@@ -1198,7 +1230,7 @@ public class MainController implements Initializable {
 
     private void namesWithDcTableViewData() {
         try {
-            ResultSet rs = DataMng.getDataJoinTable("SELECT formation.MILITARYID,formation.RANK,formation.NAME FROM mandate,nameslist,formation WHERE  mandate.ENNAMELISTNUMBER = nameslist.LISTNUMBER AND nameslist.MILITARYID = formation.MILITARYID AND mandate.ORDERID = '" + mandate_dec_orderid.getText() + "'AND nameslist.DECISIONSTATUS='true'");
+            ResultSet rs = DataMng.getDataJoinTable("SELECT formation.MILITARYID,formation.RANK,formation.NAME,nameslist.LISTNUMBER FROM mandate,nameslist,formation WHERE  mandate.ENNAMELISTNUMBER = nameslist.LISTNUMBER AND nameslist.MILITARYID = formation.MILITARYID AND mandate.ORDERID = '" + mandate_dec_orderid.getText() + "'AND nameslist.DECISIONSTATUS='true'");
             int sq = 0;
             while (rs.next()) {
                 sq++;
@@ -1459,7 +1491,7 @@ public class MainController implements Initializable {
     }
 
     private ObservableList fillYare(ObservableList yarelist) {
-        for (int i = 1420; i <= 1480; i++) {
+        for (int i = 1390; i <= 1480; i++) {
             yarelist.add(Integer.toString(i));
         }
         return yarelist;
