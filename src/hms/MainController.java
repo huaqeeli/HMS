@@ -373,17 +373,17 @@ public class MainController implements Initializable {
     @FXML
     private TextField for_outtra_militaryid;
     @FXML
-    private ComboBox<?> for_outtra_transportday;
+    private ComboBox<String> for_outtra_transportday;
     @FXML
-    private ComboBox<?> for_outtra_transportmont;
+    private ComboBox<String> for_outtra_transportmont;
     @FXML
-    private ComboBox<?> for_outtra_transportyear;
+    private ComboBox<String> for_outtra_transportyear;
     @FXML
-    private ComboBox<?> for_outtra_fromday;
+    private ComboBox<String> for_outtra_fromday;
     @FXML
-    private ComboBox<?> for_outtra_frommonth;
+    private ComboBox<String> for_outtra_frommonth;
     @FXML
-    private ComboBox<?> for_outtra_fromyear;
+    private ComboBox<String> for_outtra_fromyear;
     @FXML
     private TextField for_outtra_transportid;
     @FXML
@@ -414,6 +414,46 @@ public class MainController implements Initializable {
     private Tab termination;
     @FXML
     private Tab reports;
+    @FXML
+    private TextField for_outtra_leavingid;
+    @FXML
+    private ComboBox<String> for_outtra_leavingday;
+    @FXML
+    private ComboBox<String> for_outtra_leavingmonth;
+    @FXML
+    private ComboBox<String> for_outtra_leavingyear;
+    @FXML
+    private ComboBox<String> for_outtra_leavingfromday;
+    @FXML
+    private ComboBox<String> for_outtra_leavingfrommonth;
+    @FXML
+    private ComboBox<String> for_outtra_leavingfromyear;
+    @FXML
+    private TableColumn<?, ?> for_outtra_fromdate_col1;
+    @FXML
+    private TableColumn<?, ?> for_outtra_fromdate_col11;
+    @FXML
+    private TableColumn<?, ?> for_outtra_fromdate_col111;
+    @FXML
+    private ComboBox<String> for_employment_day;
+    @FXML
+    private ComboBox<String> for_employment_month;
+    @FXML
+    private ComboBox<String> for_employment_year;
+    @FXML
+    private TextField for_transportid;
+    @FXML
+    private ComboBox<String> for_transport_day;
+    @FXML
+    private ComboBox<String> for_transport_month;
+    @FXML
+    private ComboBox<String> for_transport_year;
+    @FXML
+    private ComboBox<String> for_workstarting_day;
+    @FXML
+    private ComboBox<String> for_workstarting_month;
+    @FXML
+    private ComboBox<String> for_workstarting_year;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -857,11 +897,12 @@ public class MainController implements Initializable {
         boolean nameNotEmpty = FormValidation.textFieldNotEmpty(for_name, "ادخل الاسم");
         boolean rankNotEmpty = FormValidation.comboBoxNotEmpty(for_rank, "اختر الرتبة");
         boolean unitInForceNotEmpty = FormValidation.comboBoxNotEmpty(for_unitinforce, "اختر الوحدة داخل القوة");
+        boolean speclaizationNotEmpty = FormValidation.comboBoxNotEmpty(for_speclaization, "اختر التخصص");
         boolean bankNameNotEmpty = FormValidation.textFieldNotEmpty(for_bankname, "ادخل اسم البنك");
         boolean ibanNumberNotEmpty = FormValidation.textFieldNotEmpty(for_ibannumber, "ادخل رقم الايبان");
         boolean mobileNumberNotEmpty = FormValidation.textFieldNotEmpty(for_mobilenumber, "ادخل رقم الجوال");
 
-        if (nameNotEmpty && rankNotEmpty && unitInForceNotEmpty && bankNameNotEmpty && ibanNumberNotEmpty && mobileNumberNotEmpty) {
+        if (nameNotEmpty && rankNotEmpty && unitInForceNotEmpty &&speclaizationNotEmpty&& bankNameNotEmpty && ibanNumberNotEmpty && mobileNumberNotEmpty) {
             try {
                 DataMng.updat(tableName, fieldName, data, "`MILITARYID` ='" + data[0] + "'");
             } catch (IOException ex) {
@@ -882,12 +923,15 @@ public class MainController implements Initializable {
     public void getFormaitionDatabyMilitryid() {
         try {
             String tableName = "formation";
-            String fieldName = "`MILITARYID`,`NAME`,`RANK`,`IDNAMBER`,`BIRTH_DATE`,`BIRTH_PLACE`,`SPECIALIZATION`,`UNIT_IN_FORCE`,`UNIT_BEFOR_FORCE`,`BANKNAME`,`IBANNUMBER`,`BLOODTYPE`,`DATE_OF_PROMOTION`,`DATE_OF_NEXT_PROMOTION`,`PASSPORTID`,`END_DATE_OFPASSPORT`,`MOBILENUMBER`,`MOBILENUMBER_OFCOUSIN`,`QUALIFICATION`,`MILITARYTYPE`";
+            String fieldName = "`MILITARYID`,`NAME`,`RANK`,`IDNAMBER`,`EMPLOYMENTDATE`,`BIRTH_DATE`,`BIRTH_PLACE`,`SPECIALIZATION`,`UNIT_IN_FORCE`,`UNIT_BEFOR_FORCE`,`BANKNAME`,`IBANNUMBER`,`BLOODTYPE`,`DATE_OF_PROMOTION`,`DATE_OF_NEXT_PROMOTION`,`PASSPORTID`,`END_DATE_OFPASSPORT`,`MOBILENUMBER`,`MOBILENUMBER_OFCOUSIN`,`QUALIFICATION`,`MILITARYTYPE`,`TRANSPORTID`,`TRANSPORTDATE`,`WORKSTARTINGDATE`";
             ResultSet rs = DataMng.getDataWithCondition(tableName, fieldName, "`MILITARYID` = '" + for_militaryid.getText() + "'");
             if (rs.next()) {
                 for_name.setText(rs.getString("NAME"));
                 for_rank.setValue(rs.getString("RANK"));
                 for_idnumber.setText(rs.getString("IDNAMBER"));
+                for_employment_day.setValue(getDay(rs.getString("EMPLOYMENTDATE")));
+                for_employment_month.setValue(getMonth(rs.getString("EMPLOYMENTDATE")));
+                for_employment_year.setValue(getYear(rs.getString("EMPLOYMENTDATE")));
                 for_breth_day.setValue(getDay(rs.getString("BIRTH_DATE")));
                 for_breth_month.setValue(getMonth(rs.getString("BIRTH_DATE")));
                 for_breth_year.setValue(getYear(rs.getString("BIRTH_DATE")));
@@ -912,6 +956,13 @@ public class MainController implements Initializable {
                 for_mobilenumber_ofcousin.setText(rs.getString("MOBILENUMBER_OFCOUSIN"));
                 for_qualification.setValue(rs.getString("QUALIFICATION"));
                 for_militarytayp.setValue(rs.getString("MILITARYTYPE"));
+                for_transportid.setText(rs.getString("TRANSPORTID"));
+                for_transport_day.setValue(getDay(rs.getString("TRANSPORTDATE")));
+                for_transport_month.setValue(getMonth(rs.getString("TRANSPORTDATE")));
+                for_transport_year.setValue(getYear(rs.getString("TRANSPORTDATE")));
+                for_workstarting_day.setValue(getDay(rs.getString("WORKSTARTINGDATE")));
+                for_workstarting_month.setValue(getMonth(rs.getString("WORKSTARTINGDATE")));
+                for_workstarting_year.setValue(getYear(rs.getString("WORKSTARTINGDATE")));
             }
         } catch (IOException | SQLException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -964,7 +1015,7 @@ public class MainController implements Initializable {
         String fieldName = "`MILITARYID`,`NEWUNIT`,`TRANSPORTID`,`TRANSPORTDATE`,`TRANSPORTFROMDATE`,`TRANSPORTTYPE`";
         String[] data = {for_intra_militaryid.getText(), for_intra_newunit.getValue(), for_intra_transportid.getText(), transportDate, transportFromDate, "داخلي"};
         String valuenumbers = "?,?,?,?,?,?";
-        
+
         boolean militaryid = FormValidation.textFieldNotEmpty(for_intra_militaryid, "ادخل الرقم العسكري");
         boolean transportId = FormValidation.textFieldNotEmpty(for_intra_transportid, "ادخل رقم القرار");
         boolean nuwUnit = FormValidation.comboBoxNotEmpty(for_intra_newunit, "اختر الوحدة");
@@ -990,6 +1041,29 @@ public class MainController implements Initializable {
 
     @FXML
     private void addOutTransport(ActionEvent event) {
+
+        String transportDate = setDate(for_outtra_transportday.getValue(), for_outtra_transportmont.getValue(), for_outtra_transportyear.getValue());
+        String transportFromDate = setDate(for_outtra_fromday.getValue(), for_outtra_frommonth.getValue(), for_outtra_fromyear.getValue());
+        String leavingDate = setDate(for_outtra_leavingday.getValue(), for_outtra_leavingmonth.getValue(), for_outtra_leavingyear.getValue());
+        String leavingFromDate = setDate(for_outtra_leavingfromday.getValue(), for_outtra_leavingfrommonth.getValue(), for_outtra_leavingfromyear.getValue());
+
+        String tableName = "transport";
+        String fieldName = "`MILITARYID`,`NEWUNIT`,`TRANSPORTID`,`TRANSPORTDATE`,`TRANSPORTFROMDATE`,`TRANSPORTTYPE`,`LEAVINGID`,`LEAVINGDATE`,`LEAVINGFROMDATE`";
+        String[] data = {for_outtra_militaryid.getText(), for_outtra_newunit.getText(), for_outtra_transportid.getText(), transportDate, transportFromDate, "داخلي", for_outtra_leavingid.getText(), leavingDate, leavingFromDate};
+        String valuenumbers = "?,?,?,?,?,?,?,?,?";
+
+        boolean militaryid = FormValidation.textFieldNotEmpty(for_outtra_militaryid, "ادخل الرقم العسكري");
+        boolean transportId = FormValidation.textFieldNotEmpty(for_outtra_transportid, "ادخل رقم القرار");
+        boolean nuwUnit = FormValidation.textFieldNotEmpty(for_outtra_newunit, "ادخل الوحدة");
+
+        if (militaryid && transportId && nuwUnit) {
+            try {
+                DataMng.insert(tableName, fieldName, valuenumbers, data);
+                refreshInTransportTables();
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @FXML
@@ -1523,20 +1597,29 @@ public class MainController implements Initializable {
     }
 
     private String getDay(String date) {
-        String[] parts = date.split("-");
-        String day = parts[2];
+        String day = null;
+        if (date != null) {
+            String[] parts = date.split("-");
+            day = parts[2];
+        }
         return day;
     }
 
     private String getMonth(String date) {
-        String[] parts = date.split("-");
-        String month = parts[1];
+        String month =null;
+        if (date != null) {
+            String[] parts = date.split("-");
+            month = parts[1]; 
+        }
         return month;
     }
 
     private String getYear(String date) {
-        String[] parts = date.split("-");
-        String year = parts[0];
+        String year = null;
+        if (date != null) {
+            String[] parts = date.split("-");
+            year = parts[0]; 
+        }
         return year;
     }
 
