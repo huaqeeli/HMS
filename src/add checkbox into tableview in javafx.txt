@@ -1,0 +1,48 @@
+ Callback<TableColumn<EnDataModel, String>, TableCell<EnDataModel, String>> cellfactory = (param) -> {
+//                final TableCell<EnDataModel, String> cell = new TableCell<EnDataModel, String>() {
+//                    @Override
+//                    public void updateItem(String item, boolean empty) {
+//                        super.updateItem(item, empty);
+//                        if (empty) {
+//                            setGraphic(null);
+//                            setText(null);
+//                        } else {
+//                            final RadioButton chbox = new RadioButton();
+//                            ToggleGroup group = new ToggleGroup();
+//                            
+//                            chbox.setOnAction(e -> {
+//                                chbox.setToggleGroup(group);
+//                                EnDataModel m = getTableView().getItems().get(getIndex());
+//                                if (chbox.isSelected()) {
+//                                    orderid.setText(m.getOrderid());
+//                                    orderdateday.setValue(getDay(m.getOrderdate()));
+//                                    orderdatemonth.setValue(getMonth(m.getOrderdate()));
+//                                    orderdateyear.setValue(getYear(m.getOrderdate()));
+//                                    enfrom.setText(m.getEnfrom());
+//                                    ento.setText(m.getEnto());
+//                                    fromDateday.setValue(getDay(m.getEndatefrom()));
+//                                    fromDatemonth.setValue(getMonth(m.getEndatefrom()));
+//                                    fromDateyear.setValue(getYear(m.getEndatefrom()));
+//                                    toDateday.setValue(getDay(m.getEndateto()));
+//                                    toDatemonth.setValue(getMonth(m.getEndateto()));
+//                                    toDateyear.setValue(getYear(m.getEndateto()));
+//                                    PlaceOfAssignment.setValue(m.getEnplase());
+//                                    militarytayp.setValue(m.getMilitarytype());
+//                                    entayp.setValue(m.getEntype());
+//                                    updatOrderId = m.getOrderid();
+//                                    updatFromDate = m.getEndatefrom();
+//                                    updatToDate = m.getEndateto();
+//                                } else {
+//                                    chbox.setSelected(false);
+//                                }
+//                            });
+//                            setGraphic(chbox);
+//                            setText(null);
+//                        }
+//                    }
+//                ;
+//                };
+//                return cell;
+//            };
+
+//            en_update_col.setCellFactory(cellfactory);

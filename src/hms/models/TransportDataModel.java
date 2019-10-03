@@ -2,7 +2,7 @@ package hms.models;
 
 
 public class TransportDataModel {
-    String militaryid,rank,name,newunit,transportid,transportdate,fromdate;
+    String militaryid,rank,name,newunit,transportid,transportdate,fromdate,leavingid,leavingdate,leavingfromdate;
     int sq ;
 
     public TransportDataModel(String militaryid, String rank, String name, String newunit, String transportid, String transportdate, String fromdate,int sq) {
@@ -13,6 +13,20 @@ public class TransportDataModel {
         this.transportid = transportid;
         this.transportdate = transportdate;
         this.fromdate = fromdate;
+        this.sq = sq;
+    }
+
+    public TransportDataModel(String militaryid, String rank, String name, String newunit, String transportid, String transportdate, String fromdate, String leavingid, String leavingdate, String leavingfromdate, int sq) {
+        this.militaryid = militaryid;
+        this.rank = rank;
+        this.name = name;
+        this.newunit = newunit;
+        this.transportid = transportid;
+        this.transportdate = transportdate;
+        this.fromdate = fromdate;
+        this.leavingid = leavingid;
+        this.leavingdate = leavingdate;
+        this.leavingfromdate = leavingfromdate;
         this.sq = sq;
     }
 
@@ -78,6 +92,30 @@ public class TransportDataModel {
 
     public void setFromdate(String fromdate) {
         this.fromdate = fromdate;
+    }
+
+    public String getLeavingid() {
+        return leavingid;
+    }
+
+    public void setLeavingid(String leavingid) {
+        this.leavingid = leavingid;
+    }
+
+    public String getLeavingdate() {
+        return leavingdate;
+    }
+
+    public void setLeavingdate(String leavingdate) {
+        this.leavingdate = leavingdate;
+    }
+
+    public String getLeavingfromdate() {
+        return leavingfromdate;
+    }
+
+    public void setLeavingfromdate(String leavingfromdate) {
+        this.leavingfromdate = leavingfromdate;
     }
     
     

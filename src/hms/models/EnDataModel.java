@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 
 public class EnDataModel {
 
-    String orderid, orderdate, enfrom, ento, endatefrom, endateto, enplase, militarytype, entype;
+    String orderid, orderdate, enfrom, ento, endatefrom, endateto, enplase, militarytype, entype,listNumber;
     int sq ;
 //    Button updateBut;
 //    Button deletBut;
@@ -15,7 +15,7 @@ public class EnDataModel {
 //    ImageView update = new ImageView("images/editeicon.png");
 //    ImageView delete = new ImageView("images/deleteicon.png");
 
-    public EnDataModel(String orderid, String orderdate, String enfrom, String ento, String endatefrom, String endateto, String enplase, String militarytype, String entype,int sq) {
+    public EnDataModel(String orderid, String orderdate, String enfrom, String ento, String endatefrom, String endateto, String enplase, String militarytype, String entype,String listNumber,int sq) {
         this.orderid = orderid;
         this.orderdate = orderdate;
         this.enfrom = enfrom;
@@ -25,25 +25,9 @@ public class EnDataModel {
         this.enplase = enplase;
         this.militarytype = militarytype;
         this.entype = entype;
+        this.listNumber = listNumber;
         this.sq = sq;
-//        this.updateBut = new Button();
-//        this.deletBut = new Button();
-//
-//        updateBut.setOnAction(e -> {
-//           
-////            en_editPage.setVisible(true);
-//        });
-//
-//        updateBut.setGraphic(update);
-//        updateBut.setStyle("-fx-background-color: #5B6B71;");
-//
-//        deletBut.setOnAction(e -> {
-//            System.out.print("delete");
-//
-//        });
-//
-//        deletBut.setGraphic(delete);
-//        deletBut.setStyle("-fx-background-color: #5B6B71;");
+
     }
 
     public int getSq() {
@@ -141,5 +125,13 @@ public class EnDataModel {
 //    public void setDeletBut(Button deletBut) {
 //        this.deletBut = deletBut;
 //    }
+
+    public String getListNumber() {
+        return listNumber;
+    }
+
+    public void setListNumber(String listNumber) {
+        this.listNumber = listNumber;
+    }
 
 }

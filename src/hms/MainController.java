@@ -99,7 +99,7 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<EnDataModel, String> en_type_col;
     @FXML
-    private TableColumn<EnDataModel, String> en_update_col;
+    private TableColumn<EnDataModel, String> en_listnumber_col;
     @FXML
     private ComboBox<String> ch_en_fromdateday;
     @FXML
@@ -167,7 +167,10 @@ public class MainController implements Initializable {
     private String updatOrderId = null;
     private String updatFromDate = null;
     private String updatToDate = null;
-
+    private String inTransPortMilitaryid = null;
+    private String inTransPortId = null;
+    private String outTransPortMilitaryid = null;
+    private String outTransPortId = null;
     @FXML
     private TableView<NamesDataModel> no_dec_table;
     @FXML
@@ -375,7 +378,7 @@ public class MainController implements Initializable {
     @FXML
     private ComboBox<String> for_outtra_transportday;
     @FXML
-    private ComboBox<String> for_outtra_transportmont;
+    private ComboBox<String> for_outtra_transportmonth;
     @FXML
     private ComboBox<String> for_outtra_transportyear;
     @FXML
@@ -429,12 +432,6 @@ public class MainController implements Initializable {
     @FXML
     private ComboBox<String> for_outtra_leavingfromyear;
     @FXML
-    private TableColumn<?, ?> for_outtra_fromdate_col1;
-    @FXML
-    private TableColumn<?, ?> for_outtra_fromdate_col11;
-    @FXML
-    private TableColumn<?, ?> for_outtra_fromdate_col111;
-    @FXML
     private ComboBox<String> for_employment_day;
     @FXML
     private ComboBox<String> for_employment_month;
@@ -454,6 +451,12 @@ public class MainController implements Initializable {
     private ComboBox<String> for_workstarting_month;
     @FXML
     private ComboBox<String> for_workstarting_year;
+    @FXML
+    private TableColumn<?, ?> for_outtra_leavingid_col;
+    @FXML
+    private TableColumn<?, ?> for_outtra_leavingdate_col;
+    @FXML
+    private TableColumn<?, ?> for_outtra_leavingfromdate_col;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -567,9 +570,9 @@ public class MainController implements Initializable {
         String fromdate = setDate(fromDateday.getValue(), fromDatemonth.getValue(), fromDateyear.getValue());
         String todate = setDate(toDateday.getValue(), toDatemonth.getValue(), toDateyear.getValue());
 
-        String[] data = {orderid.getText(), orderdate, enfrom.getText(), ento.getText(), fromdate, todate, PlaceOfAssignment.getValue(), militarytayp.getValue(), entayp.getValue()};
+        String[] data = {orderid.getText(), orderdate, enfrom.getText(), ento.getText(), fromdate, todate, PlaceOfAssignment.getValue(), militarytayp.getValue(), entayp.getValue(), ennamelist.getText()};
 
-        String fieldNameAndValue = "`ORDERID`= ?,`ORDERDATE`=?,`ENFROM`=?,`ENTO`= ?,`ENDATEFROM`=?,`ENDATETO`=?,`ENPLASE`=?,`MILITARYTAYP`= ?,`ENTAYP`= ?";
+        String fieldNameAndValue = "`ORDERID`= ?,`ORDERDATE`=?,`ENFROM`=?,`ENTO`= ?,`ENDATEFROM`=?,`ENDATETO`=?,`ENPLASE`=?,`MILITARYTAYP`= ?,`ENTAYP`= ?,`ENNAMELISTNUMBER`=?";
 
         String condition = "`ORDERID` = '" + updatOrderId + "'AND `ENDATEFROM`='" + updatFromDate + "' AND `ENDATETO` = '" + updatToDate + "'";
 
@@ -639,7 +642,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void chackData(ActionEvent event) {
-        String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
+       String fromDate = setDate(ch_en_fromdateday.getValue(), ch_en_fromdatemonth.getValue(), ch_en_fromdateyear.getValue());
         String toDate = setDate(ch_en_todateday.getValue(), ch_en_todatemonth.getValue(), ch_en_todateyear.getValue());
         String tableName = "nameslist";
         String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
@@ -647,15 +650,16 @@ public class MainController implements Initializable {
         String[] excluded = {listnumber.getText(), ch_mailitraynum.getText()};
         String valuenumbers = "?,?,?,?,?,?";
 
-        boolean mandateUnique = FormValidation.dateChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", ch_mailitraynum.getText(), listnumber.getText(), fromDate, toDate);
+        boolean mandateUnique = FormValidation.dateChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ?  AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", ch_mailitraynum.getText(), listnumber.getText(), fromDate, toDate);
         boolean trainingUnique = FormValidation.dateChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", ch_mailitraynum.getText(), listnumber.getText(), fromDate, toDate);
         boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
         boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
         boolean enfromstate = FormValidation.textFieldNotEmpty(ch_enfrom, "ادخل الجهة المنتدب منها");
         boolean entostate = FormValidation.textFieldNotEmpty(ch_ento, "ادخل الجهة المنتدب اليها");
+        boolean transportstet = FormValidation.transporState("formation","`MILITARYID`"," `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `TRANSPORTSTATE`= 'true'", "لا توجد بيانات ");
 
         if (mandateUnique && trainingUnique) {
-            if (militaryidUnique && enfromstate && entostate) {
+            if (militaryidUnique && enfromstate && entostate && transportstet) {
                 try {
                     DataMng.insert(tableName, fieldName, valuenumbers, data);
                     chackTableViewData();
@@ -685,15 +689,16 @@ public class MainController implements Initializable {
         String[] excluded = {listnumber.getText(), ch_mailitraynum.getText()};
         String valuenumbers = "?,?,?,?,?,?";
 
-        boolean mandateUnique = FormValidation.dateChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", ch_mailitraynum.getText(), listnumber.getText(), fromDate, toDate);
+        boolean mandateUnique = FormValidation.dateChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ?  AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", ch_mailitraynum.getText(), listnumber.getText(), fromDate, toDate);
         boolean trainingUnique = FormValidation.dateChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", ch_mailitraynum.getText(), listnumber.getText(), fromDate, toDate);
         boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
         boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
         boolean enfromstate = FormValidation.textFieldNotEmpty(ch_enfrom, "ادخل الجهة المنتدب منها");
         boolean entostate = FormValidation.textFieldNotEmpty(ch_ento, "ادخل الجهة المنتدب اليها");
+        boolean transportstet = FormValidation.transporState("formation","`MILITARYID`"," `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `TRANSPORTSTATE`= 'true'", "لا توجد بيانات ");
 
         if (mandateUnique && trainingUnique) {
-            if (militaryidUnique && enfromstate && entostate) {
+            if (militaryidUnique && enfromstate && entostate&&transportstet) {
                 try {
                     DataMng.insert(tableName, fieldName, valuenumbers, data);
                     chackTableViewData();
@@ -851,11 +856,11 @@ public class MainController implements Initializable {
         String nextpromotionDate = setDate(for_nextpromotion_day.getValue(), for_nextpromotion_month.getValue(), for_nextpromotion_year.getValue());
         String passportDate = setDate(for_passport_day.getValue(), for_passport_month.getValue(), for_passport_year.getValue());
         String tableName = "formation";
-        String fieldName = "`MILITARYID`,`NAME`,`RANK`,`IDNAMBER`,`BIRTH_DATE`,`BIRTH_PLACE`,`SPECIALIZATION`,`UNIT_IN_FORCE`,`UNIT_BEFOR_FORCE`,`BANKNAME`,`IBANNUMBER`,`BLOODTYPE`,`DATE_OF_PROMOTION`,`DATE_OF_NEXT_PROMOTION`,`PASSPORTID`,`END_DATE_OFPASSPORT`,`MOBILENUMBER`,`MOBILENUMBER_OFCOUSIN`,`QUALIFICATION`,`MILITARYTYPE`";
+        String fieldName = "`MILITARYID`,`NAME`,`RANK`,`IDNAMBER`,`BIRTH_DATE`,`BIRTH_PLACE`,`SPECIALIZATION`,`UNIT_IN_FORCE`,`UNIT_BEFOR_FORCE`,`BANKNAME`,`IBANNUMBER`,`BLOODTYPE`,`DATE_OF_PROMOTION`,`DATE_OF_NEXT_PROMOTION`,`PASSPORTID`,`END_DATE_OFPASSPORT`,`MOBILENUMBER`,`MOBILENUMBER_OFCOUSIN`,`QUALIFICATION`,`MILITARYTYPE`,`TRANSPORTSTATE`";
         String[] data = {for_militaryid.getText(), for_name.getText(), for_rank.getValue(), for_idnumber.getText(), prthDate, for_birth_place.getText(), for_speclaization.getValue(),
             for_unitinforce.getValue(), for_unitbeforforce.getText(), for_bankname.getText(), for_ibannumber.getText(), for_bloodtype.getValue(), promotionDate, nextpromotionDate, for_passportid.getText(),
-            passportDate, for_mobilenumber.getText(), for_mobilenumber_ofcousin.getText(), for_qualification.getValue(), for_militarytayp.getValue()};
-        String valuenumbers = "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
+            passportDate, for_mobilenumber.getText(), for_mobilenumber_ofcousin.getText(), for_qualification.getValue(), for_militarytayp.getValue(),"false"};
+        String valuenumbers = "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
 
         boolean militaryidNotEmpty = FormValidation.textFieldNotEmpty(for_militaryid, "ادخل الرقم العسكري");
         boolean nameNotEmpty = FormValidation.textFieldNotEmpty(for_name, "ادخل الاسم");
@@ -902,7 +907,7 @@ public class MainController implements Initializable {
         boolean ibanNumberNotEmpty = FormValidation.textFieldNotEmpty(for_ibannumber, "ادخل رقم الايبان");
         boolean mobileNumberNotEmpty = FormValidation.textFieldNotEmpty(for_mobilenumber, "ادخل رقم الجوال");
 
-        if (nameNotEmpty && rankNotEmpty && unitInForceNotEmpty &&speclaizationNotEmpty&& bankNameNotEmpty && ibanNumberNotEmpty && mobileNumberNotEmpty) {
+        if (nameNotEmpty && rankNotEmpty && unitInForceNotEmpty && speclaizationNotEmpty && bankNameNotEmpty && ibanNumberNotEmpty && mobileNumberNotEmpty) {
             try {
                 DataMng.updat(tableName, fieldName, data, "`MILITARYID` ='" + data[0] + "'");
             } catch (IOException ex) {
@@ -1005,6 +1010,7 @@ public class MainController implements Initializable {
         forTransportlist.clear();
         forInTransporTableViewAll();
     }
+   
 
     @FXML
     private void addTransport(ActionEvent event) {
@@ -1023,6 +1029,7 @@ public class MainController implements Initializable {
         if (militaryid && transportId && nuwUnit) {
             try {
                 DataMng.insert(tableName, fieldName, valuenumbers, data);
+                DataMng.updat("formation", "`UNIT_IN_FORCE`='" + data[1] + "'", "`MILITARYID`='" + data[0] + "'");
                 refreshInTransportTables();
             } catch (IOException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -1033,23 +1040,56 @@ public class MainController implements Initializable {
 
     @FXML
     private void updateTransport(ActionEvent event) {
+        String transportDate = setDate(for_intra_transportday.getValue(), for_intra_transportmonth.getValue(), for_intra_transportyear.getValue());
+        String transportFromDate = setDate(for_intra_fromday.getValue(), for_intra_frommonth.getValue(), for_intra_fromyear.getValue());
+
+        String tableName = "transport";
+        String fieldName = "`MILITARYID`=?,`NEWUNIT`=?,`TRANSPORTID`=?,`TRANSPORTDATE`=?,`TRANSPORTFROMDATE`=?,`TRANSPORTTYPE`=?";
+        String[] data = {for_intra_militaryid.getText(), for_intra_newunit.getValue(), for_intra_transportid.getText(), transportDate, transportFromDate, "داخلي"};
+
+        boolean militaryid = FormValidation.textFieldNotEmpty(for_intra_militaryid, "ادخل الرقم العسكري");
+        boolean transportId = FormValidation.textFieldNotEmpty(for_intra_transportid, "ادخل رقم القرار");
+        boolean nuwUnit = FormValidation.comboBoxNotEmpty(for_intra_newunit, "اختر الوحدة");
+
+        if (militaryid && transportId && nuwUnit) {
+            try {
+                DataMng.updat(tableName, fieldName, data, "`MILITARYID`='" + inTransPortMilitaryid + "' AND `TRANSPORTID`= '" + inTransPortId + "'");
+                DataMng.updat("formation", "`UNIT_IN_FORCE`='" + data[1] + "'", "`MILITARYID`='" + data[0] + "'");
+                refreshInTransportTables();
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
     @FXML
     private void deleteTransport(ActionEvent event) {
+        try {
+            String condition = "`MILITARYID`='" + inTransPortMilitaryid + "' AND `TRANSPORTID`= '" + inTransPortId + "'";
+            DataMng.delete("transport", condition);
+            refreshInTransportTables();
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
+     private void refreshOutTransportTables() {
+        forTransportlist.clear();
+        forOutTransporTableViewAll();
+    }
+    
     @FXML
     private void addOutTransport(ActionEvent event) {
 
-        String transportDate = setDate(for_outtra_transportday.getValue(), for_outtra_transportmont.getValue(), for_outtra_transportyear.getValue());
+        String transportDate = setDate(for_outtra_transportday.getValue(), for_outtra_transportmonth.getValue(), for_outtra_transportyear.getValue());
         String transportFromDate = setDate(for_outtra_fromday.getValue(), for_outtra_frommonth.getValue(), for_outtra_fromyear.getValue());
         String leavingDate = setDate(for_outtra_leavingday.getValue(), for_outtra_leavingmonth.getValue(), for_outtra_leavingyear.getValue());
         String leavingFromDate = setDate(for_outtra_leavingfromday.getValue(), for_outtra_leavingfrommonth.getValue(), for_outtra_leavingfromyear.getValue());
 
         String tableName = "transport";
         String fieldName = "`MILITARYID`,`NEWUNIT`,`TRANSPORTID`,`TRANSPORTDATE`,`TRANSPORTFROMDATE`,`TRANSPORTTYPE`,`LEAVINGID`,`LEAVINGDATE`,`LEAVINGFROMDATE`";
-        String[] data = {for_outtra_militaryid.getText(), for_outtra_newunit.getText(), for_outtra_transportid.getText(), transportDate, transportFromDate, "داخلي", for_outtra_leavingid.getText(), leavingDate, leavingFromDate};
+        String[] data = {for_outtra_militaryid.getText(), for_outtra_newunit.getText(), for_outtra_transportid.getText(), transportDate, transportFromDate, "خارجي", for_outtra_leavingid.getText(), leavingDate, leavingFromDate};
         String valuenumbers = "?,?,?,?,?,?,?,?,?";
 
         boolean militaryid = FormValidation.textFieldNotEmpty(for_outtra_militaryid, "ادخل الرقم العسكري");
@@ -1059,7 +1099,8 @@ public class MainController implements Initializable {
         if (militaryid && transportId && nuwUnit) {
             try {
                 DataMng.insert(tableName, fieldName, valuenumbers, data);
-                refreshInTransportTables();
+                DataMng.updat("formation", "`TRANSPORTSTATE`='true'", "`MILITARYID` = '"+data[0]+"'");
+                refreshOutTransportTables();
             } catch (IOException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1068,10 +1109,39 @@ public class MainController implements Initializable {
 
     @FXML
     private void updateOutTransport(ActionEvent event) {
+        String transportDate = setDate(for_outtra_transportday.getValue(), for_outtra_transportmonth.getValue(), for_outtra_transportyear.getValue());
+        String transportFromDate = setDate(for_outtra_fromday.getValue(), for_outtra_frommonth.getValue(), for_outtra_fromyear.getValue());
+        String leavingDate = setDate(for_outtra_leavingday.getValue(), for_outtra_leavingmonth.getValue(), for_outtra_leavingyear.getValue());
+        String leavingFromDate = setDate(for_outtra_leavingfromday.getValue(), for_outtra_leavingfrommonth.getValue(), for_outtra_leavingfromyear.getValue());
+
+        String tableName = "transport";
+        String fieldName = "`MILITARYID`=?,`NEWUNIT`=?,`TRANSPORTID`=?,`TRANSPORTDATE`=?,`TRANSPORTFROMDATE`=?,`TRANSPORTTYPE`=?,`LEAVINGID`=?,`LEAVINGDATE`=?,`LEAVINGFROMDATE`=?";
+        String[] data = {for_outtra_militaryid.getText(), for_outtra_newunit.getText(), for_outtra_transportid.getText(), transportDate, transportFromDate, "خارجي", for_outtra_leavingid.getText(), leavingDate, leavingFromDate};
+        String condition = "`MILITARYID`='" + outTransPortMilitaryid + "' AND `TRANSPORTID`= '" + outTransPortId + "'";
+
+        boolean militaryid = FormValidation.textFieldNotEmpty(for_outtra_militaryid, "ادخل الرقم العسكري");
+        boolean transportId = FormValidation.textFieldNotEmpty(for_outtra_transportid, "ادخل رقم القرار");
+        boolean nuwUnit = FormValidation.textFieldNotEmpty(for_outtra_newunit, "ادخل الوحدة");
+
+        if (militaryid && transportId && nuwUnit) {
+            try {
+                DataMng.updat(tableName, fieldName, data, condition);
+                refreshOutTransportTables();
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @FXML
     private void deleteOutTransport(ActionEvent event) {
+        try {
+            String condition = "`MILITARYID`='" + outTransPortMilitaryid + "' AND `TRANSPORTID`= '" + outTransPortId + "'";
+            DataMng.delete("transport", condition);
+            refreshOutTransportTables();
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public class ChackAll extends Thread {
@@ -1093,7 +1163,7 @@ public class MainController implements Initializable {
             String[] excluded = new String[2];
 
             try {
-                ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID,NAME FROM formation WHERE MILITARYTYPE = '" + militaryType + "'");
+                ResultSet rs = DataMng.getAllQuiry("SELECT MILITARYID,NAME FROM formation WHERE MILITARYTYPE = '" + militaryType + "' AND TRANSPORTSTATE = 'false'");
                 while (rs.next()) {
                     boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", rs.getString("MILITARYID"), listnumber.getText(), fromDate, toDate);
                     boolean trainingUnique = FormValidation.dateAllChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", rs.getString("MILITARYID"), listnumber.getText(), fromDate, toDate);
@@ -1118,11 +1188,13 @@ public class MainController implements Initializable {
                         if (exuludedUnique) {
                             DataMng.insert("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excluded);
                         }
-                    }
+                    } 
+                    Thread.sleep(1000);
                     refreshChacktable();
+                   
                 }
 
-            } catch (IOException | SQLException ex) {
+            } catch (IOException | SQLException | InterruptedException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -1250,19 +1322,19 @@ public class MainController implements Initializable {
     private void refreshChacktable() {
         chacktablelist.clear();
         chackTableViewAll();
-        String s = Integer.toString(getExcludededSum(listnumber.getText()));
-        excludedNumber.setText(s);
+        
+//        excludedNumber.setText(s);
     }
 
     private void chackTableViewData() {
         try {
-            ResultSet rs = DataMng.getDataWithCondition("formation", "`MILITARYID`,`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
-            ResultSet rss = DataMng.getDataWithCondition("nameslist", "`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'AND `LISTNUMBER` = '" + listnumber.getText() + "'");
+            ResultSet rs = DataMng.getDataWithCondition("formation", "`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
+            ResultSet rss = DataMng.getDataWithCondition("nameslist", "`MILITARYID`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'AND `LISTNUMBER` = '" + listnumber.getText() + "'");
             int sq = 0;
             while (rs.next() && rss.next()) {
                 sq++;
                 chacktablelist.add(new NamesDataModel(
-                        rs.getString("MILITARYID"),
+                        rss.getString("MILITARYID"),
                         rs.getString("RANK"),
                         rs.getString("NAME"),
                         rss.getString("ENFROM"),
@@ -1436,7 +1508,7 @@ public class MainController implements Initializable {
     private void forOutTransporTableViewAll() {
         int sq = 0;
         try {
-            ResultSet rs = DataMng.getDataJoinTable("select transport.MILITARYID ,transport.NEWUNIT,transport.TRANSPORTID,transport.TRANSPORTDATE,transport.TRANSPORTFROMDATE formation.NAME, formation.RANK from transport ,formation  where  transport.MILITARYID = formation.MILITARYID  AND transport.TRANSPORTTYPE ='خارجي'");
+            ResultSet rs = DataMng.getDataJoinTable("select transport.MILITARYID ,transport.NEWUNIT,transport.TRANSPORTID,transport.TRANSPORTDATE,transport.TRANSPORTFROMDATE,transport.LEAVINGID,transport.LEAVINGDATE,transport.LEAVINGFROMDATE, formation.NAME, formation.RANK from transport ,formation  where  transport.MILITARYID = formation.MILITARYID  AND transport.TRANSPORTTYPE ='خارجي'");
             while (rs.next()) {
                 sq++;
                 forTransportlist.add(new TransportDataModel(
@@ -1447,6 +1519,9 @@ public class MainController implements Initializable {
                         rs.getString("TRANSPORTID"),
                         rs.getDate("TRANSPORTDATE").toString(),
                         rs.getDate("TRANSPORTFROMDATE").toString(),
+                        rs.getString("LEAVINGID"),
+                        rs.getDate("LEAVINGDATE").toString(),
+                        rs.getDate("LEAVINGFROMDATE").toString(),
                         sq
                 ));
             }
@@ -1462,6 +1537,9 @@ public class MainController implements Initializable {
         for_outtra_transportid_col.setCellValueFactory(new PropertyValueFactory<>("transportid"));
         for_outtra_transportdate_col.setCellValueFactory(new PropertyValueFactory<>("transportdate"));
         for_outtra_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("fromdate"));
+        for_outtra_leavingid_col.setCellValueFactory(new PropertyValueFactory<>("leavingid"));
+        for_outtra_leavingdate_col.setCellValueFactory(new PropertyValueFactory<>("leavingdate"));
+        for_outtra_leavingfromdate_col.setCellValueFactory(new PropertyValueFactory<>("leavingfromdate"));
         for_outtra_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
         outTransportView.setItems(forTransportlist);
@@ -1526,6 +1604,7 @@ public class MainController implements Initializable {
                             rs.getString("ENPLASE"),
                             rs.getString("MILITARYTAYP"),
                             rs.getString("ENTAYP"),
+                            rs.getString("ENNAMELISTNUMBER"),
                             sq
                     ));
                 }
@@ -1542,53 +1621,8 @@ public class MainController implements Initializable {
             en_plase_col.setCellValueFactory(new PropertyValueFactory<>("enplase"));
             en_militarytype_col.setCellValueFactory(new PropertyValueFactory<>("militarytype"));
             en_type_col.setCellValueFactory(new PropertyValueFactory<>("entype"));
+            en_listnumber_col.setCellValueFactory(new PropertyValueFactory<>("listNumber"));
             en_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
-
-            Callback<TableColumn<EnDataModel, String>, TableCell<EnDataModel, String>> cellfactory = (param) -> {
-                final TableCell<EnDataModel, String> cell = new TableCell<EnDataModel, String>() {
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                            setText(null);
-                        } else {
-                            final CheckBox chbox = new CheckBox();
-                            chbox.setOnAction(e -> {
-                                EnDataModel m = getTableView().getItems().get(getIndex());
-                                if (chbox.isSelected()) {
-                                    orderid.setText(m.getOrderid());
-                                    orderdateday.setValue(getDay(m.getOrderdate()));
-                                    orderdatemonth.setValue(getMonth(m.getOrderdate()));
-                                    orderdateyear.setValue(getYear(m.getOrderdate()));
-                                    enfrom.setText(m.getEnfrom());
-                                    ento.setText(m.getEnto());
-                                    fromDateday.setValue(getDay(m.getEndatefrom()));
-                                    fromDatemonth.setValue(getMonth(m.getEndatefrom()));
-                                    fromDateyear.setValue(getYear(m.getEndatefrom()));
-                                    toDateday.setValue(getDay(m.getEndateto()));
-                                    toDatemonth.setValue(getMonth(m.getEndateto()));
-                                    toDateyear.setValue(getYear(m.getEndateto()));
-                                    PlaceOfAssignment.setValue(m.getEnplase());
-                                    militarytayp.setValue(m.getMilitarytype());
-                                    entayp.setValue(m.getEntype());
-                                    updatOrderId = m.getOrderid();
-                                    updatFromDate = m.getEndatefrom();
-                                    updatToDate = m.getEndateto();
-                                } else {
-                                    chbox.setSelected(false);
-                                }
-                            });
-                            setGraphic(chbox);
-                            setText(null);
-                        }
-                    }
-                ;
-                };
-                return cell;
-            };
-
-            en_update_col.setCellFactory(cellfactory);
 
             en_table.setItems(tablelist);
         } catch (IOException ex) {
@@ -1606,10 +1640,10 @@ public class MainController implements Initializable {
     }
 
     private String getMonth(String date) {
-        String month =null;
+        String month = null;
         if (date != null) {
             String[] parts = date.split("-");
-            month = parts[1]; 
+            month = parts[1];
         }
         return month;
     }
@@ -1618,7 +1652,7 @@ public class MainController implements Initializable {
         String year = null;
         if (date != null) {
             String[] parts = date.split("-");
-            year = parts[0]; 
+            year = parts[0];
         }
         return year;
     }
@@ -1787,10 +1821,39 @@ public class MainController implements Initializable {
         dateOfCombobox(for_intra_frommonth, fillMonth(monthlist), "month");
         dateOfCombobox(for_intra_fromyear, fillYare(yearlist), "year");
 
+        dateOfCombobox(for_outtra_transportday, fillDays(daylist), "day");
+        dateOfCombobox(for_outtra_transportmonth, fillMonth(monthlist), "month");
+        dateOfCombobox(for_outtra_transportyear, fillYare(yearlist), "year");
+
+        dateOfCombobox(for_outtra_fromday, fillDays(daylist), "day");
+        dateOfCombobox(for_outtra_frommonth, fillMonth(monthlist), "month");
+        dateOfCombobox(for_outtra_fromyear, fillYare(yearlist), "year");
+
+        dateOfCombobox(for_outtra_leavingday, fillDays(daylist), "day");
+        dateOfCombobox(for_outtra_leavingmonth, fillMonth(monthlist), "month");
+        dateOfCombobox(for_outtra_leavingyear, fillYare(yearlist), "year");
+
+        dateOfCombobox(for_outtra_leavingfromday, fillDays(daylist), "day");
+        dateOfCombobox(for_outtra_leavingfrommonth, fillMonth(monthlist), "month");
+        dateOfCombobox(for_outtra_leavingfromyear, fillYare(yearlist), "year");
+
+        dateOfCombobox(for_transport_day, fillDays(daylist), "day");
+        dateOfCombobox(for_transport_month, fillMonth(monthlist), "month");
+        dateOfCombobox(for_transport_year, fillYare(yearlist), "year");
+
+        dateOfCombobox(for_employment_day, fillDays(daylist), "day");
+        dateOfCombobox(for_employment_month, fillMonth(monthlist), "month");
+        dateOfCombobox(for_employment_year, fillYare(yearlist), "year");
+
+        dateOfCombobox(for_workstarting_day, fillDays(daylist), "day");
+        dateOfCombobox(for_workstarting_month, fillMonth(monthlist), "month");
+        dateOfCombobox(for_workstarting_year, fillYare(yearlist), "year");
+
         refreshListCombobox(fillListCombobox(ch_comboBoxlist));
         enTableViewData();
         mainePageOpenAction();
         refreshInTransportTables();
+        refreshOutTransportTables();
 
         for_militarytayp.setItems(list2);
         for_qualification.setItems(qualificationlist);
@@ -1853,6 +1916,97 @@ public class MainController implements Initializable {
             }
         });
 
+        transportView.setOnMouseClicked(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                ObservableList<TransportDataModel> list = FXCollections.observableArrayList();
+                list = transportView.getSelectionModel().getSelectedItems();
+                for_intra_militaryid.setText(list.get(0).getMilitaryid());
+                for_intra_newunit.setValue(list.get(0).getNewunit());
+                for_intra_transportid.setText(list.get(0).getTransportid());
+                for_intra_transportday.setValue(getDay(list.get(0).getTransportdate()));
+                for_intra_transportmonth.setValue(getMonth(list.get(0).getTransportdate()));
+                for_intra_transportyear.setValue(getYear(list.get(0).getTransportdate()));
+                for_intra_transportday.setValue(getDay(list.get(0).getTransportdate()));
+                for_intra_transportmonth.setValue(getMonth(list.get(0).getTransportdate()));
+                for_intra_transportyear.setValue(getYear(list.get(0).getTransportdate()));
+                for_intra_transportday.setValue(getDay(list.get(0).getTransportdate()));
+                for_intra_transportmonth.setValue(getMonth(list.get(0).getTransportdate()));
+                for_intra_transportyear.setValue(getYear(list.get(0).getTransportdate()));
+                for_intra_fromday.setValue(getDay(list.get(0).getFromdate()));
+                for_intra_frommonth.setValue(getMonth(list.get(0).getFromdate()));
+                for_intra_fromyear.setValue(getYear(list.get(0).getFromdate()));
+                inTransPortMilitaryid = list.get(0).getMilitaryid();
+                inTransPortId = list.get(0).getTransportid();
+            }
+        });
+        
+        outTransportView.setOnMouseClicked(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                ObservableList<TransportDataModel> outlist = FXCollections.observableArrayList();
+                outlist = outTransportView.getSelectionModel().getSelectedItems();
+                
+                for_outtra_militaryid.setText(outlist.get(0).getMilitaryid());
+                for_outtra_newunit.setText(outlist.get(0).getNewunit());
+                for_outtra_transportid.setText(outlist.get(0).getTransportid());
+                
+                for_outtra_transportday.setValue(getDay(outlist.get(0).getTransportdate()));
+                for_outtra_transportmonth.setValue(getMonth(outlist.get(0).getTransportdate()));
+                for_outtra_transportyear.setValue(getYear(outlist.get(0).getTransportdate()));
+                
+                for_outtra_transportday.setValue(getDay(outlist.get(0).getTransportdate()));
+                for_outtra_transportmonth.setValue(getMonth(outlist.get(0).getTransportdate()));
+                for_outtra_transportyear.setValue(getYear(outlist.get(0).getTransportdate()));
+                
+                for_outtra_transportday.setValue(getDay(outlist.get(0).getTransportdate()));
+                for_outtra_transportmonth.setValue(getMonth(outlist.get(0).getTransportdate()));
+                for_outtra_transportyear.setValue(getYear(outlist.get(0).getTransportdate()));
+                
+                for_outtra_fromday.setValue(getDay(outlist.get(0).getFromdate()));
+                for_outtra_frommonth.setValue(getMonth(outlist.get(0).getFromdate()));
+                for_outtra_fromyear.setValue(getYear(outlist.get(0).getFromdate()));
+                for_outtra_leavingid.setText(getYear(outlist.get(0).getLeavingid()));
+                
+                for_outtra_leavingday.setValue(getDay(outlist.get(0).getLeavingdate()));
+                for_outtra_leavingmonth.setValue(getMonth(outlist.get(0).getLeavingdate()));
+                for_outtra_leavingyear.setValue(getYear(outlist.get(0).getLeavingdate()));
+               
+                for_outtra_leavingfromday.setValue(getDay(outlist.get(0).getLeavingfromdate()));
+                for_outtra_leavingfrommonth.setValue(getMonth(outlist.get(0).getLeavingfromdate()));
+                for_outtra_leavingfromyear.setValue(getYear(outlist.get(0).getLeavingfromdate()));
+                outTransPortMilitaryid = outlist.get(0).getMilitaryid();
+                outTransPortId = outlist.get(0).getTransportid();
+            }
+        });
+
+        en_table.setOnMouseClicked(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                ObservableList<EnDataModel> list = FXCollections.observableArrayList();
+                list = en_table.getSelectionModel().getSelectedItems();
+                orderid.setText(list.get(0).getOrderid());
+                orderdateday.setValue(getDay(list.get(0).getOrderdate()));
+                orderdatemonth.setValue(getMonth(list.get(0).getOrderdate()));
+                orderdateyear.setValue(getYear(list.get(0).getOrderdate()));
+                enfrom.setText(list.get(0).getEnfrom());
+                ento.setText(list.get(0).getEnto());
+                ennamelist.setText(list.get(0).getListNumber());
+                fromDateday.setValue(getDay(list.get(0).getEndatefrom()));
+                fromDatemonth.setValue(getMonth(list.get(0).getEndatefrom()));
+                fromDateyear.setValue(getYear(list.get(0).getEndatefrom()));
+                toDateday.setValue(getDay(list.get(0).getEndateto()));
+                toDatemonth.setValue(getMonth(list.get(0).getEndateto()));
+                toDateyear.setValue(getYear(list.get(0).getEndateto()));
+                PlaceOfAssignment.setValue(list.get(0).getEnplase());
+                militarytayp.setValue(list.get(0).getMilitarytype());
+                entayp.setValue(list.get(0).getEntype());
+                updatOrderId = list.get(0).getOrderid();
+                updatFromDate = list.get(0).getEndatefrom();
+                updatToDate = list.get(0).getEndateto();
+
+            }
+        });
     }
 
 }
