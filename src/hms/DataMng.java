@@ -1,5 +1,8 @@
 package hms;
 
+import hms.models.CheckAllDataModel;
+import hms.models.NamesDataModel;
+import hms.models.TestModel;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,16 +16,37 @@ import javafx.scene.control.ButtonType;
 import javax.swing.JOptionPane;
 
 public  class DataMng {
-    public static void insert(String tapleName, String fildName, String valueNamber, List data) throws IOException {
-        
+    public static void insertPassData(String tapleName, String fildName, String valueNamber,ObservableList<CheckAllDataModel> data ,int x) throws IOException {
         Connection con = DatabaseConnector.dbConnector();
         String guiry = "INSERT INTO " + tapleName + "(" + fildName + ")VALUES(" + valueNamber + ")";
         try {
             PreparedStatement psm = con.prepareStatement(guiry);
-            int e = data.size();
-            for (int i = 1; i <= e; i++) {
-                psm.setString(i, data.get(i-1).toString());
+             psm.setString(1, data.get(x).getMilitaryId());
+             psm.setString(2, data.get(x).getListNumber());
+             psm.setString(3, data.get(x).getEnForm());
+             psm.setString(4, data.get(x).getEnTo());
+             psm.setString(5, data.get(x).getFromDate());
+             psm.setString(6, data.get(x).getToDate());
+            
+            
+            int t = psm.executeUpdate();
+            if (t > 0) {
+            } else {
+                JOptionPane.showMessageDialog(null, "حدث خطاء في عملية الحفظ الرجاء المحاولة مرة اخرى");
             }
+            con.close();
+            psm.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    public static void insertExcludedData(String tapleName, String fildName, String valueNamber,ObservableList<CheckAllDataModel> data ,int x) throws IOException {
+        Connection con = DatabaseConnector.dbConnector();
+        String guiry = "INSERT INTO " + tapleName + "(" + fildName + ")VALUES(" + valueNamber + ")";
+        try {
+            PreparedStatement psm = con.prepareStatement(guiry);
+             psm.setString(1, data.get(x).getListNumber());
+             psm.setString(2, data.get(x).getMilitaryId());
             int t = psm.executeUpdate();
             if (t > 0) {
             } else {
