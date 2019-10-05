@@ -21,9 +21,9 @@ public class CheckAllDataModel {
         this.toDate = toDate;
     }
 
-    public CheckAllDataModel(String militaryId, String listNumber) {
-        this.militaryId = militaryId;
+    public CheckAllDataModel( String listNumber , String militaryId) {
         this.listNumber = listNumber;
+        this.militaryId = militaryId;
     }
 
     public CheckAllDataModel(String militaryId, String rank, String name) {

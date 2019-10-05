@@ -1183,33 +1183,31 @@ public class MainController implements Initializable {
                             toDate,
                             i + 1
                     ));
-                    for (int j = 0; j < passData.size(); j++) {
-                        boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + passData.get(j).getMilitaryId() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
-                        if (militaryidUnique) {
-                            DataMng.insertPassData(tableName, fieldName, valuenumbers, passData, j);
-                            ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
-                            ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
-                            ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
-                            ch_en_from_col.setCellValueFactory(new PropertyValueFactory<>("enfrom"));
-                            ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
-                            ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
-                            ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
-                            en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
+                    boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + passData.get(i).getMilitaryId() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
+                    if (militaryidUnique) {
+                        DataMng.insertPassData(tableName, fieldName, valuenumbers, passData, i);
+                        ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
+                        ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+                        ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+                        ch_en_from_col.setCellValueFactory(new PropertyValueFactory<>("enfrom"));
+                        ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
+                        ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
+                        ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
+                        en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
-                            chacktable.setItems(chacktablelist);
-                        }
+                        chacktable.setItems(chacktablelist);
                     }
+
                 } else {
                     excludData.add(new CheckAllDataModel(
                             listnumber.getText(),
                             lodedData.get(i).getMilitaryId()
                     ));
-                    for (int j = 0; j < excludData.size(); j++) {
-                        boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + excludData.get(j).getMilitaryId() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
-                        if (exuludedUnique) {
-                            DataMng.insertExcludedData("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excludData, j);
-                        }
+                    boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + excludData.get(i).getMilitaryId() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
+                    if (exuludedUnique) {
+                        DataMng.insertExcludedData("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excludData, i);
                     }
+
                 }
             }
 
@@ -1411,8 +1409,20 @@ public class MainController implements Initializable {
     private void refreshChacktable() {
         chacktablelist.clear();
         chackTableViewAll();
+    }
 
-//        excludedNumber.setText(s);
+    @FXML
+    private void chClearFiled(ActionEvent event) {
+        chacktablelist.clear();
+        ch_enfrom.setText("");
+        ch_ento.setText("");
+        ch_en_fromdateday.setValue("");
+        ch_en_fromdatemonth.setValue("");
+        ch_en_fromdateyear.setValue("");
+        ch_en_todateday.setValue("");
+        ch_en_todatemonth.setValue("");
+        ch_en_todateyear.setValue("");
+        ch_list_combobox.setValue("");
     }
 
     private void chackTableViewData() {
