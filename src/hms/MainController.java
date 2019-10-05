@@ -1164,6 +1164,7 @@ public class MainController implements Initializable {
             for (int i = 0; i < lodedData.size(); i++) {
                 boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", lodedData.get(i).getMilitaryId(), listnumber.getText(), fromDate, toDate);
                 boolean trainingUnique = FormValidation.dateAllChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", lodedData.get(i).getMilitaryId(), listnumber.getText(), fromDate, toDate);
+                int pass = 0 , excled=0;
                 if (trainingUnique && mandateUnique) {
                     passData.add(new CheckAllDataModel(
                             lodedData.get(i).getMilitaryId(),
@@ -1183,9 +1184,10 @@ public class MainController implements Initializable {
                             toDate,
                             i + 1
                     ));
+                    System.out.println("passing : "+passData.get(i).getMilitaryId());
                     boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + passData.get(i).getMilitaryId() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
                     if (militaryidUnique) {
-                        DataMng.insertPassData(tableName, fieldName, valuenumbers, passData, i);
+//                        DataMng.insertPassData(tableName, fieldName, valuenumbers, passData, i);
                         ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
                         ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
                         ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -1203,9 +1205,10 @@ public class MainController implements Initializable {
                             listnumber.getText(),
                             lodedData.get(i).getMilitaryId()
                     ));
-                    boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + excludData.get(i).getMilitaryId() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
+                    System.out.println("excloded : "+excludData.get(0).getMilitaryId());
+                    boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + excludData.get(0).getMilitaryId() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
                     if (exuludedUnique) {
-                        DataMng.insertExcludedData("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excludData, i);
+//                        DataMng.insertExcludedData("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excludData, i);
                     }
 
                 }
