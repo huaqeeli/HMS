@@ -1151,19 +1151,19 @@ public class MainController implements Initializable {
         String tableName = "nameslist";
         String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
         String valuenumbers = "?,?,?,?,?,?";
-        
+
         ObservableList<CheckAllDataModel> lodedData = FXCollections.observableArrayList();
         ObservableList<CheckAllDataModel> passData = FXCollections.observableArrayList();
         ObservableList<CheckAllDataModel> excludData = FXCollections.observableArrayList();
-        
+
         try {
-            ResultSet rs = DataMng.getAllQuiry("SELECT `MILITARYID` FROM formation WHERE `MILITARYTYPE` = '" + militaryType + "' AND `TRANSPORTSTATE` = 'false'");
+            ResultSet rs = DataMng.getAllQuiry("SELECT `MILITARYID`,`RANK`,`NAME` FROM formation WHERE `MILITARYTYPE` = '" + militaryType + "' AND `TRANSPORTSTATE` = 'false'");
             while (rs.next()) {
-                lodedData.add(new CheckAllDataModel(rs.getString("MILITARYID")));
+                lodedData.add(new CheckAllDataModel(rs.getString("MILITARYID"), rs.getString("RANK"), rs.getString("NAME")));
             }
             for (int i = 0; i < lodedData.size(); i++) {
-                boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية",  lodedData.get(i).getMilitaryId(), listnumber.getText(), fromDate, toDate);
-                boolean trainingUnique = FormValidation.dateAllChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية",lodedData.get(i).getMilitaryId(), listnumber.getText(), fromDate, toDate);
+                boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", lodedData.get(i).getMilitaryId(), listnumber.getText(), fromDate, toDate);
+                boolean trainingUnique = FormValidation.dateAllChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", lodedData.get(i).getMilitaryId(), listnumber.getText(), fromDate, toDate);
                 if (trainingUnique && mandateUnique) {
                     passData.add(new CheckAllDataModel(
                             lodedData.get(i).getMilitaryId(),
@@ -1171,32 +1171,47 @@ public class MainController implements Initializable {
                             ch_enfrom.getText(),
                             ch_ento.getText(),
                             fromDate,
-                            toDate   
+                            toDate
                     ));
+                    chacktablelist.add(new NamesDataModel(
+                            lodedData.get(i).getMilitaryId(),
+                            lodedData.get(i).getRank(),
+                            lodedData.get(i).getName(),
+                            ch_enfrom.getText(),
+                            ch_ento.getText(),
+                            fromDate,
+                            toDate,
+                            i + 1
+                    ));
+                    for (int j = 0; j < passData.size(); j++) {
+                        boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + passData.get(j).getMilitaryId() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
+                        if (militaryidUnique) {
+                            DataMng.insertPassData(tableName, fieldName, valuenumbers, passData, j);
+                            ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
+                            ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+                            ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+                            ch_en_from_col.setCellValueFactory(new PropertyValueFactory<>("enfrom"));
+                            ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
+                            ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
+                            ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
+                            en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
+
+                            chacktable.setItems(chacktablelist);
+                        }
+                    }
                 } else {
                     excludData.add(new CheckAllDataModel(
                             listnumber.getText(),
                             lodedData.get(i).getMilitaryId()
                     ));
+                    for (int j = 0; j < excludData.size(); j++) {
+                        boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + excludData.get(j).getMilitaryId() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
+                        if (exuludedUnique) {
+                            DataMng.insertExcludedData("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excludData, j);
+                        }
+                    }
                 }
             }
-            
-            for (int i = 0; i < passData.size(); i++) {
-                 boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + passData.get(i).getMilitaryId() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
-                if (militaryidUnique) {
-                    DataMng.insertPassData(tableName, fieldName, valuenumbers, passData, i);
-                   
-                }
-                refreshChacktable();
-            } 
-            
-            for (int i = 0; i < excludData.size(); i++) {
-                boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" +excludData.get(i).getMilitaryId() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
-                if (exuludedUnique) {
-                    DataMng.insertExcludedData("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excludData, i);
-                }
-            }
-           
 
         } catch (IOException | SQLException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -1266,9 +1281,11 @@ public class MainController implements Initializable {
             ResultSet rs = DataMng.getAllQuiry("SELECT COUNT(MILITARYID) AS TotalExcluded FROM excluded WHERE LISTNUMBER='" + listnumber + "'");
             while (rs.next()) {
                 total = Integer.parseInt(rs.getString("TotalExcluded"));
+
             }
         } catch (IOException | SQLException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return total;
     }
@@ -1280,7 +1297,7 @@ public class MainController implements Initializable {
         if (enfromstate && entostate) {
             ChackAll task = new ChackAll("ضابط");
             task.start();
-           
+
         }
 
     }
@@ -1292,7 +1309,7 @@ public class MainController implements Initializable {
         if (enfromstate && entostate) {
             ChackAll task = new ChackAll("فرد");
             task.start();
-            
+
         }
     }
 
@@ -1303,8 +1320,10 @@ public class MainController implements Initializable {
             DataMng.delete("nameslist", condition);
             refreshEnChackTable();
             chackTableListView(listnumber.getText());
+
         } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1320,9 +1339,11 @@ public class MainController implements Initializable {
             try {
                 while (rs.next()) {
                     millest.add(rs.getString("MILITARYID"));
+
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
             String militeryid = null;
             for (int i = 0; i < millest.size(); i++) {
@@ -1336,8 +1357,10 @@ public class MainController implements Initializable {
                         if (orderidUnique) {
                             try {
                                 DataMng.updat("nameslist", "`ENFROM`=?,`ENTO`=?,`ENDATEFROM`=?,`ENDATETO`=?", data, "`LISTNUMBER`='" + listnumber.getText() + "' AND `MILITARYID` = '" + listnumber.getText() + "'");
+
                             } catch (IOException ex) {
-                                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(MainController.class
+                                        .getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                         return null;
@@ -1349,8 +1372,10 @@ public class MainController implements Initializable {
 
             refreshEnChackTable();
             chackTableListView(listnumber.getText());
+
         } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1362,8 +1387,10 @@ public class MainController implements Initializable {
             ch_comboBoxlist.clear();
             refreshListCombobox(fillListCombobox(ch_comboBoxlist));
             chackTableListView(listnumber.getText());
+
         } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1407,8 +1434,10 @@ public class MainController implements Initializable {
                 ));
             }
             rs.close();
+
         } catch (SQLException | IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
         ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
@@ -1437,8 +1466,10 @@ public class MainController implements Initializable {
                 ));
             }
             rs.close();
+
         } catch (SQLException | IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         ex_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
         ex_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
@@ -1463,8 +1494,10 @@ public class MainController implements Initializable {
             }
 
             rs.close();
+
         } catch (SQLException | IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         no_dec_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
         no_dec_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
@@ -1489,8 +1522,10 @@ public class MainController implements Initializable {
                 mandateDecListNumber = rs.getString("LISTNUMBER");
             }
             rs.close();
+
         } catch (SQLException | IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         dec_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
         dec_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
@@ -1518,8 +1553,10 @@ public class MainController implements Initializable {
                 ));
             }
             rs.close();
+
         } catch (SQLException | IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
         ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
@@ -1551,8 +1588,10 @@ public class MainController implements Initializable {
                 ));
             }
             rs.close();
+
         } catch (SQLException | IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         for_intra_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("militaryid"));
@@ -1588,8 +1627,10 @@ public class MainController implements Initializable {
                 ));
             }
             rs.close();
+
         } catch (SQLException | IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         for_outtra_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("militaryid"));
@@ -1631,8 +1672,10 @@ public class MainController implements Initializable {
                     ch_en_allofficers.setDisable(false);
                 }
                 rs.close();
+
             } catch (SQLException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
             ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
             ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
@@ -1644,8 +1687,10 @@ public class MainController implements Initializable {
             en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
             chacktable.setItems(chacktablelist);
+
         } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1671,8 +1716,10 @@ public class MainController implements Initializable {
                     ));
                 }
                 rs.close();
+
             } catch (SQLException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
             en_orderid_col.setCellValueFactory(new PropertyValueFactory<>("orderid"));
             en_orderdate_col.setCellValueFactory(new PropertyValueFactory<>("orderdate"));
@@ -1687,8 +1734,10 @@ public class MainController implements Initializable {
             en_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
             en_table.setItems(tablelist);
+
         } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1756,12 +1805,15 @@ public class MainController implements Initializable {
                     list.add(rs.getString("LISTNUMBER"));
                 }
                 rs.close();
+
             } catch (SQLException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
@@ -1774,12 +1826,15 @@ public class MainController implements Initializable {
                     list.add(rs.getString("SPECIALIZ_NAME"));
                 }
                 rs.close();
+
             } catch (SQLException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
@@ -1792,12 +1847,15 @@ public class MainController implements Initializable {
                     list.add(rs.getString("UNIT_NAME"));
                 }
                 rs.close();
+
             } catch (SQLException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainController.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
@@ -1923,9 +1981,7 @@ public class MainController implements Initializable {
 ////        for_speclaization.setItems(setSpecializListCombobox(specialiazList));
 //        for_unitinforce.setItems(setUnitListCombobox(unitNameList));
 ////        for_bloodtype.setItems(bloodTypeList);
-
 //        for_intra_newunit.setItems(setUnitListCombobox(unitNameList));
-
         addhint.setTooltip(new Tooltip("اضافة طلب انتداب"));
         chackingdata.setTooltip(new Tooltip("تدقيق البيانات"));
         en_update.setTooltip(new Tooltip("تحديث البيانات"));
