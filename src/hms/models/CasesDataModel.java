@@ -2,10 +2,10 @@ package hms.models;
 
 
 public class CasesDataModel {
-    String militaryid,rank,name,caseType,decreeId,decreeDate,caseFromDate,decreeType,caseState,startWorkDate;
+    String militaryid,rank,name,caseType,decreeId,decreeDate,caseFromDate,decreeType,caseState,startWorkDate,caseDescription;
     int sq;
 
-    public CasesDataModel(String militaryid, String rank, String name, String caseType, String decreeId, String decreeDate, String caseFromDate, String decreeType, String caseState, String startWorkDate, int sq) {
+    public CasesDataModel(String militaryid, String rank, String name, String caseType, String decreeId, String decreeDate, String caseFromDate, String decreeType, String caseState, String startWorkDate, String caseDescription, int sq) {
         this.militaryid = militaryid;
         this.rank = rank;
         this.name = name;
@@ -16,8 +16,11 @@ public class CasesDataModel {
         this.decreeType = decreeType;
         this.caseState = caseState;
         this.startWorkDate = startWorkDate;
+        this.caseDescription = caseDescription;
         this.sq = sq;
     }
+
+    
 
     public String getMilitaryid() {
         return militaryid;
@@ -105,6 +108,14 @@ public class CasesDataModel {
 
     public void setSq(int sq) {
         this.sq = sq;
+    }
+
+    public String getCaseDescription() {
+        return caseDescription;
+    }
+
+    public void setCaseDescription(String caseDescription) {
+        this.caseDescription = caseDescription;
     }
     
     

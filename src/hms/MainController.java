@@ -175,8 +175,9 @@ public class MainController implements Initializable {
     private String updatToDate = null;
     private String inTransPortMilitaryid = null;
     private String inTransPortId = null;
-    private String outTransPortMilitaryid = null;
+    private String Militaryid = null;
     private String outTransPortId = null;
+    private String caseDecerrID = null;
     @FXML
     private TableView<NamesDataModel> no_dec_table;
     @FXML
@@ -691,6 +692,8 @@ public class MainController implements Initializable {
     private TableColumn<?, ?> vac_vacation_enddate_col;
     @FXML
     private Tab reports1;
+    @FXML
+    private TextArea for_cases_casedescription;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -731,6 +734,7 @@ public class MainController implements Initializable {
         TrainingPage.setVisible(false);
         VacationsPage.setVisible(false);
     }
+
     @FXML
     private void triningOpenAction(ActionEvent event) {
         MainPage.setVisible(false);
@@ -739,6 +743,7 @@ public class MainController implements Initializable {
         TrainingPage.setVisible(true);
         VacationsPage.setVisible(false);
     }
+
     @FXML
     private void vacationOpenAction(ActionEvent event) {
         MainPage.setVisible(false);
@@ -1374,7 +1379,7 @@ public class MainController implements Initializable {
         String tableName = "transport";
         String fieldName = "`MILITARYID`=?,`NEWUNIT`=?,`TRANSPORTID`=?,`TRANSPORTDATE`=?,`TRANSPORTFROMDATE`=?,`TRANSPORTTYPE`=?,`LEAVINGID`=?,`LEAVINGDATE`=?,`LEAVINGFROMDATE`=?";
         String[] data = {for_outtra_militaryid.getText(), for_outtra_newunit.getText(), for_outtra_transportid.getText(), transportDate, transportFromDate, "خارجي", for_outtra_leavingid.getText(), leavingDate, leavingFromDate};
-        String condition = "`MILITARYID`='" + outTransPortMilitaryid + "' AND `TRANSPORTID`= '" + outTransPortId + "'";
+        String condition = "`MILITARYID`='" + Militaryid + "' AND `TRANSPORTID`= '" + outTransPortId + "'";
 
         boolean militaryid = FormValidation.textFieldNotEmpty(for_outtra_militaryid, "ادخل الرقم العسكري");
         boolean transportId = FormValidation.textFieldNotEmpty(for_outtra_transportid, "ادخل رقم القرار");
@@ -1393,7 +1398,7 @@ public class MainController implements Initializable {
     @FXML
     private void deleteOutTransport(ActionEvent event) {
         try {
-            String condition = "`MILITARYID`='" + outTransPortMilitaryid + "' AND `TRANSPORTID`= '" + outTransPortId + "'";
+            String condition = "`MILITARYID`='" + Militaryid + "' AND `TRANSPORTID`= '" + outTransPortId + "'";
             DataMng.delete("transport", condition);
             refreshOutTransportTables();
         } catch (IOException ex) {
@@ -1480,23 +1485,33 @@ public class MainController implements Initializable {
         casesTableViewAll();
     }
 
+    private void refreshCasestableByMilitaryid(String militaryid) {
+        caseslist.clear();
+        casesTableViewByMilitaryid(militaryid);
+    }
+
     @FXML
     private void addCaseDecree(ActionEvent event) {
-        String decreeDate = setDate(for_cases_decdate_day.getValue(), for_cases_decdate_month.getValue(), for_cases_decdate_year.getValue());
+         String decreeDate = setDate(for_cases_decdate_day.getValue(), for_cases_decdate_month.getValue(), for_cases_decdate_year.getValue());
         String caseDecDateFrom = setDate(for_cases_decdatefrom_day.getValue(), for_cases_decdatefrom_month.getValue(), for_cases_decdatefrom_year.getValue());
         String caseStartWorkDate = setDate(for_cases_startwork_day.getValue(), for_cases_startwork_month.getValue(), for_cases_startwork_year.getValue());
+
         String tableName = "cases";
-        String fieldName = "`MILITARYID`,`CASE_TYPE`,`CASE_DECREEID`,`CASE_DECREE_DATE`,`CASE_DECREE_FROM_DATE`,`DECREE_TYPE`,`CASE_STATE`,`START_WORK_DATE`";
-        String valuenumbers = "?,?,?,?,?,?,?,?";
-        String[] data = {for_cases_militaryid.getText(), for_cases_casetype.getValue(), for_cases_dec_id.getText(), decreeDate, caseDecDateFrom, for_cases_dectype.getValue(), for_cases_casestate.getText(), caseStartWorkDate};
+        String fieldName = "`MILITARYID`,`CASE_TYPE`,`CASE_DECREEID`,`CASE_DECREE_DATE`,`CASE_DECREE_FROM_DATE`,`DECREE_TYPE`,`CASE_STATE`,`START_WORK_DATE`,`CASE_DESCRIPTION`,`CASE_ENDING`";
+        String caseEnding = "true";
+        if ("null-null-null".equals(caseStartWorkDate)) {
+            caseStartWorkDate = null;
+            caseEnding = "false";
+        }
+        String valuenumbers = "?,?,?,?,?,?,?,?,?";
+        String[] data = {for_cases_militaryid.getText(), for_cases_casetype.getValue(), for_cases_dec_id.getText(), decreeDate, caseDecDateFrom, for_cases_dectype.getValue(), for_cases_casestate.getText(), caseStartWorkDate,for_cases_casedescription.getText(), caseEnding};
 
         boolean militaryIdNoutEmpty = FormValidation.textFieldNotEmpty(for_cases_militaryid, "ادخل الرقم العسكري");
         boolean decreeidNoutEmpty = FormValidation.textFieldNotEmpty(for_cases_dec_id, "ادخل القرار");
-        boolean casestateNoutEmpty = FormValidation.textFieldNotEmpty(for_cases_casestate, "ادخل القرار");
         boolean casetypeNoutEmpty = FormValidation.comboBoxNotEmpty(for_cases_casetype, "اختر نوع القضية");
         boolean dectypeNoutEmpty = FormValidation.comboBoxNotEmpty(for_cases_dectype, "اختر نوع القرار");
 
-        if (militaryIdNoutEmpty && decreeidNoutEmpty && casestateNoutEmpty && casetypeNoutEmpty && dectypeNoutEmpty) {
+        if (militaryIdNoutEmpty && decreeidNoutEmpty && casetypeNoutEmpty && dectypeNoutEmpty) {
             try {
                 DataMng.insert(tableName, fieldName, valuenumbers, data);
                 refreshCasestable();
@@ -1504,15 +1519,46 @@ public class MainController implements Initializable {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }
 
     @FXML
     private void updateCaseDecree(ActionEvent event) {
+        String decreeDate = setDate(for_cases_decdate_day.getValue(), for_cases_decdate_month.getValue(), for_cases_decdate_year.getValue());
+        String caseDecDateFrom = setDate(for_cases_decdatefrom_day.getValue(), for_cases_decdatefrom_month.getValue(), for_cases_decdatefrom_year.getValue());
+        String caseStartWorkDate = setDate(for_cases_startwork_day.getValue(), for_cases_startwork_month.getValue(), for_cases_startwork_year.getValue());
+
+        String tableName = "cases";
+        String fieldName = "`MILITARYID`=?,`CASE_TYPE`=?,`CASE_DECREEID`=?,`CASE_DECREE_DATE`=?,`CASE_DECREE_FROM_DATE`=?,`DECREE_TYPE`=?,`CASE_STATE`=?,`START_WORK_DATE`=?,`CASE_DESCRIPTION`=?,`CASE_ENDING`=?";
+        String caseEnding = "true";
+        if ("null-null-null".equals(caseStartWorkDate)) {
+            caseStartWorkDate = null;
+            caseEnding = "false";
+        }
+        String[] data = {for_cases_militaryid.getText(), for_cases_casetype.getValue(), for_cases_dec_id.getText(), decreeDate, caseDecDateFrom, for_cases_dectype.getValue(), for_cases_casestate.getText(), caseStartWorkDate,for_cases_casedescription.getText(),caseEnding};
+
+        boolean militaryIdNoutEmpty = FormValidation.textFieldNotEmpty(for_cases_militaryid, "ادخل الرقم العسكري");
+        boolean decreeidNoutEmpty = FormValidation.textFieldNotEmpty(for_cases_dec_id, "ادخل القرار");
+        boolean casetypeNoutEmpty = FormValidation.comboBoxNotEmpty(for_cases_casetype, "اختر نوع القضية");
+        boolean dectypeNoutEmpty = FormValidation.comboBoxNotEmpty(for_cases_dectype, "اختر نوع القرار");
+
+        if (militaryIdNoutEmpty && decreeidNoutEmpty && casetypeNoutEmpty && dectypeNoutEmpty) {
+            try {
+                DataMng.updat(tableName, fieldName, data,"`MILITARYID` = '"+Militaryid+"' AND `CASE_DECREEID` = '"+caseDecerrID+"'");
+                refreshCasestable();
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @FXML
     private void deleteCaseDecree(ActionEvent event) {
+        try {
+            DataMng.delete("cases", "`MILITARYID` = '"+Militaryid+"' AND `CASE_DECREEID` = '"+caseDecerrID+"'");
+             refreshCasestable();
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -1542,7 +1588,8 @@ public class MainController implements Initializable {
     private void casesTableViewAll() {
         int sq = 0;
         try {
-            ResultSet rs = DataMng.getDataJoinTable("select cases.MILITARYID,cases.CASE_TYPE,cases.CASE_DECREEID,cases.CASE_DECREE_DATE,cases.CASE_DECREE_FROM_DATE,cases.DECREE_TYPE,cases.CASE_STATE,cases.START_WORK_DATE, formation.NAME, formation.RANK from cases ,formation  where  cases.MILITARYID = formation.MILITARYID ");
+            ResultSet rs = DataMng.getDataJoinTable("select cases.MILITARYID,cases.CASE_TYPE,cases.CASE_DECREEID,cases.CASE_DECREE_DATE,cases.CASE_DECREE_FROM_DATE,cases.DECREE_TYPE,cases.CASE_STATE,cases.START_WORK_DATE,cases.CASE_DESCRIPTION, formation.NAME, formation.RANK from cases ,formation  where  cases.MILITARYID = formation.MILITARYID ");
+
             while (rs.next()) {
                 sq++;
                 caseslist.add(new CasesDataModel(
@@ -1551,19 +1598,21 @@ public class MainController implements Initializable {
                         rs.getString("NAME"),
                         rs.getString("CASE_TYPE"),
                         rs.getString("CASE_DECREEID"),
-                        rs.getDate("CASE_DECREE_DATE").toString(),
-                        rs.getDate("CASE_DECREE_FROM_DATE").toString(),
+                        rs.getString("CASE_DECREE_DATE"),
+                        rs.getString("CASE_DECREE_FROM_DATE"),
                         rs.getString("DECREE_TYPE"),
                         rs.getString("CASE_STATE"),
-                        rs.getDate("START_WORK_DATE").toString(),
+                        rs.getString("START_WORK_DATE"),
+                        rs.getString("CASE_DESCRIPTION"),
                         sq
                 ));
+               
             }
             rs.close();
         } catch (SQLException | IOException ex) {
             Logger.getLogger(MainController.class
                     .getName()).log(Level.SEVERE, null, ex);
-        }/*militaryid,rank,name,caseType,decreeId,decreeDate,caseFromDate,decreeType,caseState,startWorkDate*/
+        }
         for_cases_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("militaryid"));
         for_cases_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
         for_cases_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -1577,6 +1626,51 @@ public class MainController implements Initializable {
         for_cases_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
         casesTableView.setItems(caseslist);
+    }
+
+    private void casesTableViewByMilitaryid(String militaryid) {
+        int sq = 0;
+        try {
+            ResultSet rs = DataMng.getDataJoinTable("select cases.MILITARYID,cases.CASE_TYPE,cases.CASE_DECREEID,cases.CASE_DECREE_DATE,cases.CASE_DECREE_FROM_DATE,cases.DECREE_TYPE,cases.CASE_STATE,cases.START_WORK_DATE,cases.CASE_DESCRIPTION, formation.NAME, formation.RANK from cases ,formation  where  cases.MILITARYID = formation.MILITARYID AND cases.MILITARYID = '" + militaryid + "' ");
+            while (rs.next()) {
+                sq++;
+                caseslist.add(new CasesDataModel(
+                        rs.getString("MILITARYID"),
+                        rs.getString("RANK"),
+                        rs.getString("NAME"),
+                        rs.getString("CASE_TYPE"),
+                        rs.getString("CASE_DECREEID"),
+                        rs.getString("CASE_DECREE_DATE"),
+                        rs.getString("CASE_DECREE_FROM_DATE"),
+                        rs.getString("DECREE_TYPE"),
+                        rs.getString("CASE_STATE"),
+                        rs.getString("START_WORK_DATE"),
+                        rs.getString("CASE_DESCRIPTION"),
+                        sq
+                ));
+            }
+            rs.close();
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(MainController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        for_cases_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("militaryid"));
+        for_cases_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        for_cases_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        for_cases_casetype_col.setCellValueFactory(new PropertyValueFactory<>("caseType"));
+        for_cases_decid_col.setCellValueFactory(new PropertyValueFactory<>("decreeId"));
+        for_cases_decdate_col.setCellValueFactory(new PropertyValueFactory<>("decreeDate"));
+        for_cases_casefromdate_col.setCellValueFactory(new PropertyValueFactory<>("caseFromDate"));
+        for_cases_dectype_col.setCellValueFactory(new PropertyValueFactory<>("decreeType"));
+        for_cases_casestate_col.setCellValueFactory(new PropertyValueFactory<>("caseState"));
+        for_cases_startworkdate_col.setCellValueFactory(new PropertyValueFactory<>("startWorkDate"));
+        for_cases_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
+
+        casesTableView.setItems(caseslist);
+    }
+
+    @FXML
+    private void triningOpenAction(MouseEvent event) {
     }
 
     public class ChackAll extends Thread {
@@ -2252,6 +2346,10 @@ public class MainController implements Initializable {
         }
     }
 
+    private void dateOfCombobox(ComboBox com, ObservableList list) {
+        com.setItems(list);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         PlaceOfAssignment.setItems(list1);
@@ -2350,9 +2448,9 @@ public class MainController implements Initializable {
         dateOfCombobox(for_cases_decdatefrom_month, fillMonth(monthlist), "month");
         dateOfCombobox(for_cases_decdatefrom_year, fillYare(yearlist), "year");
 
-        dateOfCombobox(for_cases_startwork_day, fillDays(daylist), "day");
-        dateOfCombobox(for_cases_startwork_month, fillMonth(monthlist), "month");
-        dateOfCombobox(for_cases_startwork_year, fillYare(yearlist), "year");
+        dateOfCombobox(for_cases_startwork_day, fillDays(daylist));
+        dateOfCombobox(for_cases_startwork_month, fillMonth(monthlist));
+        dateOfCombobox(for_cases_startwork_year, fillYare(yearlist));
 
         refreshListCombobox(fillListCombobox(ch_comboBoxlist));
         enTableViewData();
@@ -2381,8 +2479,8 @@ public class MainController implements Initializable {
                 chackData();
                 ch_mailitraynum.setText("");
             }
-
         });
+
         ch_list_combobox.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
@@ -2412,6 +2510,16 @@ public class MainController implements Initializable {
             @Override
             public void handle(Event event) {
                 getFormaitionDatabyMilitryid();
+            }
+        });
+        for_cases_militaryid.setOnKeyReleased(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                if (for_cases_militaryid.getText() == null || for_cases_militaryid.getText().equals("")) {
+                    refreshCasestable();
+                } else {
+                    refreshCasestableByMilitaryid(for_cases_militaryid.getText());
+                }
             }
         });
 
@@ -2474,8 +2582,33 @@ public class MainController implements Initializable {
                 for_outtra_leavingfromday.setValue(getDay(outlist.get(0).getLeavingfromdate()));
                 for_outtra_leavingfrommonth.setValue(getMonth(outlist.get(0).getLeavingfromdate()));
                 for_outtra_leavingfromyear.setValue(getYear(outlist.get(0).getLeavingfromdate()));
-                outTransPortMilitaryid = outlist.get(0).getMilitaryid();
+                Militaryid = outlist.get(0).getMilitaryid();
                 outTransPortId = outlist.get(0).getTransportid();
+            }
+        });
+
+        casesTableView.setOnMouseClicked(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                ObservableList<CasesDataModel> outlist = FXCollections.observableArrayList();
+                outlist = casesTableView.getSelectionModel().getSelectedItems();
+                for_cases_militaryid.setText(outlist.get(0).getMilitaryid());
+                for_cases_casetype.setValue(outlist.get(0).getCaseType());
+                for_cases_dec_id.setText(outlist.get(0).getDecreeId());
+                for_cases_decdate_day.setValue(getDay(outlist.get(0).getDecreeDate()));
+                for_cases_decdate_month.setValue(getMonth(outlist.get(0).getDecreeDate()));
+                for_cases_decdate_year.setValue(getYear(outlist.get(0).getDecreeDate()));
+                for_cases_decdatefrom_day.setValue(getDay(outlist.get(0).getCaseFromDate()));
+                for_cases_decdatefrom_month.setValue(getMonth(outlist.get(0).getCaseFromDate()));
+                for_cases_decdatefrom_year.setValue(getYear(outlist.get(0).getCaseFromDate()));
+                for_cases_startwork_day.setValue(getDay(outlist.get(0).getStartWorkDate()));
+                for_cases_startwork_month.setValue(getMonth(outlist.get(0).getStartWorkDate()));
+                for_cases_startwork_year.setValue(getYear(outlist.get(0).getStartWorkDate()));
+                for_cases_dectype.setValue(outlist.get(0).getDecreeType());
+                for_cases_casestate.setText(outlist.get(0).getCaseState());
+                for_cases_casedescription.setText(outlist.get(0).getCaseDescription());
+                Militaryid = outlist.get(0).getMilitaryid();
+                caseDecerrID = outlist.get(0).getDecreeId();
             }
         });
 
