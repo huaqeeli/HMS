@@ -107,35 +107,6 @@
               </tabs>
             </TabPane>
          </children></AnchorPane>
-      <AnchorPane fx:id="ExcludedPage" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #B5E5E9; -fx-border-color: #EFA914;" visible="false" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="300.0">
-         <children>
-            <TableView fx:id="ex_tableview" layoutX="402.0" layoutY="9.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#showReason" prefHeight="279.0" prefWidth="638.0" styleClass="blocked" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-              <columns>
-                <TableColumn fx:id="ex_sequence_col" minWidth="40.0" prefWidth="60.0" resizable="false" text="C1" />
-                <TableColumn fx:id="ex_militaryid_col" prefWidth="75.0" text="C2" />
-                  <TableColumn fx:id="ex_rank_col" prefWidth="75.0" text="Column X" />
-                  <TableColumn fx:id="ex_name_col" minWidth="200.0" prefWidth="200.0" text="Column X" />
-              </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-            <ListView fx:id="ex_reasonListView" layoutX="9.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="279.0" prefWidth="387.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="2.0" layoutY="-38.0" prefHeight="42.0" prefWidth="1048.0" style="-fx-background-color: #117E88; -fx-border-color: #EFA914;" styleClass="appfont" text="  اسماء المستبعدين" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-48.0" />
-            <Button layoutX="8.0" layoutY="-42.0" mnemonicParsing="false" onAction="#ex_exit" prefHeight="27.0" prefWidth="46.0" style="-fx-background-color: #117E88;" textFill="WHITE" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="-45.0">
-               <font>
-                  <Font size="11.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/exit.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="TrainingPage" layoutX="10.0" layoutY="108.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
          <children>
             <TabPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="713.0" prefWidth="1211.0" side="LEFT" stylesheets="@../css/style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -401,243 +372,6 @@
                      </graphic>
                   </Tab>
                   <Tab fx:id="reports11">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                     <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/301-128.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Tab>
-               </tabs>
-            </TabPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="VacationsPage" layoutX="10.0" layoutY="108.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
-         <children>
-            <TabPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="713.0" prefWidth="1211.0" side="LEFT" stylesheets="@../css/style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <tabs>
-                  <Tab fx:id="inland_transport1">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <GridPane hgap="5.0" prefHeight="193.0" prefWidth="1327.0" vgap="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                                 <children>
-                                    <TextField fx:id="vac_militaryid" alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" />
-                                    <ComboBox fx:id="vac_vacationtype" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" GridPane.columnIndex="3">
-                                       <styleClass>
-                                          <String fx:value="appfont" />
-                                          <String fx:value="comboStyle" />
-                                       </styleClass>
-                                    </ComboBox>
-                                    <TextField fx:id="vac_vacation_decid" alignment="CENTER" layoutX="913.0" layoutY="20.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                       <children>
-                                          <ComboBox fx:id="vac_vacation_decdate_day" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
-                                             <styleClass>
-                                                <String fx:value="appfont" />
-                                                <String fx:value="comboStyle" />
-                                             </styleClass>
-                                             <HBox.margin>
-                                                <Insets right="2.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
-                                          <ComboBox fx:id="vac_vacation_decdate_month" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
-                                             <styleClass>
-                                                <String fx:value="appfont" />
-                                                <String fx:value="comboStyle" />
-                                             </styleClass>
-                                             <HBox.margin>
-                                                <Insets right="2.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
-                                          <ComboBox fx:id="vac_vacation_decdate_year" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
-                                             <styleClass>
-                                                <String fx:value="appfont" />
-                                                <String fx:value="comboStyle" />
-                                             </styleClass>
-                                          </ComboBox>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                       <children>
-                                          <ComboBox fx:id="vac_vacation_startdate_day" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
-                                             <styleClass>
-                                                <String fx:value="appfont" />
-                                                <String fx:value="comboStyle" />
-                                             </styleClass>
-                                          </ComboBox>
-                                          <ComboBox fx:id="vac_vacation_startdate_month" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
-                                             <styleClass>
-                                                <String fx:value="appfont" />
-                                                <String fx:value="comboStyle" />
-                                             </styleClass>
-                                          </ComboBox>
-                                          <ComboBox fx:id="vac_vacation_startdate_year" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
-                                             <styleClass>
-                                                <String fx:value="appfont" />
-                                                <String fx:value="comboStyle" />
-                                             </styleClass>
-                                          </ComboBox>
-                                       </children>
-                                    </HBox>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="رقم قرار الاجازة :" textFill="#117e88" GridPane.rowIndex="1">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="الرقم العسكري :" textFill="#117e88">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ قرار الاجازة :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="مدة الاجازة :" textFill="#117e88" GridPane.rowIndex="2">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="نوع الاجازة :" textFill="#117e88" GridPane.columnIndex="2">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="110.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ الانفكاك :" textFill="#117e88" GridPane.rowIndex="3">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ العودة :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                                       <children>
-                                          <ComboBox fx:id="vac_vacation_enddate_day" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
-                                             <styleClass>
-                                                <String fx:value="appfont" />
-                                                <String fx:value="comboStyle" />
-                                             </styleClass>
-                                          </ComboBox>
-                                          <ComboBox fx:id="vac_vacation_enddate_month" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
-                                             <styleClass>
-                                                <String fx:value="appfont" />
-                                                <String fx:value="comboStyle" />
-                                             </styleClass>
-                                          </ComboBox>
-                                          <ComboBox fx:id="vac_vacation_enddate_year" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
-                                             <styleClass>
-                                                <String fx:value="appfont" />
-                                                <String fx:value="comboStyle" />
-                                             </styleClass>
-                                          </ComboBox>
-                                       </children>
-                                    </HBox>
-                                    <TextField fx:id="vac_vacation_duration" alignment="CENTER" layoutX="257.0" layoutY="60.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField fx:id="vac_vacation_place" alignment="CENTER" layoutX="257.0" layoutY="109.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="112.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="مكان انقضاء الاجازة :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <columnConstraints>
-                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="482.0" />
-                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="482.0" />
-                                 </columnConstraints>
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </padding>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                              </GridPane>
-                              <TableView fx:id="vacationTableView" layoutX="13.0" layoutY="205.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="523.0" prefWidth="1327.0" style="-fx-border-color: #177C85; -fx-border-width: 2px;" styleClass="appTable" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="205.0">
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                                 <columns>
-                                    <TableColumn fx:id="vac_sq_col" minWidth="40.0" prefWidth="63.0" text="عدد" />
-                                    <TableColumn fx:id="vac_militaryid_col" minWidth="113.0" prefWidth="125.0" text="الرقم العسكري" />
-                                    <TableColumn fx:id="vac_rank_col" minWidth="100.0" prefWidth="112.0" text="الرتبة" />
-                                    <TableColumn fx:id="for_intra_name_col1" minWidth="240.0" prefWidth="240.0" text="الاسم " />
-                                    <TableColumn fx:id="vac_vacationtype_col" minWidth="100.0" prefWidth="100.0" text="نوع الاجازة" />
-                                    <TableColumn fx:id="vac_decid_col" minWidth="100.0" prefWidth="120.0" text="رقم القرار" />
-                                    <TableColumn fx:id="vac_vacation_duration_col" minWidth="100.0" prefWidth="120.0" text="مدة الاجازة " />
-                                    <TableColumn fx:id="vac_vaction_place_col" minWidth="200.0" prefWidth="120.0" text="مكان قضاء الاجازة" />
-                                    <TableColumn fx:id="vac_vacation_startdate_col" minWidth="150.0" prefWidth="120.0" text="تاريخ الانفكاك" />
-                                    <TableColumn fx:id="vac_vacation_enddate_col" minWidth="150.0" prefWidth="120.0" text="تاريخ العودة" />
-                                 </columns>
-                              </TableView>
-                              <Button mnemonicParsing="false" onAction="#addVacation" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                                 <graphic>
-                                    <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/save.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <styleClass>
-                                    <String fx:value="appfont" />
-                                    <String fx:value="exclButton" />
-                                 </styleClass>
-                              </Button>
-                              <Button layoutX="926.0" layoutY="728.0" mnemonicParsing="false" onAction="#updateVacation" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="170.0">
-                                 <graphic>
-                                    <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/document-edit-128.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <styleClass>
-                                    <String fx:value="appfont" />
-                                    <String fx:value="exclButton" />
-                                 </styleClass>
-                              </Button>
-                              <Button layoutX="358.0" layoutY="728.0" mnemonicParsing="false" onAction="#deleteVacation" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="330.0">
-                                 <graphic>
-                                    <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/deleteicon.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <styleClass>
-                                    <String fx:value="appfont" />
-                                    <String fx:value="exclButton" />
-                                 </styleClass>
-                              </Button>
-                              <Label fx:id="excludedNumber11" alignment="CENTER" layoutX="600.0" layoutY="717.0" prefHeight="42.0" prefWidth="46.0" style="-fx-background-color: #E50B00; -fx-background-radius: 60px;" textAlignment="CENTER" textFill="#f5f3f3" visible="false" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="600.0">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                     <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/document_text_add-128.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Tab>
-                  <Tab fx:id="reports1">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                      </content>
@@ -1465,6 +1199,677 @@
             </TabPane>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="VacationsPage" layoutX="10.0" layoutY="108.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
+         <children>
+            <TabPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="713.0" prefWidth="1211.0" side="LEFT" stylesheets="@../css/style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <tabs>
+                  <Tab fx:id="inland_transport1">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <GridPane hgap="5.0" prefHeight="193.0" prefWidth="1327.0" vgap="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                 <children>
+                                    <TextField fx:id="vac_militaryid" alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" />
+                                    <ComboBox fx:id="vac_vacationtype" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" GridPane.columnIndex="3">
+                                       <styleClass>
+                                          <String fx:value="appfont" />
+                                          <String fx:value="comboStyle" />
+                                       </styleClass>
+                                    </ComboBox>
+                                    <TextField fx:id="vac_vacation_decid" alignment="CENTER" layoutX="913.0" layoutY="20.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                       <children>
+                                          <ComboBox fx:id="vac_vacation_decdate_day" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_decdate_month" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_decdate_year" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                       <children>
+                                          <ComboBox fx:id="vac_vacation_startdate_day" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_startdate_month" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_startdate_year" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="رقم قرار الاجازة :" textFill="#117e88" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="الرقم العسكري :" textFill="#117e88">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ قرار الاجازة :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="مدة الاجازة :" textFill="#117e88" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="نوع الاجازة :" textFill="#117e88" GridPane.columnIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="110.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ الانفكاك :" textFill="#117e88" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ العودة :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                       <children>
+                                          <ComboBox fx:id="vac_vacation_enddate_day" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_enddate_month" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_enddate_year" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <TextField fx:id="vac_vacation_duration" alignment="CENTER" layoutX="257.0" layoutY="60.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="vac_vacation_place" alignment="CENTER" layoutX="257.0" layoutY="109.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="112.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="مكان انقضاء الاجازة :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="482.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="482.0" />
+                                 </columnConstraints>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                              <TableView fx:id="vacationTableView" layoutX="13.0" layoutY="205.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="523.0" prefWidth="1327.0" style="-fx-border-color: #177C85; -fx-border-width: 2px;" styleClass="appTable" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="205.0">
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <columns>
+                                    <TableColumn fx:id="vac_sq_col" minWidth="40.0" prefWidth="63.0" text="عدد" />
+                                    <TableColumn fx:id="vac_militaryid_col" minWidth="113.0" prefWidth="125.0" text="الرقم العسكري" />
+                                    <TableColumn fx:id="vac_rank_col" minWidth="100.0" prefWidth="112.0" text="الرتبة" />
+                                    <TableColumn fx:id="for_intra_name_col1" minWidth="240.0" prefWidth="240.0" text="الاسم " />
+                                    <TableColumn fx:id="vac_vacationtype_col" minWidth="100.0" prefWidth="100.0" text="نوع الاجازة" />
+                                    <TableColumn fx:id="vac_decid_col" minWidth="100.0" prefWidth="120.0" text="رقم القرار" />
+                                    <TableColumn fx:id="vac_vacation_duration_col" minWidth="100.0" prefWidth="120.0" text="مدة الاجازة " />
+                                    <TableColumn fx:id="vac_vaction_place_col" minWidth="200.0" prefWidth="120.0" text="مكان قضاء الاجازة" />
+                                    <TableColumn fx:id="vac_vacation_startdate_col" minWidth="150.0" prefWidth="120.0" text="تاريخ الانفكاك" />
+                                    <TableColumn fx:id="vac_vacation_enddate_col" minWidth="150.0" prefWidth="120.0" text="تاريخ العودة" />
+                                 </columns>
+                              </TableView>
+                              <Button mnemonicParsing="false" onAction="#addVacation" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                                 <graphic>
+                                    <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/save.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="appfont" />
+                                    <String fx:value="exclButton" />
+                                 </styleClass>
+                              </Button>
+                              <Button layoutX="926.0" layoutY="728.0" mnemonicParsing="false" onAction="#updateVacation" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="170.0">
+                                 <graphic>
+                                    <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/document-edit-128.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="appfont" />
+                                    <String fx:value="exclButton" />
+                                 </styleClass>
+                              </Button>
+                              <Button layoutX="358.0" layoutY="728.0" mnemonicParsing="false" onAction="#deleteVacation" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="330.0">
+                                 <graphic>
+                                    <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/deleteicon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="appfont" />
+                                    <String fx:value="exclButton" />
+                                 </styleClass>
+                              </Button>
+                              <Label fx:id="excludedNumber11" alignment="CENTER" layoutX="600.0" layoutY="717.0" prefHeight="42.0" prefWidth="46.0" style="-fx-background-color: #E50B00; -fx-background-radius: 60px;" textAlignment="CENTER" textFill="#f5f3f3" visible="false" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="600.0">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/document_text_add-128.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Tab>
+                  <Tab fx:id="inland_transport121">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <GridPane hgap="5.0" prefHeight="193.0" prefWidth="1327.0" vgap="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                 <children>
+                                    <TextField fx:id="vac_militaryid11" alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" />
+                                    <ComboBox fx:id="vac_vacationtype11" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" GridPane.columnIndex="3">
+                                       <styleClass>
+                                          <String fx:value="appfont" />
+                                          <String fx:value="comboStyle" />
+                                       </styleClass>
+                                    </ComboBox>
+                                    <TextField fx:id="vac_vacation_decid11" alignment="CENTER" layoutX="913.0" layoutY="20.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                       <children>
+                                          <ComboBox fx:id="vac_vacation_decdate_day11" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_decdate_month11" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_decdate_year11" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                       <children>
+                                          <ComboBox fx:id="vac_vacation_startdate_day11" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_startdate_month11" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_startdate_year11" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="رقم قرار الاجازة :" textFill="#117e88" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="الرقم العسكري :" textFill="#117e88">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ قرار الاجازة :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="مدة الاجازة :" textFill="#117e88" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="نوع الاجازة :" textFill="#117e88" GridPane.columnIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="110.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ الانفكاك :" textFill="#117e88" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ العودة :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                       <children>
+                                          <ComboBox fx:id="vac_vacation_enddate_day11" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_enddate_month11" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_enddate_year11" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <TextField fx:id="vac_vacation_duration11" alignment="CENTER" layoutX="257.0" layoutY="60.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="vac_vacation_place11" alignment="CENTER" layoutX="257.0" layoutY="109.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="112.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="مكان انقضاء الاجازة :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="482.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="482.0" />
+                                 </columnConstraints>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                              <TableView fx:id="vacationTableView11" layoutX="13.0" layoutY="205.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="523.0" prefWidth="1327.0" style="-fx-border-color: #177C85; -fx-border-width: 2px;" styleClass="appTable" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="205.0">
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <columns>
+                                    <TableColumn fx:id="vac_sq_col11" minWidth="40.0" prefWidth="63.0" text="عدد" />
+                                    <TableColumn fx:id="vac_militaryid_col11" minWidth="113.0" prefWidth="125.0" text="الرقم العسكري" />
+                                    <TableColumn fx:id="vac_rank_col11" minWidth="100.0" prefWidth="112.0" text="الرتبة" />
+                                    <TableColumn fx:id="for_intra_name_col111" minWidth="240.0" prefWidth="240.0" text="الاسم " />
+                                    <TableColumn fx:id="vac_vacationtype_col11" minWidth="100.0" prefWidth="100.0" text="نوع الاجازة" />
+                                    <TableColumn fx:id="vac_decid_col11" minWidth="100.0" prefWidth="120.0" text="رقم القرار" />
+                                    <TableColumn fx:id="vac_vacation_duration_col11" minWidth="100.0" prefWidth="120.0" text="مدة الاجازة " />
+                                    <TableColumn fx:id="vac_vaction_place_col11" minWidth="200.0" prefWidth="120.0" text="مكان قضاء الاجازة" />
+                                    <TableColumn fx:id="vac_vacation_startdate_col11" minWidth="150.0" prefWidth="120.0" text="تاريخ الانفكاك" />
+                                    <TableColumn fx:id="vac_vacation_enddate_col11" minWidth="150.0" prefWidth="120.0" text="تاريخ العودة" />
+                                 </columns>
+                              </TableView>
+                              <Button mnemonicParsing="false" onAction="#addVacation" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                                 <graphic>
+                                    <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/save.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="appfont" />
+                                    <String fx:value="exclButton" />
+                                 </styleClass>
+                              </Button>
+                              <Button layoutX="926.0" layoutY="728.0" mnemonicParsing="false" onAction="#updateVacation" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="170.0">
+                                 <graphic>
+                                    <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/document-edit-128.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="appfont" />
+                                    <String fx:value="exclButton" />
+                                 </styleClass>
+                              </Button>
+                              <Button layoutX="358.0" layoutY="728.0" mnemonicParsing="false" onAction="#deleteVacation" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="330.0">
+                                 <graphic>
+                                    <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/deleteicon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="appfont" />
+                                    <String fx:value="exclButton" />
+                                 </styleClass>
+                              </Button>
+                              <Label fx:id="excludedNumber1141" alignment="CENTER" layoutX="600.0" layoutY="717.0" prefHeight="42.0" prefWidth="46.0" style="-fx-background-color: #E50B00; -fx-background-radius: 60px;" textAlignment="CENTER" textFill="#f5f3f3" visible="false" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="600.0">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Basic-iconfinder-93-128.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Tab>
+                  <Tab fx:id="inland_transport12">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <GridPane hgap="5.0" prefHeight="193.0" prefWidth="1327.0" vgap="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                 <children>
+                                    <TextField fx:id="vac_militaryid1" alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" />
+                                    <ComboBox fx:id="vac_vacationtype1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" GridPane.columnIndex="3">
+                                       <styleClass>
+                                          <String fx:value="appfont" />
+                                          <String fx:value="comboStyle" />
+                                       </styleClass>
+                                    </ComboBox>
+                                    <TextField fx:id="vac_vacation_decid1" alignment="CENTER" layoutX="913.0" layoutY="20.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                       <children>
+                                          <ComboBox fx:id="vac_vacation_decdate_day1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_decdate_month1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                             <HBox.margin>
+                                                <Insets right="2.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_decdate_year1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                       <children>
+                                          <ComboBox fx:id="vac_vacation_startdate_day1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_startdate_month1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_startdate_year1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="رقم قرار الاجازة :" textFill="#117e88" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="الرقم العسكري :" textFill="#117e88">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ قرار الاجازة :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="مدة الاجازة :" textFill="#117e88" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="نوع الاجازة :" textFill="#117e88" GridPane.columnIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="110.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ الانفكاك :" textFill="#117e88" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ العودة :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                       <children>
+                                          <ComboBox fx:id="vac_vacation_enddate_day1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_enddate_month1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                          <ComboBox fx:id="vac_vacation_enddate_year1" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0">
+                                             <styleClass>
+                                                <String fx:value="appfont" />
+                                                <String fx:value="comboStyle" />
+                                             </styleClass>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <TextField fx:id="vac_vacation_duration1" alignment="CENTER" layoutX="257.0" layoutY="60.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="vac_vacation_place1" alignment="CENTER" layoutX="257.0" layoutY="109.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="112.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="مكان انقضاء الاجازة :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="482.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="482.0" />
+                                 </columnConstraints>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                              <TableView fx:id="vacationTableView1" layoutX="13.0" layoutY="205.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="523.0" prefWidth="1327.0" style="-fx-border-color: #177C85; -fx-border-width: 2px;" styleClass="appTable" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="205.0">
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <columns>
+                                    <TableColumn fx:id="vac_sq_col1" minWidth="40.0" prefWidth="63.0" text="عدد" />
+                                    <TableColumn fx:id="vac_militaryid_col1" minWidth="113.0" prefWidth="125.0" text="الرقم العسكري" />
+                                    <TableColumn fx:id="vac_rank_col1" minWidth="100.0" prefWidth="112.0" text="الرتبة" />
+                                    <TableColumn fx:id="for_intra_name_col11" minWidth="240.0" prefWidth="240.0" text="الاسم " />
+                                    <TableColumn fx:id="vac_vacationtype_col1" minWidth="100.0" prefWidth="100.0" text="نوع الاجازة" />
+                                    <TableColumn fx:id="vac_decid_col1" minWidth="100.0" prefWidth="120.0" text="رقم القرار" />
+                                    <TableColumn fx:id="vac_vacation_duration_col1" minWidth="100.0" prefWidth="120.0" text="مدة الاجازة " />
+                                    <TableColumn fx:id="vac_vaction_place_col1" minWidth="200.0" prefWidth="120.0" text="مكان قضاء الاجازة" />
+                                    <TableColumn fx:id="vac_vacation_startdate_col1" minWidth="150.0" prefWidth="120.0" text="تاريخ الانفكاك" />
+                                    <TableColumn fx:id="vac_vacation_enddate_col1" minWidth="150.0" prefWidth="120.0" text="تاريخ العودة" />
+                                 </columns>
+                              </TableView>
+                              <Button mnemonicParsing="false" onAction="#addVacation" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                                 <graphic>
+                                    <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/save.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="appfont" />
+                                    <String fx:value="exclButton" />
+                                 </styleClass>
+                              </Button>
+                              <Button layoutX="926.0" layoutY="728.0" mnemonicParsing="false" onAction="#updateVacation" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="170.0">
+                                 <graphic>
+                                    <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/document-edit-128.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="appfont" />
+                                    <String fx:value="exclButton" />
+                                 </styleClass>
+                              </Button>
+                              <Button layoutX="358.0" layoutY="728.0" mnemonicParsing="false" onAction="#deleteVacation" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="330.0">
+                                 <graphic>
+                                    <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/deleteicon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="appfont" />
+                                    <String fx:value="exclButton" />
+                                 </styleClass>
+                              </Button>
+                              <Label fx:id="excludedNumber114" alignment="CENTER" layoutX="600.0" layoutY="717.0" prefHeight="42.0" prefWidth="46.0" style="-fx-background-color: #E50B00; -fx-background-radius: 60px;" textAlignment="CENTER" textFill="#f5f3f3" visible="false" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="600.0">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Stethoscope-128.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Tab>
+                  <Tab fx:id="reports1">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/301-128.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="FormationPage" layoutX="20.0" layoutY="118.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
          <children>
             <TabPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="713.0" prefWidth="1211.0" side="LEFT" stylesheets="@../css/style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -1937,6 +2342,30 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
+                              <AnchorPane prefHeight="133.0" prefWidth="1327.0" style="-fx-background-color: #596367;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                                 <children>
+                                    <Label layoutX="28.0" layoutY="13.0" prefHeight="42.0" prefWidth="1307.0" style="-fx-border-color: #FFFFFF; -fx-background-color: #676F73;" styleClass="appfont" stylesheets="@../css/style.css" text="استعادة بيانات سابقة:" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </Label>
+                                    <TextField fx:id="for_recovery" prefHeight="40.0" prefWidth="431.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="65.0">
+                                       <styleClass>
+                                          <String fx:value="appfont" />
+                                          <String fx:value="textfield" />
+                                       </styleClass>
+                                    </TextField>
+                                    <Button layoutY="56.0" mnemonicParsing="false" onAction="#recoveryData" prefHeight="54.0" prefWidth="92.0" style="-fx-background-color: #596367;" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="58.0">
+                                       <graphic>
+                                          <ImageView fitHeight="52.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/049_-_Laptop_Sync-128.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
                            </children>
                         </AnchorPane>
                      </content>
@@ -2361,9 +2790,83 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="180.0" prefWidth="200.0">
                            <children>
+                              <TableView fx:id="casesTableView" layoutY="262.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="459.0" prefWidth="1327.0" style="-fx-border-color: #177C85; -fx-border-width: 2px;" styleClass="appTable" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="262.0">
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <columns>
+                                    <TableColumn fx:id="for_cases_sq_col" minWidth="40.0" prefWidth="63.0" text="عدد" />
+                                    <TableColumn fx:id="for_cases_militaryid_col" minWidth="80.0" prefWidth="125.0" text="الرقم العسكري" />
+                                    <TableColumn fx:id="for_cases_rank_col" minWidth="80.0" prefWidth="112.0" text="الرتبة" />
+                                    <TableColumn fx:id="for_cases_name_col" minWidth="240.0" prefWidth="240.0" text="الاسم " />
+                                    <TableColumn fx:id="for_cases_casetype_col" minWidth="60.0" prefWidth="240.0" text="نوع القضية" />
+                                    <TableColumn fx:id="for_cases_decid_col" minWidth="60.0" prefWidth="112.0" text="رقم القرار" />
+                                    <TableColumn fx:id="for_cases_decdate_col" minWidth="60.0" prefWidth="120.0" text="تاريخ القرار " />
+                                    <TableColumn fx:id="for_cases_casefromdate_col" minWidth="60.0" prefWidth="120.0" text="اعتبارا من " />
+                                    <TableColumn fx:id="for_cases_dectype_col" minWidth="200.0" prefWidth="120.0" text="نوع القرار" />
+                                    <TableColumn fx:id="for_cases_casestate_col" minWidth="200.0" prefWidth="120.0" text="حالة القضية" />
+                                    <TableColumn fx:id="for_cases_startworkdate_col" minWidth="80.0" prefWidth="120.0" text="تاريخ انتهاء القضية" />
+                                 </columns>
+                              </TableView>
+                              <Label fx:id="excludedNumber111" alignment="CENTER" layoutX="600.0" layoutY="717.0" prefHeight="42.0" prefWidth="46.0" style="-fx-background-color: #E50B00; -fx-background-radius: 60px;" textAlignment="CENTER" textFill="#f5f3f3" visible="false" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="600.0">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
                               <GridPane alignment="CENTER_RIGHT" hgap="5.0" layoutY="7.0" prefHeight="261.0" prefWidth="1327.0" vgap="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">
                                  <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="رقم القرار :" textFill="#117e88" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="الرقم العسكري :" textFill="#117e88">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ قرار  :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text=" اعتبارا من :" textFill="#117e88" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="239.0" styleClass="appfont" text="نوع القضية :" textFill="#117e88" GridPane.columnIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="حالة القضية :" textFill="#117e88" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="نوع القرار :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ انتهاء القضية :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="154.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="وصف القضية" textFill="#117e88" GridPane.rowIndex="4">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
                                     <TextField fx:id="for_cases_militaryid" alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" />
+                                    <ComboBox fx:id="for_cases_casetype" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" stylesheets="@../css/style.css" GridPane.columnIndex="3">
+                                       <styleClass>
+                                          <String fx:value="appfont" />
+                                          <String fx:value="comboStyle" />
+                                       </styleClass>
+                                    </ComboBox>
                                     <TextField fx:id="for_cases_dec_id" alignment="CENTER" layoutX="913.0" layoutY="20.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                        <children>
@@ -2415,6 +2918,12 @@
                                           </ComboBox>
                                        </children>
                                     </HBox>
+                                    <ComboBox fx:id="for_cases_dectype" disable="true" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                       <styleClass>
+                                          <String fx:value="appfont" />
+                                          <String fx:value="comboStyle" />
+                                       </styleClass>
+                                    </ComboBox>
                                     <TextField fx:id="for_cases_casestate" alignment="CENTER" layoutX="257.0" layoutY="63.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="39.0" prefWidth="444.0" style="-fx-border-color: #18838C;" styleClass="appfont" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="382.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                        <children>
@@ -2438,63 +2947,6 @@
                                           </ComboBox>
                                        </children>
                                     </HBox>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="رقم القرار :" textFill="#117e88" GridPane.rowIndex="1">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="الرقم العسكري :" textFill="#117e88">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ قرار  :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text=" اعتبارا من :" textFill="#117e88" GridPane.rowIndex="2">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="239.0" styleClass="appfont" text="نوع القضية :" textFill="#117e88" GridPane.columnIndex="2">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="حالة القضية :" textFill="#117e88" GridPane.rowIndex="3">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="نوع القرار :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="تاريخ انتهاء القضية :" textFill="#117e88" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <ComboBox fx:id="for_cases_dectype" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                                       <styleClass>
-                                          <String fx:value="appfont" />
-                                          <String fx:value="comboStyle" />
-                                       </styleClass>
-                                    </ComboBox>
-                                    <ComboBox fx:id="for_cases_casetype" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" stylesheets="@../css/style.css" GridPane.columnIndex="3">
-                                       <styleClass>
-                                          <String fx:value="appfont" />
-                                          <String fx:value="comboStyle" />
-                                       </styleClass>
-                                    </ComboBox>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="154.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="35.0" prefWidth="212.0" styleClass="appfont" text="وصف القضية" textFill="#117e88" GridPane.rowIndex="4">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
                                     <TextArea fx:id="for_cases_casedescription" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="414.0" style="-fx-border-color: #18838C;" styleClass="appfont" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
                                  <columnConstraints>
@@ -2514,24 +2966,6 @@
                                     <RowConstraints minHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                               </GridPane>
-                              <TableView fx:id="casesTableView" layoutY="262.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="459.0" prefWidth="1327.0" style="-fx-border-color: #177C85; -fx-border-width: 2px;" styleClass="appTable" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="262.0">
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                                 <columns>
-                                    <TableColumn fx:id="for_cases_sq_col" minWidth="40.0" prefWidth="63.0" text="عدد" />
-                                    <TableColumn fx:id="for_cases_militaryid_col" minWidth="113.0" prefWidth="125.0" text="الرقم العسكري" />
-                                    <TableColumn fx:id="for_cases_rank_col" minWidth="80.0" prefWidth="112.0" text="الرتبة" />
-                                    <TableColumn fx:id="for_cases_name_col" minWidth="240.0" prefWidth="240.0" text="الاسم " />
-                                    <TableColumn fx:id="for_cases_casetype_col" minWidth="80.0" prefWidth="240.0" text="نوع القضية" />
-                                    <TableColumn fx:id="for_cases_decid_col" minWidth="80.0" prefWidth="112.0" text="رقم القرار" />
-                                    <TableColumn fx:id="for_cases_decdate_col" minWidth="80.0" prefWidth="120.0" text="تاريخ القرار " />
-                                    <TableColumn fx:id="for_cases_casefromdate_col" minWidth="80.0" prefWidth="120.0" text="اعتبارا من " />
-                                    <TableColumn fx:id="for_cases_dectype_col" minWidth="80.0" prefWidth="120.0" text="نوع القرار" />
-                                    <TableColumn fx:id="for_cases_casestate_col" minWidth="250.0" prefWidth="120.0" text="حالة القضية" />
-                                    <TableColumn fx:id="for_cases_startworkdate_col" minWidth="120.0" prefWidth="120.0" text="تاريخ انتهاء القضية" />
-                                 </columns>
-                              </TableView>
                               <Button mnemonicParsing="false" onAction="#addCaseDecree" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
                                  <graphic>
                                     <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
@@ -2571,11 +3005,6 @@
                                     <String fx:value="exclButton" />
                                  </styleClass>
                               </Button>
-                              <Label fx:id="excludedNumber111" alignment="CENTER" layoutX="600.0" layoutY="717.0" prefHeight="42.0" prefWidth="46.0" style="-fx-background-color: #E50B00; -fx-background-radius: 60px;" textAlignment="CENTER" textFill="#f5f3f3" visible="false" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="600.0">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
                            </children>
                         </AnchorPane>
                      </content>
@@ -2732,7 +3161,7 @@
                                     <TableColumn fx:id="for_outtra_leavingfromdate_col2" minWidth="100.0" prefWidth="120.0" text="تاريخ المغادرة" />
                                  </columns>
                               </TableView>
-                              <Button mnemonicParsing="false" onAction="#addOutTransport" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                              <Button mnemonicParsing="false" onAction="#addTermination" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
                                  <graphic>
                                     <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -2745,7 +3174,7 @@
                                     <String fx:value="exclButton" />
                                  </styleClass>
                               </Button>
-                              <Button layoutX="926.0" layoutY="728.0" mnemonicParsing="false" onAction="#updateOutTransport" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="170.0">
+                              <Button layoutX="926.0" layoutY="728.0" mnemonicParsing="false" onAction="#updateTermination" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="170.0">
                                  <graphic>
                                     <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -2758,7 +3187,7 @@
                                     <String fx:value="exclButton" />
                                  </styleClass>
                               </Button>
-                              <Button layoutX="358.0" layoutY="728.0" mnemonicParsing="false" onAction="#deleteOutTransport" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="330.0">
+                              <Button layoutX="358.0" layoutY="728.0" mnemonicParsing="false" onAction="#deleteTermination" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="330.0">
                                  <graphic>
                                     <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -2801,6 +3230,35 @@
                   </Tab>
                </tabs>
             </TabPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="ExcludedPage" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #B5E5E9; -fx-border-color: #EFA914;" visible="false" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="300.0">
+         <children>
+            <TableView fx:id="ex_tableview" layoutX="402.0" layoutY="9.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#showReason" prefHeight="279.0" prefWidth="638.0" styleClass="blocked" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+              <columns>
+                <TableColumn fx:id="ex_sequence_col" minWidth="40.0" prefWidth="60.0" resizable="false" text="C1" />
+                <TableColumn fx:id="ex_militaryid_col" prefWidth="75.0" text="C2" />
+                  <TableColumn fx:id="ex_rank_col" prefWidth="75.0" text="Column X" />
+                  <TableColumn fx:id="ex_name_col" minWidth="200.0" prefWidth="200.0" text="Column X" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <ListView fx:id="ex_reasonListView" layoutX="9.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="279.0" prefWidth="387.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="2.0" layoutY="-38.0" prefHeight="42.0" prefWidth="1048.0" style="-fx-background-color: #117E88; -fx-border-color: #EFA914;" styleClass="appfont" text="  اسماء المستبعدين" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-48.0" />
+            <Button layoutX="8.0" layoutY="-42.0" mnemonicParsing="false" onAction="#ex_exit" prefHeight="27.0" prefWidth="46.0" style="-fx-background-color: #117E88;" textFill="WHITE" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="-45.0">
+               <font>
+                  <Font size="11.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/exit.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
    </children>

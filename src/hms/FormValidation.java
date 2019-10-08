@@ -169,11 +169,9 @@ public class FormValidation {
     public static boolean unique(String tapleName, String fildName, String condition, String validationmassage) {
         boolean state = true;
         try {
-
             ResultSet rs = null;
             String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
             Connection con = DatabaseConnector.dbConnector();
-            try {
                 PreparedStatement psm = con.prepareStatement(guiry);
                 rs = psm.executeQuery();
                 if (rs.next()) {
@@ -183,11 +181,7 @@ public class FormValidation {
                 con.close();
                 psm.close();
                 rs.close();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex);
-            }
-
-        } catch (IOException ex) {
+        } catch (IOException | SQLException ex) {
             Logger.getLogger(FormValidation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return state;
@@ -196,11 +190,9 @@ public class FormValidation {
     public static boolean unique(String tapleName, String fildName, String condition, String validationmassage, ObservableList reason, String militeryid, String listnumber) {
         boolean state = true;
         try {
-
             ResultSet rs = null;
             String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
             Connection con = DatabaseConnector.dbConnector();
-            try {
                 PreparedStatement psm = con.prepareStatement(guiry);
                 rs = psm.executeQuery();
                 if (rs.next()) {
@@ -211,11 +203,29 @@ public class FormValidation {
                 con.close();
                 psm.close();
                 rs.close();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex);
-            }
-
-        } catch (IOException ex) {
+        } catch (IOException | SQLException ex) {
+            Logger.getLogger(FormValidation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return state;
+    }
+    
+    public static boolean checkInsrtingData(String tapleName, String fildName, String condition, String validationmassage) {
+        boolean state = false;
+        try {
+            ResultSet rs = null;
+            String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
+            Connection con = DatabaseConnector.dbConnector();
+                PreparedStatement psm = con.prepareStatement(guiry);
+                rs = psm.executeQuery();
+                if (rs.next()) {
+                    state = true;
+                }else{
+                    showAlert("التحقق من التكرار", validationmassage);
+                }
+                con.close();
+                psm.close();
+                rs.close();
+        } catch (IOException | SQLException ex) {
             Logger.getLogger(FormValidation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return state;

@@ -85,6 +85,26 @@ public class DataMng {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
+    }//SELECT * FROM hmsdatabase.formation where MILITARYID = '350969'
+
+    public static void insert(String quiry, String militaryid) throws IOException {
+
+        Connection con = DatabaseConnector.dbConnector();
+//        String guiry = "INSERT INTO " + tapleName + "(" + fildName + ") SELECT " + fildName + "FROM" + secondtableName + "`WHERE`" + condition;
+
+        try {
+            PreparedStatement psm = con.prepareStatement(quiry);
+            psm.setString(1, militaryid);
+            int t = psm.executeUpdate();
+            if (t > 0) {
+            } else {
+                JOptionPane.showMessageDialog(null, "حدث خطاء في عملية الحفظ الرجاء المحاولة مرة اخرى");
+            }
+            con.close();
+            psm.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
     }
 
     public static void updat(String tapleName, String fildNameAndValue, String[] data, String condition) throws IOException {
@@ -126,6 +146,17 @@ public class DataMng {
             if (alert.getResult() == ButtonType.YES) {
                 psm.executeUpdate();
             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    public static void deleteEmployeeData(String tapleName, String condition) throws IOException {
+        Connection con = DatabaseConnector.dbConnector();
+        String guiry = "DELETE FROM " + tapleName + " WHERE " + condition;
+        try {
+            PreparedStatement psm = con.prepareStatement(guiry);
+            psm.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
