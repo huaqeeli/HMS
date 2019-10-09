@@ -4,6 +4,7 @@ import hms.models.CasesDataModel;
 import hms.models.CheckAllDataModel;
 import hms.models.EnDataModel;
 import hms.models.NamesDataModel;
+import hms.models.TerminationDataModel;
 import hms.models.TestModel;
 import hms.models.TransportDataModel;
 import java.io.File;
@@ -152,6 +153,7 @@ public class MainController implements Initializable {
     ObservableList<NamesDataModel> declist = FXCollections.observableArrayList();
     ObservableList<TransportDataModel> forTransportlist = FXCollections.observableArrayList();
     ObservableList<CasesDataModel> caseslist = FXCollections.observableArrayList();
+    ObservableList<TerminationDataModel> terminationlist = FXCollections.observableArrayList();
     @FXML
     private Label listnumber;
     @FXML
@@ -519,54 +521,6 @@ public class MainController implements Initializable {
     @FXML
     private Label excludedNumber111;
     @FXML
-    private TextField for_outtra_militaryid2;
-    @FXML
-    private TextField for_outtra_newunit2;
-    @FXML
-    private TextField for_outtra_transportid2;
-    @FXML
-    private ComboBox<String> for_outtra_transportday2;
-    @FXML
-    private ComboBox<String> for_outtra_transportmonth2;
-    @FXML
-    private ComboBox<String> for_outtra_transportyear2;
-    @FXML
-    private ComboBox<String> for_outtra_fromday2;
-    @FXML
-    private ComboBox<String> for_outtra_frommonth2;
-    @FXML
-    private ComboBox<String> for_outtra_fromyear2;
-    @FXML
-    private ComboBox<String> for_outtra_leavingday2;
-    @FXML
-    private ComboBox<String> for_outtra_leavingmonth2;
-    @FXML
-    private ComboBox<String> for_outtra_leavingyear2;
-    @FXML
-    private TableView<?> outTransportView2;
-    @FXML
-    private TableColumn<?, ?> for_outtra_sq_col2;
-    @FXML
-    private TableColumn<?, ?> for_outtra_militaryid_col2;
-    @FXML
-    private TableColumn<?, ?> for_outtra_rank_col2;
-    @FXML
-    private TableColumn<?, ?> for_outtra_name_col2;
-    @FXML
-    private TableColumn<?, ?> for_outtra_newunit_col2;
-    @FXML
-    private TableColumn<?, ?> for_outtra_transportid_col2;
-    @FXML
-    private TableColumn<?, ?> for_outtra_transportdate_col2;
-    @FXML
-    private TableColumn<?, ?> for_outtra_fromdate_col2;
-    @FXML
-    private TableColumn<?, ?> for_outtra_leavingid_col2;
-    @FXML
-    private TableColumn<?, ?> for_outtra_leavingdate_col2;
-    @FXML
-    private TableColumn<?, ?> for_outtra_leavingfromdate_col2;
-    @FXML
     private Label excludedNumber112;
     @FXML
     private AnchorPane TrainingPage;
@@ -705,21 +659,21 @@ public class MainController implements Initializable {
     @FXML
     private ComboBox<?> vac_vacation_decdate_day11;
     @FXML
-    private ComboBox<?> vac_vacation_decdate_month11;
+    private ComboBox<String> vac_vacation_decdate_month11;
     @FXML
-    private ComboBox<?> vac_vacation_decdate_year11;
+    private ComboBox<String> vac_vacation_decdate_year11;
     @FXML
-    private ComboBox<?> vac_vacation_startdate_day11;
+    private ComboBox<String> vac_vacation_startdate_day11;
     @FXML
-    private ComboBox<?> vac_vacation_startdate_month11;
+    private ComboBox<String> vac_vacation_startdate_month11;
     @FXML
-    private ComboBox<?> vac_vacation_startdate_year11;
+    private ComboBox<String> vac_vacation_startdate_year11;
     @FXML
-    private ComboBox<?> vac_vacation_enddate_day11;
+    private ComboBox<String> vac_vacation_enddate_day11;
     @FXML
-    private ComboBox<?> vac_vacation_enddate_month11;
+    private ComboBox<String> vac_vacation_enddate_month11;
     @FXML
-    private ComboBox<?> vac_vacation_enddate_year11;
+    private ComboBox<String> vac_vacation_enddate_year11;
     @FXML
     private TextField vac_vacation_duration11;
     @FXML
@@ -753,27 +707,27 @@ public class MainController implements Initializable {
     @FXML
     private TextField vac_militaryid1;
     @FXML
-    private ComboBox<?> vac_vacationtype1;
+    private ComboBox<String> vac_vacationtype1;
     @FXML
     private TextField vac_vacation_decid1;
     @FXML
-    private ComboBox<?> vac_vacation_decdate_day1;
+    private ComboBox<String> vac_vacation_decdate_day1;
     @FXML
-    private ComboBox<?> vac_vacation_decdate_month1;
+    private ComboBox<String> vac_vacation_decdate_month1;
     @FXML
-    private ComboBox<?> vac_vacation_decdate_year1;
+    private ComboBox<String> vac_vacation_decdate_year1;
     @FXML
-    private ComboBox<?> vac_vacation_startdate_day1;
+    private ComboBox<String> vac_vacation_startdate_day1;
     @FXML
-    private ComboBox<?> vac_vacation_startdate_month1;
+    private ComboBox<String> vac_vacation_startdate_month1;
     @FXML
-    private ComboBox<?> vac_vacation_startdate_year1;
+    private ComboBox<String> vac_vacation_startdate_year1;
     @FXML
-    private ComboBox<?> vac_vacation_enddate_day1;
+    private ComboBox<String> vac_vacation_enddate_day1;
     @FXML
-    private ComboBox<?> vac_vacation_enddate_month1;
+    private ComboBox<String> vac_vacation_enddate_month1;
     @FXML
-    private ComboBox<?> vac_vacation_enddate_year1;
+    private ComboBox<String> vac_vacation_enddate_year1;
     @FXML
     private TextField vac_vacation_duration1;
     @FXML
@@ -804,6 +758,51 @@ public class MainController implements Initializable {
     private Label excludedNumber114;
     @FXML
     private TextField for_recovery;
+    @FXML
+    private TextField for_termination_militaryid;
+    @FXML
+    private TextField for_termination_reason;
+    @FXML
+    private TextField for_termination_decreeid;
+    @FXML
+    private ComboBox<String> for_termination_decree_day;
+    @FXML
+    private ComboBox<String> for_termination_decree_month;
+    @FXML
+    private ComboBox<String> for_termination_decree_year;
+    @FXML
+    private ComboBox<String> for_termination_from_day;
+    @FXML
+    private ComboBox<String> for_termination_from_month;
+    @FXML
+    private ComboBox<String> for_termination_from_year;
+    @FXML
+    private ComboBox<String> for_termination_leaving_day;
+    @FXML
+    private ComboBox<String> for_termination_leaving_month;
+    @FXML
+    private ComboBox<String> for_termination_leaving_year;
+    @FXML
+    private TableView<TerminationDataModel> terminationView;
+    @FXML
+    private TableColumn<?, ?> for_termination_sq_col;
+    @FXML
+    private TableColumn<?, ?> for_termination_militaryid_col;
+    @FXML
+    private TableColumn<?, ?> for_termination_rank_col;
+    @FXML
+    private TableColumn<?, ?> for_termination_name_col;
+    @FXML
+    private TableColumn<?, ?> for_termination_reason_col;
+    @FXML
+    private TableColumn<?, ?> for_termination_decreeid_col;
+    @FXML
+    private TableColumn<?, ?> for_termination_decreedate_col;
+    @FXML
+    private TableColumn<?, ?> for_termination_fromdate_col;
+    @FXML
+    private TableColumn<?, ?> for_termination_leavingdate_col;
+    String decreeid = null;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -983,31 +982,27 @@ public class MainController implements Initializable {
         try {
             ResultSet rs = DataMng.getAllData("listcounter");
             int lastNumber = 0;
-            try {
-                if (rs.next()) {
-                    lastNumber = rs.getInt("LISTID");
-                }
-                String newListNumber = FormValidation.creatList(lastNumber);
-                listnumber.setText(newListNumber);
-
-                ch_mailitraynum.setDisable(false);
-                ch_en_button.setDisable(false);
-                ch_en_allsoldiers.setDisable(false);
-                ch_en_allofficers.setDisable(false);
-                DataMng.updat("`listcounter`", "`LISTID` = '" + Integer.parseInt(newListNumber) + "' ", "`LISTID`= '" + lastNumber + "'");
-
-                String tableName = "mandatelists";
-                String fieldName = "`LISTNUMBER`";
-                String[] data = {newListNumber};
-                String valuenumbers = "?";
-                DataMng.insert(tableName, fieldName, valuenumbers, data);
-                ch_comboBoxlist.clear();
-                refreshListCombobox(fillListCombobox(ch_comboBoxlist));
-            } catch (SQLException | IOException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            if (rs.next()) {
+                lastNumber = rs.getInt("LISTID");
             }
+            String newListNumber = FormValidation.creatList(lastNumber);
 
-        } catch (IOException ex) {
+            ch_mailitraynum.setDisable(false);
+            ch_en_button.setDisable(false);
+            ch_en_allsoldiers.setDisable(false);
+            ch_en_allofficers.setDisable(false);
+            DataMng.updat("`listcounter`", "`LISTID` = '" + Integer.parseInt(newListNumber) + "' ", "`LISTID`= '" + lastNumber + "'");
+
+            String tableName = "mandatelists";
+            String fieldName = "`LISTNUMBER`";
+            String[] data = {newListNumber};
+            String valuenumbers = "?";
+            DataMng.insert(tableName, fieldName, valuenumbers, data);
+            ch_comboBoxlist.clear();
+            refreshListCombobox(fillListCombobox(ch_comboBoxlist));
+            listnumber.setText(newListNumber);
+            ch_list_combobox.setValue(newListNumber);
+        } catch (IOException | SQLException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -1529,7 +1524,7 @@ public class MainController implements Initializable {
         String tableName = "nameslist";
         String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
         String valuenumbers = "?,?,?,?,?,?";
-
+        int passCount = 0;
         ObservableList<CheckAllDataModel> lodedData = FXCollections.observableArrayList();
         ObservableList<CheckAllDataModel> passData = FXCollections.observableArrayList();
         ObservableList<CheckAllDataModel> excludData = FXCollections.observableArrayList();
@@ -1542,7 +1537,7 @@ public class MainController implements Initializable {
             for (int i = 0; i < lodedData.size(); i++) {
                 boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", lodedData.get(i).getMilitaryId(), listnumber.getText(), fromDate, toDate);
                 boolean trainingUnique = FormValidation.dateAllChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", lodedData.get(i).getMilitaryId(), listnumber.getText(), fromDate, toDate);
-                int pass = 0, excled = 0;
+
                 if (trainingUnique && mandateUnique) {
                     passData.add(new CheckAllDataModel(
                             lodedData.get(i).getMilitaryId(),
@@ -1560,7 +1555,7 @@ public class MainController implements Initializable {
                             ch_ento.getText(),
                             fromDate,
                             toDate,
-                            i + 1
+                            passCount++
                     ));
                 } else {
                     excludData.add(new CheckAllDataModel(
@@ -1568,23 +1563,22 @@ public class MainController implements Initializable {
                             lodedData.get(i).getMilitaryId()
                     ));
                 }
+            }
+            for (int j = 0; j < passData.size(); j++) {
+                DataMng.insertPassData(tableName, fieldName, valuenumbers, passData, j);
+                ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
+                ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+                ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+                ch_en_from_col.setCellValueFactory(new PropertyValueFactory<>("enfrom"));
+                ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
+                ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
+                ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
+                en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
-                for (int j = 0; j < excludData.size(); j++) {
-                    DataMng.insertExcludedData("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excludData, j);
-                }
-                for (int j = 0; j < passData.size(); j++) {
-                    DataMng.insertPassData(tableName, fieldName, valuenumbers, passData, j);
-                    ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
-                    ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
-                    ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
-                    ch_en_from_col.setCellValueFactory(new PropertyValueFactory<>("enfrom"));
-                    ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
-                    ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
-                    ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
-                    en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
-
-                    chacktable.setItems(chacktablelist);
-                }
+                chacktable.setItems(chacktablelist);
+            }
+            for (int j = 0; j < excludData.size(); j++) {
+                DataMng.insertExcludedData("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excludData, j);
             }
 
         } catch (IOException | SQLException ex) {
@@ -1806,14 +1800,144 @@ public class MainController implements Initializable {
 
     @FXML
     private void addTermination(ActionEvent event) {
+        String decreeDate = setDate(for_termination_decree_day.getValue(), for_termination_decree_month.getValue(), for_termination_decree_year.getValue());
+        String terminationFromDate = setDate(for_termination_from_day.getValue(), for_termination_from_month.getValue(), for_termination_from_year.getValue());
+        String leavingDate = setDate(for_termination_leaving_day.getValue(), for_termination_leaving_month.getValue(), for_termination_leaving_year.getValue());
+
+        String tableName = "tremination";
+        String fieldName = "`MILITARYID`,`TERMINATION_REASON`,`TERMINATION_DECREEID`,`TERMINATION_DECREE_DATE`,`TERMINTION_FROM_DATE`,`LEAVING_DATE`";
+        if ("null-null-null".equals(leavingDate)) {
+            leavingDate = null;
+        }
+        String valuenumbers = "?,?,?,?,?,?";
+        String[] data = {for_termination_militaryid.getText(), for_termination_reason.getText(), for_termination_decreeid.getText(), decreeDate, terminationFromDate, leavingDate};
+
+        boolean militaryIdNoutEmpty = FormValidation.textFieldNotEmpty(for_termination_militaryid, "ادخل الرقم العسكري");
+        boolean reasonNoutEmpty = FormValidation.textFieldNotEmpty(for_termination_reason, "ادخل سبب انهاء الخدمة");
+        boolean decreeidNoutEmpty = FormValidation.textFieldNotEmpty(for_termination_decreeid, "ادخل رقم القرار");
+
+        if (militaryIdNoutEmpty && reasonNoutEmpty && decreeidNoutEmpty) {
+            try {
+                DataMng.insert(tableName, fieldName, valuenumbers, data);
+                refreshTerminationTable();
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @FXML
     private void updateTermination(ActionEvent event) {
+        String decreeDate = setDate(for_termination_decree_day.getValue(), for_termination_decree_month.getValue(), for_termination_decree_year.getValue());
+        String terminationFromDate = setDate(for_termination_from_day.getValue(), for_termination_from_month.getValue(), for_termination_from_year.getValue());
+        String leavingDate = setDate(for_termination_leaving_day.getValue(), for_termination_leaving_month.getValue(), for_termination_leaving_year.getValue());
+
+        String tableName = "tremination";
+        String fieldName = "`MILITARYID`=?,`TERMINATION_REASON`=?,`TERMINATION_DECREEID`=?,`TERMINATION_DECREE_DATE`=?,`TERMINTION_FROM_DATE`=?,`LEAVING_DATE`=?";
+        if ("null-null-null".equals(leavingDate)) {
+            leavingDate = null;
+        }
+
+        String[] data = {for_termination_militaryid.getText(), for_termination_reason.getText(), for_termination_decreeid.getText(), decreeDate, terminationFromDate, leavingDate};
+
+        boolean militaryIdNoutEmpty = FormValidation.textFieldNotEmpty(for_termination_militaryid, "ادخل الرقم العسكري");
+        boolean reasonNoutEmpty = FormValidation.textFieldNotEmpty(for_termination_reason, "ادخل سبب انهاء الخدمة");
+        boolean decreeidNoutEmpty = FormValidation.textFieldNotEmpty(for_termination_decreeid, "ادخل رقم القرار");
+
+        if (militaryIdNoutEmpty && reasonNoutEmpty && decreeidNoutEmpty) {
+            try {
+
+                DataMng.updat(tableName, fieldName, data, "`MILITARYID` = '" + Militaryid + "' AND `TERMINATION_DECREEID` = '" + decreeid + "'");
+                refreshTerminationTable();
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @FXML
     private void deleteTermination(ActionEvent event) {
+    }
+
+    private void refreshTerminationTable() {
+        terminationlist.clear();
+        terminationTableView();
+    }
+    private void refreshTerminationTableByMilitaryid(String militaryid) {
+        terminationlist.clear();
+        terminationTableViewBymilitaryid(militaryid);
+    }
+
+    private void terminationTableView() {
+        int sq = 0;
+        try {
+            ResultSet rs = DataMng.getDataJoinTable("select tremination.MILITARYID,tremination.TERMINATION_REASON,tremination.TERMINATION_DECREEID,tremination.TERMINATION_DECREE_DATE,tremination.TERMINTION_FROM_DATE,tremination.LEAVING_DATE, formation.NAME, formation.RANK from tremination ,formation  where  tremination.MILITARYID = formation.MILITARYID ");
+            while (rs.next()) {
+                sq++;
+                terminationlist.add(new TerminationDataModel(
+                        rs.getString("MILITARYID"),
+                        rs.getString("RANK"),
+                        rs.getString("NAME"),
+                        rs.getString("TERMINATION_REASON"),
+                        rs.getString("TERMINATION_DECREEID"),
+                        rs.getString("TERMINATION_DECREE_DATE"),
+                        rs.getString("TERMINTION_FROM_DATE"),
+                        rs.getString("LEAVING_DATE"),
+                        sq
+                ));
+            }
+            rs.close();
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for_termination_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("militaryid"));
+        for_termination_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        for_termination_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        for_termination_reason_col.setCellValueFactory(new PropertyValueFactory<>("reason"));
+        for_termination_decreeid_col.setCellValueFactory(new PropertyValueFactory<>("decreeid"));
+        for_termination_decreedate_col.setCellValueFactory(new PropertyValueFactory<>("decreeDate"));
+        for_termination_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("fromDate"));
+        for_termination_leavingdate_col.setCellValueFactory(new PropertyValueFactory<>("leavingDate"));
+        for_termination_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
+
+        terminationView.setItems(terminationlist);
+    }
+
+    private void terminationTableViewBymilitaryid(String militaryid) {
+        int sq = 0;
+        try {
+            ResultSet rs = DataMng.getDataJoinTable("select tremination.MILITARYID,tremination.TERMINATION_REASON,tremination.TERMINATION_DECREEID,tremination.TERMINATION_DECREE_DATE,tremination.TERMINTION_FROM_DATE,tremination.LEAVING_DATE, formation.NAME, formation.RANK from tremination ,formation  where  tremination.MILITARYID = formation.MILITARYID AND tremination.MILITARYID = '" + militaryid + "' ");
+            while (rs.next()) {
+                sq++;
+                terminationlist.add(new TerminationDataModel(
+                        rs.getString("MILITARYID"),
+                        rs.getString("RANK"),
+                        rs.getString("NAME"),
+                        rs.getString("TERMINATION_REASON"),
+                        rs.getString("TERMINATION_DECREEID"),
+                        rs.getString("TERMINATION_DECREE_DATE"),
+                        rs.getString("TERMINTION_FROM_DATE"),
+                        rs.getString("LEAVING_DATE"),
+                        sq
+                ));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for_termination_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("militaryid"));
+        for_termination_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        for_termination_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        for_termination_reason_col.setCellValueFactory(new PropertyValueFactory<>("reason"));
+        for_termination_decreeid_col.setCellValueFactory(new PropertyValueFactory<>("decreeid"));
+        for_termination_decreedate_col.setCellValueFactory(new PropertyValueFactory<>("decreeDate"));
+        for_termination_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("fromDate"));
+        for_termination_leavingdate_col.setCellValueFactory(new PropertyValueFactory<>("leavingDate"));
+        for_termination_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
+
+        terminationView.setItems(terminationlist);
     }
 
     public class ChackAll extends Thread {
@@ -1980,7 +2104,7 @@ public class MainController implements Initializable {
     @FXML
     private void deleteListName(ActionEvent event) {
         try {
-            DataMng.delete("DELETE `nameslist`, `mandatelists` FROM `nameslist` inner join  `mandatelists` on `nameslist`.`LISTNUMBER` = `mandatelists`.`LISTNUMBER` WHERE `nameslist`.`LISTNUMBER` = '" + listnumber.getText() + "'AND mandatelists.LISTNUMBER='" + listnumber.getText() + "'");
+            DataMng.delete("DELETE `mandatelists`, `nameslist` FROM `mandatelists`, `nameslist` WHERE `mandatelists`.`LISTNUMBER` = `nameslist`.`LISTNUMBER` AND `mandatelists`.`LISTNUMBER` = '" + ch_list_combobox.getValue() + "'");
             refreshEnChackTable();
             ch_comboBoxlist.clear();
             refreshListCombobox(fillListCombobox(ch_comboBoxlist));
@@ -2594,6 +2718,18 @@ public class MainController implements Initializable {
         dateOfCombobox(for_cases_startwork_day, fillDays(daylist));
         dateOfCombobox(for_cases_startwork_month, fillMonth(monthlist));
         dateOfCombobox(for_cases_startwork_year, fillYare(yearlist));
+        
+        dateOfCombobox(for_termination_decree_day, fillDays(daylist), "day");
+        dateOfCombobox(for_termination_decree_month, fillMonth(monthlist), "month");
+        dateOfCombobox(for_termination_decree_year, fillYare(yearlist), "year");
+        
+        dateOfCombobox(for_termination_from_day, fillDays(daylist), "day");
+        dateOfCombobox(for_termination_from_month, fillMonth(monthlist), "month");
+        dateOfCombobox(for_termination_from_year, fillYare(yearlist), "year");
+        
+        dateOfCombobox(for_termination_leaving_day, fillDays(daylist));
+        dateOfCombobox(for_termination_leaving_month, fillMonth(monthlist));
+        dateOfCombobox(for_termination_leaving_year, fillYare(yearlist));
 
         refreshListCombobox(fillListCombobox(ch_comboBoxlist));
         enTableViewData();
@@ -2601,6 +2737,7 @@ public class MainController implements Initializable {
         refreshInTransportTables();
         refreshOutTransportTables();
         refreshCasestable();
+        refreshTerminationTable();
 
         for_militarytayp.setItems(list2);
         for_qualification.setItems(qualificationlist);
@@ -2627,13 +2764,30 @@ public class MainController implements Initializable {
         ch_list_combobox.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                refreshEnChackTable();
-                chackTableListView(ch_list_combobox.getValue());
-                listnumber.setText(ch_list_combobox.getValue());
-                ch_mailitraynum.setDisable(false);
-                ch_en_button.setDisable(false);
-                ch_en_allsoldiers.setDisable(false);
-                ch_en_allofficers.setDisable(false);
+                try {
+                    refreshEnChackTable();
+                    ResultSet rs = DataMng.getDataWithCondition("nameslist", "`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`", "`LISTNUMBER` = '" + ch_list_combobox.getValue() + "'");
+                    if (rs.next()) {
+                        ch_enfrom.setText(rs.getString("ENFROM"));
+                        ch_ento.setText(rs.getString("ENTO"));
+
+                        ch_en_fromdateday.setValue(getDay(rs.getString("ENDATEFROM")));
+                        ch_en_fromdatemonth.setValue(getMonth(rs.getString("ENDATEFROM")));
+                        ch_en_fromdateyear.setValue(getYear(rs.getString("ENDATEFROM")));
+
+                        ch_en_todateday.setValue(getDay(rs.getString("ENDATETO")));
+                        ch_en_todatemonth.setValue(getMonth(rs.getString("ENDATETO")));
+                        ch_en_todateyear.setValue(getYear(rs.getString("ENDATETO")));
+                    }
+                    chackTableListView(ch_list_combobox.getValue());
+                    listnumber.setText(ch_list_combobox.getValue());
+                    ch_mailitraynum.setDisable(false);
+                    ch_en_button.setDisable(false);
+                    ch_en_allsoldiers.setDisable(false);
+                    ch_en_allofficers.setDisable(false);
+                } catch (IOException | SQLException ex) {
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         mandate_dec_orderid.setOnAction(new EventHandler() {
@@ -2668,6 +2822,16 @@ public class MainController implements Initializable {
                     refreshCasestable();
                 } else {
                     refreshCasestableByMilitaryid(for_cases_militaryid.getText());
+                }
+            }
+        });
+        for_termination_militaryid.setOnKeyReleased(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                if (for_termination_militaryid.getText() == null || for_termination_militaryid.getText().equals("")) {
+                    refreshTerminationTable();
+                } else {
+                   refreshTerminationTableByMilitaryid(for_termination_militaryid.getText());
                 }
             }
         });
@@ -2779,6 +2943,36 @@ public class MainController implements Initializable {
                     for_cases_casedescription.setText(outlist.get(0).getCaseDescription());
                     Militaryid = outlist.get(0).getMilitaryid();
                     caseDecerrID = outlist.get(0).getDecreeId();
+                }
+            }
+        });
+
+        terminationView.setOnMouseClicked(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                ObservableList<TerminationDataModel> outlist = FXCollections.observableArrayList();
+                outlist = terminationView.getSelectionModel().getSelectedItems();
+                if (outlist.isEmpty()) {
+                    FormValidation.showAlert("", "لاتوجد بيانات");
+                } else {
+                    for_termination_militaryid.setText(outlist.get(0).getMilitaryid());
+                    for_termination_reason.setText(outlist.get(0).getReason());
+                    for_termination_decreeid.setText(outlist.get(0).getDecreeid());
+                    
+                    for_termination_decree_day.setValue(getDay(outlist.get(0).getDecreeDate()));
+                    for_termination_decree_month.setValue(getMonth(outlist.get(0).getDecreeDate()));
+                    for_termination_decree_year.setValue(getYear(outlist.get(0).getDecreeDate()));
+                    
+                    for_termination_from_day.setValue(getDay(outlist.get(0).getFromDate()));
+                    for_termination_from_month.setValue(getMonth(outlist.get(0).getFromDate()));
+                    for_termination_from_year.setValue(getYear(outlist.get(0).getFromDate()));
+                    
+                    for_termination_leaving_day.setValue(getDay(outlist.get(0).getLeavingDate()));
+                    for_termination_leaving_month.setValue(getMonth(outlist.get(0).getLeavingDate()));
+                    for_termination_leaving_year.setValue(getYear(outlist.get(0).getLeavingDate()));
+
+                    Militaryid = outlist.get(0).getMilitaryid();
+                    decreeid = outlist.get(0).getDecreeid();
                 }
             }
         });
