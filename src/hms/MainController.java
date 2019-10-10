@@ -6,6 +6,7 @@ import hms.models.EnDataModel;
 import hms.models.NamesDataModel;
 import hms.models.TerminationDataModel;
 import hms.models.TestModel;
+import hms.models.TrainingDataModel;
 import hms.models.TransportDataModel;
 import java.io.File;
 import java.io.IOException;
@@ -154,6 +155,7 @@ public class MainController implements Initializable {
     ObservableList<TransportDataModel> forTransportlist = FXCollections.observableArrayList();
     ObservableList<CasesDataModel> caseslist = FXCollections.observableArrayList();
     ObservableList<TerminationDataModel> terminationlist = FXCollections.observableArrayList();
+    ObservableList<TrainingDataModel> traininglist = FXCollections.observableArrayList();
     @FXML
     private Label listnumber;
     @FXML
@@ -529,7 +531,7 @@ public class MainController implements Initializable {
     @FXML
     private TextField tra_militaryid;
     @FXML
-    private ComboBox<?> tra_coursename;
+    private TextField tra_coursename;
     @FXML
     private TextField tra_courseid;
     @FXML
@@ -563,7 +565,7 @@ public class MainController implements Initializable {
     @FXML
     private ComboBox<String> tra_courseenddate_year;
     @FXML
-    private TableView<?> trainingTableView;
+    private TableView<TrainingDataModel> trainingTableView;
     @FXML
     private TableColumn<?, ?> tra_sq_col;
     @FXML
@@ -1453,9 +1455,7 @@ public class MainController implements Initializable {
         String leavingFromDate = setDate(for_outtra_leavingfromday.getValue(), for_outtra_leavingfrommonth.getValue(), for_outtra_leavingfromyear.getValue());
 
         String tableName = "transport";
-        String secondtableName = "formation";
         String fieldName = "`MILITARYID`,`NEWUNIT`,`TRANSPORTID`,`TRANSPORTDATE`,`TRANSPORTFROMDATE`,`TRANSPORTTYPE`,`LEAVINGID`,`LEAVINGDATE`,`LEAVINGFROMDATE`";
-        String transportfieldName = "`MILITARYID`,`NAME`,`RANK`,`IDNAMBER`,`EMPLOYMENTDATE`,`BIRTH_DATE`,`BIRTH_PLACE`,`SPECIALIZATION`,`UNIT_IN_FORCE`,`UNIT_BEFOR_FORCE`,`BANKNAME`,`IBANNUMBER`,`BLOODTYPE`,`DATE_OF_PROMOTION`,`DATE_OF_NEXT_PROMOTION`,`PASSPORTID`,`END_DATE_OFPASSPORT`,`MOBILENUMBER`,`MOBILENUMBER_OFCOUSIN`,`QUALIFICATION`,`NOTES`,`MILITARYTYPE`,`TRANSPORTID`,`TRANSPORTDATE`,`WORKSTARTINGDATE`";
         String[] data = {for_outtra_militaryid.getText(), for_outtra_newunit.getText(), for_outtra_transportid.getText(), transportDate, transportFromDate, "خارجي", for_outtra_leavingid.getText(), leavingDate, leavingFromDate};
         String valuenumbers = "?,?,?,?,?,?,?,?,?";
 
@@ -1474,13 +1474,13 @@ public class MainController implements Initializable {
                     DataMng.deleteEmployeeData("formation", "`MILITARYID` = '" + for_outtra_militaryid.getText() + "'");
                 }
                 refreshOutTransportTables();
+                refreshTerminationTable();
             } catch (IOException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    /*`MILITARYID`,`NAME`,`RANK`,`IDNAMBER`,`EMPLOYMENTDATE`,`BIRTH_DATE`,`BIRTH_PLACE`,`SPECIALIZATION`,`UNIT_IN_FORCE`,`UNIT_BEFOR_FORCE`,`BANKNAME`,`IBANNUMBER`,`BLOODTYPE`,`DATE_OF_PROMOTION`,`DATE_OF_NEXT_PROMOTION`,`PASSPORTID`,`END_DATE_OFPASSPORT`,`MOBILENUMBER`,`MOBILENUMBER_OFCOUSIN`,`QUALIFICATION`,`NOTES`,`MILITARYTYPE`,`TRANSPORTID`,`TRANSPORTDATE`,`WORKSTARTINGDATE`*/
     @FXML
     private void updateOutTransport(ActionEvent event) {
         String transportDate = setDate(for_outtra_transportday.getValue(), for_outtra_transportmonth.getValue(), for_outtra_transportyear.getValue());
@@ -1668,6 +1668,35 @@ public class MainController implements Initializable {
 
     @FXML
     private void addTriningCourse(ActionEvent event) {
+        String corseDate = setDate(tra_coursedate_day.getValue(), tra_coursedate_month.getValue(), tra_coursedate_year.getValue());
+        String corseStartDate = setDate(tra_coursestartdate_day.getValue(), tra_coursestartdate_month.getValue(), tra_coursestartdate_year.getValue());
+        String corseEndDate = setDate(tra_courseenddate_day.getValue(), tra_courseenddate_month.getValue(), tra_courseenddate_year.getValue());
+        String leavingDate = setDate(tra_leavingdate_day.getValue(), tra_leavingdate_month.getValue(), tra_leavingdate_year.getValue());
+        String backDate = setDate(tra_backdate_day.getValue(), tra_backdate_month.getValue(), tra_backdate_year.getValue());
+
+        String tableName = "training";
+        String fieldName = "`MILITARYID`,`COURS_NAME`,`COURSEID`,`COURSE_DATE`,`COURSE_START_DATE`,`COURSE_END_DATE`,`LEAING_DATE`,`BACK_DATE`";
+        if ("null-null-null".equals(leavingDate)) {
+            leavingDate = null;
+        }
+        if ("null-null-null".equals(backDate)) {
+            backDate = null;
+        }
+        String valuenumbers = "?,?,?,?,?,?,?,?";
+        String[] data = {tra_militaryid.getText(), tra_coursename.getText(), tra_courseid.getText(), corseDate, corseStartDate, corseEndDate, leavingDate, backDate};
+
+        boolean militaryIdNotEmpty = FormValidation.textFieldNotEmpty(tra_militaryid, "ادخل الرقم العسكري");
+        boolean corseNameNotEmpty = FormValidation.textFieldNotEmpty(tra_coursename, "ادخل مسمى الدورة");
+        boolean corseIdNotEmpty = FormValidation.textFieldNotEmpty(tra_courseid, "ادخل رقم امر الدورة");
+
+        if (militaryIdNotEmpty && corseNameNotEmpty && corseIdNotEmpty) {
+            try {
+                DataMng.insert(tableName, fieldName, valuenumbers, data);
+                refreshTrainingtable();
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @FXML
@@ -1775,10 +1804,6 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void triningOpenAction(MouseEvent event) {
-    }
-
-    @FXML
     private void recoveryData(ActionEvent event) {
         try {
             boolean chexkDataInserting = FormValidation.checkInsrtingData("transport_and_termination", "`MILITARYID`", "`MILITARYID` = '" + for_recovery.getText() + "'", "لا توجد بيانات");
@@ -1792,6 +1817,7 @@ public class MainController implements Initializable {
             if (checkDataRecovering) {
                 DataMng.deleteEmployeeData("transport_and_termination", "`MILITARYID` = '" + for_recovery.getText() + "'");
                 refreshOutTransportTables();
+                refreshTerminationTable();
             }
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -1819,7 +1845,15 @@ public class MainController implements Initializable {
         if (militaryIdNoutEmpty && reasonNoutEmpty && decreeidNoutEmpty) {
             try {
                 DataMng.insert(tableName, fieldName, valuenumbers, data);
-                refreshTerminationTable();
+                DataMng.insert("INSERT INTO `transport_and_termination`(`MILITARYID`,`NAME`,`RANK`,`IDNAMBER`,`EMPLOYMENTDATE`,`BIRTH_DATE`,`BIRTH_PLACE`,`SPECIALIZATION`,`UNIT_IN_FORCE`,`UNIT_BEFOR_FORCE`,`BANKNAME`,`IBANNUMBER`,`BLOODTYPE`,"
+                        + "`DATE_OF_PROMOTION`,`DATE_OF_NEXT_PROMOTION`,`PASSPORTID`,`END_DATE_OFPASSPORT`,`MOBILENUMBER`,`MOBILENUMBER_OFCOUSIN`,`QUALIFICATION`,`NOTES`,`MILITARYTYPE`,`TRANSPORTID`,`TRANSPORTDATE`,\n"
+                        + "`WORKSTARTINGDATE`) SELECT * FROM hmsdatabase.formation where MILITARYID =?", for_termination_militaryid.getText());
+                boolean chexkDataInserting = FormValidation.checkInsrtingData("transport_and_termination", "`MILITARYID`", "`MILITARYID` = '" + for_termination_militaryid.getText() + "'", "لم يتم نقل بياناته الي المنقولين والمكلفين");
+                if (chexkDataInserting) {
+                    DataMng.deleteEmployeeData("formation", "`MILITARYID` = '" + for_termination_militaryid.getText() + "'");
+                    refreshOutTransportTables();
+                    refreshTerminationTable();
+                }
             } catch (IOException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1846,7 +1880,6 @@ public class MainController implements Initializable {
 
         if (militaryIdNoutEmpty && reasonNoutEmpty && decreeidNoutEmpty) {
             try {
-
                 DataMng.updat(tableName, fieldName, data, "`MILITARYID` = '" + Militaryid + "' AND `TERMINATION_DECREEID` = '" + decreeid + "'");
                 refreshTerminationTable();
             } catch (IOException ex) {
@@ -1863,6 +1896,7 @@ public class MainController implements Initializable {
         terminationlist.clear();
         terminationTableView();
     }
+
     private void refreshTerminationTableByMilitaryid(String militaryid) {
         terminationlist.clear();
         terminationTableViewBymilitaryid(militaryid);
@@ -1871,7 +1905,9 @@ public class MainController implements Initializable {
     private void terminationTableView() {
         int sq = 0;
         try {
-            ResultSet rs = DataMng.getDataJoinTable("select tremination.MILITARYID,tremination.TERMINATION_REASON,tremination.TERMINATION_DECREEID,tremination.TERMINATION_DECREE_DATE,tremination.TERMINTION_FROM_DATE,tremination.LEAVING_DATE, formation.NAME, formation.RANK from tremination ,formation  where  tremination.MILITARYID = formation.MILITARYID ");
+            ResultSet rs = DataMng.getDataJoinTable("select tremination.MILITARYID,tremination.TERMINATION_REASON,tremination.TERMINATION_DECREEID,tremination.TERMINATION_DECREE_DATE,"
+                    + "tremination.TERMINTION_FROM_DATE,tremination.LEAVING_DATE, transport_and_termination.NAME, transport_and_termination.RANK from tremination ,transport_and_termination "
+                    + " where  transport_and_termination.MILITARYID = tremination.MILITARYID ");
             while (rs.next()) {
                 sq++;
                 terminationlist.add(new TerminationDataModel(
@@ -1906,7 +1942,9 @@ public class MainController implements Initializable {
     private void terminationTableViewBymilitaryid(String militaryid) {
         int sq = 0;
         try {
-            ResultSet rs = DataMng.getDataJoinTable("select tremination.MILITARYID,tremination.TERMINATION_REASON,tremination.TERMINATION_DECREEID,tremination.TERMINATION_DECREE_DATE,tremination.TERMINTION_FROM_DATE,tremination.LEAVING_DATE, formation.NAME, formation.RANK from tremination ,formation  where  tremination.MILITARYID = formation.MILITARYID AND tremination.MILITARYID = '" + militaryid + "' ");
+            ResultSet rs = DataMng.getDataJoinTable("select tremination.MILITARYID,tremination.TERMINATION_REASON,tremination.TERMINATION_DECREEID,tremination.TERMINATION_DECREE_DATE,"
+                    + "tremination.TERMINTION_FROM_DATE,tremination.LEAVING_DATE, transport_and_termination.NAME, transport_and_termination.RANK from tremination ,transport_and_termination "
+                    + " where  transport_and_termination.MILITARYID = tremination.MILITARYID AND tremination.MILITARYID = '" + militaryid + "' ");
             while (rs.next()) {
                 sq++;
                 terminationlist.add(new TerminationDataModel(
@@ -1938,6 +1976,54 @@ public class MainController implements Initializable {
         for_termination_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
         terminationView.setItems(terminationlist);
+    }
+
+    private void refreshTrainingtable() {
+        traininglist.clear();
+        trainingTableView();
+    }
+
+    private void trainingTableView() {
+        int sq = 0;
+        try {
+            ResultSet rs = DataMng.getDataJoinTable("select training.MILITARYID,training.COURS_NAME,training.COURSEID,training.COURSE_DATE,"
+                    + "training.COURSE_START_DATE,training.COURSE_END_DATE,training.LEAING_DATE,training.BACK_DATE, "
+                    + "formation.NAME, formation.RANK from training ,formation where  training.MILITARYID = formation.MILITARYID ");
+            while (rs.next()) {
+                sq++;
+                traininglist.add(new TrainingDataModel(
+                        rs.getString("MILITARYID"),
+                        rs.getString("RANK"),
+                        rs.getString("NAME"),
+                        rs.getString("COURS_NAME"),
+                        rs.getString("COURSEID"),
+                        rs.getString("COURSE_DATE"),
+                        rs.getString("COURSE_START_DATE"),
+                        rs.getString("COURSE_END_DATE"),
+                        rs.getString("LEAING_DATE"),
+                        rs.getString("BACK_DATE"),
+                        sq
+                ));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }//militaryid,rank,name,courseName,courseId,corseDate,corseSartDate,corseEndDate,leavingDate,backDate
+        tra_militaryid_col.setCellValueFactory(new PropertyValueFactory<>("militaryid"));
+        tra_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        tra_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tra_coursename_col.setCellValueFactory(new PropertyValueFactory<>("courseName"));
+        tra_courseid_col.setCellValueFactory(new PropertyValueFactory<>("courseId"));
+        tra_coursedate_col.setCellValueFactory(new PropertyValueFactory<>("corseDate"));
+        tra_corsestartdate_col.setCellValueFactory(new PropertyValueFactory<>("corseSartDate"));
+        tra_courseenddate_col.setCellValueFactory(new PropertyValueFactory<>("corseEndDate"));
+        tra_leavingdate_col.setCellValueFactory(new PropertyValueFactory<>("leavingDate"));
+        tra_backdate_col.setCellValueFactory(new PropertyValueFactory<>("backDate"));
+        tra_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
+
+        trainingTableView.setItems(traininglist);
     }
 
     public class ChackAll extends Thread {
@@ -2718,18 +2804,38 @@ public class MainController implements Initializable {
         dateOfCombobox(for_cases_startwork_day, fillDays(daylist));
         dateOfCombobox(for_cases_startwork_month, fillMonth(monthlist));
         dateOfCombobox(for_cases_startwork_year, fillYare(yearlist));
-        
+
         dateOfCombobox(for_termination_decree_day, fillDays(daylist), "day");
         dateOfCombobox(for_termination_decree_month, fillMonth(monthlist), "month");
         dateOfCombobox(for_termination_decree_year, fillYare(yearlist), "year");
-        
+
         dateOfCombobox(for_termination_from_day, fillDays(daylist), "day");
         dateOfCombobox(for_termination_from_month, fillMonth(monthlist), "month");
         dateOfCombobox(for_termination_from_year, fillYare(yearlist), "year");
-        
+
         dateOfCombobox(for_termination_leaving_day, fillDays(daylist));
         dateOfCombobox(for_termination_leaving_month, fillMonth(monthlist));
         dateOfCombobox(for_termination_leaving_year, fillYare(yearlist));
+
+        dateOfCombobox(tra_coursedate_day, fillDays(daylist), "day");
+        dateOfCombobox(tra_coursedate_month, fillMonth(monthlist), "month");
+        dateOfCombobox(tra_coursedate_year, fillYare(yearlist), "year");
+
+        dateOfCombobox(tra_leavingdate_day, fillDays(daylist));
+        dateOfCombobox(tra_leavingdate_month, fillMonth(monthlist));
+        dateOfCombobox(tra_leavingdate_year, fillYare(yearlist));
+
+        dateOfCombobox(tra_backdate_day, fillDays(daylist));
+        dateOfCombobox(tra_backdate_month, fillMonth(monthlist));
+        dateOfCombobox(tra_backdate_year, fillYare(yearlist));
+
+        dateOfCombobox(tra_coursestartdate_day, fillDays(daylist), "day");
+        dateOfCombobox(tra_coursestartdate_month, fillMonth(monthlist), "month");
+        dateOfCombobox(tra_coursestartdate_year, fillYare(yearlist), "year");
+
+        dateOfCombobox(tra_courseenddate_day, fillDays(daylist), "day");
+        dateOfCombobox(tra_courseenddate_month, fillMonth(monthlist), "month");
+        dateOfCombobox(tra_courseenddate_year, fillYare(yearlist), "year");
 
         refreshListCombobox(fillListCombobox(ch_comboBoxlist));
         enTableViewData();
@@ -2831,7 +2937,7 @@ public class MainController implements Initializable {
                 if (for_termination_militaryid.getText() == null || for_termination_militaryid.getText().equals("")) {
                     refreshTerminationTable();
                 } else {
-                   refreshTerminationTableByMilitaryid(for_termination_militaryid.getText());
+                    refreshTerminationTableByMilitaryid(for_termination_militaryid.getText());
                 }
             }
         });
@@ -2958,15 +3064,15 @@ public class MainController implements Initializable {
                     for_termination_militaryid.setText(outlist.get(0).getMilitaryid());
                     for_termination_reason.setText(outlist.get(0).getReason());
                     for_termination_decreeid.setText(outlist.get(0).getDecreeid());
-                    
+
                     for_termination_decree_day.setValue(getDay(outlist.get(0).getDecreeDate()));
                     for_termination_decree_month.setValue(getMonth(outlist.get(0).getDecreeDate()));
                     for_termination_decree_year.setValue(getYear(outlist.get(0).getDecreeDate()));
-                    
+
                     for_termination_from_day.setValue(getDay(outlist.get(0).getFromDate()));
                     for_termination_from_month.setValue(getMonth(outlist.get(0).getFromDate()));
                     for_termination_from_year.setValue(getYear(outlist.get(0).getFromDate()));
-                    
+
                     for_termination_leaving_day.setValue(getDay(outlist.get(0).getLeavingDate()));
                     for_termination_leaving_month.setValue(getMonth(outlist.get(0).getLeavingDate()));
                     for_termination_leaving_year.setValue(getYear(outlist.get(0).getLeavingDate()));
