@@ -141,7 +141,7 @@ public class MainController implements Initializable {
     ObservableList<String> bloodTypeList = FXCollections.observableArrayList("O+", "A+", "B+", "AB+", "O-", "A-", "B-", "AB-");
     ObservableList<String> caseTypeList = FXCollections.observableArrayList("قضية جنائية", "ثبوت اجابية", "قضية حقوقية", "قضية مرورية", "اخرى");
     ObservableList<String> decreeTypeList = FXCollections.observableArrayList("معاملة بالمادة 13 من نضام خدمة الافراد", "ايقاف معاملة بالمادة 13", "صرف رواتب فرد معامل بالمادة 13", "قرار عسكري");
-    ObservableList<String> vacationTypeList = FXCollections.observableArrayList("اجازة سنوية","اجازة عرضية","اجازة مرضية");
+    ObservableList<String> vacationTypeList = FXCollections.observableArrayList("اجازة سنوية", "اجازة عرضية", "اجازة مرضية");
     ObservableList<String> daylist = FXCollections.observableArrayList();
     ObservableList<String> specialiazList = FXCollections.observableArrayList();
     ObservableList<String> unitNameList = FXCollections.observableArrayList();
@@ -187,6 +187,7 @@ public class MainController implements Initializable {
     private String caseDecerrID = null;
     private String courseID = null;
     private String vacationID = null;
+    private String mantateToDate = null;
     @FXML
     private TableView<NamesDataModel> no_dec_table;
     @FXML
@@ -804,6 +805,8 @@ public class MainController implements Initializable {
     private TableColumn<?, ?> vac_decdate_col;
     @FXML
     private TableView<?> newVacationTableView;
+    @FXML
+    private TextField mandate_ch_number_of_nights;
 
     @FXML
     private void mainePageOpenAction(ActionEvent event) {
@@ -1058,7 +1061,7 @@ public class MainController implements Initializable {
         String valuenumbers = "?,?,?,?,?,?";
 
         boolean mandateUnique = FormValidation.dateChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ?  AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", ch_mailitraynum.getText(), listnumber.getText(), fromDate, toDate);
-        boolean trainingUnique = FormValidation.dateChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSESTARTDATE` BETWEEN ? AND ?) OR ( `COURSENDDATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", ch_mailitraynum.getText(), listnumber.getText(), fromDate, toDate);
+        boolean trainingUnique = FormValidation.dateChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSE_START_DATE` BETWEEN ? AND ?) OR ( `COURSE_END_DATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", ch_mailitraynum.getText(), listnumber.getText(), fromDate, toDate);
         boolean militaryidUnique = FormValidation.unique("nameslist", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
         boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
         boolean enfromstate = FormValidation.textFieldNotEmpty(ch_enfrom, "ادخل الجهة المنتدب منها");
@@ -1173,12 +1176,22 @@ public class MainController implements Initializable {
         namesWithDcTableViewData();
     }
 
+    private String calculateDays(String year, String month, String day, String additionalDays) {
+        int theYear = Integer.parseInt(year);
+        int theMonth = Integer.parseInt(month);
+        int theDay = Integer.parseInt(day);
+        int theAdditionalDays = Integer.parseInt(additionalDays);
+
+        LocalDate date = LocalDate.of(theYear, theMonth, theDay).plusDays(theAdditionalDays);
+        return date.toString();
+    }
+
     @FXML
     private void updateDecState(ActionEvent event) {
         try {
             String decDate = setDate(mandate_ch_decday.getValue(), mandate_ch_decmonth.getValue(), mandate_ch_decyear.getValue());
             String decfromDate = setDate(mandate_ch_dec_fromday.getValue(), mandate_ch_dec_frommonth.getValue(), mandate_ch_dec_fromyear.getValue());
-            String dectoDate = setDate(mandate_ch_dec_today.getValue(), mandate_ch_dec_tomonth.getValue(), mandate_ch_dec_toyear.getValue());
+            String dectoDate = calculateDays(mandate_ch_dec_fromyear.getValue(), mandate_ch_dec_frommonth.getValue(), mandate_ch_dec_fromday.getValue(), mandate_ch_number_of_nights.getText());
             String[] data = {mandate_ch_decnumber.getText(), decDate, decfromDate, dectoDate, mandateDecListNumber, mandate_dec_militrayid.getText()};
 
             boolean militaryidNotEmpty = FormValidation.textFieldNotEmpty(mandate_dec_militrayid, "ادخل الرقم العسكري");
@@ -1556,27 +1569,37 @@ public class MainController implements Initializable {
                             toDate,
                             passCount++
                     ));
+                    
                 } else {
                     excludData.add(new CheckAllDataModel(
                             listnumber.getText(),
                             lodedData.get(i).getMilitaryId()
                     ));
+                   
                 }
             }
-            for (int j = 0; j < passData.size(); j++) {
-                DataMng.insertPassData(tableName, fieldName, valuenumbers, passData, j);
-                ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
-                ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
-                ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
-                ch_en_from_col.setCellValueFactory(new PropertyValueFactory<>("enfrom"));
-                ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
-                ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
-                ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
-                en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
-                chacktable.setItems(chacktablelist);
+            for (int j = 0; j < passData.size(); j++) {
+                System.out.println("pass data :"+passData.size());
+                try {
+                    DataMng.insertPassData(tableName, fieldName, valuenumbers, passData, j);
+                    ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
+                    ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+                    ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+                    ch_en_from_col.setCellValueFactory(new PropertyValueFactory<>("enfrom"));
+                    ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
+                    ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
+                    ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
+                    en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
+
+                    chacktable.setItems(chacktablelist);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+
             for (int j = 0; j < excludData.size(); j++) {
+                 System.out.println("exclud data :"+excludData.size());
                 DataMng.insertExcludedData("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excludData, j);
             }
 
@@ -1722,7 +1745,7 @@ public class MainController implements Initializable {
 
         if (militaryIdNotEmpty && corseNameNotEmpty && corseIdNotEmpty) {
             try {
-                DataMng.updat(tableName, fieldName, data,"`MILITARYID`= '"+Militaryid+"' AND `COURSEID`= '"+courseID+"'");
+                DataMng.updat(tableName, fieldName, data, "`MILITARYID`= '" + Militaryid + "' AND `COURSEID`= '" + courseID + "'");
                 refreshTrainingtable();
             } catch (IOException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -1744,16 +1767,16 @@ public class MainController implements Initializable {
     private void addVacation(ActionEvent event) {
         String vacationDate = setDate(vac_vacation_decdate_day.getValue(), vac_vacation_decdate_month.getValue(), vac_vacation_decdate_year.getValue());
         String vacationStartDate = setDate(vac_vacation_startdate_day.getValue(), vac_vacation_startdate_month.getValue(), vac_vacation_startdate_year.getValue());
-        String vacationEndDate = setDate(vac_vacation_enddate_day.getValue(),vac_vacation_enddate_month.getValue(), vac_vacation_enddate_year.getValue());
-        
+        String vacationEndDate = setDate(vac_vacation_enddate_day.getValue(), vac_vacation_enddate_month.getValue(), vac_vacation_enddate_year.getValue());
+
         String tableName = "vacation";
         String fieldName = "`MILITARYID`,`VACATION_ID`,`VACATION_DATE`,`VACATION_TYPE`,`VACATION_DURATION`,`VACATION_PLACE`,`VACATION_START_DATE`,`VACATION_END_DATE`";
         if ("null-null-null".equals(vacationEndDate)) {
             vacationEndDate = null;
         }
-        
+
         String valuenumbers = "?,?,?,?,?,?,?,?";
-        String[] data = {vac_militaryid.getText(), vac_vacation_decid.getText(),vacationDate, vac_vacationtype.getValue(), vac_vacation_duration.getText(),vac_vacation_place.getText(),vacationStartDate,vacationEndDate};
+        String[] data = {vac_militaryid.getText(), vac_vacation_decid.getText(), vacationDate, vac_vacationtype.getValue(), vac_vacation_duration.getText(), vac_vacation_place.getText(), vacationStartDate, vacationEndDate};
 
         boolean militaryIdNotEmpty = FormValidation.textFieldNotEmpty(vac_militaryid, "ادخل الرقم العسكري");
         boolean vacationTypeNotEmpty = FormValidation.comboBoxNotEmpty(vac_vacationtype, "ادخل مسمى الدورة");
@@ -1761,7 +1784,7 @@ public class MainController implements Initializable {
         boolean vacationDurationNotEmpty = FormValidation.textFieldNotEmpty(vac_vacation_duration, "ادخل رقم امر الدورة");
         boolean vacationPlaceNotEmpty = FormValidation.textFieldNotEmpty(vac_vacation_place, "ادخل رقم امر الدورة");
 
-        if (militaryIdNotEmpty && vacationTypeNotEmpty && vacationidNotEmpty&&vacationDurationNotEmpty&&vacationPlaceNotEmpty) {
+        if (militaryIdNotEmpty && vacationTypeNotEmpty && vacationidNotEmpty && vacationDurationNotEmpty && vacationPlaceNotEmpty) {
             try {
                 DataMng.insert(tableName, fieldName, valuenumbers, data);
                 refreshVacationtable();
@@ -2106,12 +2129,12 @@ public class MainController implements Initializable {
         vacationlist.clear();
         vacationTableView();
     }
-    
+
     private void refreshVacationtable(String militaryId) {
         vacationlist.clear();
         vacationTableViewByMilitaryID(militaryId);
     }
-    
+
     private void vacationTableView() {
         int sq = 0;
         try {
@@ -2154,13 +2177,13 @@ public class MainController implements Initializable {
 
         vacationTableView.setItems(vacationlist);
     }
-    
+
     private void vacationTableViewByMilitaryID(String militaryid) {
         int sq = 0;
         try {
             ResultSet rs = DataMng.getDataJoinTable("select vacation.MILITARYID,vacation.VACATION_ID,vacation.VACATION_DATE,vacation.VACATION_TYPE,"
                     + "vacation.VACATION_DURATION,vacation.VACATION_PLACE,vacation.VACATION_START_DATE,vacation.VACATION_END_DATE,"
-                    + "formation.NAME, formation.RANK from vacation ,formation where  vacation.MILITARYID = formation.MILITARYID AND MILITARYID = '"+militaryid+"' ");
+                    + "formation.NAME, formation.RANK from vacation ,formation where  vacation.MILITARYID = formation.MILITARYID AND MILITARYID = '" + militaryid + "' ");
             while (rs.next()) {
                 sq++;
                 vacationlist.add(new VacationDataModel(
@@ -2287,7 +2310,6 @@ public class MainController implements Initializable {
         if (enfromstate && entostate) {
             ChackAll task = new ChackAll("فرد");
             task.start();
-
         }
     }
 
@@ -2907,9 +2929,9 @@ public class MainController implements Initializable {
         dateOfCombobox(mandate_ch_dec_frommonth, fillMonth(monthlist), "month");
         dateOfCombobox(mandate_ch_dec_fromyear, fillYare(yearlist), "year");
 
-        dateOfCombobox(mandate_ch_dec_today, fillDays(daylist), "day");
-        dateOfCombobox(mandate_ch_dec_tomonth, fillMonth(monthlist), "month");
-        dateOfCombobox(mandate_ch_dec_toyear, fillYare(yearlist), "year");
+        dateOfCombobox(mandate_ch_dec_today, fillDays(daylist));
+        dateOfCombobox(mandate_ch_dec_tomonth, fillMonth(monthlist));
+        dateOfCombobox(mandate_ch_dec_toyear, fillYare(yearlist));
 
         dateOfCombobox(for_breth_day, fillDays(daylist), "day");
         dateOfCombobox(for_breth_month, fillMonth(monthlist), "month");
@@ -3006,15 +3028,15 @@ public class MainController implements Initializable {
         dateOfCombobox(tra_courseenddate_day, fillDays(daylist), "day");
         dateOfCombobox(tra_courseenddate_month, fillMonth(monthlist), "month");
         dateOfCombobox(tra_courseenddate_year, fillYare(yearlist), "year");
-        
+
         dateOfCombobox(vac_vacation_decdate_day, fillDays(daylist), "day");
         dateOfCombobox(vac_vacation_decdate_month, fillMonth(monthlist), "month");
         dateOfCombobox(vac_vacation_decdate_year, fillYare(yearlist), "year");
-        
+
         dateOfCombobox(vac_vacation_startdate_day, fillDays(daylist), "day");
         dateOfCombobox(vac_vacation_startdate_month, fillMonth(monthlist), "month");
         dateOfCombobox(vac_vacation_startdate_year, fillYare(yearlist), "year");
-        
+
         dateOfCombobox(vac_vacation_enddate_day, fillDays(daylist));
         dateOfCombobox(vac_vacation_enddate_month, fillMonth(monthlist));
         dateOfCombobox(vac_vacation_enddate_year, fillYare(yearlist));
@@ -3037,8 +3059,7 @@ public class MainController implements Initializable {
         for_cases_casetype.setItems(caseTypeList);
         for_cases_dectype.setItems(decreeTypeList);
         vac_vacationtype.setItems(vacationTypeList);
-        
-        
+
         addhint.setTooltip(new Tooltip("اضافة طلب انتداب"));
         chackingdata.setTooltip(new Tooltip("تدقيق البيانات"));
         en_update.setTooltip(new Tooltip("تحديث البيانات"));
@@ -3126,18 +3147,21 @@ public class MainController implements Initializable {
                 }
             }
         });
-        
-//        vac_militaryid.setOnKeyReleased(new EventHandler() {
-//            @Override
-//            public void handle(Event event) {
-//                if (vac_militaryid.getText() == null || vac_militaryid.getText().equals("")) {
-//                    refreshVacationtable();
-//                } else {
-//                    refreshVacationtable(vac_militaryid.getText());
-//                }
-//            }
-//        });
 
+        mandate_ch_number_of_nights.setOnKeyReleased(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                if (null != mandate_ch_number_of_nights.getText() || !mandate_ch_number_of_nights.getText().equals("")) {
+                    mandate_ch_dec_today.setDisable(false);
+                    mandate_ch_dec_tomonth.setDisable(false);
+                    mandate_ch_dec_toyear.setDisable(false);
+                    String dectoDate = calculateDays(mandate_ch_dec_fromyear.getValue(), mandate_ch_dec_frommonth.getValue(), mandate_ch_dec_fromday.getValue(), mandate_ch_number_of_nights.getText());
+                    mandate_ch_dec_today.setValue(getDay(dectoDate));
+                    mandate_ch_dec_tomonth.setValue(getMonth(dectoDate));
+                    mandate_ch_dec_toyear.setValue(getYear(dectoDate));
+                }
+            }
+        });
         for_cases_casetype.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
@@ -3292,24 +3316,24 @@ public class MainController implements Initializable {
                     tra_courseid.setText(outlist.get(0).getCourseId());
 
                     tra_coursedate_day.setValue(getDay(outlist.get(0).getCorseDate()));
-                     tra_coursedate_month.setValue(getMonth(outlist.get(0).getBackDate()));
-                     tra_coursedate_year.setValue(getYear(outlist.get(0).getBackDate()));
+                    tra_coursedate_month.setValue(getMonth(outlist.get(0).getBackDate()));
+                    tra_coursedate_year.setValue(getYear(outlist.get(0).getBackDate()));
 
-                     tra_coursestartdate_day.setValue(getDay(outlist.get(0).getCorseSartDate()));
-                     tra_coursestartdate_month.setValue(getMonth(outlist.get(0).getCorseSartDate()));
-                     tra_coursestartdate_year.setValue(getYear(outlist.get(0).getCorseSartDate()));
+                    tra_coursestartdate_day.setValue(getDay(outlist.get(0).getCorseSartDate()));
+                    tra_coursestartdate_month.setValue(getMonth(outlist.get(0).getCorseSartDate()));
+                    tra_coursestartdate_year.setValue(getYear(outlist.get(0).getCorseSartDate()));
 
-                     tra_courseenddate_day.setValue(getDay(outlist.get(0).getCorseEndDate()));
+                    tra_courseenddate_day.setValue(getDay(outlist.get(0).getCorseEndDate()));
                     tra_courseenddate_month.setValue(getMonth(outlist.get(0).getCorseEndDate()));
                     tra_courseenddate_year.setValue(getYear(outlist.get(0).getCorseEndDate()));
 
-                     tra_leavingdate_day.setValue(getDay(outlist.get(0).getLeavingDate()));
+                    tra_leavingdate_day.setValue(getDay(outlist.get(0).getLeavingDate()));
                     tra_leavingdate_month.setValue(getMonth(outlist.get(0).getLeavingDate()));
-                     tra_leavingdate_year.setValue(getYear(outlist.get(0).getLeavingDate()));
-                    
-                     tra_backdate_day.setValue(getDay(outlist.get(0).getBackDate()));
-                     tra_backdate_month.setValue(getMonth(outlist.get(0).getBackDate()));
-                     tra_backdate_year.setValue(getYear(outlist.get(0).getBackDate()));
+                    tra_leavingdate_year.setValue(getYear(outlist.get(0).getLeavingDate()));
+
+                    tra_backdate_day.setValue(getDay(outlist.get(0).getBackDate()));
+                    tra_backdate_month.setValue(getMonth(outlist.get(0).getBackDate()));
+                    tra_backdate_year.setValue(getYear(outlist.get(0).getBackDate()));
 
                     Militaryid = outlist.get(0).getMilitaryid();
                     courseID = outlist.get(0).getCourseId();
@@ -3328,22 +3352,21 @@ public class MainController implements Initializable {
                     vac_militaryid.setText(outlist.get(0).getMilitaryid());
                     vac_vacationtype.setValue(outlist.get(0).getVacationType());
                     vac_vacation_decid.setText(outlist.get(0).getVacationId());
-                    
+
                     vac_vacation_decdate_day.setValue(getDay(outlist.get(0).getVacationDate()));
-                     vac_vacation_decdate_month.setValue(getMonth(outlist.get(0).getVacationDate()));
+                    vac_vacation_decdate_month.setValue(getMonth(outlist.get(0).getVacationDate()));
                     vac_vacation_decdate_year.setValue(getYear(outlist.get(0).getVacationDate()));
-                    
+
                     vac_vacation_duration.setText(outlist.get(0).getVacationDuration());
                     vac_vacation_place.setText(outlist.get(0).getVacationPlace());
 
+                    vac_vacation_startdate_day.setValue(getDay(outlist.get(0).getVacationStartDate()));
+                    vac_vacation_startdate_month.setValue(getMonth(outlist.get(0).getVacationStartDate()));
+                    vac_vacation_startdate_year.setValue(getYear(outlist.get(0).getVacationStartDate()));
 
-                     vac_vacation_startdate_day.setValue(getDay(outlist.get(0).getVacationStartDate()));
-                     vac_vacation_startdate_month.setValue(getMonth(outlist.get(0).getVacationStartDate()));
-                     vac_vacation_startdate_year.setValue(getYear(outlist.get(0).getVacationStartDate()));
-
-                     vac_vacation_enddate_day.setValue(getDay(outlist.get(0).getVacationEndDate()));
-                     vac_vacation_enddate_month.setValue(getMonth(outlist.get(0).getVacationEndDate()));
-                     vac_vacation_enddate_year.setValue(getYear(outlist.get(0).getVacationEndDate()));
+                    vac_vacation_enddate_day.setValue(getDay(outlist.get(0).getVacationEndDate()));
+                    vac_vacation_enddate_month.setValue(getMonth(outlist.get(0).getVacationEndDate()));
+                    vac_vacation_enddate_year.setValue(getYear(outlist.get(0).getVacationEndDate()));
 
                     Militaryid = outlist.get(0).getMilitaryid();
                     vacationID = outlist.get(0).getVacationId();
@@ -3381,6 +3404,7 @@ public class MainController implements Initializable {
                 }
             }
         });
+
     }
 
 }

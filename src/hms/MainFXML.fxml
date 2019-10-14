@@ -2492,35 +2492,6 @@
                 </TabPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="ExcludedPage" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #B5E5E9; -fx-border-color: #EFA914;" visible="false" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="300.0">
-            <children>
-                <TableView fx:id="ex_tableview" layoutX="402.0" layoutY="9.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#showReason" prefHeight="279.0" prefWidth="638.0" styleClass="blocked" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                    <columns>
-                        <TableColumn fx:id="ex_sequence_col" minWidth="40.0" prefWidth="60.0" resizable="false" text="C1" />
-                        <TableColumn fx:id="ex_militaryid_col" prefWidth="75.0" text="C2" />
-                        <TableColumn fx:id="ex_rank_col" prefWidth="75.0" text="Column X" />
-                        <TableColumn fx:id="ex_name_col" minWidth="200.0" prefWidth="200.0" text="Column X" />
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                    </columnResizePolicy>
-                </TableView>
-                <ListView fx:id="ex_reasonListView" layoutX="9.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="279.0" prefWidth="387.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="2.0" layoutY="-38.0" prefHeight="42.0" prefWidth="1048.0" style="-fx-background-color: #117E88; -fx-border-color: #EFA914;" styleClass="appfont" text="  اسماء المستبعدين" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-48.0" />
-                <Button layoutX="8.0" layoutY="-42.0" mnemonicParsing="false" onAction="#ex_exit" prefHeight="27.0" prefWidth="46.0" style="-fx-background-color: #117E88;" textFill="WHITE" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="-45.0">
-                    <font>
-                        <Font size="11.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../images/exit.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </children>
-        </AnchorPane>
         <AnchorPane fx:id="EntedabPage" layoutX="10.0" layoutY="108.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
             <children>
                 <TabPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="713.0" prefWidth="1211.0" side="LEFT" stylesheets="@../css/style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -3011,7 +2982,7 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <AnchorPane layoutY="252.0" minHeight="0.0" minWidth="0.0" prefHeight="468.0" prefWidth="1327.0" style="-fx-border-color: #FBB115;" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="252.0">
+                                        <AnchorPane layoutY="234.0" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="1327.0" style="-fx-border-color: #FBB115;" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="234.0">
                                             <children>
                                                 <HBox layoutX="872.0" layoutY="55.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                                     <children>
@@ -3255,6 +3226,35 @@
                         </Tab>
                     </tabs>
                 </TabPane>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="ExcludedPage" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #B5E5E9; -fx-border-color: #EFA914;" visible="false" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="300.0">
+            <children>
+                <TableView fx:id="ex_tableview" layoutX="402.0" layoutY="9.0" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#showReason" prefHeight="279.0" prefWidth="638.0" styleClass="blocked" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                    <columns>
+                        <TableColumn fx:id="ex_sequence_col" minWidth="40.0" prefWidth="60.0" resizable="false" text="C1" />
+                        <TableColumn fx:id="ex_militaryid_col" prefWidth="75.0" text="C2" />
+                        <TableColumn fx:id="ex_rank_col" prefWidth="75.0" text="Column X" />
+                        <TableColumn fx:id="ex_name_col" minWidth="200.0" prefWidth="200.0" text="Column X" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+                <ListView fx:id="ex_reasonListView" layoutX="9.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="279.0" prefWidth="387.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="2.0" layoutY="-38.0" prefHeight="42.0" prefWidth="1048.0" style="-fx-background-color: #117E88; -fx-border-color: #EFA914;" styleClass="appfont" text="  اسماء المستبعدين" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-48.0" />
+                <Button layoutX="8.0" layoutY="-42.0" mnemonicParsing="false" onAction="#ex_exit" prefHeight="27.0" prefWidth="46.0" style="-fx-background-color: #117E88;" textFill="WHITE" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="-45.0">
+                    <font>
+                        <Font size="11.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/exit.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </children>
         </AnchorPane>
     </children>
