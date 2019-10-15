@@ -2498,7 +2498,7 @@
                     <tabs>
                         <Tab fx:id="chackingdata">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="180.0" prefWidth="200.0">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="180.0" prefWidth="200.0" visible="false">
                                     <children>
                                         <GridPane hgap="5.0" prefHeight="106.0" prefWidth="1088.0" vgap="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                             <columnConstraints>
@@ -2735,11 +2735,6 @@
                                                 <String fx:value="exclButton" />
                                             </styleClass>
                                         </Button>
-                                        <Label fx:id="excludedNumber" alignment="CENTER" layoutX="600.0" layoutY="717.0" prefHeight="42.0" prefWidth="46.0" style="-fx-background-color: #E50B00; -fx-background-radius: 60px;" textAlignment="CENTER" textFill="#f5f3f3" visible="false" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="600.0">
-                                            <font>
-                                                <Font name="System Bold" size="15.0" />
-                                            </font>
-                                        </Label>
                                         <Button layoutX="485.0" layoutY="738.0" mnemonicParsing="false" onAction="#chClearFiled" prefHeight="60.0" prefWidth="156.0" style="-fx-border-color: #117E88;" stylesheets="@../css/style.css" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="635.0">
                                             <graphic>
                                                 <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
@@ -2753,6 +2748,11 @@
                                                 <String fx:value="exclButton" />
                                             </styleClass>
                                         </Button>
+                                        <Label fx:id="excludedNumber" alignment="CENTER" layoutX="600.0" layoutY="717.0" prefHeight="42.0" prefWidth="46.0" style="-fx-background-color: #DD5246; -fx-background-radius: 60px;" textAlignment="CENTER" textFill="#f5f3f3" visible="false" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="587.0">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                        </Label>
                                     </children>
                                 </AnchorPane>
                             </content>

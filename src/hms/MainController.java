@@ -16,6 +16,9 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.chrono.HijrahChronology;
+import java.time.chrono.HijrahDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -1537,6 +1540,8 @@ public class MainController implements Initializable {
         String fieldName = "`MILITARYID`,`LISTNUMBER`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`";
         String valuenumbers = "?,?,?,?,?,?";
         int passCount = 0;
+        int x = 0;
+        int y = 0;
         ObservableList<CheckAllDataModel> lodedData = FXCollections.observableArrayList();
         ObservableList<CheckAllDataModel> passData = FXCollections.observableArrayList();
         ObservableList<CheckAllDataModel> excludData = FXCollections.observableArrayList();
@@ -1546,11 +1551,14 @@ public class MainController implements Initializable {
             while (rs.next()) {
                 lodedData.add(new CheckAllDataModel(rs.getString("MILITARYID"), rs.getString("RANK"), rs.getString("NAME")));
             }
+           
             for (int i = 0; i < lodedData.size(); i++) {
                 boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", lodedData.get(i).getMilitaryId(), listnumber.getText(), fromDate, toDate);
                 boolean trainingUnique = FormValidation.dateAllChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSE_START_DATE` BETWEEN ? AND ?) OR ( `COURSE_END_DATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", lodedData.get(i).getMilitaryId(), listnumber.getText(), fromDate, toDate);
 
                 if (trainingUnique && mandateUnique) {
+                    passCount++;
+                    
                     passData.add(new CheckAllDataModel(
                             lodedData.get(i).getMilitaryId(),
                             listnumber.getText(),
@@ -1567,40 +1575,33 @@ public class MainController implements Initializable {
                             ch_ento.getText(),
                             fromDate,
                             toDate,
-                            passCount++
+                            passCount
                     ));
-                    
+                    DataMng.insertPassData(tableName, fieldName, valuenumbers, passData, x);
+                    x++;
                 } else {
                     excludData.add(new CheckAllDataModel(
                             listnumber.getText(),
                             lodedData.get(i).getMilitaryId()
                     ));
-                   
+                    DataMng.insertExcludedData("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excludData, y);
+                    
+                    y++;
                 }
+//                excludedNumber.setVisible(true);
+//                    excludedNumber.setText(Integer.toString(excludData.size()));
             }
-
+           
             for (int j = 0; j < passData.size(); j++) {
-                System.out.println("pass data :"+passData.size());
-                try {
-                    DataMng.insertPassData(tableName, fieldName, valuenumbers, passData, j);
-                    ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
-                    ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
-                    ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
-                    ch_en_from_col.setCellValueFactory(new PropertyValueFactory<>("enfrom"));
-                    ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
-                    ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
-                    ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
-                    en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
-
-                    chacktable.setItems(chacktablelist);
-                } catch (IOException ex) {
-                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            for (int j = 0; j < excludData.size(); j++) {
-                 System.out.println("exclud data :"+excludData.size());
-                DataMng.insertExcludedData("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excludData, j);
+                ch_mailitraynum_col.setCellValueFactory(new PropertyValueFactory<>("fo_militaryid"));
+                ch_rank_col.setCellValueFactory(new PropertyValueFactory<>("rank"));
+                ch_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+                ch_en_from_col.setCellValueFactory(new PropertyValueFactory<>("enfrom"));
+                ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
+                ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
+                ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
+                en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
+                chacktable.setItems(chacktablelist);
             }
 
         } catch (IOException | SQLException ex) {
@@ -2895,6 +2896,46 @@ public class MainController implements Initializable {
         com.setItems(list);
     }
 
+    public static String plucDays(String year, String month, String day, int addedDays) {
+        String returnDate = null;
+        HijrahDate date = HijrahChronology.INSTANCE.date(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+        int monthLength = date.lengthOfMonth();
+        String gdate = date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        String[] parts = gdate.split("-");
+        date.getEra();
+        int intday = Integer.parseInt(parts[0]);
+        int intmonth = Integer.parseInt(parts[1]);
+        int intyear = Integer.parseInt(parts[2]);
+        int diff = monthLength - intday;
+        if (addedDays < 30) {
+            if (diff < addedDays) {
+                intday = addedDays - diff;
+                intmonth++;
+            } else {
+                intday = intday + addedDays;
+            }
+        } else if (addedDays > 30 && addedDays < 360) {
+            int themonth = addedDays / 30;
+            int theday = themonth * 30;
+            theday = addedDays - theday;
+            intmonth = intmonth + themonth;
+            intday = intday + theday;
+        } else {
+            int theyear = addedDays / 360;
+            int themonth = theyear * 360;
+            themonth = addedDays - themonth;
+            addedDays = themonth;
+            themonth = themonth / 30;
+            int theday = themonth * 30;
+            theday = addedDays - theday;
+            intmonth = intmonth + themonth;
+            intday = intday + theday;
+            intyear = intyear + theyear;
+        }
+        returnDate = Integer.toString(intyear) + "-" + Integer.toString(intmonth) + "-" + Integer.toString(intday);
+        return returnDate;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         PlaceOfAssignment.setItems(list1);
@@ -3151,11 +3192,12 @@ public class MainController implements Initializable {
         mandate_ch_number_of_nights.setOnKeyReleased(new EventHandler() {
             @Override
             public void handle(Event event) {
-                if (null != mandate_ch_number_of_nights.getText() || !mandate_ch_number_of_nights.getText().equals("")) {
+                if (null == mandate_ch_number_of_nights.getText() || mandate_ch_number_of_nights.getText().equals("")) {
+                } else {
                     mandate_ch_dec_today.setDisable(false);
                     mandate_ch_dec_tomonth.setDisable(false);
                     mandate_ch_dec_toyear.setDisable(false);
-                    String dectoDate = calculateDays(mandate_ch_dec_fromyear.getValue(), mandate_ch_dec_frommonth.getValue(), mandate_ch_dec_fromday.getValue(), mandate_ch_number_of_nights.getText());
+                    String dectoDate = plucDays(mandate_ch_dec_fromyear.getValue(), mandate_ch_dec_frommonth.getValue(), mandate_ch_dec_fromday.getValue(), Integer.parseInt(mandate_ch_number_of_nights.getText()));
                     mandate_ch_dec_today.setValue(getDay(dectoDate));
                     mandate_ch_dec_tomonth.setValue(getMonth(dectoDate));
                     mandate_ch_dec_toyear.setValue(getYear(dectoDate));

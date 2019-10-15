@@ -21,34 +21,72 @@ public class TestClass {
 
     public static void main(String args[]) {
 
-        HijrahDate date = HijrahChronology.INSTANCE.date(1441, 02, 10);
-        int c = date.lengthOfMonth();
-        int ad = 20;
-        String gdate = date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        String[] parts = gdate.split("-");
-        int day = Integer.parseInt(parts[0]);
-        int month = Integer.parseInt(parts[1]);
-        int year = Integer.parseInt(parts[2]);
-        if (ad < 30) {
-            if ((c - ad) > ad) {
-                day = day + ad;
-            } else {
-                day = day + (c - day);
-            }
-        }
-        System.out.println(day + "/" + month + "/" + year);
-//        java.time.LocalDate date1 = IsoChronology.INSTANCE.date(date);
-//        
-        System.out.println(c);
-//        ISOChronology iso = ISOChronology.getInstanceUTC();
-//        IslamicChronology hijri = IslamicChronology.getInstanceUTC();
-//       
+//        HijrahDate date = HijrahChronology.INSTANCE.date(1441, 8, 10);
+//        int monthLength = date.lengthOfMonth();
+//        int addedDays = 125;
+//
+//        String gdate = date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+//        String[] parts = gdate.split("-");
 //        int day = Integer.parseInt(parts[0]);
 //        int month = Integer.parseInt(parts[1]);
 //        int year = Integer.parseInt(parts[2]);
-////        
-//        LocalDate todayIso = new LocalDate(year, month, day+1, iso);
-//        LocalDate todayHijri = new LocalDate(todayIso.toDateTimeAtStartOfDay(), hijri);
-//        System.out.println(todayHijri); 
+//        int diff = monthLength - day;
+//        if (addedDays < 30) {
+//            if (diff < addedDays) {
+//                day = addedDays - diff;
+//                month++;
+//            } else {
+//                day = day + addedDays;
+//            }
+//        } else if (addedDays > 30 && addedDays < 360) {
+//            int themonth = addedDays / 30;
+//            int theday = themonth * 30;
+//            theday = addedDays - theday;
+//            month = month + themonth;
+//            day = day + theday;
+//        }
+//        System.out.println(date.getEra());
+//        System.out.println(day + "/" + month + "/" + year);
+        System.out.println(plucDays("1441", "08", "12", 490));
+    }
+
+    public static String plucDays(String year, String month, String day, int addedDays) {
+        String returnDate = null;
+        HijrahDate date = HijrahChronology.INSTANCE.date(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+        int monthLength = date.lengthOfMonth();
+        String gdate = date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        String[] parts = gdate.split("-");
+        date.getEra();
+        int intday = Integer.parseInt(parts[0]);
+        int intmonth = Integer.parseInt(parts[1]);
+        int intyear = Integer.parseInt(parts[2]);
+        int diff = monthLength - intday;
+        if (addedDays < 30) {
+            if (diff < addedDays) {
+                intday = addedDays - diff;
+                intmonth++;
+            } else {
+                intday = intday + addedDays;
+            }
+        } else if (addedDays > 30 && addedDays < 360) {
+            int themonth = addedDays / 30;
+            int theday = themonth * 30;
+            theday = addedDays - theday;
+            intmonth = intmonth + themonth;
+            intday = intday + theday;
+        } else {
+            int theyear = addedDays / 360;
+            int themonth = theyear * 360;
+            themonth = addedDays - themonth;
+            addedDays = themonth;
+            themonth =  themonth / 30;
+            int theday  = themonth * 30;
+            theday = addedDays - theday;
+            intmonth = intmonth + themonth;
+            intday = intday + theday;
+            intyear = intyear + theyear;
+        }
+        returnDate = Integer.toString(intday) + "-" + Integer.toString(intmonth) + "-" + Integer.toString(intyear);
+        return returnDate;
     }
 }
