@@ -2498,7 +2498,7 @@
                     <tabs>
                         <Tab fx:id="chackingdata">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="180.0" prefWidth="200.0" visible="false">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="180.0" prefWidth="200.0">
                                     <children>
                                         <GridPane hgap="5.0" prefHeight="106.0" prefWidth="1088.0" vgap="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                             <columnConstraints>
@@ -2685,8 +2685,9 @@
                                                         <TableColumn fx:id="ch_en_to_col" minWidth="150.0" prefWidth="120.0" text=" الى" />
                                                     </columns>
                                                 </TableColumn>
-                                                <TableColumn fx:id="ch_en_fromdate_col" minWidth="150.0" prefWidth="120.0" text="تاريخ بداية الانتداب" />
-                                                <TableColumn fx:id="ch_en_todate_col" minWidth="150.0" prefWidth="120.0" text="تاريخ نهاية الانتداب" />
+                                                <TableColumn fx:id="ch_en_fromdate_col" minWidth="100.0" prefWidth="120.0" text="تاريخ بداية الانتداب" />
+                                                <TableColumn fx:id="ch_en_todate_col" minWidth="100.0" prefWidth="120.0" text="تاريخ نهاية الانتداب" />
+                                                <TableColumn fx:id="ch_en_balance_col" minWidth="100.0" prefWidth="120.0" text="رصيد الانتدابات" />
                                             </columns>
                                         </TableView>
                                         <ComboBox fx:id="ch_list_combobox" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="300.0" styleClass="appfont" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
@@ -2770,7 +2771,7 @@
                                     <children>
                                         <GridPane layoutX="905.0" layoutY="41.0" prefHeight="231.0" prefWidth="1088.0" style="-fx-border-color: #FBB115;" vgap="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                             <children>
-                                                <TextField fx:id="orderid" layoutX="196.0" layoutY="54.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1">
+                                                <TextField fx:id="orderid" alignment="CENTER" layoutX="196.0" layoutY="54.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1">
                                                     <styleClass>
                                                         <String fx:value="textfield" />
                                                         <String fx:value="appfont" />
@@ -2791,86 +2792,122 @@
                                                         <ComboBox fx:id="orderdateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
                                                     </children>
                                                 </HBox>
-                                                <TextField fx:id="enfrom" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                <TextField fx:id="enfrom" alignment="CENTER" disable="true" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                     <styleClass>
                                                         <String fx:value="textfield" />
                                                         <String fx:value="appfont" />
                                                     </styleClass>
                                                 </TextField>
-                                                <TextField fx:id="ento" layoutX="205.0" layoutY="30.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                                <TextField fx:id="ento" alignment="CENTER" disable="true" layoutX="205.0" layoutY="30.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                                     <styleClass>
                                                         <String fx:value="textfield" />
                                                         <String fx:value="appfont" />
                                                     </styleClass>
                                                 </TextField>
-                                                <HBox layoutX="729.0" layoutY="21.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="377.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                <HBox layoutX="729.0" layoutY="21.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="377.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                                     <children>
-                                                        <ComboBox fx:id="fromDateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                                        <ComboBox fx:id="fromDateday" disable="true" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" stylesheets="@../css/style.css">
                                                             <HBox.margin>
                                                                 <Insets right="2.0" />
                                                             </HBox.margin>
+                                             <styleClass>
+                                                <String fx:value="comboStyle" />
+                                                <String fx:value="appfont" />
+                                             </styleClass>
                                                         </ComboBox>
-                                                        <ComboBox fx:id="fromDatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                                        <ComboBox fx:id="fromDatemonth" disable="true" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" stylesheets="@../css/style.css">
                                                             <HBox.margin>
                                                                 <Insets right="2.0" />
                                                             </HBox.margin>
+                                             <styleClass>
+                                                <String fx:value="comboStyle" />
+                                                <String fx:value="appfont" />
+                                             </styleClass>
                                                         </ComboBox>
-                                                        <ComboBox fx:id="fromDateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
+                                                        <ComboBox fx:id="fromDateyear" disable="true" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" stylesheets="@../css/style.css">
+                                             <styleClass>
+                                                <String fx:value="comboStyle" />
+                                                <String fx:value="appfont" />
+                                             </styleClass></ComboBox>
                                                     </children>
                                                 </HBox>
-                                                <HBox layoutX="196.0" layoutY="95.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                                <HBox layoutX="196.0" layoutY="95.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                                                     <children>
-                                                        <ComboBox fx:id="toDateday" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                                        <ComboBox fx:id="toDateday" disable="true" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" stylesheets="@../css/style.css">
                                                             <HBox.margin>
                                                                 <Insets right="2.0" />
                                                             </HBox.margin>
+                                             <styleClass>
+                                                <String fx:value="comboStyle" />
+                                                <String fx:value="appfont" />
+                                             </styleClass>
                                                         </ComboBox>
-                                                        <ComboBox fx:id="toDatemonth" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" styleClass="comboStyle" stylesheets="@../css/style.css">
+                                                        <ComboBox fx:id="toDatemonth" disable="true" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="150.0" stylesheets="@../css/style.css">
                                                             <HBox.margin>
                                                                 <Insets right="2.0" />
                                                             </HBox.margin>
+                                             <styleClass>
+                                                <String fx:value="comboStyle" />
+                                                <String fx:value="appfont" />
+                                             </styleClass>
                                                         </ComboBox>
-                                                        <ComboBox fx:id="toDateyear" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" styleClass="comboStyle" stylesheets="@../css/style.css" />
+                                                        <ComboBox fx:id="toDateyear" disable="true" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="230.0" stylesheets="@../css/style.css">
+                                             <styleClass>
+                                                <String fx:value="comboStyle" />
+                                                <String fx:value="appfont" />
+                                             </styleClass></ComboBox>
                                                     </children>
                                                 </HBox>
-                                                <Label prefHeight="46.0" prefWidth="164.0" styleClass="appfont" text="جهة الانتداب من :" textFill="#146168" GridPane.rowIndex="1">
+                                                <Label prefHeight="46.0" prefWidth="164.0" styleClass="appfont" text="جهة الانتداب من :" textFill="#146168" GridPane.rowIndex="3">
                                                     <font>
                                                         <Font name="URW DIN Arabic Bold" size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <Label layoutX="57.0" layoutY="27.0" prefHeight="46.0" prefWidth="159.0" styleClass="appfont" text="جهة الانتداب الى :" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                <Label layoutX="57.0" layoutY="27.0" prefHeight="46.0" prefWidth="159.0" styleClass="appfont" text="جهة الانتداب الى :" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                                     <font>
                                                         <Font name="System Bold" size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <Label layoutX="57.0" layoutY="27.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="تاريخ بداية الانتداب :" textFill="#146168" GridPane.rowIndex="2">
+                                                <Label layoutX="57.0" layoutY="27.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="تاريخ بداية الانتداب :" textFill="#146168" GridPane.rowIndex="4">
                                                     <font>
                                                         <Font name="Hacen Algeria" size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <Label layoutX="629.0" layoutY="27.0" prefHeight="46.0" prefWidth="156.0" styleClass="appfont" text="تاريخ نهاية الانتداب :" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                <Label layoutX="629.0" layoutY="27.0" prefHeight="46.0" prefWidth="156.0" styleClass="appfont" text="تاريخ نهاية الانتداب :" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="4">
                                                     <font>
                                                         <Font name="System Bold" size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <Label layoutX="17.0" layoutY="88.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="مكان الانتداب:" textFill="#146168" GridPane.rowIndex="3">
+                                                <Label layoutX="17.0" layoutY="88.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="مكان الانتداب:" textFill="#146168" GridPane.rowIndex="1">
                                                     <font>
                                                         <Font name="Hacen Algeria" size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <Label layoutX="17.0" layoutY="154.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="نوع المستفيد :" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                <Label layoutX="17.0" layoutY="154.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="نوع المستفيد :" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                                     <font>
                                                         <Font name="System Bold" size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <ComboBox fx:id="PlaceOfAssignment" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                <ComboBox fx:id="militarytayp" layoutX="183.0" layoutY="161.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                                                <Label layoutX="29.0" layoutY="93.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="نوع الانتداب :" textFill="#146168" GridPane.rowIndex="4">
+                                                <ComboBox fx:id="PlaceOfAssignment" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <styleClass>
+                                          <String fx:value="comboStyle" />
+                                          <String fx:value="appfont" />
+                                       </styleClass></ComboBox>
+                                                <ComboBox fx:id="militarytayp" layoutX="183.0" layoutY="161.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                       <styleClass>
+                                          <String fx:value="comboStyle" />
+                                          <String fx:value="appfont" />
+                                       </styleClass></ComboBox>
+                                                <Label layoutX="29.0" layoutY="93.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="نوع الانتداب :" textFill="#146168" GridPane.rowIndex="2">
                                                     <font>
                                                         <Font name="System Bold" size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <ComboBox fx:id="entayp" layoutX="729.0" layoutY="93.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" styleClass="comboStyle" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                <ComboBox fx:id="entayp" layoutX="729.0" layoutY="93.0" maxWidth="1.7976931348623157E308" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <styleClass>
+                                          <String fx:value="comboStyle" />
+                                          <String fx:value="appfont" />
+                                       </styleClass></ComboBox>
                                                 <Label contentDisplay="CENTER" layoutX="27.0" layoutY="54.0" prefHeight="46.0" prefWidth="164.0" styleClass="appfont" text="رقم الطلب :" textAlignment="CENTER" textFill="#146168">
                                                     <font>
                                                         <Font size="18.0" />
@@ -2881,12 +2918,12 @@
                                                         <Font name="System Bold" size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <Label layoutX="711.0" layoutY="150.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="رقم قائمة الاسماء:" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                                <Label layoutX="711.0" layoutY="150.0" prefHeight="46.0" prefWidth="160.0" styleClass="appfont" text="رقم قائمة الاسماء:" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                                     <font>
                                                         <Font name="System Bold" size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <TextField fx:id="ennamelist" layoutX="256.0" layoutY="20.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                                                <TextField fx:id="ennamelist" alignment="CENTER" layoutX="256.0" layoutY="20.0" prefHeight="41.0" prefWidth="377.0" stylesheets="@../css/style.css" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                                     <styleClass>
                                                         <String fx:value="textfield" />
                                                         <String fx:value="appfont" />
@@ -2906,8 +2943,8 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                         </GridPane>
                                         <Button fx:id="save" layoutX="741.0" layoutY="754.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#insertData" prefHeight="60.0" prefWidth="156.0" style="-fx-background-color: #596367;" styleClass="appfont" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
@@ -3120,7 +3157,7 @@
                                                         <Font name="Hacen Algeria" size="18.0" />
                                                     </font>
                                                 </Label>
-                                    <Label alignment="CENTER" layoutX="53.0" layoutY="21.0" prefHeight="39.0" prefWidth="172.0" styleClass="appfont" text="عد ليالي الانتداب :" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                    <Label alignment="CENTER" layoutX="53.0" layoutY="21.0" prefHeight="39.0" prefWidth="172.0" styleClass="appfont" text="عدد ليالي الانتداب :" textFill="#146168" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                        <font>
                                           <Font name="URW DIN Arabic Bold" size="18.0" />
                                        </font>

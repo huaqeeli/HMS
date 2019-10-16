@@ -10,7 +10,17 @@ package hms.models;
  * @author ابو ريان
  */
 public class CheckAllDataModel {
-    String militaryId,listNumber,enForm,enTo,fromDate,toDate,rank,name;
+    String militaryId,listNumber,enForm,enTo,fromDate,toDate,rank,name,balance;
+
+    public CheckAllDataModel(String militaryId, String listNumber, String enForm, String enTo, String fromDate, String toDate,String balance) {
+        this.militaryId = militaryId;
+        this.listNumber = listNumber;
+        this.enForm = enForm;
+        this.enTo = enTo;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.balance = balance;
+    }
 
     public CheckAllDataModel(String militaryId, String listNumber, String enForm, String enTo, String fromDate, String toDate) {
         this.militaryId = militaryId;
@@ -19,6 +29,17 @@ public class CheckAllDataModel {
         this.enTo = enTo;
         this.fromDate = fromDate;
         this.toDate = toDate;
+    }
+
+   
+    
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
     }
 
     public CheckAllDataModel( String listNumber , String militaryId) {

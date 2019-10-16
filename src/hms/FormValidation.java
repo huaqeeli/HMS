@@ -186,6 +186,32 @@ public class FormValidation {
         }
         return state;
     }
+    public static boolean balnceAndCaseCheck(String tapleName, String fildName, String condition, String validationmassage,String militeryid,String listnumber) {
+        boolean state = true;
+        try {
+            ResultSet rs = null;
+            String guiry = "SELECT " + fildName + " FROM " + tapleName + " WHERE" + condition;
+            Connection con = DatabaseConnector.dbConnector();
+                PreparedStatement psm = con.prepareStatement(guiry);
+                rs = psm.executeQuery();
+                if (rs.next()) {
+                    state = false;
+                    showAlert("", validationmassage);
+                    try {
+                        String[] reasons = {listnumber, militeryid, validationmassage};
+                        DataMng.insert("exclusionmessage", "`LISTNUMBER`,`MILITARYID`,`REASON`", "?,?,?", reasons);
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                con.close();
+                psm.close();
+                rs.close();
+        } catch (IOException | SQLException ex) {
+            Logger.getLogger(FormValidation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return state;
+    }
 
     public static boolean unique(String tapleName, String fildName, String condition, String validationmassage, ObservableList reason, String militeryid, String listnumber) {
         boolean state = true;
@@ -249,9 +275,7 @@ public class FormValidation {
                     state = false;
                     showAlert("رسالة تحقق", validationmassage);
                     try {
-                        String[] excluded = {listnumber, militeryid};
                         String[] reasons = {listnumber, militeryid, validationmassage};
-//                        DataMng.insert("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excluded);
                         DataMng.insert("exclusionmessage", "`LISTNUMBER`,`MILITARYID`,`REASON`", "?,?,?", reasons);
                     } catch (IOException ex) {
                         Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
