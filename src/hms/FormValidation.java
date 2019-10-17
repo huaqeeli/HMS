@@ -196,7 +196,6 @@ public class FormValidation {
                 rs = psm.executeQuery();
                 if (rs.next()) {
                     state = false;
-                    showAlert("", validationmassage);
                     try {
                         String[] reasons = {listnumber, militeryid, validationmassage};
                         DataMng.insert("exclusionmessage", "`LISTNUMBER`,`MILITARYID`,`REASON`", "?,?,?", reasons);

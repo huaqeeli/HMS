@@ -871,26 +871,6 @@ public class MainController implements Initializable {
         VacationsPage.setVisible(true);
     }
 
-    private int getDateDifference() {
-        int d1 = Integer.parseInt(mandate_ch_dec_fromday.getValue());
-        int m1 = Integer.parseInt(mandate_ch_dec_frommonth.getValue());
-        int y1 = Integer.parseInt(mandate_ch_dec_fromyear.getValue());
-        int d2 = Integer.parseInt(mandate_ch_dec_today.getValue());
-        int m2 = Integer.parseInt(mandate_ch_dec_tomonth.getValue());
-        int y2 = Integer.parseInt(mandate_ch_dec_toyear.getValue());
-
-        int diffDays = d2 - d1;
-        int diffMonths = m2 - m1;
-        int diffYears = y2 - y1;
-
-        LocalDate date1 = LocalDate.of(y1, m1, d1);
-        LocalDate date2 = LocalDate.of(y2, m2, d2);
-
-        int days = (int) ChronoUnit.DAYS.between(date1, date2);
-        int difference = diffDays + (diffMonths * 30) + (diffYears * 360);
-        return days + 1;
-    }
-
     private void increaseBalance(String id, int addedBalance) {
         try {
             ResultSet rs = DataMng.getDataWithCondition("mandate_balance", "`BALANCE`", "`MILITARYID` = '" + id + "'");
@@ -1033,10 +1013,10 @@ public class MainController implements Initializable {
         boolean exuludedUnique = FormValidation.unique("excluded", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND  `LISTNUMBER` = '" + listnumber.getText() + "'", "تم ادراج الاسم في القائمة مسبقا");
         boolean enfromstate = FormValidation.textFieldNotEmpty(ch_enfrom, "ادخل الجهة المنتدب منها");
         boolean entostate = FormValidation.textFieldNotEmpty(ch_ento, "ادخل الجهة المنتدب اليها");
-        boolean caseChecking = FormValidation.balnceAndCaseCheck("cases", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `CASE_ENDING` = 'false'", "معامل بالمادة 13 من نظام خدمة الافراد",ch_mailitraynum.getText(),listnumber.getText());
-        boolean balanceChecking = FormValidation.balnceAndCaseCheck("mandate_balance", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `BALANCE` > 90 ", "استنفذ رصيد الانتدابات للسنة الحالية",ch_mailitraynum.getText(),listnumber.getText());
+        boolean caseChecking = FormValidation.balnceAndCaseCheck("cases", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `CASE_ENDING` = 'false'", "معامل بالمادة 13 من نظام خدمة الافراد", ch_mailitraynum.getText(), listnumber.getText());
+        boolean balanceChecking = FormValidation.balnceAndCaseCheck("mandate_balance", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `BALANCE` > 90 ", "استنفذ رصيد الانتدابات للسنة الحالية", ch_mailitraynum.getText(), listnumber.getText());
 
-        if (mandateUnique && trainingUnique&&caseChecking&&balanceChecking) {
+        if (mandateUnique && trainingUnique && caseChecking && balanceChecking) {
             if (militaryidUnique && enfromstate && entostate) {
                 try {
                     DataMng.insert(tableName, fieldName, valuenumbers, data);
@@ -1076,7 +1056,7 @@ public class MainController implements Initializable {
         boolean caseChecking = FormValidation.balnceAndCaseCheck("cases", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `CASE_ENDING` = 'false'", "معامل بالمادة 13 من نظام خدمة الافراد", ch_mailitraynum.getText(), listnumber.getText());
         boolean balanceChecking = FormValidation.balnceAndCaseCheck("mandate_balance", "`MILITARYID`", " `MILITARYID` = '" + ch_mailitraynum.getText() + "' AND `BALANCE` > 90 ", "استنفذ رصيد الانتدابات للسنة الحالية", ch_mailitraynum.getText(), listnumber.getText());
 
-        if (mandateUnique && trainingUnique&&caseChecking&&balanceChecking) {
+        if (mandateUnique && trainingUnique && caseChecking && balanceChecking) {
             if (militaryidUnique && enfromstate && entostate) {
                 try {
                     DataMng.insert(tableName, fieldName, valuenumbers, data);
@@ -1575,13 +1555,14 @@ public class MainController implements Initializable {
         ObservableList<CheckAllDataModel> excludData = FXCollections.observableArrayList();
 
         try {
-            ResultSet rs = DataMng.getAllQuiry("SELECT formation.MILITARYID,formation.RANK,formation.NAME  mandate_balance.BALANCE  FROM formation,mandate_balance "
+            ResultSet rs = DataMng.getAllQuiry("SELECT formation.MILITARYID,formation.RANK,formation.NAME,  mandate_balance.BALANCE  FROM formation,mandate_balance "
                     + "WHERE formation.MILITARYID = mandate_balance.MILITARYID AND MILITARYTYPE = '" + militaryType + "'");
             while (rs.next()) {
                 lodedData.add(new CheckAllDataModel(rs.getString("MILITARYID"), rs.getString("RANK"), rs.getString("NAME")));
             }
 
             for (int i = 0; i < lodedData.size(); i++) {
+                
                 boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", lodedData.get(i).getMilitaryId(), listnumber.getText(), fromDate, toDate);
                 boolean trainingUnique = FormValidation.dateAllChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSE_START_DATE` BETWEEN ? AND ?) OR ( `COURSE_END_DATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", lodedData.get(i).getMilitaryId(), listnumber.getText(), fromDate, toDate);
                 boolean caseChecking = FormValidation.balnceAndCaseCheck("cases", "`MILITARYID`", " `MILITARYID` = '" + lodedData.get(i).getMilitaryId() + "' AND `CASE_ENDING` = 'false'", "معامل بالمادة 13 من نظام خدمة الافراد", lodedData.get(i).getMilitaryId(), listnumber.getText());
@@ -1589,7 +1570,6 @@ public class MainController implements Initializable {
 
                 if (trainingUnique && mandateUnique && caseChecking && balanceChecking) {
                     passCount++;
-
                     passData.add(new CheckAllDataModel(
                             lodedData.get(i).getMilitaryId(),
                             listnumber.getText(),
@@ -2372,7 +2352,9 @@ public class MainController implements Initializable {
     @FXML
     private void deleteListName(ActionEvent event) {
         try {
-            DataMng.delete("DELETE `mandatelists`, `nameslist` FROM `mandatelists`, `nameslist` WHERE `mandatelists`.`LISTNUMBER` = `nameslist`.`LISTNUMBER` AND `mandatelists`.`LISTNUMBER` = '" + ch_list_combobox.getValue() + "'");
+            DataMng.delete("DELETE `mandatelists`, `nameslist`,`excluded`,`exclusionmessage` FROM `mandatelists`, `nameslist`, excluded, exclusionmessage "
+                    + "WHERE `exclusionmessage`.`LISTNUMBER` = `nameslist`.`LISTNUMBER` AND `excluded`.`LISTNUMBER` = `nameslist`.`LISTNUMBER` "
+                    + "AND `mandatelists`.`LISTNUMBER` = `nameslist`.`LISTNUMBER` AND `mandatelists`.`LISTNUMBER` = '" + ch_list_combobox.getValue() + "'");
             refreshEnChackTable();
             ch_comboBoxlist.clear();
             refreshListCombobox(fillListCombobox(ch_comboBoxlist));
@@ -2419,20 +2401,21 @@ public class MainController implements Initializable {
 
     private void chackTableViewData() {
         try {
-            ResultSet rs = DataMng.getDataWithCondition("formation", "`RANK`,`NAME`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'");
-            ResultSet rss = DataMng.getDataWithCondition("nameslist", "`MILITARYID`,`ENFROM`,`ENTO`,`ENDATEFROM`,`ENDATETO`", "`MILITARYID` = '" + ch_mailitraynum.getText() + "'AND `LISTNUMBER` = '" + listnumber.getText() + "'");
+            ResultSet rs = DataMng.getDataJoinTable("SELECT formation.RANK ,formation.NAME, nameslist.MILITARYID, nameslist.ENFROM , nameslist.ENTO ,nameslist.ENDATEFROM,nameslist.ENDATETO,"
+                    + "mandate_balance.BALANCE FROM  formation,nameslist,mandate_balance WHERE formation.MILITARYID = nameslist.MILITARYID AND "
+                    + "formation.MILITARYID = mandate_balance.MILITARYID AND formation.MILITARYID = '" + ch_mailitraynum.getText() + "' ");
             int sq = 0;
-            while (rs.next() && rss.next()) {
+            while (rs.next()) {
                 sq++;
                 chacktablelist.add(new NamesDataModel(
-                        rss.getString("MILITARYID"),
+                        rs.getString("MILITARYID"),
                         rs.getString("RANK"),
                         rs.getString("NAME"),
-                        rss.getString("ENFROM"),
-                        rss.getString("ENTO"),
-                        rss.getDate("ENDATEFROM").toString(),
-                        rss.getDate("ENDATETO").toString(),
-                        rss.getDate("ENDATETO").toString(),
+                        rs.getString("ENFROM"),
+                        rs.getString("ENTO"),
+                        rs.getDate("ENDATEFROM").toString(),
+                        rs.getDate("ENDATETO").toString(),
+                        rs.getString("BALANCE"),
                         sq
                 ));
             }
@@ -2449,6 +2432,7 @@ public class MainController implements Initializable {
         ch_en_to_col.setCellValueFactory(new PropertyValueFactory<>("ento"));
         ch_en_fromdate_col.setCellValueFactory(new PropertyValueFactory<>("enfromdate"));
         ch_en_todate_col.setCellValueFactory(new PropertyValueFactory<>("entodate"));
+        ch_en_balance_col.setCellValueFactory(new PropertyValueFactory<>("balance"));
         en_ch_sq_col.setCellValueFactory(new PropertyValueFactory<>("sq"));
 
         chacktable.setItems(chacktablelist);
