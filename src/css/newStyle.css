@@ -1,4 +1,29 @@
-headerstyle{
-    
+@import "font.css";
+
+.m.tab-pane
+{
+    -fx-tab-min-width:400px;
+    -fx-tab-max-width:400px;
+    -fx-tab-min-height:60px;
+    -fx-tab-max-height:60px;
+    -fx-alignment: CENTER;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family:'URW DIN Arabic';
+    -fx-font-size: 18px;
 }
+.m.tab-pane .tab
+{
+    -fx-background-color:#576469;
+
+}
+
+.m.tab-pane .tab:selected
+{
+    -fx-background-color: #0C5F7D;
+    -fx-border-color: #A9D155;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: solid;
+}
+
+
 

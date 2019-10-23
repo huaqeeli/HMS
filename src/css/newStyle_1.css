@@ -1,0 +1,36 @@
+
+.tab-pane
+{
+    -fx-tab-min-width:8em;
+    -fx-tab-max-width:8em;
+    -fx-tab-min-height:8em;
+    -fx-tab-max-height:8em;
+    
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: #FBB115;
+}
+.tab-pane .tab:selected
+{
+    -fx-background-color: #117E88;
+    /*    -fx-border-color: #B1FB15;
+        -fx-border-width: 0 0 5 0;
+        -fx-border-style: solid;*/
+}
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    /*    -fx-rotate: 90;*/
+    -fx-text-fill: #828282;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #96b946;
+
+}

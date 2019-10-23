@@ -1555,14 +1555,19 @@ public class MainController implements Initializable {
         ObservableList<CheckAllDataModel> excludData = FXCollections.observableArrayList();
 
         try {
-            ResultSet rs = DataMng.getAllQuiry("SELECT formation.MILITARYID,formation.RANK,formation.NAME,  mandate_balance.BALANCE  FROM formation,mandate_balance "
-                    + "WHERE formation.MILITARYID = mandate_balance.MILITARYID AND MILITARYTYPE = '" + militaryType + "'");
+            ResultSet rs = DataMng.getAllQuiry("SELECT formation.MILITARYID,formation.RANK,formation.NAME, mandate_balance.BALANCE  FROM formation,mandate_balance "
+                    + "WHERE formation.MILITARYID = mandate_balance.MILITARYID AND formation.MILITARYTYPE = '" + militaryType + "'");
             while (rs.next()) {
-                lodedData.add(new CheckAllDataModel(rs.getString("MILITARYID"), rs.getString("RANK"), rs.getString("NAME")));
+                lodedData.add(new CheckAllDataModel(
+                        rs.getString("MILITARYID"),
+                        rs.getString("RANK"),
+                        rs.getString("NAME"),
+                        rs.getString("BALANCE")
+                ));
             }
 
             for (int i = 0; i < lodedData.size(); i++) {
-                
+
                 boolean mandateUnique = FormValidation.dateAllChaking("nameslist", "`MILITARYID`", " `MILITARYID` = ? AND ((`ENDATEFROM` BETWEEN ? AND ?) OR ( `ENDATETO` BETWEEN ? AND ? ))", "لديه انتداب خلال فترة الانتداب الحالية", lodedData.get(i).getMilitaryId(), listnumber.getText(), fromDate, toDate);
                 boolean trainingUnique = FormValidation.dateAllChaking("training", "`MILITARYID`", " `MILITARYID` = ? AND ((`COURSE_START_DATE` BETWEEN ? AND ?) OR ( `COURSE_END_DATE` BETWEEN ? AND ? ))", "لديه دورة  خلال فترة الانتداب الحالية", lodedData.get(i).getMilitaryId(), listnumber.getText(), fromDate, toDate);
                 boolean caseChecking = FormValidation.balnceAndCaseCheck("cases", "`MILITARYID`", " `MILITARYID` = '" + lodedData.get(i).getMilitaryId() + "' AND `CASE_ENDING` = 'false'", "معامل بالمادة 13 من نظام خدمة الافراد", lodedData.get(i).getMilitaryId(), listnumber.getText());
@@ -1599,8 +1604,6 @@ public class MainController implements Initializable {
                     DataMng.insertExcludedData("excluded", "`LISTNUMBER`,`MILITARYID`", "?,?", excludData, y);
                     y++;
                 }
-//                excludedNumber.setVisible(true);
-//                    excludedNumber.setText(Integer.toString(excludData.size()));
             }
 
             for (int j = 0; j < passData.size(); j++) {
@@ -1809,6 +1812,32 @@ public class MainController implements Initializable {
 
     @FXML
     private void updateVacation(ActionEvent event) {
+        String vacationDate = setDate(vac_vacation_decdate_day.getValue(), vac_vacation_decdate_month.getValue(), vac_vacation_decdate_year.getValue());
+        String vacationStartDate = setDate(vac_vacation_startdate_day.getValue(), vac_vacation_startdate_month.getValue(), vac_vacation_startdate_year.getValue());
+        String vacationEndDate = setDate(vac_vacation_enddate_day.getValue(), vac_vacation_enddate_month.getValue(), vac_vacation_enddate_year.getValue());
+
+        String tableName = "vacation";
+        String fieldName = "`MILITARYID`=?,`VACATION_ID`=?,`VACATION_DATE`=?,`VACATION_TYPE`=?,`VACATION_DURATION`=?,`VACATION_PLACE`=?,`VACATION_START_DATE`=?,`VACATION_END_DATE`=?";
+        if ("null-null-null".equals(vacationEndDate)) {
+            vacationEndDate = null;
+        }
+        
+        String[] data = {vac_militaryid.getText(), vac_vacation_decid.getText(), vacationDate, vac_vacationtype.getValue(), vac_vacation_duration.getText(), vac_vacation_place.getText(), vacationStartDate, vacationEndDate};
+
+        boolean militaryIdNotEmpty = FormValidation.textFieldNotEmpty(vac_militaryid, "ادخل الرقم العسكري");
+        boolean vacationTypeNotEmpty = FormValidation.comboBoxNotEmpty(vac_vacationtype, "ادخل مسمى الدورة");
+        boolean vacationidNotEmpty = FormValidation.textFieldNotEmpty(vac_vacation_decid, "ادخل رقم امر الدورة");
+        boolean vacationDurationNotEmpty = FormValidation.textFieldNotEmpty(vac_vacation_duration, "ادخل رقم امر الدورة");
+        boolean vacationPlaceNotEmpty = FormValidation.textFieldNotEmpty(vac_vacation_place, "ادخل رقم امر الدورة");
+
+        if (militaryIdNotEmpty && vacationTypeNotEmpty && vacationidNotEmpty && vacationDurationNotEmpty && vacationPlaceNotEmpty) {
+            try {
+                DataMng.updat(tableName, fieldName, data,"`VACATION_ID`='"+data[1]+"'");
+                refreshVacationtable();
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @FXML

@@ -7,12 +7,12 @@
     /*-fx-font-weight: bold;*/
 }
 #appfont{
-    -fx-font-family:'URW DIN Arabic';
-    -fx-font-size: 25px;
+    
+    
     /*-fx-font-weight: bold;*/
 }
 
-.tab-pane .tab-header-area .tab-header-background {
+.mianTab.tab-pane .tab-header-area .tab-header-background {
     -fx-opacity: 0;
 }
 .exclButton{
@@ -25,7 +25,7 @@
    -fx-text-fill: #22d3e2;
    -fx-font-size: 25px;
 }
-.tab-pane
+.mianTab.tab-pane
 {
     -fx-tab-min-width:8em;
     -fx-tab-max-width:8em;
@@ -34,15 +34,15 @@
     
 }
 
-.tab{
+.mianTab.tab{
     -fx-background-insets: 0 1 0 1,0,0;
 }
-.tab-pane .tab
+.mianTab.tab-pane .tab
 {
     -fx-background-color: #FBB115;
 }
 
-.tab-pane .tab:selected
+.mianTab.tab-pane .tab:selected
 {
     -fx-background-color: #117E88;
     /*    -fx-border-color: #B1FB15;
@@ -50,7 +50,7 @@
         -fx-border-style: solid;*/
 }
 
-.tab .tab-label { 
+.mianTab.tab .tab-label { 
     -fx-alignment: CENTER;
     /*    -fx-rotate: 90;*/
     -fx-text-fill: #828282;
@@ -58,7 +58,7 @@
     -fx-font-weight: bold;
 }
 
-.tab:selected .tab-label { 
+.mianTab.tab:selected .tab-label { 
     -fx-alignment: CENTER;
     -fx-text-fill: #96b946;
 

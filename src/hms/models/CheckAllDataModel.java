@@ -31,6 +31,13 @@ public class CheckAllDataModel {
         this.toDate = toDate;
     }
 
+    public CheckAllDataModel(String militaryId, String rank, String name, String balance) {
+        this.militaryId = militaryId;
+        this.rank = rank;
+        this.name = name;
+        this.balance = balance;
+    }
+
    
     
 
