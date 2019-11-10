@@ -27,10 +27,10 @@
 }
 .mianTab.tab-pane
 {
-    -fx-tab-min-width:8em;
-    -fx-tab-max-width:8em;
-    -fx-tab-min-height:8em;
-    -fx-tab-max-height:8em;
+    -fx-tab-min-width:6em;
+    -fx-tab-max-width:6em;
+    -fx-tab-min-height:6em;
+    -fx-tab-max-height:6em;
     
 }
 

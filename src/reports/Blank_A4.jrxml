@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" formatFactoryClass="arformatfactory.arFormatFactory" uuid="f338c111-35ed-4c26-b69c-ba646aa78e78">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<import value="arformatfactory.arFormatFactory.*"/>
+	<subDataset name="Empty Dataset1" uuid="a3939787-4f74-49b5-8837-337ebb81648c"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="117" splitType="Stretch">
+			<image>
+				<reportElement x="235" y="10" width="100" height="90" uuid="6ab55d79-672c-48d4-89ee-36d077ed2810">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA["C:/Users/Administrator/Documents/NetBeansProjects/HMS/src/images/about-img.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="373" y="3" width="204" height="37" uuid="d0ca77bc-1952-44d3-bf47-7f9023347e1d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[المملكة العربية السعودية]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="23" width="204" height="37" uuid="1cf81f5d-e74c-4f80-9eae-60d4b780ef8e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[رئاسة الحرس الملكي]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="45" width="204" height="37" uuid="0cd2114c-e2c5-47f8-a294-9ec16e9c3c0b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[قوة السيف الاجرب]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="70" width="204" height="26" uuid="258a5eaa-6372-4887-9b4a-4bfe85bad61f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الادارة]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="507" splitType="Stretch">
+			<line direction="BottomUp">
+				<reportElement x="10" y="11" width="559" height="1" uuid="fee9b428-a324-487b-9295-b1f7a80bc56d"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="10" y="30" width="559" height="1" uuid="5aa924da-4698-474e-bf4f-638909768823"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="10" y="50" width="559" height="1" uuid="da02892e-b081-44a7-8cd9-a3d6c67d3cf3"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="10" y="70" width="559" height="1" uuid="9dc55d14-222c-4017-ad64-066198c8c441"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="10" y="90" width="559" height="1" uuid="91338f10-cc14-4212-9b5a-938fd68ec93b"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="11" y="110" width="559" height="1" uuid="8418c40e-c62e-4600-91a0-76f03cbe9f83"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="10" y="131" width="271" height="1" uuid="d071c2a5-25f6-4eab-b88b-1a62b3c68d7b"/>
+			</line>
+			<line>
+				<reportElement x="569" y="11" width="1" height="99" uuid="2f9669d4-0906-4be5-9155-3e937ad645e6"/>
+			</line>
+			<line>
+				<reportElement x="467" y="12" width="1" height="99" uuid="8936cd7e-a38a-4f94-b04d-de8594cf67be"/>
+			</line>
+			<line>
+				<reportElement x="280" y="31" width="1" height="101" uuid="87b3742b-d384-4494-bb18-612c696b2d4c"/>
+			</line>
+			<line>
+				<reportElement x="108" y="30" width="1" height="101" uuid="078d853d-7044-4ab0-9088-843603ddeecb"/>
+			</line>
+			<line>
+				<reportElement x="10" y="11" width="1" height="120" uuid="3c86cd42-7baf-4732-b15a-5183cc288cbd"/>
+			</line>
+			<staticText>
+				<reportElement x="469" y="11" width="100" height="20" uuid="beea1785-1a5f-4dd6-8ace-baf49efd9675"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الاسم]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="469" y="50" width="100" height="20" uuid="0c642a41-8456-4f47-89b9-a7bd3b507fd2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الرتبة]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="469" y="70" width="100" height="20" uuid="a51e9583-376d-45b2-9dbe-b05b7bbecad5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الوحدة]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="469" y="90" width="100" height="20" uuid="a698da4e-f8fa-4b24-8094-1cd97493cd10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[بداية المرحلة الحالية]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="30" width="170" height="20" uuid="99000afc-ad9a-4107-a162-54c31e5de154"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[السجل المدني]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="50" width="170" height="20" uuid="1f3558bc-1c2a-4725-a5f1-d7ef3fcfbb49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[رقم الملف الطبي]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="71" width="170" height="20" uuid="944f3f34-41eb-4a03-a31c-d75882aa7480"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[تاريخ التعيين / الاعادة]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="90" width="170" height="20" uuid="e12357b7-354c-4eac-b002-8d2ebe2937cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[نهاية المرحلة الحالية]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="110" width="172" height="20" uuid="abdca75f-8dd9-4400-b924-6a631bebc298"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الرصيد المتبقي من نهاية المرحلة الاولى]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="469" y="30" width="100" height="20" uuid="d376638c-8f2c-4699-9362-b87ec4225c3b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الرقم العسكري]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="150" width="39" height="20" uuid="4947fbd9-2067-4a2b-8a8f-ce77dae07df6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[إن قائد ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="150" width="160" height="20" uuid="4806a6b7-c205-42c5-8727-e60c310dad34">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="177" width="561" height="90" uuid="6470a610-704e-4445-af9d-d255f8893273"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Serif" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[استنادا الى :
+1. بناء على الصلاحيات المخولة له من قبل معالي رئيس الحرس الملكي رقم (         ) وتاريخ (            ) .
+2. المادة (35) من نظام خدمة الأفراد والمعدلة بالمرسوم الملكي رقم (م / 35) وتاريخ (08 رجب 1426 هـ ) واشارة إلى التوصية الطبية الإجرائية رقم (       ) وتاريخ (          ) الصادرة من اللجنة الطبية العسكرية        المتضمنة منح المحرر هويته بعالية إجازة مرضية لمدة (    )        .
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="302" width="561" height="122" uuid="b1c4a6ef-39fa-469b-a045-a2718a6247b0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[1. منح المحرر هويته بعالية إجازة مرضية لمدة (   )     من تاريخ (             ) الى تاريخ (             ) (35/أ) من نظام خدمة الأفراد.
+2. تعتبر المدة (   )       كجزء من المرحلة (الاولى) وتعتبر المدة(    ) كجزء من المرحلة (الثانية) للإجازات المرضية.
+3. أ- (  ) يعود بعدها لمباشرة عمله .
+    ب- (  ) لا يعود لعمله إلا بموجب تقرير طبي مصدق من اللجنة الطبية العسكرية وإذا مكنته وحدته من العمل تتحمل ما  يترتب على ذلك نظاما على قائد وحدته تكليف المذكور بمراجعة اللجنة قبل انتهاء الإجازة بوقت كافي وإشعارنا بما يتم .
+4.على الجهات المختصة اعتماد إنفاذه .  
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="275" width="560" height="24" uuid="6e5bad9a-dfed-48d0-b707-f823db1c61f2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[((يقرر ما يلي))]]></text>
+			</staticText>
+		</band>
+		<band height="84"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
